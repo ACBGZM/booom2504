@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45208a98f3eec24a84b76ba2b17e5c6, type: 3}
+  m_Name: EventShowResponse_01_2
+  m_EditorClassIdentifier: 
+  m_state: 0
+  m_responses:
+  - m_text: "\u6587\u5B57\u51FA\u73B0\u65B9\u5F0F"
+    m_executor: {fileID: 11400000, guid: f611cec8f4b26f14d9d132672cc4b33f, type: 2}
+  - m_text: "\u5BCC\u6587\u672C\u6807\u7B7E"
+    m_executor: {fileID: 11400000, guid: 853408c608ca6104fa5aa089e5a8f678, type: 2}
+  m_default_select_index: 0
+  m_must_loop_all: 1
