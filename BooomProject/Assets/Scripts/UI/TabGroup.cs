@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +11,11 @@ namespace UI
         public List<TabButton> tabButtons;
       
         public List<GameObject> pages;
-        // ��ť��ͣͼƬ
+        // 按钮悬停图片
         public Sprite tabHover;
-        // ��ťĬ��ͼƬ
+        // 按钮默认图片
         public Sprite tabIdle;
-        // ��ťѡ��ͼƬ
+        // 按钮选中图片
         public Sprite tabActive;
         public TabButton tabSelected;
 
