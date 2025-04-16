@@ -1,12 +1,13 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public static PlayerController controllerInstance { get; private set; }
+    public IInteractable currentInteractable => _interactables.Count > 0 ? _interactables[0] : null;
 
     [SerializeField] private GameInput _gameInput;
-
+    private List<IInteractable> _interactables = new List<IInteractable>();
     private bool _isWalking = false;
     private Rigidbody2D _playerRigidBody;
     private Vector2 _moveDir;
@@ -23,12 +24,12 @@ public class PlayerController : MonoBehaviour {
         _gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
 
-    private void FixedUpdate() {
-        HandleMovement();
+    private void GameInput_OnInteractAction(object sender, System.EventArgs e) {
+        currentInteractable?.Interact(PlayerController.controllerInstance);
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e) {
-        Debug.Log("Interact button clicked");
+    private void FixedUpdate() {
+        HandleMovement();
     }
 
     private void HandleMovement() {
@@ -39,6 +40,31 @@ public class PlayerController : MonoBehaviour {
             float facingDir = 1.0f;
             if (_moveDir.x < 0) facingDir = -1.0f;
             transform.localScale = new Vector3(facingDir, transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    public void AddInteractable(IInteractable interactable) {
+        if (!_interactables.Contains(interactable)) {
+            _interactables.Add(interactable);
+        }
+    }
+
+    public void RemoveInteractable(IInteractable interactable) {
+        if (_interactables.Contains(interactable)) {
+            _interactables.Remove(interactable);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Debug.Log(this.gameObject.name + " OnTriggerEnter2D");
+        if (collision.CompareTag("Interactable") && collision.TryGetComponent(out IInteractable interactable)) {
+            AddInteractable(interactable);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("Interactable") && collision.TryGetComponent(out IInteractable interactable)) {
+            RemoveInteractable(interactable);
         }
     }
 }
