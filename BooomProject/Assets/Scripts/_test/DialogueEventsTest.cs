@@ -5,7 +5,7 @@ public class DialogueEventsTest : MonoBehaviour, IInteractable
     [SerializeField]
     private EventSequenceExecutor executor;
 
-    public void Interact(PlayerController player)
+    public void Interact(_PlayerController player)
     {
         executor.Initialize(OnExecutorFinished);
         executor.Execute();
@@ -13,7 +13,7 @@ public class DialogueEventsTest : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController player))
+        if (collision.CompareTag("Player") && collision.TryGetComponent(out _PlayerController player))
         {
             player.m_interactable = this;
         }
@@ -21,7 +21,7 @@ public class DialogueEventsTest : MonoBehaviour, IInteractable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && collision.TryGetComponent(out PlayerController player))
+        if (collision.CompareTag("Player") && collision.TryGetComponent(out _PlayerController player))
         {
             if (player.m_interactable is DialogueEventsTest dialogue_interactor && dialogue_interactor == this)
             {

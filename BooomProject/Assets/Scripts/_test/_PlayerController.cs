@@ -2,7 +2,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class _PlayerController : MonoBehaviour
 {
     public IInteractable m_interactable;
 
