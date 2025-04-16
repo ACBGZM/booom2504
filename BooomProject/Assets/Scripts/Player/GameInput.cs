@@ -10,13 +10,13 @@ public class GameInput : MonoBehaviour {
 
     private void Awake() {
         if (gameInputInstance != null) {
-            Debug.LogError("There are multiple PlayerController instances in the scene.");
+            Debug.LogError("There are multiple BaseCampGameplayController instances in the scene.");
         }
         gameInputInstance = this;
         _inputActions = new InputActions();
-        _inputActions.Player.Enable();
+        _inputActions.BaseCampGameplay.Enable();
 
-        _inputActions.Player.Interact.performed += Interact_performed;
+        _inputActions.BaseCampGameplay.Interact.performed += Interact_performed;
     }
 
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
@@ -24,11 +24,11 @@ public class GameInput : MonoBehaviour {
     }
 
     public Vector2 GetMovement() {
-        return _inputActions.Player.Move.ReadValue<Vector2>().normalized;
+        return _inputActions.BaseCampGameplay.Move.ReadValue<Vector2>().normalized;
     }
 
     private void OnDestroy() {
-        _inputActions.Player.Interact.performed += Interact_performed;
+        _inputActions.BaseCampGameplay.Interact.performed += Interact_performed;
         _inputActions.Dispose();
     }
 }

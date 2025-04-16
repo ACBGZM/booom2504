@@ -2,7 +2,7 @@
     "name": "InputActions",
     "maps": [
         {
-            "name": "Player",
+            "name": "BaseCampGameplay",
             "id": "7f87d59a-f041-410e-9665-2cc61fcec4f3",
             "actions": [
                 {
@@ -114,6 +114,71 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "DeliveryGameplay",
+            "id": "87133316-efc3-4394-9887-22fc33b3d645",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "d01c9a1c-e561-4bd0-b65c-31d9209adf86",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test",
+                    "type": "Button",
+                    "id": "6265e4ad-a21f-4362-b101-b573a4e94993",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "80241767-fe0c-4c9a-bc60-81b0a6572cc1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4559619f-8a7a-40b6-946c-658b59bf1b67",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e1bd8fa7-3c13-4f82-91b6-c181f4a17280",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "bd9e7567-38cf-42c6-af3f-73466c67673a",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []
