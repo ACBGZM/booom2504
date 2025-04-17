@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 110, y: -3.1155777}
+  m_AnchoredPosition: {x: 110, y: -3.5}
   m_SizeDelta: {x: 60, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4941746099967502604
@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 8961966235131920397}
   - component: {fileID: 5572373382227506494}
   - component: {fileID: 4988924869496085822}
+  - component: {fileID: 2519827802839068710}
   m_Layer: 5
   m_Name: ChatItemLeft
   m_TagString: Untagged
@@ -197,6 +198,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &2519827802839068710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2697887541630828653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18a4423682e52d4a9b05cc950c50163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: {fileID: 4124249085130785212}
+  icon: {fileID: 7547146612697240957}
+  content: {fileID: 4825784378620400487}
+  left: 1
 --- !u!1 &5214611054382595495
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -36.884422}
+  m_AnchoredPosition: {x: 30, y: -36.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &4146326463880105929
