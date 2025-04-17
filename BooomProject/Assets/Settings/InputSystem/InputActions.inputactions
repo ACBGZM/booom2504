@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RaisePhone",
+                    "type": "Button",
+                    "id": "565a3101-4335-4309-8614-b34b5e0ea605",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -112,6 +121,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "16e99a8c-262c-4838-ba90-2745464a0277",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RaisePhone",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
