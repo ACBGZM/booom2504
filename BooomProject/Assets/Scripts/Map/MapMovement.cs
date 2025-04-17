@@ -15,7 +15,6 @@ public class MapMovement : MonoBehaviour
     readonly float right = Screen.width - 20;
     readonly float top = Screen.height - 20;
     readonly float bottom = 20;
-    public Transform t1;
     public List<Transform> mapWorldCorners;
   
     public Vector2[] mapCurrentScreenCorners;
@@ -27,9 +26,7 @@ public class MapMovement : MonoBehaviour
     void Awake()
     {
         mapCurrentScreenCorners = new Vector2[mapWorldCorners.Count];
-        print(mapWorldCorners[0].position);
-        print(Camera.main.WorldToScreenPoint(mapWorldCorners[0].position));
-        print(Camera.main.WorldToScreenPoint(new Vector3(-33, 16, 0)));
+
         //  inputActions = new InputActions();
         //inputActions.MapActions.MousePosition.performed += (ctx =>
         //{
