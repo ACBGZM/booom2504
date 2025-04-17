@@ -10,9 +10,9 @@ namespace UI {
         }
 
         public List<TabPagePair> tabPagePairs = new List<TabPagePair>();
-        public Color tabHover = Color.gray;
+        public Color tabHover = Color.cyan;
         public Color tabIdle = Color.white;
-        public Color tabActive = Color.blue;
+        public Color tabActive = Color.cyan;
         private TabButton _tabSelected;
 
         private void Start() {
