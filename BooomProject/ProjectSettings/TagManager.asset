@@ -6,11 +6,12 @@ TagManager:
   tags:
   - UICamera
   - Interactable
+  - BgCamera
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BackGroud
   - Water
   - UI
   - Player
