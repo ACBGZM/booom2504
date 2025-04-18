@@ -16,8 +16,8 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
     public Transform viewPort;
     protected override void init()
     {
-        leftItem = Resources.Load<GameObject>(Settings.left_item_prefab_path);
-        rightItem = Resources.Load<GameObject>(Settings.right_item_prefab_path);
+        leftItem = Resources.Load<GameObject>(GameplaySettings.left_item_prefab_path);
+        rightItem = Resources.Load<GameObject>(GameplaySettings.right_item_prefab_path);
     }
     public void CreateChat()
     {

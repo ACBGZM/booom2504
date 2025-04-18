@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatItemUI : MonoBehaviour
 {
-    public Text time;
+    public TextMeshProUGUI timeText;
     public Image icon;
-    public Text content;
-    public bool left;
+    public TextMeshProUGUI contentText;
+    public bool isLeft;
     
     public void init(ChatFragment chat)
     {
         this.icon.sprite = chat.icon;
-        this.content.text = chat.content;
-        this.time.text = chat.time;
-        this.left = chat.left;   
+        contentText.text = chat.content;
+        timeText.text = chat.time;
+        this.isLeft = chat.left;   
     }
 }

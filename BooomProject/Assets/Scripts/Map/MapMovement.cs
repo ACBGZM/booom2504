@@ -69,20 +69,20 @@ public class MapMovement : MonoBehaviour
         // ÉãÏñ»úÒÆ¶¯
         if (pos.x <= left)
         {
-            Camera.main.transform.Translate(Vector2.left * Settings.map_move_speed * Time.deltaTime);
+            Camera.main.transform.Translate(Vector2.left * GameplaySettings.map_move_speed * Time.deltaTime);
         }
         if (pos.x >= right)
         {
-            Camera.main.transform.Translate(Vector2.right * Settings.map_move_speed * Time.deltaTime);
+            Camera.main.transform.Translate(Vector2.right * GameplaySettings.map_move_speed * Time.deltaTime);
         }
         
         if (pos.y >= top)
         {
-            Camera.main.transform.Translate(Vector2.up * Settings.map_move_speed * Time.deltaTime);
+            Camera.main.transform.Translate(Vector2.up * GameplaySettings.map_move_speed * Time.deltaTime);
         }
         if (pos.y <= bottom)
         {
-            Camera.main.transform.Translate(Vector2.down * Settings.map_move_speed * Time.deltaTime);
+            Camera.main.transform.Translate(Vector2.down * GameplaySettings.map_move_speed * Time.deltaTime);
         }
     }
     // Ëõ·Å
@@ -90,7 +90,7 @@ public class MapMovement : MonoBehaviour
     {
         var delta = Input.mouseScrollDelta;
         lastScale = Camera.main.fieldOfView;
-        float speed = Settings.map_scroll_speed;
+        float speed = GameplaySettings.map_scroll_speed;
         
         if (delta.y > 0 && Input.GetKey(KeyCode.LeftControl))
         {
@@ -147,7 +147,7 @@ public class MapMovement : MonoBehaviour
             
             Vector2 currentPos = Input.mousePosition;
             Vector2 dir = -(currentPos - startPos).normalized;
-            Camera.main.transform.Translate(dir * Settings.map_drag_speed * Time.deltaTime);
+            Camera.main.transform.Translate(dir * GameplaySettings.map_drag_speed * Time.deltaTime);
             startPos = Input.mousePosition;
         }
     }
