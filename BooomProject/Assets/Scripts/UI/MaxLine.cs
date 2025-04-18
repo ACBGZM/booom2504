@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,14 +8,14 @@ public class MaxLine : MonoBehaviour
 {
     public Image dialogBox;
     
-    public Text chatText;
+    public TextMeshProUGUI chatText;
     public int maxLen = 15;
 
 
     private void Start()
     {
         string res = "";
-        chatText = GetComponent<Text>();
+        chatText = GetComponent<TextMeshProUGUI>();
         dialogBox = GetComponentInParent<Image>();
       
         for(int i = 0; i < chatText.text.Length; i ++ )

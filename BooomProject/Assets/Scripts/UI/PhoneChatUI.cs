@@ -7,7 +7,7 @@ using TMPro;
 public class PhoneChatUI : MonoBehaviour
 {
     [SerializeField] private Transform buttomButton;
-    public event EventHandler OnChatWindowShow;
+    //public event EventHandler OnChatWindowShow;
     public Button backBtn;
     public Text title;
     public TMP_InputField inputField;
