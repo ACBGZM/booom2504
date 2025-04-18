@@ -12,6 +12,7 @@ public class PhoneChatUI : MonoBehaviour
     public Text title;
     public TMP_InputField inputField;
     public Transform itemsParent;
+    public ScrollRect scrollRect;
     private void Awake()
     {
         backBtn.onClick.AddListener(() =>
@@ -57,6 +58,7 @@ public class PhoneChatUI : MonoBehaviour
         obj.GetComponent<ChatItemUI>().init(newChat);
         // 添加到历史
         ChatWindowManager.Instance.history.Add(newChat);
+        scrollRect.verticalNormalizedPosition = 0f;
     }
 
    // 联系顾客按钮监听事件
