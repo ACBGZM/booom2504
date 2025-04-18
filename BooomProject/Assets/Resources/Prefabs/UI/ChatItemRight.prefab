@@ -96,7 +96,7 @@ MonoBehaviour:
   profileImage: {fileID: 8535428990239133791}
   contentText: {fileID: 5045187833068467188}
   isLeft: 0
-  chatTitle: {fileID: 0}
+  chatTitle: 
 --- !u!1 &1349472210094710017
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,13 @@ using TMPro;
 public class PhoneChatUI : MonoBehaviour {
     [SerializeField] private Transform buttomButton;
     [SerializeField] private TextMeshProUGUI chatTitle;
+    [SerializeField] private Image phoneBackGroundImage;// phoneBackGround 组件
+    [SerializeField] private Sprite chatSprtie; // 聊天界面UI图
+    [SerializeField] private Sprite orderSprite; // 订单界面UI图
+    [SerializeField] private GameObject tabArea; // tab组件
+    [SerializeField] private GameObject myOrderList; // 我的订单组件
+    [SerializeField] private GameObject chatButton; // 聊天界面的按钮
+
 
     public event EventHandler OnChatWindowShow;
     public Button backBtn;
@@ -66,11 +73,23 @@ public class PhoneChatUI : MonoBehaviour {
     }
 
     public void ShowMe() {
+        // 新增
+        phoneBackGroundImage.sprite = chatSprtie;
+        tabArea.gameObject.SetActive(false);
+        myOrderList.gameObject.SetActive(false);
+        chatButton.SetActive(true);
+
         gameObject.SetActive(true);
         UpdateContent();
     }
 
     public void HideMe() {
+        // 新增
+        phoneBackGroundImage.sprite = orderSprite;
+        chatButton.SetActive(false);
+        tabArea.gameObject.SetActive(true);
+        myOrderList.gameObject.SetActive(true);
+
         gameObject.SetActive(false);
     }
 }
