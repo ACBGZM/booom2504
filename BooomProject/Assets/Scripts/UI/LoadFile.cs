@@ -28,7 +28,6 @@ public class LoadFile : MonoBehaviour
         // ´´½¨TexuTure ¸ü»»Í¼Æ¬
         Texture2D texture2D = new Texture2D(154, 147);
         texture2D.LoadImage(bytes);
-
         Sprite sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
         return sprite;
     }

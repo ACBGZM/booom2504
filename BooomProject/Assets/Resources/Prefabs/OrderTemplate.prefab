@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 97ff05b342a2dd145898d1447d8b2f50, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "XX\u533AXX\u8DEFXX\u8857XX\u53F7"
+  m_text: 111
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
   m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u9700\u8981 220 \u5206\u949F\u5230\u8FBE"
+  m_text: 111
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
   m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3.4  <size=25>KM</size>
+  m_text: 111
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
   m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Miu
+  m_text: 111
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
   m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 3033176423251978961}
   - component: {fileID: 5697461662383143976}
   - component: {fileID: 7007033273321592311}
+  - component: {fileID: 3084412712576974628}
   m_Layer: 5
   m_Name: OrderButton
   m_TagString: Untagged
@@ -1050,6 +1051,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3084412712576974628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079039768389825435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c802be51819833409818578b5779ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7341283093536111419
 GameObject:
   m_ObjectHideFlags: 0

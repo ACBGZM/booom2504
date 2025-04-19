@@ -29,17 +29,19 @@ public class TaskList : MonoBehaviour
     /// <param name="path">顾客头像文件路径 路径格式：Application.dataPath + @"/文件路径"</param>
     private void ProductOrder(string titleText, string customerNameText, string distanceText, string addressText, int range, Sprite profileImage, string path)
     {
+        TakingOrder takeOrder = orderTemplatePrefab[range].transform.Find("OrderButton").gameObject.GetComponent<TakingOrder>();
         TextMeshProUGUI m_titleText = orderTemplatePrefab[range].transform.Find("orderTitle/TitleText").gameObject.GetComponent<TextMeshProUGUI>();
-        Image m_profileImage = orderTemplatePrefab[range].transform.Find("ProfileImage").gameObject.GetComponent<Image>();
         TextMeshProUGUI m_customerNameTex = orderTemplatePrefab[range].transform.Find("OrderIformation/CustomerNameText").gameObject.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI m_distanceText = orderTemplatePrefab[range].transform.Find("OrderIformation/DistanceText").gameObject.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI m_addressText = orderTemplatePrefab[range].transform.Find("OrderIformation/AddressText").gameObject.GetComponent<TextMeshProUGUI>();
+        Image m_profileImage = orderTemplatePrefab[range].transform.Find("ProfileImage").gameObject.GetComponent<Image>();
 
         m_titleText.text = titleText;
         m_profileImage.sprite = LoadFile.LoadImage(path);
         m_customerNameTex.text = customerNameText;
         m_distanceText.text = distanceText;
         m_addressText.text = addressText;
+        takeOrder.range = range;
         GameObject order = Instantiate(this.orderTemplatePrefab[range], contentPanel);
     }
 }
