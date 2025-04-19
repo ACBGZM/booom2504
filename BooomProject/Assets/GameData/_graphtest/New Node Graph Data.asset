@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b2557a32cd37643848784433437a9d, type: 3}
+  m_Name: New Node Graph Data
+  m_EditorClassIdentifier: 
+  _edges:
+  - nodeA: 0
+    nodeB: 2
+    cost: 10
+    curvePoints: []
+  - nodeA: 0
+    nodeB: 3
+    cost: 4
+    curvePoints: []
+  - nodeA: 1
+    nodeB: 2
+    cost: 6
+    curvePoints:
+    - {x: 1.67, y: -0.89}
+    - {x: 2.36, y: -2.33}
+  - nodeA: 0
+    nodeB: 1
+    cost: 8
+    curvePoints: []
