@@ -26,7 +26,7 @@ public class TaskList : MonoBehaviour
     /// <param name="addressText">顾客地址</param>
     /// <param name="range">0、低级订单 1、中级订单 2、高级订单</param>
     /// <param name="profileImage">顾客头像</param>
-    /// <param name="path">顾客头像文件路径</param>
+    /// <param name="path">顾客头像文件路径 路径格式：Application.dataPath + @"/文件路径"</param>
     private void ProductOrder(string titleText, string customerNameText, string distanceText, string addressText, int range, Sprite profileImage, string path)
     {
         TextMeshProUGUI m_titleText = orderTemplatePrefab[range].transform.Find("orderTitle/TitleText").gameObject.GetComponent<TextMeshProUGUI>();
