@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45208a98f3eec24a84b76ba2b17e5c6, type: 3}
+  m_Name: EventShowResponse
+  m_EditorClassIdentifier: 
+  m_state: 0
+  m_responses:
+  - m_text: "\u9009\u62E9A"
+    m_executor: {fileID: 11400000, guid: a24e9746375bcbd40b22b6058bec1296, type: 2}
+  - m_text: "\u9009\u62E9B"
+    m_executor: {fileID: 11400000, guid: 606850ea0ab0ffa409fe3f7b1bc0d42c, type: 2}
+  - m_text: obscure angle
+    m_executor: {fileID: 11400000, guid: 64724f194bc3216469b092dc7d94fe02, type: 2}
+  - m_text: "\u6211\u8981\u73A9\u539F\u795E"
+    m_executor: {fileID: 0}
+  m_default_select_index: -1
+  m_must_loop_all: 0

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45208a98f3eec24a84b76ba2b17e5c6, type: 3}
+  m_Name: EventShowResponse_03_2
+  m_EditorClassIdentifier: 
+  m_state: 0
+  m_responses:
+  - m_text: "\u9009\u9879A"
+    m_executor: {fileID: 11400000, guid: 5fbb7fd5ccaa37043a6aa659984625be, type: 2}
+  - m_text: "\u9009\u9879B"
+    m_executor: {fileID: 11400000, guid: 81ace201632a65149bd71d78c8f27a3e, type: 2}
+  - m_text: obtuse angle
+    m_executor: {fileID: 11400000, guid: 5a0db19dcdf038249a2857d034716142, type: 2}
+  - m_text: "\u6211\u8981\u73A9\u539F\u795E"
+    m_executor: {fileID: 11400000, guid: fee73409febbe82488c0abfa7a5516e7, type: 2}
+  m_default_select_index: -1
+  m_must_loop_all: 0
