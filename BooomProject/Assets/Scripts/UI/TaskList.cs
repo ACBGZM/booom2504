@@ -1,15 +1,10 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using System.IO;
 using Image = UnityEngine.UI.Image;
 
 /// <summary>
-/// ÈÎÎñ¶©µ¥½Å±¾
+/// ï¿½ï¿½ï¿½ñ¶©µï¿½ï¿½Å±ï¿½
 /// </summary>
 public class TaskList : MonoBehaviour
 {
@@ -17,15 +12,15 @@ public class TaskList : MonoBehaviour
     [SerializeField] private Transform contentPanel;
 
     /// <summary>
-    /// Éú³É¶©µ¥ÐÅÏ¢
+    /// ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     /// </summary>
-    /// <param name="titleText">¶©µ¥Ê±¼ä</param>
-    /// <param name="customerNameText">¹Ë¿ÍÃû³Æ</param>
-    /// <param name="distanceText">¾àÀë</param>
-    /// <param name="addressText">¹Ë¿ÍµØÖ·</param>
-    /// <param name="range">0¡¢µÍ¼¶¶©µ¥ 1¡¢ÖÐ¼¶¶©µ¥ 2¡¢¸ß¼¶¶©µ¥</param>
-    /// <param name="profileImage">¹Ë¿ÍÍ·Ïñ</param>
-    // /// <param name="path">¹Ë¿ÍÍ·ÏñÎÄ¼þÂ·¾¶ Â·¾¶¸ñÊ½£ºApplication.dataPath + @"/ÎÄ¼þÂ·¾¶"</param>
+    /// <param name="titleText">ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½</param>
+    /// <param name="customerNameText">ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="distanceText">ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="addressText">ï¿½Ë¿Íµï¿½Ö·</param>
+    /// <param name="range">0ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="profileImage">ï¿½Ë¿ï¿½Í·ï¿½ï¿½</param>
+    // /// <param name="path">ï¿½Ë¿ï¿½Í·ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½ Â·ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Application.dataPath + @"/ï¿½Ä¼ï¿½Â·ï¿½ï¿½"</param>
     public void ProductOrder(string titleText, string customerNameText, string distanceText, string addressText, int range, Sprite profileImage)
     {
         TakingOrder takeOrder = orderTemplatePrefab[range].transform.Find("OrderButton").gameObject.GetComponent<TakingOrder>();
