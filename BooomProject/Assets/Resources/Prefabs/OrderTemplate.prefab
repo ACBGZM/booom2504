@@ -294,7 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1857494434332189961}
   m_Layer: 5
-  m_Name: OrderIformation
+  m_Name: OrderInformation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 6315557141322242288}
   - component: {fileID: 7679076919362666187}
   m_Layer: 5
-  m_Name: orderTitle
+  m_Name: OrderTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1063,6 +1063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c802be51819833409818578b5779ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 0
 --- !u!1 &7341283093536111419
 GameObject:
   m_ObjectHideFlags: 0
