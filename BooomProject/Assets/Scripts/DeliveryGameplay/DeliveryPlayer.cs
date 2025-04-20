@@ -17,7 +17,7 @@ public class DeliveryPlayer : MonoBehaviour
 
     public void Start()
     {
-        transform.position = GameManager.GetInstance().NodeGraphManager.CurrentNode.transform.position;
+        transform.position = GameManager.Instance.NodeGraphManager.CurrentNode.transform.position;
     }
 
     public bool Move(Vector3[] path, Action onComplete = null)

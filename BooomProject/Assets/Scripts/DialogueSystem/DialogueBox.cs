@@ -36,6 +36,8 @@ public class DialogueBox : MonoBehaviour
 
     public void Awake()
     {
+        // hack: set enabled but alpha to 0 in editor to ensure awake() is executed in game
+        GetComponent<CanvasGroup>().alpha = 0.89f;
         gameObject.SetActive(false);
 
         m_box_fade_effect = GetComponent<FadeEffect>();

@@ -65,12 +65,14 @@ public class NodeGraphManager : MonoBehaviour
     {
         if (CurrentNode.AdjacentNodes.ContainsKey(targetNode))
         {
-            GameManager.GetInstance().DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
+            GameManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
             , () => 
             {
                 ShowCanMoveNodes(CurrentNode, false);
                 _currentNodeID = targetNode.NodeID;
                 ShowCanMoveNodes(targetNode, true);
+
+                targetNode.ExecuteEvents();
             });
         }
     }

@@ -6,6 +6,21 @@ public class Node : MonoBehaviour, IClickable
 {
     // runtime adjacent nodes reference
 
+    [SerializeField] private EventSequenceExecutor _executor;
+    
+    public virtual void ExecuteEvents()
+    {
+        if (_executor != null)
+        {
+            _executor.Initialize(OnExecutorFinished);
+            _executor.Execute();
+        }
+    }
+    
+    protected virtual void OnExecutorFinished(bool success)
+    {
+    }
+
     public struct Edge
     {
         public Edge(int cost, Vector3[] path)
@@ -31,7 +46,7 @@ public class Node : MonoBehaviour, IClickable
     public void OnClick()
     {
         // Debug.Log($"node clicked ({_nodeID})");
-        GameManager.GetInstance().NodeGraphManager.CheckAndMoveTo(this);
+        GameManager.Instance.NodeGraphManager.CheckAndMoveTo(this);
     }
 
     private Vector3 _originalScale;
@@ -49,7 +64,6 @@ public class Node : MonoBehaviour, IClickable
             transform.localScale = _originalScale;
         }
     }
-
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

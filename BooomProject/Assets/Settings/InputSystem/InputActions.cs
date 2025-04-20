@@ -44,15 +44,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RaisePhone"",
-                    ""type"": ""Button"",
-                    ""id"": ""565a3101-4335-4309-8614-b34b5e0ea605"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -143,17 +134,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""16e99a8c-262c-4838-ba90-2745464a0277"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RaisePhone"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -171,7 +151,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Test"",
+                    ""name"": ""TogglePhone"",
                     ""type"": ""Button"",
                     ""id"": ""6265e4ad-a21f-4362-b101-b573a4e94993"",
                     ""expectedControlType"": """",
@@ -195,22 +175,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4559619f-8a7a-40b6-946c-658b59bf1b67"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Test"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e1bd8fa7-3c13-4f82-91b6-c181f4a17280"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Test"",
+                    ""action"": ""TogglePhone"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -277,11 +246,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_BaseCampGameplay = asset.FindActionMap("BaseCampGameplay", throwIfNotFound: true);
         m_BaseCampGameplay_Move = m_BaseCampGameplay.FindAction("Move", throwIfNotFound: true);
         m_BaseCampGameplay_Interact = m_BaseCampGameplay.FindAction("Interact", throwIfNotFound: true);
-        m_BaseCampGameplay_RaisePhone = m_BaseCampGameplay.FindAction("RaisePhone", throwIfNotFound: true);
         // DeliveryGameplay
         m_DeliveryGameplay = asset.FindActionMap("DeliveryGameplay", throwIfNotFound: true);
         m_DeliveryGameplay_Click = m_DeliveryGameplay.FindAction("Click", throwIfNotFound: true);
-        m_DeliveryGameplay_Test = m_DeliveryGameplay.FindAction("Test", throwIfNotFound: true);
+        m_DeliveryGameplay_TogglePhone = m_DeliveryGameplay.FindAction("TogglePhone", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         // MapActions
@@ -359,14 +327,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IBaseCampGameplayActions> m_BaseCampGameplayActionsCallbackInterfaces = new List<IBaseCampGameplayActions>();
     private readonly InputAction m_BaseCampGameplay_Move;
     private readonly InputAction m_BaseCampGameplay_Interact;
-    private readonly InputAction m_BaseCampGameplay_RaisePhone;
     public struct BaseCampGameplayActions
     {
         private @InputActions m_Wrapper;
         public BaseCampGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_BaseCampGameplay_Move;
         public InputAction @Interact => m_Wrapper.m_BaseCampGameplay_Interact;
-        public InputAction @RaisePhone => m_Wrapper.m_BaseCampGameplay_RaisePhone;
         public InputActionMap Get() { return m_Wrapper.m_BaseCampGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -382,9 +348,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @RaisePhone.started += instance.OnRaisePhone;
-            @RaisePhone.performed += instance.OnRaisePhone;
-            @RaisePhone.canceled += instance.OnRaisePhone;
         }
 
         private void UnregisterCallbacks(IBaseCampGameplayActions instance)
@@ -395,9 +358,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @RaisePhone.started -= instance.OnRaisePhone;
-            @RaisePhone.performed -= instance.OnRaisePhone;
-            @RaisePhone.canceled -= instance.OnRaisePhone;
         }
 
         public void RemoveCallbacks(IBaseCampGameplayActions instance)
@@ -420,13 +380,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_DeliveryGameplay;
     private List<IDeliveryGameplayActions> m_DeliveryGameplayActionsCallbackInterfaces = new List<IDeliveryGameplayActions>();
     private readonly InputAction m_DeliveryGameplay_Click;
-    private readonly InputAction m_DeliveryGameplay_Test;
+    private readonly InputAction m_DeliveryGameplay_TogglePhone;
     public struct DeliveryGameplayActions
     {
         private @InputActions m_Wrapper;
         public DeliveryGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Click => m_Wrapper.m_DeliveryGameplay_Click;
-        public InputAction @Test => m_Wrapper.m_DeliveryGameplay_Test;
+        public InputAction @TogglePhone => m_Wrapper.m_DeliveryGameplay_TogglePhone;
         public InputActionMap Get() { return m_Wrapper.m_DeliveryGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -439,9 +399,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
-            @Test.started += instance.OnTest;
-            @Test.performed += instance.OnTest;
-            @Test.canceled += instance.OnTest;
+            @TogglePhone.started += instance.OnTogglePhone;
+            @TogglePhone.performed += instance.OnTogglePhone;
+            @TogglePhone.canceled += instance.OnTogglePhone;
         }
 
         private void UnregisterCallbacks(IDeliveryGameplayActions instance)
@@ -449,9 +409,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
-            @Test.started -= instance.OnTest;
-            @Test.performed -= instance.OnTest;
-            @Test.canceled -= instance.OnTest;
+            @TogglePhone.started -= instance.OnTogglePhone;
+            @TogglePhone.performed -= instance.OnTogglePhone;
+            @TogglePhone.canceled -= instance.OnTogglePhone;
         }
 
         public void RemoveCallbacks(IDeliveryGameplayActions instance)
@@ -565,12 +525,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnRaisePhone(InputAction.CallbackContext context);
     }
     public interface IDeliveryGameplayActions
     {
         void OnClick(InputAction.CallbackContext context);
-        void OnTest(InputAction.CallbackContext context);
+        void OnTogglePhone(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

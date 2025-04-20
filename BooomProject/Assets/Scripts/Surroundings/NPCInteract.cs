@@ -1,10 +1,22 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-public class NPCInteract : MonoBehaviour, IInteractable {
-    public UnityEvent OnInteractEvent;
-    public void Interact(PlayerController player) {
-        Debug.Log(this.gameObject.name + " NPC Interact");
-        OnInteractEvent?.Invoke();
+public class NPCInteract : MonoBehaviour, IInteractable
+{
+    [SerializeField] private EventSequenceExecutor executor;
+
+    public void Interact(PlayerController player)
+    {
+        if (executor == null)
+        {
+            return;
+        }
+        
+        executor.Initialize(OnExecutorFinished);
+        executor.Execute();
+    }
+    
+    private void OnExecutorFinished(bool success)
+    {
+        // Debug.Log("success: " + success);
     }
 }
