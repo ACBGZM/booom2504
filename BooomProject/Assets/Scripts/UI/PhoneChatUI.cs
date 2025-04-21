@@ -34,6 +34,7 @@ public class PhoneChatUI : MonoBehaviour
             if (fragment.left) obj = Instantiate(ChatWindowManager.Instance.leftItem, itemsParent);
             else obj = Instantiate(ChatWindowManager.Instance.rightItem, itemsParent);
             obj.GetComponent<ChatItemUI>().init(fragment);
+           
         }
     }
 
@@ -56,6 +57,7 @@ public class PhoneChatUI : MonoBehaviour
         print(content);
         ChatFragment newChat = new ChatFragment(currentTime, ChatWindowManager.Instance.ownerIcon, content, false);
         obj.GetComponent<ChatItemUI>().init(newChat);
+      
         // 添加到历史
         ChatWindowManager.Instance.history.Add(newChat);
         scrollRect.verticalNormalizedPosition = 0f;

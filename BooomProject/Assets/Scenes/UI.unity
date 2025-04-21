@@ -3502,6 +3502,7 @@ MonoBehaviour:
   title: {fileID: 1164011217}
   inputField: {fileID: 1420975518}
   itemsParent: {fileID: 1388492116}
+  scrollRect: {fileID: 746359804}
 --- !u!1 &934772792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4798,6 +4799,7 @@ MonoBehaviour:
   title: {fileID: 1164011217}
   inputField: {fileID: 0}
   itemsParent: {fileID: 868927883}
+  scrollRect: {fileID: 0}
 --- !u!114 &1117177966
 MonoBehaviour:
   m_ObjectHideFlags: 0
