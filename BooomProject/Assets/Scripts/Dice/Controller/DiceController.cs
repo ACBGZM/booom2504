@@ -10,11 +10,11 @@ public class DiceController : MonoBehaviour
 
     
     [SerializeField]
-    float rollForce = 10f;
+    float rollForce = 70f;
     [SerializeField]
-    float torqueAmount = 5f;
+    float torqueAmount = 60f;
     [SerializeField]
-    float maxRollTime = 3f;
+    float maxRollTime = 4f;
     [SerializeField]
     float minAnqularVelocity = 0.1f;
     [SerializeField]
@@ -97,11 +97,11 @@ public class DiceController : MonoBehaviour
             finalize = true;
         }
         //audioSource.PlayOneShot(impactClip);
-        //// 撞击粒子效果
-        //var particles = Instantiate(impactEffect, collision.contacts[0].point,Quaternion.identity);
-        //particles.transform.localScale = Vector3.one;
-        //// 1秒后销毁
-        //Destroy(particles, 1f);
+        // 撞击粒子效果
+        var particles = Instantiate(impactEffect, collision.contacts[0].point, Quaternion.identity);
+        particles.transform.localScale = Vector3.one;
+        // 1秒后销毁
+        Destroy(particles, 1f);
     }
 
     private void PerformInitialRoll()
@@ -113,9 +113,9 @@ public class DiceController : MonoBehaviour
         Vector3 dir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
         rb.AddForce(dir * rollForce,ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * torqueAmount, ForceMode.Impulse);
-        //audioSource.clip = shakeClip;
-        //audioSource.loop = true;
-        //audioSource.Play();
+        audioSource.clip = shakeClip;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     private void MoveDiceToCenter()
@@ -136,13 +136,14 @@ public class DiceController : MonoBehaviour
         print(diceSides.GetMatch());
         ResetDiceState();
 
-        //audioSource.loop = false;
-        //audioSource.Stop();
+        audioSource.loop = false;
+        audioSource.Stop();
         //audioSource.PlayOneShot(finalResultClip);
 
-        //var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
-        //particles.transform.localScale = Vector3.one * 5f;
-        //Destroy(particles, 3f);
+        var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
+        particles.transform.localScale = Vector3.one * 5f;
+        particles.transform.position = originPosition;
+        Destroy(particles, 3f);
 
     }
     
