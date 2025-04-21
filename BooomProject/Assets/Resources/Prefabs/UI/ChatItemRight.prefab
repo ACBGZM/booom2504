@@ -93,9 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 2117892020817346016}
-  icon: {fileID: 8535428990239133791}
+  profileImage: {fileID: 8535428990239133791}
   contentText: {fileID: 5045187833068467188}
   isLeft: 0
+  chatTitle: 
 --- !u!1 &1349472210094710017
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +224,7 @@ GameObject:
   - component: {fileID: 5347756941647589499}
   - component: {fileID: 8535428990239133791}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: ProfileImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

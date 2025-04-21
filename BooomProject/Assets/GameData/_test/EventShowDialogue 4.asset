@@ -16,7 +16,7 @@ MonoBehaviour:
   m_dialogues:
   - m_speaker_name: "\u4EBAA"
     m_speaker_avatar: {fileID: 679222839, guid: aa89013d6563345999cf8b2c28bdc86b, type: 3}
-    m_text: "<r=\"\u662F\u949D\u89D2\u5462\">obscure angle</r>"
+    m_text: "<r=\"\u949D\u89D2\">obscure angle</r>"
     m_display_method: 3
     m_can_skip: 1
   - m_speaker_name: "\u4EBAA"

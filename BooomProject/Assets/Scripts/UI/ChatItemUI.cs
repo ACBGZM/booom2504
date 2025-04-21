@@ -7,15 +7,17 @@ using UnityEngine.UI;
 public class ChatItemUI : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
-    public Image icon;
+    public Image profileImage;
     public TextMeshProUGUI contentText;
     public bool isLeft;
-    
+    public string chatTitle;
+
     public void init(ChatFragment chat)
     {
-        this.icon.sprite = chat.icon;
+        profileImage.sprite = chat.icon;
         contentText.text = chat.content;
         timeText.text = chat.time;
-        this.isLeft = chat.left;   
+        isLeft = chat.left;
+        chatTitle = chat.chatTitle;
     }
 }

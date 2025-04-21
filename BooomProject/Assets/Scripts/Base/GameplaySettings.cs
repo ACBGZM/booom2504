@@ -29,4 +29,9 @@ public class GameplaySettings {
     public const float m_response_fade_in_duration = 0.5f;
     public const float m_response_fade_out_duration = 0.5f;
     #endregion
+
+    #region Dice
+    // 骰子面朝上的精确匹配值
+    public const float exact_match_value = 0.995f;
+    #endregion
 }

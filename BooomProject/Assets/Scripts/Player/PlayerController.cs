@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private GameInput _gameInput;
     private List<IInteractable> _interactables = new List<IInteractable>();
-    private bool _isPhoneShow = false;
     private bool _isWalking = false;
     private Rigidbody2D _playerRigidBody;
     private Vector2 _moveDir;
@@ -23,13 +22,6 @@ public class PlayerController : MonoBehaviour {
 
     private void Start() {
         _gameInput.OnInteractAction += GameInput_OnInteractAction;
-        _gameInput.OnRaisePhoneAction += GameInput_OnRaisePhoneAction;
-    }
-
-    private void GameInput_OnRaisePhoneAction(object sender, EventArgs e) {
-        // TODO------------RaisePhone
-        _isPhoneShow = !_isPhoneShow;
-        Debug.Log("RaisePhone");
     }
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e) {
@@ -64,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log(this.gameObject.name + " OnTriggerEnter2D");
+        // Debug.Log(this.gameObject.name + " OnTriggerEnter2D");
         if (collision.CompareTag("Interactable") && collision.TryGetComponent(out IInteractable interactable)) {
             AddInteractable(interactable);
         }

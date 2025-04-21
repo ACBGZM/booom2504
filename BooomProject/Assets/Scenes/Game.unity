@@ -146,11 +146,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486290971}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f71b3a56bd5f86144a8501857900fa19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apiUrl: http://localhost:5000/chat
 --- !u!4 &486290973
 Transform:
   m_ObjectHideFlags: 0

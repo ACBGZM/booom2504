@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "RaisePhone",
-                    "type": "Button",
-                    "id": "565a3101-4335-4309-8614-b34b5e0ea605",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -121,17 +112,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "16e99a8c-262c-4838-ba90-2745464a0277",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RaisePhone",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -149,7 +129,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Test",
+                    "name": "TogglePhone",
                     "type": "Button",
                     "id": "6265e4ad-a21f-4362-b101-b573a4e94993",
                     "expectedControlType": "",
@@ -173,22 +153,11 @@
                 {
                     "name": "",
                     "id": "4559619f-8a7a-40b6-946c-658b59bf1b67",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Test",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e1bd8fa7-3c13-4f82-91b6-c181f4a17280",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Test",
+                    "action": "TogglePhone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

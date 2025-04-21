@@ -35,7 +35,7 @@ public class DialogueUIManager : MonoBehaviour
                 {
                     GameObject go = new GameObject("DialogueUIManager");
                     s_instance = go.AddComponent<DialogueUIManager>();
-                    DontDestroyOnLoad(go);
+                    // DontDestroyOnLoad(go);
                 }
             }
         }
@@ -52,7 +52,7 @@ public class DialogueUIManager : MonoBehaviour
         else
         {
             s_instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
 
         HideSelectCursor();
