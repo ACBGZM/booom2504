@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     private bool _isWalking = false;
     private Rigidbody2D _playerRigidBody;
     private Vector2 _moveDir;
-
+    private float _velocityXSmooth;
     private void Awake() {
         if (controllerInstance != null) {
             Debug.LogError("There are multiple PlayerController instances in the scene.");
@@ -35,7 +35,12 @@ public class PlayerController : MonoBehaviour {
     private void HandleMovement() {
         _moveDir = _gameInput.GetMovement();
         _isWalking = _moveDir != Vector2.zero;
-        _playerRigidBody.MovePosition(_playerRigidBody.position + (new Vector2(_moveDir.x, _moveDir.y)) * GameplaySettings.m_walk_speed * Time.deltaTime);
+        //_playerRigidBody.MovePosition(_playerRigidBody.position + 
+        //    (new Vector2(_moveDir.x, _moveDir.y)) * GameplaySettings.m_walk_speed * Time.deltaTime);
+        _velocityXSmooth = 0f;
+        float newVelocityX = Mathf.SmoothDamp(_playerRigidBody.velocity.x, GameplaySettings.m_walk_speed* _moveDir.x,
+            ref _velocityXSmooth, GameplaySettings.m_acceleration_Time);
+        _playerRigidBody.velocity = new Vector2(newVelocityX, _playerRigidBody.velocity.y);
         if (_moveDir.x != 0) {
             float facingDir = 1.0f;
             if (_moveDir.x < 0) facingDir = -1.0f;
@@ -56,7 +61,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        // Debug.Log(this.gameObject.name + " OnTriggerEnter2D");
         if (collision.CompareTag("Interactable") && collision.TryGetComponent(out IInteractable interactable)) {
             AddInteractable(interactable);
         }
@@ -65,6 +69,17 @@ public class PlayerController : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.CompareTag("Interactable") && collision.TryGetComponent(out IInteractable interactable)) {
             RemoveInteractable(interactable);
+        }
+    }
+
+    public bool IsWalking() => _isWalking;
+
+    private void OnDestroy() {
+        if (_gameInput != null) {
+            _gameInput.OnInteractAction -= GameInput_OnInteractAction;
+        }
+        if (controllerInstance == this) {
+            controllerInstance = null;
         }
     }
 }
