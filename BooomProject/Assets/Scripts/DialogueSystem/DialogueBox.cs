@@ -149,7 +149,10 @@ public class DialogueBox : MonoBehaviour
         {
             m_is_interactable = true;
         }
-
+        this.gameObject.SetActive(true);
+        if (!m_text_content.gameObject.activeInHierarchy) {
+            m_text_content.gameObject.SetActive(true);
+        }
         m_text_content.StartCoroutine(m_text_content.ShowText(dialogue.m_text, next_text_method));
     }
 

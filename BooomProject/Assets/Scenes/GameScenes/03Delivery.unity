@@ -3796,7 +3796,6 @@ MonoBehaviour:
   _moveSpeed: 5
   _moveDuration: 3
   _useSpeed: 1
-  _state: 0
 --- !u!212 &728454888
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9447,7 +9446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _deliveryPlayer: {fileID: 728454887}
   _nodeGraphManager: {fileID: 1947218347}
-  _deliveryInputHandler: {fileID: 1175562083}
+  _deliverySceneInputHandler: {fileID: 1175562083}
   _sceneManager: {fileID: 1775847554}
 --- !u!1 &1699599822
 GameObject:
@@ -12973,28 +12972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3464ded91da98ed45ae90199ca153589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftItem: {fileID: 0}
-  rightItem: {fileID: 0}
-  history:
-  - chatTitle: 123
-    time: '3: 06'
-    icon: {fileID: 21300000, guid: d8ba28819d8c7c14aa2af7cea090771d, type: 3}
-    content: "\u4F60\u597D\uFF0C\u4F60\u662F\u8C01"
-    left: 1
-  - chatTitle: 5446
-    time: '3: 12'
-    icon: {fileID: 21300000, guid: 100581cda51e5694d911c1da84326478, type: 3}
-    content: "\u6211\u662F\u4F60\u7239"
-    left: 0
-  - chatTitle: 879
-    time: '3: 20'
-    icon: {fileID: 21300000, guid: 100581cda51e5694d911c1da84326478, type: 3}
-    content: sawerwerertytui
-    left: 1
-  customerName: "\u5C0F6"
-  shopIcon: {fileID: 0}
-  customerIcon: {fileID: 0}
-  ownerIcon: {fileID: 21300000, guid: 6f77cffec39b7467fa833e5d6c06020a, type: 3}
 --- !u!4 &2036080173
 Transform:
   m_ObjectHideFlags: 0

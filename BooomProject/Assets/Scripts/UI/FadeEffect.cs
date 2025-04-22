@@ -39,12 +39,11 @@ public class FadeEffect : MonoBehaviour
         }
         else
         {
-            if(m_fade_coroutine != null)
-            {
+            if (m_fade_coroutine != null) {
                 StopCoroutine(m_fade_coroutine);
+                m_fade_coroutine = null;
             }
-
-            StartCoroutine(Fading(a, duration, callback));
+            m_fade_coroutine = StartCoroutine(Fading(a, duration, callback));
         }
     }
 
@@ -58,7 +57,7 @@ public class FadeEffect : MonoBehaviour
             m_render_opacity = Mathf.Lerp(former_a, a, m_fading_curve.Evaluate(time / duration));
             yield return null;
         }
-
+        m_render_opacity = a;
         callback?.Invoke();
     }
 }

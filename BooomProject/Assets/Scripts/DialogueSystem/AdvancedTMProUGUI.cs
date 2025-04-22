@@ -184,7 +184,9 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         if(m_typing_coroutine != null)
         {
             StopCoroutine(m_typing_coroutine);
+            m_typing_coroutine = null;
         }
+
         ClearAllRubyText();
 
         SetText(text);
