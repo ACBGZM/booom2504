@@ -163,7 +163,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
     {
         base.Awake();
 
-        m_ruby_prefab = Resources.Load<GameObject>("RubyText");
+        m_ruby_prefab = Resources.Load<GameObject>(GameplaySettings.m_ruby_prefab_path);
         m_ruby_text_objects = new List<GameObject>();
 
         m_text_fade_effect = gameObject.GetComponent<FadeEffect>();
@@ -177,6 +177,8 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
 
     public IEnumerator ShowText(string text, TextDisplayMethod method)
     {
+        if (!this.gameObject.activeInHierarchy) yield break;
+
         Initialize();
 
         if(m_typing_coroutine != null)

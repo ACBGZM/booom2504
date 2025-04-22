@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class GameplaySettings {
     #region player
-    public const float m_walk_speed = 8.0f;
+    public const float m_walk_speed = 6.0f;
+    public const float m_acceleration_Time = 0.05f;     // 达到最快速度的时间
     // player triggered fade
-    public const float m_fade_duration = 0.35f;
-    public const float m_target_alpha = 0.45f;
+    //public const float m_fade_duration = 0.35f;
+    //public const float m_target_alpha = 0.45f;
     #endregion
 
     #region map
@@ -28,6 +29,8 @@ public class GameplaySettings {
     public const float m_next_cursor_fade_duration = 0.5f;
     public const float m_response_fade_in_duration = 0.5f;
     public const float m_response_fade_out_duration = 0.5f;
+    public const string m_response_button_prefab_path = "Prefabs/ResponseButton";
+    public const string m_ruby_prefab_path = "Prefabs/RubyText";
     #endregion
 
     #region Dice

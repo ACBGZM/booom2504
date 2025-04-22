@@ -4610,8 +4610,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6211\u7684\u8BA2\u5355"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4931,6 +4931,7 @@ RectTransform:
   - {fileID: 1559430031}
   - {fileID: 746359803}
   - {fileID: 1420975517}
+  - {fileID: 2108073482}
   m_Father: {fileID: 1291842060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5902,8 +5903,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u8FD4\u56DE\u6211\u7684\u8BA2\u5355\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8150,7 +8151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1420975517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8600,10 +8601,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: "\u804A\u5929\u7FA4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8885,8 +8886,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u63A5\u5355"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9084,7 +9085,6 @@ RectTransform:
   - {fileID: 1885807956}
   - {fileID: 1291842060}
   - {fileID: 487551558}
-  - {fileID: 2108073482}
   m_Father: {fileID: 1387098868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -12446,8 +12446,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u4E2A\u4EBA\u4FE1\u606F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13231,14 +13231,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108073481}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 403901292}
   - {fileID: 1789980450}
-  m_Father: {fileID: 1625451959}
+  m_Father: {fileID: 921621251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

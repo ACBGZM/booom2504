@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -21,7 +22,11 @@ public class GameManager : Singleton<GameManager>
     
     public void QuitGame()
     {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     public void PauseGame()

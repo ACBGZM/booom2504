@@ -14,7 +14,7 @@ public class ResponsePanel : MonoBehaviour
     private void Start()
     {
         m_buttons = new List<AdvancedButton>();
-        m_response_button_prefab = Resources.Load<GameObject>("ResponseButton");
+        m_response_button_prefab = Resources.Load<GameObject>(GameplaySettings.m_response_button_prefab_path);
         m_fade_effect = GetComponent<FadeEffect>();
     }
 
