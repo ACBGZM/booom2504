@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using JetBrains.Annotations;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,15 +12,21 @@ public class NodeGraphManager : MonoBehaviour
     public NodeGraphData NodeGraphData => _nodeGraphData;
 
     private Dictionary<int, Node> _allNodes = new Dictionary<int, Node>();
-
+    // 任意两节点间最短消耗
+    private float[,] dist;
+    private int nodeCnt;
     private void Awake()
     {
+        nodeCnt = _nodeGraphData._edges.Count;
+        dist = new float[nodeCnt, nodeCnt];
+        ResetDist();
+        Floyed();
         Node[] nodes = FindObjectsOfType<Node>();
         foreach (Node node in nodes)
         {
             _allNodes.Add(node.NodeID, node);
         }
-
+        
         foreach (EdgeData edgeData in _nodeGraphData._edges)
         {
             if (!_allNodes.ContainsKey(edgeData.nodeA) || !_allNodes.ContainsKey(edgeData.nodeB))
@@ -47,7 +55,38 @@ public class NodeGraphManager : MonoBehaviour
                 new Node.Edge(edgeData.cost, reversedPath.ToArray()));
         }
     }
-    
+    private void ResetDist()
+    {
+        for (int i = 0; i < nodeCnt; i++)
+        {
+            for (int j = 0; j < nodeCnt; j++)
+            {
+                dist[i,j] = -1;
+            }
+        }
+        foreach (EdgeData edgeData in _nodeGraphData._edges)
+        {
+            dist[edgeData.nodeA, edgeData.nodeB] = edgeData.cost;
+            dist[edgeData.nodeB, edgeData.nodeA] = edgeData.cost;
+        }
+    }
+    private void Floyed()
+    {
+        for(int i = 0; i < nodeCnt; i ++ )
+        {
+            for(int k = 0; k < nodeCnt; k ++ )
+            {
+                if (dist[i, k] == -1) continue;
+                for(int j = 0; j < nodeCnt; j ++ )
+                {
+                    if (dist[k,j] == -1) continue;
+                    dist[i,j] = Mathf.Min(dist[i, j], dist[i,k] + dist[k,j]);
+                }
+            }
+        }
+
+        
+    }
     public void Start()
     {
         ShowCanMoveNodes(CurrentNode, true);

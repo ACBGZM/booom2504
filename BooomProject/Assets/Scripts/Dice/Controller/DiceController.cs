@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using TMPro;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
@@ -23,6 +24,7 @@ public class DiceController : MonoBehaviour
     [SerializeField]
     float maxSpeed = 15f;
 
+
     [Header("Audio & Particle Effects")]
     [SerializeField]
     AudioClip shakeClip;
@@ -37,12 +39,11 @@ public class DiceController : MonoBehaviour
     [SerializeField]
     GameObject finalResultEffect;
     [SerializeField]
-
-
     DiceSides diceSides;
     AudioSource audioSource;
     Rigidbody rb;
-
+    [SerializeField]
+    TMP_Text result;
     CountdownTimer rollTimer;
     // 骰子起始位置
     [SerializeField]
@@ -60,6 +61,9 @@ public class DiceController : MonoBehaviour
     public int idx;
     private void Awake()
     {
+        
+        
+        
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         diceSides = GetComponent<DiceSides>();
@@ -71,7 +75,12 @@ public class DiceController : MonoBehaviour
         
         rollTimer.OnTimerStart += PerformInitialRoll;
         rollTimer.OnTimerStop += () => finalize = true;
+        result.text = string.Empty;
         CalculateSides();
+    }
+    private void OnDisable()
+    {
+        result.text = string.Empty; 
     }
     public void Show(int idx)
     {
@@ -113,6 +122,7 @@ public class DiceController : MonoBehaviour
         // 随机施力方向
         //  Vector3 targetPos = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         //  Vector3 dir = (targetPos - transform.position).normalized;
+        result.text = string.Empty;
         Vector3 dir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
         rb.AddForce(dir * rollForce,ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * torqueAmount, ForceMode.Impulse);
@@ -142,7 +152,7 @@ public class DiceController : MonoBehaviour
         audioSource.loop = false;
         audioSource.Stop();
         //audioSource.PlayOneShot(finalResultClip);
-
+        result.text = diceSides.GetMatch().ToString();
         var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
         particles.transform.localScale = Vector3.one * 2.5f;
         
