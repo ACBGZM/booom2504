@@ -17,8 +17,6 @@ public class EventTrafficLight : EventNodeBase
     }
 
 
-
-
     public void ShowDialogueText()
     {
         DialogueUIManager.GetInstance().StartCoroutine(StepThroughDialogueDataList());

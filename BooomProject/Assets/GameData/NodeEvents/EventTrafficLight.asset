@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450ce74c9e370a646b137095a43e8b42, type: 3}
   m_Name: EventTrafficLight
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 2
   dialogues: []
