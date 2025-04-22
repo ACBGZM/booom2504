@@ -7,7 +7,8 @@ public class Node : MonoBehaviour, IClickable
     // runtime adjacent nodes reference
 
     [SerializeField] private EventSequenceExecutor _executor;
-    
+    [SerializeField] private NodeActionType type;
+
     public virtual void ExecuteEvents()
     {
         if (_executor != null)
@@ -55,6 +56,21 @@ public class Node : MonoBehaviour, IClickable
         if (canMove)
         {
             transform.DOScale(_originalScale * 1.2f, 0.5f)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.InOutSine);
+        }
+        else
+        {
+            transform.DOKill();
+            transform.localScale = _originalScale;
+        }
+    }
+    
+    public void ShowIsMovingTo(bool isMovingTo)
+    {
+        if (isMovingTo)
+        {
+            transform.DOScale(_originalScale * 1.5f, 0.3f)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
         }

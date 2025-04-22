@@ -280,7 +280,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
 
     private void ModifyCharacterAlphaAtIndex(int index, byte alpha)
     {
-        if (!textInfo.characterInfo[index].isVisible)
+        if (textInfo.characterInfo.Length > index && !textInfo.characterInfo[index].isVisible)
         {
             return;
         }

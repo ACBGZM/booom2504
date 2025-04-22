@@ -11,7 +11,7 @@ public class DeliverySceneInputHandler : MonoBehaviour
     
     private InputActions.UIActions _uiInputActions;
     public InputActions.UIActions UIInputActions => _uiInputActions;
-
+    
     [SerializeField] private GameObject _phoneUI;
 
     private void Awake()
@@ -22,24 +22,24 @@ public class DeliverySceneInputHandler : MonoBehaviour
         _deliveryGameplayInputActions = _playerInput.DeliveryGameplay;
         _uiInputActions = _playerInput.UI;
         
-        _playerInput.Enable();
-    }
-
-    private void OnDestroy()
-    {
-        _playerInput.Disable();
-    }
-
-    private void OnEnable()
-    {
         _deliveryGameplayInputActions.Click.performed += OnClickScenePerformed;
         _deliveryGameplayInputActions.TogglePhone.performed += TogglePhoneFromInput;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _deliveryGameplayInputActions.Click.performed -= OnClickScenePerformed;
         _deliveryGameplayInputActions.TogglePhone.performed -= TogglePhoneFromInput;
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
     }
 
     private void OnClickScenePerformed(InputAction.CallbackContext context)

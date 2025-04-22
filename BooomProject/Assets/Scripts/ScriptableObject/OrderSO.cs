@@ -10,8 +10,14 @@ public class OrderSO : ScriptableObject {
     public CustomerSO customerSO;
     [Tooltip("订单标题")]
     public string orderTitle;
+    [Tooltip("订单地址")]
+    public string orderAddress;
     [Tooltip("订单与大本营的距离")]
     public string orderDistance;
     [Tooltip("订单等级")]
     public int range;
+    [Tooltip("本单奖励")]
+    public int reward;
+    [Tooltip("其他信息")]
+    public string bubble;
 }

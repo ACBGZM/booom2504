@@ -1,52 +1,75 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal.Internal;
-using UnityEngine.UIElements;
 
 public class MapMovement : MonoBehaviour
 {
-
-  //  InputActions inputActions;
-    readonly float left = 20;
-    readonly float right = Screen.width - 20;
-    readonly float top = Screen.height - 20;
-    readonly float bottom = 20;
+    static readonly float _padding = 20;
+    readonly float left = _padding;
+    readonly float right = Screen.width - _padding;
+    readonly float top = Screen.height - _padding;
+    readonly float bottom = _padding;
     public List<Transform> mapWorldCorners;
   
     public Vector2[] mapCurrentScreenCorners;
-    public float lastMapPosX;
-    public float lastMapPosY;
-    public float lastScale;
-    public bool draging;
-    public Vector2 startPos;
+    private float lastMapPosX;
+    private float lastMapPosY;
+    // public float lastScale;
+    // public bool draging;
+    public Vector2 dragStartPos;
+
+    private InputAction _zoomInputAction;
+    private InputAction _dragInputAction;
+    private InputAction _inputPositionAction;
+    private InputAction _restoreCameraInputAction;
+
+    [SerializeField] private Camera _camera;
+    [SerializeField] private float _baseHeight;
+    [SerializeField] private float _baseSize;
+    
+    [SerializeField] private float _zoomSpeed;
+    [SerializeField] private float _minOrthoSize;
+    [SerializeField] private float _maxOrthoSize;
+
+    [SerializeField] private float _dragSpeed;
+    [SerializeField] private Vector2[] _dragBoundary;
+    
+/*
+    private void UpdateOrthoSize()
+    {
+        float ratio = Screen.height / _baseHeight;
+        _camera.orthographicSize = _baseSize / ratio;
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate() {
+        if (_camera != null)
+        {
+            UpdateOrthoSize();
+        }
+    }
+#endif
+*/
+    
     void Awake()
     {
         mapCurrentScreenCorners = new Vector2[mapWorldCorners.Count];
-
-        //  inputActions = new InputActions();
-        //inputActions.MapActions.MousePosition.performed += (ctx =>
-        //{
-        //    print(ctx.ReadValue<Vector2>());
-        //});
-        //   print(Camera.main.WorldToScreenPoint(t1.position));
+        // UpdateOrthoSize();
     }
 
-    //private void OnEnable()
-    //{
-    //    inputActions.Enable();
-    //}
-    //private void OnDisable()
-    //{
-    //    inputActions.Disable();
-    //}
-    // Update is called once per frame
+    void Start()
+    {
+        _zoomInputAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.ZoomMap;
+        _dragInputAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.DragMap;
+        _inputPositionAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.InputPosition;
+        _restoreCameraInputAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.RestoreCamera;
+
+        _dragInputAction.started += StartDrag;
+        _dragInputAction.canceled += StopDrag;
+    }
+
     void Update()
     {
-        
         //Debug.Log(Mouse.current);
         //Debug.Log(Keyboard.current);
         //print(Mouse.current.position.ReadValue());
@@ -58,100 +81,142 @@ public class MapMovement : MonoBehaviour
         UpdateWorldCornersToScreen();
   
         Adjust();
+
+        RestoreCamera();
     }
     
     void Movement()
     {
-        var pos = Input.mousePosition;
         // 记录移动前的位置
-        lastMapPosX = Camera.main.transform.position.x;
-        lastMapPosY = Camera.main.transform.position.y;
+        lastMapPosX = _camera.transform.position.x;
+        lastMapPosY = _camera.transform.position.y;
+        
+        return;
+        
+        var pos = Input.mousePosition;
         // 摄像机移动
         if (pos.x <= left)
         {
-            Camera.main.transform.Translate(Vector2.left * GameplaySettings.map_move_speed * Time.deltaTime);
+            _camera.transform.Translate(Vector2.left * GameplaySettings.map_move_speed * Time.deltaTime);
         }
         if (pos.x >= right)
         {
-            Camera.main.transform.Translate(Vector2.right * GameplaySettings.map_move_speed * Time.deltaTime);
+            _camera.transform.Translate(Vector2.right * GameplaySettings.map_move_speed * Time.deltaTime);
         }
         
         if (pos.y >= top)
         {
-            Camera.main.transform.Translate(Vector2.up * GameplaySettings.map_move_speed * Time.deltaTime);
+            _camera.transform.Translate(Vector2.up * GameplaySettings.map_move_speed * Time.deltaTime);
         }
         if (pos.y <= bottom)
         {
-            Camera.main.transform.Translate(Vector2.down * GameplaySettings.map_move_speed * Time.deltaTime);
+            _camera.transform.Translate(Vector2.down * GameplaySettings.map_move_speed * Time.deltaTime);
         }
     }
-    // 缩放
+
     void Zoom()
     {
-        var delta = Input.mouseScrollDelta;
-        lastScale = Camera.main.fieldOfView;
-        float speed = GameplaySettings.map_scroll_speed;
+        float scroll = _zoomInputAction.ReadValue<float>();
+        if (scroll == 0)
+        {
+            return;
+        }
         
-        if (delta.y > 0 && Input.GetKey(KeyCode.LeftControl))
-        {
-            Camera.main.fieldOfView += speed;
-        }
-        if (delta.y < 0 && Input.GetKey(KeyCode.LeftControl))
-        {
-            Camera.main.fieldOfView -= speed;
-        }
+        float t = Mathf.InverseLerp(_minOrthoSize, _maxOrthoSize, _camera.orthographicSize);
+
+        float speedFactor = GetSpeedFactor(t);
+        float adjustedSpeed = _zoomSpeed * speedFactor;
+
+        _camera.orthographicSize = Mathf.Clamp(
+            _camera.orthographicSize - scroll * adjustedSpeed,
+            _minOrthoSize,
+            _maxOrthoSize
+        );
     }
-    public void UpdateWorldCornersToScreen()
+
+    private float GetSpeedFactor(float ratio)
+    {
+        /*
+        Speed Factor
+            |
+         1  |      __________
+            |     /          \
+            |    /            \
+        0.2 |___/              \___
+            minSize          maxSize
+            
+            中心区域（30%~70%）：全速
+            边界缓冲（30%）：线性减速到全速的25%
+        */
+        return ratio switch
+        {
+            > 0.3f and < 0.7f => 1.0f,
+            <= 0.3f => Mathf.Lerp(0.25f, 1.0f, ratio / 0.3f),
+            _ => Mathf.Lerp(0.25f, 1.0f, (1.0f - ratio) / 0.3f)
+        };
+    }
+
+    private void UpdateWorldCornersToScreen()
     {
         for(int i = 0; i < mapWorldCorners.Count; i++)
         {
-            mapCurrentScreenCorners[i] = Camera.main.WorldToScreenPoint(mapWorldCorners[i].position);
+            mapCurrentScreenCorners[i] = _camera.WorldToScreenPoint(mapWorldCorners[i].position);
         }
     }
 
-    public void Adjust()
+    private void Adjust()
     {
+        //  0   3
+        //  1   2
         
         // 左右需要调整
-        if (mapCurrentScreenCorners[0].x > 0  || mapCurrentScreenCorners[2].x < Screen.width - 1)
+        if (mapCurrentScreenCorners[0].x > _padding  || mapCurrentScreenCorners[2].x < Screen.width - _padding)
         {
-            // 还原大小
-            Camera.main.fieldOfView = lastScale;
             // 还原x位置
-            Camera.main.transform.position = new Vector3(lastMapPosX, Camera.main.transform.position.y, Camera.main.transform.position.z);
+            _camera.transform.position = new Vector3(lastMapPosX, _camera.transform.position.y, _camera.transform.position.z);
         }
         // 上下需要调整
-        if (mapCurrentScreenCorners[1].y > 0 || mapCurrentScreenCorners[3].y < Screen.height - 1)
+        if (mapCurrentScreenCorners[1].y > _padding || mapCurrentScreenCorners[3].y < Screen.height - _padding)
         {
-            // 还原大小
-            Camera.main.fieldOfView = lastScale;
             // 还原y位置
-            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, lastMapPosY, Camera.main.transform.position.z);
+            _camera.transform.position = new Vector3(_camera.transform.position.x, lastMapPosY, _camera.transform.position.z);
         }
     }
-    //拖拽
-    public void Drag()
+    
+    private void StartDrag(InputAction.CallbackContext context)
     {
-        if(Input.GetMouseButtonDown(2))
+        dragStartPos = _camera.ScreenToWorldPoint(_inputPositionAction.ReadValue<Vector2>());
+    }
+    
+    private void StopDrag(InputAction.CallbackContext context)
+    {
+    }
+    
+    private void Drag()
+    {
+        if (_dragInputAction.IsPressed())
         {
-            draging = true;
-            startPos = Input.mousePosition;
-        }
-        if(Input.GetMouseButtonUp(2))
-        {
-            draging = false;
-        }
-        // 防止拖拽过程鼠标移出游戏松开
-        if(draging && Input.GetMouseButton(2))
-        {
+            Vector2 currentPos = _camera.ScreenToWorldPoint(_inputPositionAction.ReadValue<Vector2>());
+            Vector2 diff = dragStartPos - currentPos;
             
-            Vector2 currentPos = Input.mousePosition;
-            Vector2 dir = -(currentPos - startPos).normalized;
-            Camera.main.transform.Translate(dir * GameplaySettings.map_drag_speed * Time.deltaTime);
-            startPos = Input.mousePosition;
+            float adjustedSpeed = Mathf.Clamp(
+                _dragSpeed / _camera.orthographicSize,
+                _dragSpeed * 0.5f,
+                _dragSpeed * 1.2f
+            );
+            
+            _camera.transform.position += (Vector3)diff * adjustedSpeed;
         }
     }
-
-
-  
+    
+    private void RestoreCamera()
+    {
+        if (_restoreCameraInputAction.IsPressed())
+        {
+            _camera.transform.position = new(
+                GameManager.Instance.DeliveryPlayer.transform.position.x,
+                GameManager.Instance.DeliveryPlayer.transform.position.y,
+                _camera.transform.position.z);
+        }
+    }
 }
