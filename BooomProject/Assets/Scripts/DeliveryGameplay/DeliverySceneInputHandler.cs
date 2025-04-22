@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class DeliverySceneInputHandler : MonoBehaviour
@@ -8,20 +9,20 @@ public class DeliverySceneInputHandler : MonoBehaviour
 
     private InputActions.DeliveryGameplayActions _deliveryGameplayInputActions;
     public InputActions.DeliveryGameplayActions DeliveryGameplayInputActions => _deliveryGameplayInputActions;
-    
+
     private InputActions.UIActions _uiInputActions;
     public InputActions.UIActions UIInputActions => _uiInputActions;
-    
+
     [SerializeField] private GameObject _phoneUI;
 
     private void Awake()
     {
         _playerInput = new InputActions();
         _mainCamera = Camera.main;
-        
+
         _deliveryGameplayInputActions = _playerInput.DeliveryGameplay;
         _uiInputActions = _playerInput.UI;
-        
+
         _deliveryGameplayInputActions.Click.performed += OnClickScenePerformed;
         _deliveryGameplayInputActions.TogglePhone.performed += TogglePhoneFromInput;
     }
@@ -56,7 +57,7 @@ public class DeliverySceneInputHandler : MonoBehaviour
             }
         }
     }
-    
+
     private void TogglePhoneFromInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -64,7 +65,7 @@ public class DeliverySceneInputHandler : MonoBehaviour
             TogglePhone();
         }
     }
-    
+
     public void ShowPhoneUI(bool show)
     {
         if (_phoneUI != null)
@@ -79,5 +80,10 @@ public class DeliverySceneInputHandler : MonoBehaviour
         {
             _phoneUI.SetActive(!_phoneUI.activeInHierarchy);
         }
+    }
+
+    public bool IsPointerOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId);
     }
 }

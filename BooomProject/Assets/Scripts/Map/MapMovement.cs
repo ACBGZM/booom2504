@@ -15,7 +15,7 @@ public class MapMovement : MonoBehaviour
     private float lastMapPosX;
     private float lastMapPosY;
     // public float lastScale;
-    // public bool draging;
+    private bool _isDragging;
     public Vector2 dragStartPos;
 
     private InputAction _zoomInputAction;
@@ -50,7 +50,7 @@ public class MapMovement : MonoBehaviour
     }
 #endif
 */
-    
+
     void Awake()
     {
         mapCurrentScreenCorners = new Vector2[mapWorldCorners.Count];
@@ -68,13 +68,16 @@ public class MapMovement : MonoBehaviour
         _dragInputAction.canceled += StopDrag;
     }
 
+
+
     void Update()
     {
-        //Debug.Log(Mouse.current);
-        //Debug.Log(Keyboard.current);
-        //print(Mouse.current.position.ReadValue());
-     //   print(mapCurrentScreenCorners[0].x);
-        // 更新地图边界映射到屏幕
+        if (GameManager.Instance.DeliverySceneInputHandler.IsPointerOverUI())
+        {
+            _isDragging = false;
+            return;
+        }
+
         Zoom();
         Movement();
         Drag();
@@ -185,16 +188,18 @@ public class MapMovement : MonoBehaviour
     
     private void StartDrag(InputAction.CallbackContext context)
     {
+        _isDragging = true;
         dragStartPos = _camera.ScreenToWorldPoint(_inputPositionAction.ReadValue<Vector2>());
     }
     
     private void StopDrag(InputAction.CallbackContext context)
     {
+        _isDragging = false;
     }
     
     private void Drag()
     {
-        if (_dragInputAction.IsPressed())
+        if (_isDragging && _dragInputAction.IsPressed())
         {
             Vector2 currentPos = _camera.ScreenToWorldPoint(_inputPositionAction.ReadValue<Vector2>());
             Vector2 diff = dragStartPos - currentPos;
