@@ -7,13 +7,6 @@ public class DeliveryPlayer : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _moveDuration = 0f;
     [SerializeField] private bool _useSpeed = true;
-    
-    public enum DeliveryPlayerState
-    {
-        Idle,
-        Moving,
-    }
-    [SerializeField] private DeliveryPlayerState _state = DeliveryPlayerState.Idle;
 
     public void Start()
     {
@@ -22,11 +15,6 @@ public class DeliveryPlayer : MonoBehaviour
 
     public bool Move(Vector3[] path, Action onComplete = null)
     {
-        if (_state == DeliveryPlayerState.Moving)
-        {
-            return false;
-        }
-
         if (path == null || path.Length < 2)
         {
             return false;
@@ -40,8 +28,6 @@ public class DeliveryPlayer : MonoBehaviour
 
     private IEnumerator MoveAlongPath(Vector3[] path, Action onComplete = null)
     {
-        _state = DeliveryPlayerState.Moving;
-        
         float totalDistance = 0f;
         for (int i = 1; i < path.Length; i++)
         {
@@ -51,7 +37,6 @@ public class DeliveryPlayer : MonoBehaviour
         float totalTime = _useSpeed ? totalDistance / _moveSpeed : _moveDuration;
         if (totalTime <= 0)
         {
-            _state = DeliveryPlayerState.Idle;
             yield break;
         }
 
@@ -81,18 +66,18 @@ public class DeliveryPlayer : MonoBehaviour
 
         transform.position = path[^1];
         
-        onComplete?.Invoke();
-        
         StopMoving();
         
-        _state = DeliveryPlayerState.Idle;
+        onComplete?.Invoke();
     }
     
     private void StartMoving()
     {
+        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerMoving;
     }
 
     private void StopMoving()
     {
+        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerIdle;
     }
 }

@@ -63,7 +63,7 @@ public class DialogueBox : MonoBehaviour
     {
         if (m_is_show_finished)
         {
-            if (Input.GetButtonDown("Cancel"))
+            if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Cancel.triggered)
             {
                 m_is_interactable = false;
                 m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
@@ -71,7 +71,7 @@ public class DialogueBox : MonoBehaviour
 
                 m_next_text_status_action(true);
             }
-            else if (Input.GetButtonDown("Submit"))
+            else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
             {
                 m_is_interactable = false;
                 m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
@@ -82,14 +82,14 @@ public class DialogueBox : MonoBehaviour
         }
         else
         {
-            if (Input.GetButtonDown("Cancel"))
+            if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Cancel.triggered)
             {
                 if (m_text_can_skip)
                 {
                     m_text_content.QuickShowRemainingText();
                 }
             }
-            else if (Input.GetButtonDown("Submit"))
+            else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
             {
                 if (m_text_can_skip)
                 {

@@ -1,0 +1,6 @@
+*.cs text eol=crlf
+*.shader text eol=crlf
+*.txt text eol=crlf
+*.meta text eol=crlf
+*.inputactions text eol=crlf
+*.asset text eol=crlf
