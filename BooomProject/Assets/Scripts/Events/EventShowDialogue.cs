@@ -12,6 +12,7 @@ public class EventShowDialogue : EventNodeBase
     {
         base.Execute();
         DialogueUIManager.OpenDialogueBox(ShowDialogueText, m_dialogues.First());
+        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
     }
 
     public void ShowDialogueText()

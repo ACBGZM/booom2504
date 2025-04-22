@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -14,12 +15,51 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private NodeGraphManager _nodeGraphManager;
     public NodeGraphManager NodeGraphManager => _nodeGraphManager;
 
-    [SerializeField] private DeliveryInputHandler _deliveryInputHandler;
-    public DeliveryInputHandler DeliveryInputHandler => _deliveryInputHandler;
+    [SerializeField] private DeliverySceneInputHandler _deliverySceneInputHandler;
+    public DeliverySceneInputHandler DeliverySceneInputHandler => _deliverySceneInputHandler;
 
     [SerializeField] private GameSceneManager _sceneManager;
     public GameSceneManager SceneManager => _sceneManager;
-    
+
+    // todo: currently dialogue ui manager is a singleton
+    // [SerializeField] private DialogueUIManager _dialogueUIManager;
+    // public DialogueUIManager DialogueUIManager => _dialogueUIManager;
+
+    public enum DeliveryGameplayState
+    {
+        PlayerIdle,
+        PlayerMoving,
+        InCutscene,
+    }
+
+    private DeliveryGameplayState _gameplayState = DeliveryGameplayState.PlayerIdle;
+
+    public DeliveryGameplayState GameplayState
+    {
+        get => _gameplayState;
+        set
+        {
+            _gameplayState = value;
+            switch (_gameplayState)
+            {
+                case DeliveryGameplayState.PlayerIdle:
+                    _deliverySceneInputHandler.UIInputActions.Enable();
+                    _deliverySceneInputHandler.DeliveryGameplayInputActions.Enable();
+                    break;
+                case DeliveryGameplayState.PlayerMoving:
+                    _deliverySceneInputHandler.UIInputActions.Disable();
+                    _deliverySceneInputHandler.DeliveryGameplayInputActions.Disable();
+                    _deliverySceneInputHandler.DeliveryGameplayInputActions.TogglePhone.Enable();
+                    break;
+                case DeliveryGameplayState.InCutscene:
+                    _deliverySceneInputHandler.UIInputActions.Enable();
+                    _deliverySceneInputHandler.DeliveryGameplayInputActions.Disable();
+                    _deliverySceneInputHandler.ShowPhoneUI(false);
+                    break;
+            }
+        }
+    }
+
     public void QuitGame()
     {
 #if UNITY_EDITOR

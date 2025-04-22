@@ -1,21 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DeliveryInputHandler : MonoBehaviour
+public class DeliverySceneInputHandler : MonoBehaviour
 {
     private Camera _mainCamera;
     private InputActions _playerInput;
-    private InputAction _clickAction;
-    private InputAction _togglePhoneAction;
+
+    private InputActions.DeliveryGameplayActions _deliveryGameplayInputActions;
+    public InputActions.DeliveryGameplayActions DeliveryGameplayInputActions => _deliveryGameplayInputActions;
+    
+    private InputActions.UIActions _uiInputActions;
+    public InputActions.UIActions UIInputActions => _uiInputActions;
 
     [SerializeField] private GameObject _phoneUI;
 
     private void Awake()
     {
         _playerInput = new InputActions();
-        _clickAction = _playerInput.DeliveryGameplay.Click;
-        _togglePhoneAction = _playerInput.DeliveryGameplay.TogglePhone;
         _mainCamera = Camera.main;
+        
+        _deliveryGameplayInputActions = _playerInput.DeliveryGameplay;
+        _uiInputActions = _playerInput.UI;
         
         _playerInput.Enable();
     }
@@ -27,17 +32,17 @@ public class DeliveryInputHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        _clickAction.performed += OnClickPerformed;
-        _togglePhoneAction.performed += TogglePhoneFromInput;
+        _deliveryGameplayInputActions.Click.performed += OnClickScenePerformed;
+        _deliveryGameplayInputActions.TogglePhone.performed += TogglePhoneFromInput;
     }
 
     private void OnDisable()
     {
-        _clickAction.performed -= OnClickPerformed;
-        _togglePhoneAction.performed -= TogglePhoneFromInput;
+        _deliveryGameplayInputActions.Click.performed -= OnClickScenePerformed;
+        _deliveryGameplayInputActions.TogglePhone.performed -= TogglePhoneFromInput;
     }
 
-    private void OnClickPerformed(InputAction.CallbackContext context)
+    private void OnClickScenePerformed(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
