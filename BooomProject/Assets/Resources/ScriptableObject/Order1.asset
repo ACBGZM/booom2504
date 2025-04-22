@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06e33720b1883a4ba650714e43b1430, type: 3}
+  m_Name: Order1
+  m_EditorClassIdentifier: 
+  customerSO: {fileID: 11400000, guid: fbabe42bc2bbe9748abb4df782fe02ba, type: 2}
+  orderTitle: "\u5269\u4F59123\u5206\u949F"
+  orderAddress: "\u795E\u4EBA\u5546\u4E1A\u533A"
+  orderDistance: 30
+  range: 1
+  reward: 3
+  bubble: "\u90A3\u6211\u95EE\u4F60"

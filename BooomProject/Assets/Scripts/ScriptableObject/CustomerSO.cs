@@ -9,6 +9,8 @@ public class CustomerSO : ScriptableObject {
     public Sprite customerProfile;
     [Tooltip("顾客姓名")]
     public string customerName;
+    [Tooltip("顾客地址")]
+    public string customerAddressName;
     [Tooltip("顾客详细地址")]
     public string customerAddress;
 }
