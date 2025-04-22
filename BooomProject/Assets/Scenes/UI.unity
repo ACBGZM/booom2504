@@ -3447,8 +3447,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6211\u7684\u8BA2\u5355"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6979,8 +6979,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u63A5\u5355"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9674,8 +9674,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u4E2A\u4EBA\u4FE1\u606F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10170,9 +10170,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65b4e2049bcf924ca1205911b0fc7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftItem: {fileID: 0}
-  rightItem: {fileID: 0}
-  history: []
+  leftItem: {fileID: 2697887541630828653, guid: 78dd71fa33ce5a443a4f67cdc244706c, type: 3}
+  rightItem: {fileID: 481371641874779726, guid: 184221cc1b25ddc41b1009ce4233905d, type: 3}
+  history:
+  - chatTitle: 
+    time: "18\uFF1A50"
+    icon: {fileID: 21300000, guid: 100581cda51e5694d911c1da84326478, type: 3}
+    content: "\u4F60\u662F\u8C01"
+    left: 1
+  - chatTitle: 
+    time: "18\uFF1A52"
+    icon: {fileID: 21300000, guid: d8ba28819d8c7c14aa2af7cea090771d, type: 3}
+    content: "\u6211\u662F\u4F60\u7239"
+    left: 0
   customerName: 
   shopIcon: {fileID: 0}
   customerIcon: {fileID: 0}
