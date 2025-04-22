@@ -29,6 +29,8 @@ public class GameplaySettings {
     public const float m_next_cursor_fade_duration = 0.5f;
     public const float m_response_fade_in_duration = 0.5f;
     public const float m_response_fade_out_duration = 0.5f;
+    public const string m_response_button_prefab_path = "Prefabs/ResponseButton";
+    public const string m_ruby_prefab_path = "Prefabs/RubyText";
     #endregion
 
     #region Dice

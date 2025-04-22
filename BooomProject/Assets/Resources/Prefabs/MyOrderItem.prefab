@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5010008739471173298}
   - component: {fileID: 7489094281864840001}
   m_Layer: 5
-  m_Name: contactButton
+  m_Name: ContactButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 6116529172768213608}
   - component: {fileID: 726347302639498599}
   m_Layer: 5
-  m_Name: bubble
+  m_Name: Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 228303548149966643}
   - component: {fileID: 5602999886033782210}
   m_Layer: 5
-  m_Name: contactIcon
+  m_Name: ContactIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 3211105145190349322}
   - component: {fileID: 350568517281472711}
   m_Layer: 5
-  m_Name: customerAddress
+  m_Name: CustomerAddress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,8 +434,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "XX\u533AXX\u8DEFXX\u8857XX\u53F7"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 8765640581741440678}
   - component: {fileID: 6470814630561554008}
   m_Layer: 5
-  m_Name: orderName
+  m_Name: OrderName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -569,8 +569,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u8D85\u7EDD\u9EBB\u9171\u62CC\u9762\uFF01"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -703,8 +703,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u672C\u5355\u5956\u52B1\uFF1A"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 8362013368714201685}
   - component: {fileID: 392652342500821325}
   m_Layer: 5
-  m_Name: punctuation (2)
+  m_Name: Punctuation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 667761224381267356}
   - component: {fileID: 9089343335143843076}
   m_Layer: 5
-  m_Name: punctuation (1)
+  m_Name: Punctuation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 5478685680831188359}
   - component: {fileID: 5820324672453163741}
   m_Layer: 5
-  m_Name: orderAddress
+  m_Name: OrderAddress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1062,8 +1062,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "XX\u533AXX\u8DEFXX\u8857XX\u53F7"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1196,8 +1196,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u54E6\uFF1F\u53C8\u662F\u4F60\u6765\u63A5\u5355\u3002\u6709\u7A7A\u6765\u5403\u7897\u9762\uFF0C\u591A\u7ED9\u4F60\u52A0\u9EBB\u9171\uFF01"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1350,7 +1350,7 @@ GameObject:
   - component: {fileID: 3786924183628384863}
   - component: {fileID: 180048252537033419}
   m_Layer: 5
-  m_Name: customerAddressName
+  m_Name: CustomerAddressName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1406,8 +1406,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6211\u7684\u5FEB\u4E50\u5C0F\u5C4B\uFF01"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1540,8 +1540,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5269\u4F59 220 \u5206\u949F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1617,7 +1617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9065287078432482974}
   m_Layer: 5
-  m_Name: orderInformation
+  m_Name: OrderInformation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1735,7 +1735,7 @@ GameObject:
   - component: {fileID: 657362963429179209}
   - component: {fileID: 8857247299908282606}
   m_Layer: 5
-  m_Name: reward
+  m_Name: Reward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1812,7 +1812,7 @@ GameObject:
   - component: {fileID: 4893524257159036856}
   - component: {fileID: 6531768840427567984}
   m_Layer: 5
-  m_Name: myOrderTitle
+  m_Name: MyOrderTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1888,7 +1888,7 @@ GameObject:
   - component: {fileID: 3685553007765219425}
   - component: {fileID: 5288253544446842014}
   m_Layer: 5
-  m_Name: phoneIcon
+  m_Name: PhoneCallIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2016,10 +2016,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u8054 \u7CFB \u987E \u5BA2"
+  m_text: "\u8054\u7CFB\u987E\u5BA2"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
-  m_sharedMaterial: {fileID: 878925840343458469, guid: 81587de3486955c4bab3f450295f48a0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
+  m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2053,7 +2053,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 10
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2097,7 +2097,7 @@ GameObject:
   - component: {fileID: 6263697081240757071}
   - component: {fileID: 2622267044776237492}
   m_Layer: 5
-  m_Name: profileImage
+  m_Name: ProfileImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
