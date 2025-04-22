@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -48,8 +47,8 @@ public class GameManager : Singleton<GameManager>
                     break;
                 case DeliveryGameplayState.PlayerMoving:
                     _deliverySceneInputHandler.UIInputActions.Disable();
-                    _deliverySceneInputHandler.DeliveryGameplayInputActions.Disable();
-                    _deliverySceneInputHandler.DeliveryGameplayInputActions.TogglePhone.Enable();
+                    _deliverySceneInputHandler.DeliveryGameplayInputActions.Enable();
+                    _deliverySceneInputHandler.DeliveryGameplayInputActions.Click.Disable();
                     break;
                 case DeliveryGameplayState.InCutscene:
                     _deliverySceneInputHandler.UIInputActions.Enable();

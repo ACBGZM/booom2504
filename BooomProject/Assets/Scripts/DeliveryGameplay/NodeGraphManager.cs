@@ -104,10 +104,13 @@ public class NodeGraphManager : MonoBehaviour
     {
         if (CurrentNode.AdjacentNodes.ContainsKey(targetNode))
         {
+            ShowCanMoveNodes(CurrentNode, false);
+            targetNode.ShowIsMovingTo(true);
+
             GameManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
             , () => 
             {
-                ShowCanMoveNodes(CurrentNode, false);
+                targetNode.ShowIsMovingTo(false);
                 _currentNodeID = targetNode.NodeID;
                 ShowCanMoveNodes(targetNode, true);
 
