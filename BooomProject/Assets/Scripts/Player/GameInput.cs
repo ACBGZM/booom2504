@@ -24,6 +24,7 @@ public class GameInput : MonoBehaviour {
     }
 
     public Vector2 GetMovement() {
+        Debug.Log("GameInputs" + _inputActions.BaseCampGameplay.Move.ReadValue<Vector2>().normalized);
         return _inputActions.BaseCampGameplay.Move.ReadValue<Vector2>().normalized;
     }
 

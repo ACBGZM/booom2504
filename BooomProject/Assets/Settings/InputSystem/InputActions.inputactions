@@ -125,7 +125,7 @@
                     "id": "d01c9a1c-e561-4bd0-b65c-31d9209adf86",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -136,6 +136,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "InputPosition",
+                    "type": "Value",
+                    "id": "0ed5262d-2e7f-47f2-a48d-e398981c35cb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ZoomMap",
+                    "type": "Value",
+                    "id": "393d5004-ebe3-4827-963a-039b055711e3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "DragMap",
+                    "type": "Button",
+                    "id": "6b01e61f-b9ff-4b78-bbec-101b171bc544",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RestoreCamera",
+                    "type": "Button",
+                    "id": "295fe827-33f0-4e42-99fa-7b5147cbd304",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -143,7 +179,7 @@
                     "name": "",
                     "id": "80241767-fe0c-4c9a-bc60-81b0a6572cc1",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Click",
@@ -158,6 +194,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "TogglePhone",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8d1aa1f-86b8-4c6c-8e84-8891910e4ffd",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InputPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b0d4133-db1c-4c71-b7dc-c97b42f525dc",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ZoomMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e78624f-e6ec-4c24-8cea-ddf140a3d797",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "905fd82b-4bd5-4a98-93e4-66db3ac588d9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RestoreCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -239,54 +319,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "MapActions",
-            "id": "670bb53b-bee7-432f-8b07-b68581089748",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "e34a911b-4931-4b8e-b916-a848f44ba54a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MousePosition",
-                    "type": "Value",
-                    "id": "9758c66c-2187-4e36-9260-2468d765673c",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "Tap",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "ce1c5d83-06ec-4e8c-b239-da23c9988d9d",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4fbbb964-aafc-4dd7-babc-1e2952a2b7f4",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

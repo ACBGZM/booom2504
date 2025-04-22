@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class DeliverySceneInputHandler : MonoBehaviour
@@ -8,7 +9,7 @@ public class DeliverySceneInputHandler : MonoBehaviour
 
     private InputActions.DeliveryGameplayActions _deliveryGameplayInputActions;
     public InputActions.DeliveryGameplayActions DeliveryGameplayInputActions => _deliveryGameplayInputActions;
-    
+
     private InputActions.UIActions _uiInputActions;
     public InputActions.UIActions UIInputActions => _uiInputActions;
 
@@ -18,28 +19,28 @@ public class DeliverySceneInputHandler : MonoBehaviour
     {
         _playerInput = new InputActions();
         _mainCamera = Camera.main;
-        
+
         _deliveryGameplayInputActions = _playerInput.DeliveryGameplay;
         _uiInputActions = _playerInput.UI;
-        
-        _playerInput.Enable();
-    }
 
-    private void OnDestroy()
-    {
-        _playerInput.Disable();
-    }
-
-    private void OnEnable()
-    {
         _deliveryGameplayInputActions.Click.performed += OnClickScenePerformed;
         _deliveryGameplayInputActions.TogglePhone.performed += TogglePhoneFromInput;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _deliveryGameplayInputActions.Click.performed -= OnClickScenePerformed;
         _deliveryGameplayInputActions.TogglePhone.performed -= TogglePhoneFromInput;
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
     }
 
     private void OnClickScenePerformed(InputAction.CallbackContext context)
@@ -56,7 +57,7 @@ public class DeliverySceneInputHandler : MonoBehaviour
             }
         }
     }
-    
+
     private void TogglePhoneFromInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -64,7 +65,7 @@ public class DeliverySceneInputHandler : MonoBehaviour
             TogglePhone();
         }
     }
-    
+
     public void ShowPhoneUI(bool show)
     {
         if (_phoneUI != null)
@@ -79,5 +80,10 @@ public class DeliverySceneInputHandler : MonoBehaviour
         {
             _phoneUI.SetActive(!_phoneUI.activeInHierarchy);
         }
+    }
+
+    public bool IsPointerOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId);
     }
 }

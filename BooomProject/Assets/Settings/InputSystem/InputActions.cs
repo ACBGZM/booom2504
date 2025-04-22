@@ -147,7 +147,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""id"": ""d01c9a1c-e561-4bd0-b65c-31d9209adf86"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -158,6 +158,42 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InputPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""0ed5262d-2e7f-47f2-a48d-e398981c35cb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ZoomMap"",
+                    ""type"": ""Value"",
+                    ""id"": ""393d5004-ebe3-4827-963a-039b055711e3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DragMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b01e61f-b9ff-4b78-bbec-101b171bc544"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RestoreCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""295fe827-33f0-4e42-99fa-7b5147cbd304"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,7 +201,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""80241767-fe0c-4c9a-bc60-81b0a6572cc1"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Tap"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Click"",
@@ -180,6 +216,50 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TogglePhone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8d1aa1f-86b8-4c6c-8e84-8891910e4ffd"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InputPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b0d4133-db1c-4c71-b7dc-c97b42f525dc"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e78624f-e6ec-4c24-8cea-ddf140a3d797"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DragMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""905fd82b-4bd5-4a98-93e4-66db3ac588d9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestoreCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -265,54 +345,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""MapActions"",
-            ""id"": ""670bb53b-bee7-432f-8b07-b68581089748"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""e34a911b-4931-4b8e-b916-a848f44ba54a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MousePosition"",
-                    ""type"": ""Value"",
-                    ""id"": ""9758c66c-2187-4e36-9260-2468d765673c"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": ""Tap"",
-                    ""initialStateCheck"": true
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""ce1c5d83-06ec-4e8c-b239-da23c9988d9d"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4fbbb964-aafc-4dd7-babc-1e2952a2b7f4"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": []
@@ -325,14 +357,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_DeliveryGameplay = asset.FindActionMap("DeliveryGameplay", throwIfNotFound: true);
         m_DeliveryGameplay_Click = m_DeliveryGameplay.FindAction("Click", throwIfNotFound: true);
         m_DeliveryGameplay_TogglePhone = m_DeliveryGameplay.FindAction("TogglePhone", throwIfNotFound: true);
+        m_DeliveryGameplay_InputPosition = m_DeliveryGameplay.FindAction("InputPosition", throwIfNotFound: true);
+        m_DeliveryGameplay_ZoomMap = m_DeliveryGameplay.FindAction("ZoomMap", throwIfNotFound: true);
+        m_DeliveryGameplay_DragMap = m_DeliveryGameplay.FindAction("DragMap", throwIfNotFound: true);
+        m_DeliveryGameplay_RestoreCamera = m_DeliveryGameplay.FindAction("RestoreCamera", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-        // MapActions
-        m_MapActions = asset.FindActionMap("MapActions", throwIfNotFound: true);
-        m_MapActions_Newaction = m_MapActions.FindAction("New action", throwIfNotFound: true);
-        m_MapActions_MousePosition = m_MapActions.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -340,7 +372,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_BaseCampGameplay.enabled, "This will cause a leak and performance issues, InputActions.BaseCampGameplay.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_DeliveryGameplay.enabled, "This will cause a leak and performance issues, InputActions.DeliveryGameplay.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputActions.UI.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_MapActions.enabled, "This will cause a leak and performance issues, InputActions.MapActions.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -458,12 +489,20 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IDeliveryGameplayActions> m_DeliveryGameplayActionsCallbackInterfaces = new List<IDeliveryGameplayActions>();
     private readonly InputAction m_DeliveryGameplay_Click;
     private readonly InputAction m_DeliveryGameplay_TogglePhone;
+    private readonly InputAction m_DeliveryGameplay_InputPosition;
+    private readonly InputAction m_DeliveryGameplay_ZoomMap;
+    private readonly InputAction m_DeliveryGameplay_DragMap;
+    private readonly InputAction m_DeliveryGameplay_RestoreCamera;
     public struct DeliveryGameplayActions
     {
         private @InputActions m_Wrapper;
         public DeliveryGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Click => m_Wrapper.m_DeliveryGameplay_Click;
         public InputAction @TogglePhone => m_Wrapper.m_DeliveryGameplay_TogglePhone;
+        public InputAction @InputPosition => m_Wrapper.m_DeliveryGameplay_InputPosition;
+        public InputAction @ZoomMap => m_Wrapper.m_DeliveryGameplay_ZoomMap;
+        public InputAction @DragMap => m_Wrapper.m_DeliveryGameplay_DragMap;
+        public InputAction @RestoreCamera => m_Wrapper.m_DeliveryGameplay_RestoreCamera;
         public InputActionMap Get() { return m_Wrapper.m_DeliveryGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -479,6 +518,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @TogglePhone.started += instance.OnTogglePhone;
             @TogglePhone.performed += instance.OnTogglePhone;
             @TogglePhone.canceled += instance.OnTogglePhone;
+            @InputPosition.started += instance.OnInputPosition;
+            @InputPosition.performed += instance.OnInputPosition;
+            @InputPosition.canceled += instance.OnInputPosition;
+            @ZoomMap.started += instance.OnZoomMap;
+            @ZoomMap.performed += instance.OnZoomMap;
+            @ZoomMap.canceled += instance.OnZoomMap;
+            @DragMap.started += instance.OnDragMap;
+            @DragMap.performed += instance.OnDragMap;
+            @DragMap.canceled += instance.OnDragMap;
+            @RestoreCamera.started += instance.OnRestoreCamera;
+            @RestoreCamera.performed += instance.OnRestoreCamera;
+            @RestoreCamera.canceled += instance.OnRestoreCamera;
         }
 
         private void UnregisterCallbacks(IDeliveryGameplayActions instance)
@@ -489,6 +540,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @TogglePhone.started -= instance.OnTogglePhone;
             @TogglePhone.performed -= instance.OnTogglePhone;
             @TogglePhone.canceled -= instance.OnTogglePhone;
+            @InputPosition.started -= instance.OnInputPosition;
+            @InputPosition.performed -= instance.OnInputPosition;
+            @InputPosition.canceled -= instance.OnInputPosition;
+            @ZoomMap.started -= instance.OnZoomMap;
+            @ZoomMap.performed -= instance.OnZoomMap;
+            @ZoomMap.canceled -= instance.OnZoomMap;
+            @DragMap.started -= instance.OnDragMap;
+            @DragMap.performed -= instance.OnDragMap;
+            @DragMap.canceled -= instance.OnDragMap;
+            @RestoreCamera.started -= instance.OnRestoreCamera;
+            @RestoreCamera.performed -= instance.OnRestoreCamera;
+            @RestoreCamera.canceled -= instance.OnRestoreCamera;
         }
 
         public void RemoveCallbacks(IDeliveryGameplayActions instance)
@@ -560,60 +623,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
-
-    // MapActions
-    private readonly InputActionMap m_MapActions;
-    private List<IMapActionsActions> m_MapActionsActionsCallbackInterfaces = new List<IMapActionsActions>();
-    private readonly InputAction m_MapActions_Newaction;
-    private readonly InputAction m_MapActions_MousePosition;
-    public struct MapActionsActions
-    {
-        private @InputActions m_Wrapper;
-        public MapActionsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_MapActions_Newaction;
-        public InputAction @MousePosition => m_Wrapper.m_MapActions_MousePosition;
-        public InputActionMap Get() { return m_Wrapper.m_MapActions; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MapActionsActions set) { return set.Get(); }
-        public void AddCallbacks(IMapActionsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_MapActionsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_MapActionsActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-            @MousePosition.started += instance.OnMousePosition;
-            @MousePosition.performed += instance.OnMousePosition;
-            @MousePosition.canceled += instance.OnMousePosition;
-        }
-
-        private void UnregisterCallbacks(IMapActionsActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-            @MousePosition.started -= instance.OnMousePosition;
-            @MousePosition.performed -= instance.OnMousePosition;
-            @MousePosition.canceled -= instance.OnMousePosition;
-        }
-
-        public void RemoveCallbacks(IMapActionsActions instance)
-        {
-            if (m_Wrapper.m_MapActionsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IMapActionsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_MapActionsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_MapActionsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public MapActionsActions @MapActions => new MapActionsActions(this);
     public interface IBaseCampGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -623,15 +632,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnClick(InputAction.CallbackContext context);
         void OnTogglePhone(InputAction.CallbackContext context);
+        void OnInputPosition(InputAction.CallbackContext context);
+        void OnZoomMap(InputAction.CallbackContext context);
+        void OnDragMap(InputAction.CallbackContext context);
+        void OnRestoreCamera(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
-    }
-    public interface IMapActionsActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
-        void OnMousePosition(InputAction.CallbackContext context);
     }
 }

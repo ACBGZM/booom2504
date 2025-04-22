@@ -8,11 +8,11 @@ public class EventCloseDialogueBox : EventNodeBase
         base.Execute();
         DialogueUIManager.CloseDialogueBox(OnDialogueBoxClosed);
         m_state = EventNodeState.Finished;
-        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerIdle;
     }
 
     public void OnDialogueBoxClosed()
     {
+        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerIdle;
         m_on_finished?.Invoke(true);
     }
 }

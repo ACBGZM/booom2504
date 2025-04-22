@@ -65,6 +65,21 @@ public class Node : MonoBehaviour, IClickable
             transform.localScale = _originalScale;
         }
     }
+    
+    public void ShowIsMovingTo(bool isMovingTo)
+    {
+        if (isMovingTo)
+        {
+            transform.DOScale(_originalScale * 1.5f, 0.3f)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.InOutSine);
+        }
+        else
+        {
+            transform.DOKill();
+            transform.localScale = _originalScale;
+        }
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
