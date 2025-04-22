@@ -39,7 +39,7 @@ public class EventTrafficLight : EventNodeBase
 
             yield return new WaitUntil(() => DialogueUIManager.GetCanShowNextDialogue());
         }
-        DialogueUIManager.CloseDialogueBox(() => { });
+       
         dialogues.Clear();
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
