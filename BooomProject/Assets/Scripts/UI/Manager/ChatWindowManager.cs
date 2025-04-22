@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
+
 // 维护聊天界面数据
 public class ChatWindowManager : Singleton<ChatWindowManager>
 {
@@ -21,6 +23,6 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
         leftItem = Resources.Load<GameObject>(GameplaySettings.left_item_prefab_path);
         rightItem = Resources.Load<GameObject>(GameplaySettings.right_item_prefab_path);
     }
-   
-     
+
+
 }

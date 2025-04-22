@@ -4,21 +4,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
 public class DiceController : MonoBehaviour
 {
 
     
     [SerializeField]
-    float rollForce = 70f;
+    float rollForce = 50f;
     [SerializeField]
-    float torqueAmount = 60f;
+    float torqueAmount = 20f;
     [SerializeField]
     float maxRollTime = 4f;
     [SerializeField]
     float minAnqularVelocity = 0.1f;
     [SerializeField]
-    float smoothTime = 0.1f;
+    float smoothTime = 0.01f;
     [SerializeField]
     float maxSpeed = 15f;
 
@@ -44,12 +45,13 @@ public class DiceController : MonoBehaviour
 
     CountdownTimer rollTimer;
     // 骰子起始位置
-    
+    [SerializeField]
     Vector3 originPosition;
+    [SerializeField]
     // 位移速度
     Vector3 currentVelocity;
     // 是否回归起始位置
-    
+    public Vector3 pos;
     bool finalize;
 
     // 骰子网格
@@ -62,7 +64,7 @@ public class DiceController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         diceSides = GetComponent<DiceSides>();
         meshCollider = GetComponent<MeshCollider>();
-        originPosition = transform.position;
+        originPosition = transform.localPosition;
         
         //  最大持续时间计数器
         rollTimer = new CountdownTimer(maxRollTime);
@@ -77,7 +79,7 @@ public class DiceController : MonoBehaviour
     }
     private void Update()
     {
-        
+        pos = transform.position;
         // 更新计数器
         rollTimer.Tick(Time.deltaTime);
         // 骰子是否投掷结束
@@ -100,6 +102,7 @@ public class DiceController : MonoBehaviour
         // 撞击粒子效果
         var particles = Instantiate(impactEffect, collision.contacts[0].point, Quaternion.identity);
         particles.transform.localScale = Vector3.one;
+        particles.transform.rotation = Quaternion.AngleAxis(90, Vector3.left);
         // 1秒后销毁
         Destroy(particles, 1f);
     }
@@ -120,9 +123,9 @@ public class DiceController : MonoBehaviour
 
     private void MoveDiceToCenter()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, originPosition, ref currentVelocity, smoothTime, maxSpeed);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, originPosition, ref currentVelocity, smoothTime);
         
-        if (InRnageof(transform.position, originPosition, 0.1f))
+        if (InRnageof(transform.localPosition, originPosition, 1f))
         {
             
             FinalizeRoll();
@@ -141,9 +144,10 @@ public class DiceController : MonoBehaviour
         //audioSource.PlayOneShot(finalResultClip);
 
         var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
-        particles.transform.localScale = Vector3.one * 5f;
-        particles.transform.position = originPosition;
-        Destroy(particles, 3f);
+        particles.transform.localScale = Vector3.one * 2.5f;
+        
+        particles.transform.rotation *= Quaternion.AngleAxis(90f, Vector3.up);
+        Destroy(particles, 2f);
 
     }
     
@@ -152,13 +156,18 @@ public class DiceController : MonoBehaviour
         if(rollTimer.IsRunning) return;
         rollTimer.Start();
     }
-   
+
+    public void OnShake()
+    {
+        if (rollTimer.IsRunning) return;
+        rollTimer.Start();
+    }
     // 重置骰子状态
     private void ResetDiceState()
     {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        transform.position = originPosition;
+        transform.localPosition = originPosition;
     }
 
     private void CalculateSides()
