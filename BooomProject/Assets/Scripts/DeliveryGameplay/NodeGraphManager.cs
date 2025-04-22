@@ -85,13 +85,7 @@ public class NodeGraphManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < nodeCnt; i++)
-        {
-            for (int j = 0; j < nodeCnt; j++)
-            {
-                print( i + " -> "+ j + "  "  + dist[i,j]);   
-            }
-        }
+        
     }
     public void Start()
     {

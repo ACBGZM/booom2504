@@ -7,7 +7,8 @@ public class Node : MonoBehaviour, IClickable
     // runtime adjacent nodes reference
 
     [SerializeField] private EventSequenceExecutor _executor;
-    
+    [SerializeField] private NodeActionType type;
+
     public virtual void ExecuteEvents()
     {
         if (_executor != null)
