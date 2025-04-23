@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450ce74c9e370a646b137095a43e8b42, type: 3}
+  m_Name: EventTrafficDice
+  m_EditorClassIdentifier: 
+  m_state: 1
+  dialogues:
+  - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u4F60\u9A91\u884C\u7ED5\u5F00\u8F66\u6D41\u7684\u8EAB\u59FF\u5982\u6B64\u77EB\u5065\uFF01\u800C\u4E14\u4F60\u6CA1\u6709\u5F15\u8D77\u4EFB\u4F55\u591A\u4F59\u7684\u5173\u6CE8\u3002\u8282\u7701\u65F6\u95F41m\uFF01"
+    m_display_method: 3
+    m_can_skip: 1
+  branch1:
+  - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u4F60\u9A91\u884C\u7ED5\u5F00\u8F66\u6D41\u7684\u8EAB\u59FF\u5982\u6B64\u77EB\u5065\uFF01\u800C\u4E14\u4F60\u6CA1\u6709\u5F15\u8D77\u4EFB\u4F55\u591A\u4F59\u7684\u5173\u6CE8\u3002"
+    m_display_method: 3
+    m_can_skip: 1
+  branch2:
+  - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u4E00\u8F86\u5927\u8D27\u8F66\u6A2A\u51B2\u8FC7\u6765\uFF0C\u4F60\u731B\u5730\u5239\u8F66\uFF0C\u60CA\u51FA\u4E86\u4E00\u8EAB\u51B7\u6C57\u3002"
+    m_display_method: 3
+    m_can_skip: 1
+  type: 3

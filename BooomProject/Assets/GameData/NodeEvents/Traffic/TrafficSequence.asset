@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TrafficSequence
   m_EditorClassIdentifier: 
   m_event_nodes:
-  - {fileID: 11400000, guid: a1402afdcd4191f49beefdde832078e5, type: 2}
+  - {fileID: 11400000, guid: 256101b5bcc11484db4bc23f9fa63ccb, type: 2}

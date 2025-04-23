@@ -3223,7 +3223,7 @@ PrefabInstance:
     - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: _executor
       value: 
-      objectReference: {fileID: 11400000, guid: 4ba7b93aa0698154993a86fcfd1e2c8b, type: 2}
+      objectReference: {fileID: 11400000, guid: bbfd81e7f70d43d4b80547bcda4662de, type: 2}
     - target: {fileID: 6100166812003589730, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.52
@@ -3691,6 +3691,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Node
       objectReference: {fileID: 0}
+    - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
+      propertyPath: _executor
+      value: 
+      objectReference: {fileID: 11400000, guid: 13dfcc6d79bb52847a41b7f05801410d, type: 2}
     - target: {fileID: 6100166812003589730, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.32
@@ -4591,9 +4599,17 @@ PrefabInstance:
       value: Node (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: _nodeID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
+      propertyPath: _executor
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b67bf28112931e41abe1e5973fa3b7d, type: 2}
     - target: {fileID: 6100166812003589730, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.62
@@ -11747,13 +11763,17 @@ PrefabInstance:
       value: Node (3)
       objectReference: {fileID: 0}
     - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
+      propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: _nodeID
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5608821155391513609, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: _executor
       value: 
-      objectReference: {fileID: 11400000, guid: 179a0086b2ff8c14ba83aaea3f8f799d, type: 2}
+      objectReference: {fileID: 11400000, guid: f813321cba114fb4c9c219fcfab9bfd3, type: 2}
     - target: {fileID: 6100166812003589730, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.26

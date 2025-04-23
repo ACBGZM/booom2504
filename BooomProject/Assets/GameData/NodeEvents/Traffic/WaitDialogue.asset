@@ -16,6 +16,6 @@ MonoBehaviour:
   m_dialogues:
   - m_speaker_name: "\u4EBAA"
     m_speaker_avatar: {fileID: 679222839, guid: aa89013d6563345999cf8b2c28bdc86b, type: 3}
-    m_text: "\u8010\u5FC3\u7B49\u5F85\u7EFF\u706F\uFF0C\u9884\u8BA1\u65F6\u95F4\u589E\u52A01m\uFF01"
+    m_text: "\u8010\u5FC3\u7B49\u5F85\u7EFF\u706F..."
     m_display_method: 3
-    m_can_skip: 0
+    m_can_skip: 1

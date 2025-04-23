@@ -8,8 +8,8 @@ public enum NodeActionType
 {
     // ÍâÂô¹ñ
     TakeoutCabinet,
-    // Ë¤ÉË
-    Hurt,
+    // ÔØ¾ß¸Ä×°
+    Refit,
     // ÖèÓê
     HeavyRain,
     // ºìÂÌµÆ
