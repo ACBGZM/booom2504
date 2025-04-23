@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ef9b82d1902c34897fcd71adc1859a, type: 3}
+  m_Name: Customer2
+  m_EditorClassIdentifier: 
+  customerProfile: {fileID: 21300000, guid: a4d021a0b724a479f8c02a5fdcb275b3, type: 3}
+  customerName: "Test\u6D4B\u8BD5-2"
+  customerAddressName: "\u6C88\u9633\u5927\u8857"
+  customerAddress: "\u53EE\u549A\u9E21"
