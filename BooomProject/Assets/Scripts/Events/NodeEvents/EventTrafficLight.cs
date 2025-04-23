@@ -1,9 +1,8 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
 [CreateAssetMenu(fileName = "EventTrafficLight", menuName = "Event/NodeActions/EventTrafficLight")]
 public class EventTrafficLight : EventNodeBase
 {
@@ -61,11 +60,11 @@ public class EventTrafficLight : EventNodeBase
             Dialogue dialogue = new Dialogue();
             if (val > 10)
             {
-                dialogue.m_text = string.Format("你掷出了'{0}'点！大成功！时间节省 1m！", val);
+                dialogue.m_text = string.Format("你骑行绕开车流的身姿如此矫健！而且你没有引起任何多余的关注。时间节省 1m！");
             }
             else
             {
-                dialogue.m_text = string.Format("你掷出了'{0}'点！大失败！时间增加 1m！", val);
+                dialogue.m_text = string.Format("一辆大货车横冲过来，你猛地刹车，惊出了一身冷汗。时间增加 3m！");
             }
 
             dialogues.Add(dialogue);

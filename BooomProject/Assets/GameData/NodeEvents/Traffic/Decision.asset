@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45208a98f3eec24a84b76ba2b17e5c6, type: 3}
   m_Name: Decision
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 1
   m_responses:
   - m_text: "\u95EF\u7EA2\u706F\uFF01"
     m_executor: {fileID: 11400000, guid: 179a0086b2ff8c14ba83aaea3f8f799d, type: 2}
