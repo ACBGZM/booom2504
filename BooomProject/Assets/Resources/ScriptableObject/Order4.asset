@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Order4
   m_EditorClassIdentifier: 
   customerSO: {fileID: 11400000, guid: ecb2473d525ab29439045d87c4cb900e, type: 2}
-  orderTitle: "\u5269\u4F5966\u5206\u949F"
+  orderTitle: I
   orderAddress: "\u795E\u4EBA\u5546\u4E1A\u533A4"
   orderDistance: 32
   range: 2
