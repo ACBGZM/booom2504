@@ -4,9 +4,10 @@ public class GameplaySettings {
     #region player
     public const float m_walk_speed = 6.0f;
     public const float m_acceleration_Time = 0.05f;     // 达到最快速度的时间
-                                                        // player triggered fade
-                                                        //public const float m_fade_duration = 0.35f;
-                                                        //public const float m_target_alpha = 0.45f;
+    public const string ANIMATOR_BOOL_IS_WALKING = "IsWalking";
+    // player triggered fade
+    //public const float m_fade_duration = 0.35f;
+    //public const float m_target_alpha = 0.45f;
     #endregion
 
     #region Delivery

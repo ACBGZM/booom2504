@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -5,17 +6,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class OrderManager : MonoBehaviour {
+    public event Action<OrderSO> OnChatWindowOpen;
     [SerializeField] private List<OrderSO> _allOrders;
     [SerializeField] private Transform _orderTemplatePrefab;
+    [SerializeField] private Transform _myOrderTemplatePrefab;
     [SerializeField] private Transform _availableOrderContainer;
     [SerializeField] private Transform _acceptedOrderContainer;
 
     private List<OrderSO> _availableOrders; // 可用订单
-    private List<OrderSO> _acceptedOrders;// 已接订单列表
+    private List<OrderSO> _acceptedOrders;  // 已接订单列表
 
     private void Awake() {
-        _availableOrders=new List<OrderSO>();
-        _acceptedOrders=new List<OrderSO>();
+        _availableOrders = new List<OrderSO>();
+        _acceptedOrders = new List<OrderSO>();
     }
 
     private void Start() => SortOrders();
@@ -67,9 +70,47 @@ public class OrderManager : MonoBehaviour {
         m_addressText.text = addressText;
         return order;
     }
-    public Transform GenerateAcceptOrder() {
-        //_----------------------------_
-        return null;
+
+    public void GenerateAcceptOrder() {
+        for (int i = 0; i < _acceptedOrderContainer.childCount; i++) {
+            Destroy(_acceptedOrderContainer.GetChild(i).gameObject);
+        }
+
+        foreach (var orderSO in _acceptedOrders) {
+            Transform order = Instantiate(_myOrderTemplatePrefab, _acceptedOrderContainer);
+            //TextMeshProUGUI m_nameText = order.transform.Find("OrderTitle/Text").gameObject.GetComponent<TextMeshProUGUI>();
+            Image m_profileImage = order.transform.Find("ProfileImage").gameObject.GetComponent<Image>();
+            Image m_rewardImage = order.transform.Find("Reward/Image").gameObject.GetComponent<Image>();
+            GameObject m_reward = order.transform.Find("Reward").gameObject;
+
+            TextMeshProUGUI m_orderTitleText = order.transform.Find("OrderInformation/OrderTitle").gameObject.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI m_orderAddressText = order.transform.Find("OrderInformation/OrderAddress").gameObject.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI m_customerAddressNameText = order.transform.Find("OrderInformation/CustomerAddressName").gameObject.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI m_customerAddressText = order.transform.Find("OrderInformation/CustomerAddress").gameObject.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI m_BubbleText = order.transform.Find("Bubble/Text").gameObject.GetComponent<TextMeshProUGUI>();
+
+            m_profileImage.sprite = orderSO.customerSO.customerProfile;
+            m_orderTitleText.text = orderSO.orderTitle;
+            m_orderAddressText.text = orderSO.orderAddress;
+            m_customerAddressNameText.text = orderSO.customerSO.customerAddressName;
+            m_customerAddressText.text = orderSO.customerSO.customerAddress;
+            m_BubbleText.text = orderSO.bubble;
+            for (int i = 0; i < orderSO.reward; i++) {
+                Instantiate(m_rewardImage, m_reward.transform);
+            }
+
+            Button btn = order.GetComponentInChildren<Button>();
+            btn.onClick.RemoveAllListeners();
+            btn.onClick.AddListener(() => OnChatWithCustormer(orderSO));
+        }
+    }
+
+    private void OnChatWithCustormer(OrderSO order) {
+        OnChatWindowOpen?.Invoke(order);
+    }
+
+    public List<OrderSO> GetAcceptedOrderSO() {
+        return _acceptedOrders;
     }
 
     // 接单按钮点击事件
@@ -91,6 +132,6 @@ public class OrderManager : MonoBehaviour {
         Destroy(orderItem.gameObject);
 
         // 将订单重新加入可用列表
-        // _availableOrders.Add(order);
+        _availableOrders.Add(order);
     }
 }
