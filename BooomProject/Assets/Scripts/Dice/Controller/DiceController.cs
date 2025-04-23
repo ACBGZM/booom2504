@@ -1,11 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
-using TMPro;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
 public class DiceController : MonoBehaviour
 {
@@ -42,8 +37,7 @@ public class DiceController : MonoBehaviour
     DiceSides diceSides;
     AudioSource audioSource;
     Rigidbody rb;
-    [SerializeField]
-    TMP_Text result;
+    
     CountdownTimer rollTimer;
     // 骰子起始位置
     [SerializeField]
@@ -54,16 +48,14 @@ public class DiceController : MonoBehaviour
     // 是否回归起始位置
     public Vector3 pos;
     bool finalize;
-
     // 骰子网格
     MeshCollider meshCollider;
-    
-    public int idx;
+
+    // public int idx;
+
     private void Awake()
     {
-        
-        
-        
+
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         diceSides = GetComponent<DiceSides>();
@@ -75,26 +67,23 @@ public class DiceController : MonoBehaviour
         
         rollTimer.OnTimerStart += PerformInitialRoll;
         rollTimer.OnTimerStop += () => finalize = true;
-        result.text = string.Empty;
+       
         CalculateSides();
     }
-    private void OnDisable()
-    {
-        result.text = string.Empty; 
-    }
+  
+  
     public void Show(int idx)
     {
         transform.rotation = diceSides.GetWorldRotationFor(idx);
     }
     private void Update()
     {
-        pos = transform.position;
+        
         // 更新计数器
         rollTimer.Tick(Time.deltaTime);
         // 骰子是否投掷结束
         if (finalize)
         {
-
             MoveDiceToCenter();
         }
     }
@@ -122,7 +111,7 @@ public class DiceController : MonoBehaviour
         // 随机施力方向
         //  Vector3 targetPos = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         //  Vector3 dir = (targetPos - transform.position).normalized;
-        result.text = string.Empty;
+       
         Vector3 dir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
         rb.AddForce(dir * rollForce,ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * torqueAmount, ForceMode.Impulse);
@@ -149,12 +138,16 @@ public class DiceController : MonoBehaviour
         print(diceSides.GetMatch());
         ResetDiceState();
 
-        audioSource.loop = false;
+        
         audioSource.Stop();
+        audioSource.loop = false;
+        audioSource.clip = null;
+
+        EventHandlerManager.CallRollFinish(diceSides.GetMatch());
         //audioSource.PlayOneShot(finalResultClip);
-        result.text = diceSides.GetMatch().ToString();
+  
         var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
-        particles.transform.localScale = Vector3.one * 2.5f;
+        particles.transform.localScale = Vector3.one * 1.5f;
         
         particles.transform.rotation *= Quaternion.AngleAxis(90f, Vector3.up);
         Destroy(particles, 2f);

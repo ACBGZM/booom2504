@@ -17,8 +17,6 @@ public class EventTrafficLight : EventNodeBase
     }
 
 
-
-
     public void ShowDialogueText()
     {
         DialogueUIManager.GetInstance().StartCoroutine(StepThroughDialogueDataList());
@@ -39,22 +37,27 @@ public class EventTrafficLight : EventNodeBase
 
             yield return new WaitUntil(() => DialogueUIManager.GetCanShowNextDialogue());
         }
-       
+        DiceUIManager.Instance.HideMe();
         dialogues.Clear();
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
     }
     public IEnumerator DiceShake()
     {
-        Button startBtn = DiceUIManager.Instance.diceCanvas.GetComponentInChildren<Button>();
-        TMP_Text result = DiceUIManager.Instance.diceCanvas.GetComponentInChildren<TMP_Text>();
-        startBtn.onClick.Invoke();
-        yield return new WaitUntil(() => !result.text.Equals(string.Empty));
+     
+        // 骰子触发 需手动点击roll
+       
+        // 状态改为触发剧情
+        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
+
+        yield return new WaitUntil(() => DiceUIManager.Instance.val != 0);
         
-        if (!result.text.Equals(string.Empty))
+        // 骰子结果动画
+        yield return new WaitForSeconds(2);
+        if (DiceUIManager.Instance.val != 0)
         {
 
-            int val = int.Parse(result.text);
+            int val = DiceUIManager.Instance.val;
             Dialogue dialogue = new Dialogue();
             if (val > 10)
             {
@@ -69,8 +72,8 @@ public class EventTrafficLight : EventNodeBase
         }
         DialogueUIManager.OpenDialogueBox(ShowDialogueText, dialogues[0]);
         
-        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
+        
        
-        DiceUIManager.Instance.HideMe();
+        
     }
 }
