@@ -12,6 +12,7 @@ public class EventNodeUpdate : EventNodeBase
         Debug.Log("当前位置" + EventHandlerManager.CallGetCurrentNode());
         // 更新时间与距离
         EventHandlerManager.CallUpdateArriveDistAndTime(EventHandlerManager.CallGetCurrentNode(), PlayerManager.Instance.speed);
-        
+        m_state = EventNodeState.Finished;
+        m_on_finished?.Invoke(true);
     }
 }
