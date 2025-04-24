@@ -13229,7 +13229,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 914da4e3852914a43980bda028182233, type: 2}
   - {fileID: 11400000, guid: f0f72c20e4537ea42b44e66100148c61, type: 2}
   _orderTemplatePrefab: {fileID: 3637161892144271548, guid: 5334412d71ffcd442a002333de1b2031, type: 3}
-  _myOrderTemplatePrefab: {fileID: 0}
+  _myOrderTemplatePrefab: {fileID: 4054409438465819628, guid: 55f713755969e5e40b36f546eff788b3, type: 3}
   _availableOrderContainer: {fileID: 597720018}
   _acceptedOrderContainer: {fileID: 741274099}
 --- !u!4 &1999408777
