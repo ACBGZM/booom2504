@@ -17,10 +17,11 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         speed = 1;
     }
-    // 速度更新时，更新订单时间和时间
+    
     public void UpdateSpeed(int val)
     {
         speed += val;
-        EventHandlerManager.CallUpdateArriveDistAndTime(EventHandlerManager.CallGetCurrentNode(), speed);
+        // 速度更新时，更新订单时间和距离
+     //   EventHandlerManager.CallUpdateArriveDistAndTime(EventHandlerManager.CallGetCurrentNode(), speed);
     }
 }
