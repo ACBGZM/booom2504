@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RefitMain
   m_EditorClassIdentifier: 
   m_event_nodes:
+  - {fileID: 11400000, guid: 5527954c2db809e4296f7f7e107a12df, type: 2}
   - {fileID: 11400000, guid: 0bf63dc1de3a172459a8f412a0ee5ee9, type: 2}
   - {fileID: 11400000, guid: 59668aa4bb203f94bbf6c1905458c02e, type: 2}
   - {fileID: 11400000, guid: 814ae81ad2869174caaba07c147a56c2, type: 2}

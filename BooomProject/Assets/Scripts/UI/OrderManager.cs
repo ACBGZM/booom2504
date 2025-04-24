@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class OrderManager : MonoBehaviour {
     public event Action<OrderSO> OnChatWindowOpen;
     [SerializeField] private List<OrderSO> _allOrders;
@@ -15,7 +16,7 @@ public class OrderManager : MonoBehaviour {
 
     private List<OrderSO> _availableOrders; // 可用订单
     private List<OrderSO> _acceptedOrders;  // 已接订单列表
-
+    
     private void Awake() {
         _availableOrders = new List<OrderSO>();
         _acceptedOrders = new List<OrderSO>();
@@ -23,6 +24,14 @@ public class OrderManager : MonoBehaviour {
 
     private void Start() => SortOrders();
 
+    private void OnEnable()
+    {
+        EventHandlerManager.updateArriveDistAndTime += OnUpdateArriveDistAndTime;
+    }
+    private void OnDisable()
+    {
+        EventHandlerManager.updateArriveDistAndTime -= OnUpdateArriveDistAndTime;
+    }
     // 按距离排序
     public void SortOrders() {
         _availableOrders.Clear();
@@ -32,6 +41,9 @@ public class OrderManager : MonoBehaviour {
 
     // 订单任务生成方法
     private void GenerateOrder(List<OrderSO> availableOrder) {
+
+        
+        
         foreach (var order in availableOrder) {
             var orderItem = GenerateAvailableOrder(
                 orderNameText: order.orderTitle,
@@ -40,6 +52,7 @@ public class OrderManager : MonoBehaviour {
                 addressText: order.customerSO.customerAddress,
                 range: order.range,
                 profileImage: order.customerSO.customerProfile
+            // TODO 添加显示时间文本
             );
             Button btn = orderItem.GetComponentInChildren<Button>();
             btn.onClick.RemoveAllListeners();
@@ -56,6 +69,9 @@ public class OrderManager : MonoBehaviour {
     /// <param name="addressText">顾客地址</param>
     /// <param name="profileImage">顾客头像</param>
     public Transform GenerateAvailableOrder(string orderNameText, string customerNameText, string distanceText, string addressText, int range, Sprite profileImage) {
+        
+        
+
         Transform order = Instantiate(_orderTemplatePrefab, _availableOrderContainer);
         TextMeshProUGUI m_nameText = order.transform.Find("OrderName/NameText").gameObject.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI m_customerNameTex = order.transform.Find("OrderInformation/CustomerNameText").gameObject.GetComponent<TextMeshProUGUI>();
@@ -65,7 +81,9 @@ public class OrderManager : MonoBehaviour {
 
         m_nameText.text = orderNameText;
         m_profileImage.sprite = profileImage;
-        m_customerNameTex.text = customerNameText;
+        m_customerNameTex.text = customerNameText;      
+
+
         m_distanceText.text = distanceText;
         m_addressText.text = addressText;
         return order;
@@ -133,5 +151,21 @@ public class OrderManager : MonoBehaviour {
 
         // 将订单重新加入可用列表
         _availableOrders.Add(order);
+    }
+    // 更新订单剩余时间(速度改变，外卖员当前所在节点位置更新调用)
+    private void OnUpdateArriveDistAndTime(int currentNode,int speed)
+    {
+        foreach (OrderSO order in _availableOrders)
+        {
+            float dist = EventHandlerManager.CallGetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);
+            order.time = dist / speed;
+            order.orderDistance = $"{dist:F1}km";
+        }
+        foreach (OrderSO order in _acceptedOrders)
+        {
+            float dist = EventHandlerManager.CallGetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);
+            order.time = dist / speed;
+            order.orderDistance = $"{dist:F1}km";
+        }
     }
 }

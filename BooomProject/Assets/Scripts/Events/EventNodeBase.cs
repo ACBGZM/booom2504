@@ -12,7 +12,7 @@ public class EventNodeBase : ScriptableObject
 {
     protected Action<bool> m_on_finished;
     [HideInInspector] public EventNodeState m_state;
-
+   
     public virtual void Initialize(Action<bool> on_finished)
     {
         m_on_finished = on_finished;

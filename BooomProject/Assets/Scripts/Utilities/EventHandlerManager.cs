@@ -5,10 +5,18 @@ using UnityEngine;
 
 public static class EventHandlerManager
 {
+    #region 小节点事件
     public static event Action<int> rollFinish;
     public static event Action<NodeActionType, bool> updateBuff;
     public static event Action<bool> trafficBuff;
     public static event Action<bool> heavyRainBuff;
+    #endregion
+    #region 手机UI
+    public static event Action<int, int> updateArriveDistAndTime;
+
+    #endregion
+    public static event Func<int, int, float> getDistance;
+    public static event Func<int> getCurrentNode;
     public static void CallRollFinish(int val)
     {
         rollFinish?.Invoke(val);
@@ -33,5 +41,19 @@ public static class EventHandlerManager
                 break;
 
         }
+    }
+
+    public static void CallUpdateArriveDistAndTime(int currentNode,int speed)
+    {
+        updateArriveDistAndTime?.Invoke(currentNode, speed);
+    }
+
+    public static float CallGetDistance(int currentNode,int targetNode)
+    {
+        return getDistance?.Invoke(currentNode, targetNode) ?? -1;
+    }
+    public static int CallGetCurrentNode()
+    {
+        return getCurrentNode?.Invoke() ?? -1;
     }
 }

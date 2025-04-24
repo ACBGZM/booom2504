@@ -21,7 +21,7 @@ public class Node : MonoBehaviour, IClickable
     protected virtual void OnExecutorFinished(bool success)
     {
     }
-
+   
     public struct Edge
     {
         public Edge(int cost, Vector3[] path)

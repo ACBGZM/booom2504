@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using JetBrains.Annotations;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,13 +12,14 @@ public class NodeGraphManager : MonoBehaviour
     public NodeGraphData NodeGraphData => _nodeGraphData;
 
     private Dictionary<int, Node> _allNodes = new Dictionary<int, Node>();
+
     // 任意两节点间最短消耗
     private float[,] dist;
     private int nodeCnt;
     private void Awake()
     {
         nodeCnt = _nodeGraphData._edges.Count;
-        dist = new float[nodeCnt, nodeCnt];
+        dist = new float[nodeCnt,nodeCnt];
         ResetDist();
         Floyed();
         Node[] nodes = FindObjectsOfType<Node>();
@@ -54,6 +55,16 @@ public class NodeGraphManager : MonoBehaviour
             _allNodes[edgeData.nodeB].AdjacentNodes.Add(_allNodes[edgeData.nodeA],
                 new Node.Edge(edgeData.cost, reversedPath.ToArray()));
         }
+    }
+    private void OnEnable()
+    {
+        EventHandlerManager.getDistance += OnGetDistance;
+        EventHandlerManager.getCurrentNode += OnGetCurrentNode;
+    }
+    private void OnDisable()
+    {
+        EventHandlerManager.getDistance -= OnGetDistance;
+        EventHandlerManager.getCurrentNode -= OnGetCurrentNode;
     }
     private void ResetDist()
     {
@@ -212,4 +223,12 @@ public class NodeGraphManager : MonoBehaviour
         Handles.Label(labelPos, $"Cost: {edge.cost}");
     }
 #endif
+    private float OnGetDistance(int currentNode, int targetNode)
+    {
+        return dist[currentNode, targetNode];
+    }
+    private int OnGetCurrentNode()
+    {
+        return CurrentNode.NodeID;
+    }
 }

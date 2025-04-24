@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HeavyRainMain
   m_EditorClassIdentifier: 
   m_event_nodes:
+  - {fileID: 11400000, guid: 70135d3afce13264e98e61af17259b93, type: 2}
   - {fileID: 11400000, guid: efae3ddad0e557f4f9a67bda9c1f10aa, type: 2}
   - {fileID: 11400000, guid: 59e5c6eaa21b0244a8cbcab7a9a7b2ac, type: 2}
   - {fileID: 11400000, guid: 814ae81ad2869174caaba07c147a56c2, type: 2}
