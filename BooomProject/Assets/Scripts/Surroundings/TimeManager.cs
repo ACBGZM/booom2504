@@ -4,24 +4,24 @@ using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour {
     [Header("Events")]
-    public UnityEvent<GameTime> OnMinutePassed;    // Ã¿·ÖÖÓ´¥·¢
-    public UnityEvent<GameTime> OnHourPassed;    // Ã¿Ğ¡Ê±´¥·¢
-    public UnityEvent<GameTime> OnDayPassed;    // Ã¿Ìì´¥·¢
-    // µ±Ç°ÓÎÏ·Ê±¼ä
+    public UnityEvent<GameTime> OnMinutePassed;    // æ¯åˆ†é’Ÿè§¦å‘
+    public UnityEvent<GameTime> OnHourPassed;    // æ¯å°æ—¶è§¦å‘
+    public UnityEvent<GameTime> OnDayPassed;    // æ¯å¤©è§¦å‘
+    // å½“å‰æ¸¸æˆæ—¶é—´
     [Header("Current Time")]
     [SerializeField] public GameTime currentTime;
     [SerializeField] private TextMeshProUGUI _currentTimeText;
-    // Ê±¼äÅäÖÃ²ÎÊı
+    // æ—¶é—´é…ç½®å‚æ•°
     [Header("Time Settings")]
-    [SerializeField] private float _timeRatio = 1f; // ÏÖÊµ1Ãë = ÓÎÏ·1·ÖÖÓ
+    [SerializeField] private float _timeRatio = 1f; // ç°å®1ç§’ = æ¸¸æˆ1åˆ†é’Ÿ
     [SerializeField] private bool _isPaused = false;
-    [SerializeField] private float _timeScale = 1f; // Ê±¼ä±¶ËÙ£¨1=Õı³££¬2=Ë«±¶ËÙ£©
+    [SerializeField] private float _timeScale = 1f; // æ—¶é—´å€é€Ÿï¼ˆ1=æ­£å¸¸ï¼Œ2=åŒå€é€Ÿï¼‰
 
     private float timer = 0f;
 
     void Update() {
         if (_isPaused) return;
-        // ¸üĞÂÊ±¼ä
+        // æ›´æ–°æ—¶é—´
         timer += Time.deltaTime * _timeScale;
         if (timer >= _timeRatio) {
             timer = 0f;
@@ -30,11 +30,11 @@ public class TimeManager : MonoBehaviour {
         }
     }
 
-    // Ôö¼Ó·ÖÖÓÊı£¬²¢´¥·¢Ê±¼ä¸üĞÂ
+    // å¢åŠ åˆ†é’Ÿæ•°ï¼Œå¹¶è§¦å‘æ—¶é—´æ›´æ–°
     private void AddMinute(int minutes) {
         currentTime.minute += minutes;
 
-        // Ê±¼ä½øÎ»
+        // æ—¶é—´è¿›ä½
         while (currentTime.minute >= 60) {
             currentTime.minute -= 60;
             AddHour(1);
@@ -53,19 +53,19 @@ public class TimeManager : MonoBehaviour {
 
     private void AddDay(int days) {
         currentTime.day += days;
-        // ¼ÙÉèÃ¿ÔÂ¹Ì¶¨30Ìì£¨¿É¸ù¾İĞèÇóÀ©Õ¹£©
+        // å‡è®¾æ¯æœˆå›ºå®š30å¤©ï¼ˆå¯æ ¹æ®éœ€æ±‚æ‰©å±•ï¼‰
         if (currentTime.day > 30) {
             currentTime.day = 1;
         }
         OnDayPassed?.Invoke(currentTime);
     }
 
-    // ¿ØÖÆ·½·¨
+    // æ§åˆ¶æ–¹æ³•
     public void SetPaused(bool paused) {
         _isPaused = paused;
     }
 
     public void SetTimeScale(float scale) {
-        _timeScale = Mathf.Max(scale, 0f); // ½ûÖ¹¸ºÊı
+        _timeScale = Mathf.Max(scale, 0f); // ç¦æ­¢è´Ÿæ•°
     }
 }

@@ -24,11 +24,11 @@ public class ChatFragment
 [System.Serializable]
 public class DiceSide
 {
-    // ÃæÖĞĞÄ
+    // é¢ä¸­å¿ƒ
     public Vector3 center;
-    // Ãæ·¨Ïß
+    // é¢æ³•çº¿
     public Vector3 normal;
-    // ÃæÖµ
+    // é¢å€¼
     public int val;
 }
 
@@ -38,7 +38,7 @@ public class SerializableDictionary<TKey, TValue>
     public List<TKey> keys = new List<TKey>();
     public List<TValue> values = new List<TValue>();
 
-    // ½«×Öµä×ª»»ÎªÁ½¸öÁĞ±í
+    // å°†å­—å…¸è½¬æ¢ä¸ºä¸¤ä¸ªåˆ—è¡¨
     public void FromDictionary(Dictionary<TKey, TValue> dict)
     {
         keys.Clear();
@@ -50,7 +50,7 @@ public class SerializableDictionary<TKey, TValue>
         }
     }
 
-    // ½«Á½¸öÁĞ±í×ª»»Îª×Öµä
+    // å°†ä¸¤ä¸ªåˆ—è¡¨è½¬æ¢ä¸ºå­—å…¸
     public Dictionary<TKey, TValue> ToDictionary()
     {
         var dict = new Dictionary<TKey, TValue>();

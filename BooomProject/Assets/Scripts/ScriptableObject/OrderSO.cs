@@ -2,27 +2,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¶©µ¥ĞÅÏ¢Êı¾İÈİÆ÷
+/// è®¢å•ä¿¡æ¯æ•°æ®å®¹å™¨
 /// </summary>
 [CreateAssetMenu(fileName = "Order", menuName = "Order System/Order Info")]
 public class OrderSO : ScriptableObject {
-    [Tooltip("¹ØÁªµÄ¹Ë¿ÍĞÅÏ¢")]
+    [Tooltip("å…³è”çš„é¡¾å®¢ä¿¡æ¯")]
     public CustomerSO customerSO;
-    [Tooltip("¶©µ¥±êÌâ")]
+    [Tooltip("è®¢å•æ ‡é¢˜")]
     public string orderTitle;
-    [Tooltip("¶©µ¥µØÖ·")]
+    [Tooltip("è®¢å•åœ°å€")]
     public string orderAddress;
-    // [Tooltip("¶©µ¥Óë´ó±¾ÓªµÄ¾àÀë")]
-    [Tooltip("¶©µ¥ÓëÆïÊÖµ±Ç°Î»ÖÃµÄ¾àÀë")]
+    // [Tooltip("è®¢å•ä¸å¤§æœ¬è¥çš„è·ç¦»")]
+    [Tooltip("è®¢å•ä¸éª‘æ‰‹å½“å‰ä½ç½®çš„è·ç¦»")]
     public string orderDistance;
-    [Tooltip("¶©µ¥µÈ¼¶")]
+    [Tooltip("è®¢å•ç­‰çº§")]
     public int range;
-    [Tooltip("±¾µ¥½±Àø")]
+    [Tooltip("æœ¬å•å¥–åŠ±")]
     public int reward;
-    [Tooltip("ÆäËûĞÅÏ¢")]
+    [Tooltip("å…¶ä»–ä¿¡æ¯")]
     public string bubble;
-    [Tooltip("Ô¤¼ÆËÍ´ïÊ±¼ä")]
+    [Tooltip("é¢„è®¡é€è¾¾æ—¶é—´")]
     public float time;
-    [Tooltip("¶©µ¥ÁÄÌìÀúÊ·¼ÇÂ¼")]
+    [Tooltip("è®¢å•èŠå¤©å†å²è®°å½•")]
     public List<ChatFragment> chatHistory;
 }

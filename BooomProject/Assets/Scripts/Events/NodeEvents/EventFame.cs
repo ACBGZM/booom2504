@@ -44,8 +44,8 @@ public class EventFame : EventNodeBase
         GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
 
 
-        //TODO ÉùÓş»ñÈ¡
-        //²âÊÔÉùÓş
+        //TODO å£°èª‰è·å–
+        //æµ‹è¯•å£°èª‰
         int Fame = Random.Range(0, 10);
         Debug.Log(Fame);
         List<Dialogue> choice;

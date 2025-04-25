@@ -6,26 +6,26 @@ using UnityEngine;
 public class LoadFile : MonoBehaviour
 {
     /// <summary>
-    /// ¼ÓÔØ¶©µ¥¹Ë¿ÍÍ·Ïñ
+    /// åŠ è½½è®¢å•é¡¾å®¢å¤´åƒ
     /// </summary>
-    /// <param name="path">ÎÄ¼şÂ·¾¶</param>
+    /// <param name="path">æ–‡ä»¶è·¯å¾„</param>
     /// <returns></returns>
     public static Sprite LoadImage(string path)
     {
-        // ´´½¨ÎÄ¼şÁ÷
+        // åˆ›å»ºæ–‡ä»¶æµ
         FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
         fileStream.Seek(0, SeekOrigin.Begin);
 
-        // ´´½¨ÎÄ¼ş³¤¶È»º³åÇø
+        // åˆ›å»ºæ–‡ä»¶é•¿åº¦ç¼“å†²åŒº
         byte[] bytes = new byte[fileStream.Length];
-        fileStream.Read(bytes, 0, (int)fileStream.Length); // ¶ÁÈ¡ÎÄ¼ş
+        fileStream.Read(bytes, 0, (int)fileStream.Length); // è¯»å–æ–‡ä»¶
 
-        // ¹Ø±ÕÎÄ¼şÁ÷
+        // å…³é—­æ–‡ä»¶æµ
         fileStream.Close();
         fileStream.Dispose();
         fileStream = null;
 
-        // ´´½¨TexuTure ¸ü»»Í¼Æ¬
+        // åˆ›å»ºTexuTure æ›´æ¢å›¾ç‰‡
         Texture2D texture2D = new Texture2D(154, 147);
         texture2D.LoadImage(bytes);
         Sprite sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));

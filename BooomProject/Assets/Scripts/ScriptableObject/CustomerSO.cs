@@ -1,16 +1,16 @@
 using UnityEngine;
 
 /// <summary>
-/// 顾客信息数据容器
+/// 椤惧淇℃伅鏁版嵁瀹瑰櫒
 /// </summary>
 [CreateAssetMenu(fileName = "Customer", menuName = "Order System/Customer Info")]
 public class CustomerSO : ScriptableObject {
-    [Tooltip("顾客头像图片")]
+    [Tooltip("椤惧澶村儚鍥剧墖")]
     public Sprite customerProfile;
-    [Tooltip("顾客姓名")]
+    [Tooltip("椤惧濮撳悕")]
     public string customerName;
-    [Tooltip("顾客地址")]
+    [Tooltip("椤惧鍦板潃")]
     public string customerAddressName;
-    [Tooltip("顾客详细地址")]
+    [Tooltip("椤惧璇︾粏鍦板潃")]
     public string customerAddress;
 }

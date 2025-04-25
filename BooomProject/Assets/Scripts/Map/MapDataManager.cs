@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapDataManager : Singleton<MapDataManager>
 {
     public NodeAddressSO nodeAddressSO;
-    // ½Úµã±àºÅ µØÖ·×Öµä±í
+    // èŠ‚ç‚¹ç¼–å· åœ°å€å­—å…¸è¡¨
     public Dictionary<string, int> nodeAddress;
    
     protected override void init()
