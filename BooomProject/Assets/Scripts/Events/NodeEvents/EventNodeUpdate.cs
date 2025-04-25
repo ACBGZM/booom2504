@@ -15,10 +15,12 @@ public class EventNodeUpdate : EventNodeBase
         // 判断该节点是否为目的节点
         if(EventHandlerManager.CallCheckNodeOrder(nodeIdx))
         {
+            // 累加送达次数
+            arriveCnt++;
             // TODO：根据送达次数 执行事件
 
-            // 事件结束，累加送达次数
-            arriveCnt++;
+            
+
         }
         // 订单剩余时间与距离
         //  EventHandlerManager.CallUpdateArriveDistAndTime(EventHandlerManager.CallGetCurrentNode(), PlayerManager.Instance.speed);
