@@ -91,7 +91,7 @@ public class Node : MonoBehaviour, IClickable
     }
 #endif
     // TODO：节点作为目的地，高亮方式
-    public void TargetNodeHighLight()
+    public void TargetNodeHighLight(bool finished)
     {
 
     }

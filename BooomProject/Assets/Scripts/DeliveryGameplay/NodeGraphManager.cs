@@ -56,18 +56,7 @@ public class NodeGraphManager : MonoBehaviour
                 new Node.Edge(edgeData.cost, reversedPath.ToArray()));
         }
     }
-    private void OnEnable()
-    {
-        EventHandlerManager.getDistance += OnGetDistance;
-        EventHandlerManager.getCurrentNode += OnGetCurrentNode;
-        EventHandlerManager.showTargetNode += OnShowTargetNode;
-    }
-    private void OnDisable()
-    {
-        EventHandlerManager.getDistance -= OnGetDistance;
-        EventHandlerManager.getCurrentNode -= OnGetCurrentNode;
-        EventHandlerManager.showTargetNode -= OnShowTargetNode;
-    }
+   
     private void ResetDist()
     {
         for (int i = 0; i < nodeCnt; i++)
@@ -225,16 +214,13 @@ public class NodeGraphManager : MonoBehaviour
         Handles.Label(labelPos, $"Cost: {edge.cost}");
     }
 #endif
-    private float OnGetDistance(int currentNode, int targetNode)
+    public float GetDistance(int currentNode, int targetNode)
     {
         return dist[currentNode, targetNode];
     }
-    private int OnGetCurrentNode()
+  
+    public void ShowTargetNode(int nodeIdx,bool finished)
     {
-        return CurrentNode.NodeID;
-    }
-    private void OnShowTargetNode(int nodeIdx)
-    {
-        GetNodeByIDEditor(nodeIdx).TargetNodeHighLight();
+        GetNodeByIDEditor(nodeIdx).TargetNodeHighLight(finished);
     }
 }

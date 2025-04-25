@@ -8,6 +8,8 @@ public class DeliveryPlayer : MonoBehaviour
     [SerializeField] private float _moveDuration = 0f;
     [SerializeField] private bool _useSpeed = true;
 
+
+
     public void Start()
     {
         transform.position = GameManager.Instance.NodeGraphManager.CurrentNode.transform.position;

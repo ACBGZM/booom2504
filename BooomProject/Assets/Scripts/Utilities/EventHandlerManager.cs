@@ -19,9 +19,7 @@ public static class EventHandlerManager
 
     #region µØÍ¼
     public static event Action<int, int> updateArriveDistAndTime;
-    public static event Func<int, int, float> getDistance;
-    public static event Func<int> getCurrentNode;
-    public static event Action<int> showTargetNode;
+
     #endregion
     public static void CallRollFinish(int val)
     {
@@ -54,20 +52,11 @@ public static class EventHandlerManager
         updateArriveDistAndTime?.Invoke(currentNode, speed);
     }
 
-    public static float CallGetDistance(int currentNode,int targetNode)
-    {
-        return getDistance?.Invoke(currentNode, targetNode) ?? -1;
-    }
-    public static int CallGetCurrentNode()
-    {
-        return getCurrentNode?.Invoke() ?? -1;
-    }
+  
+  
     public static void CallChatWindowShow()
     {
         chatWindowShow?.Invoke();
     }
-    public static void CallShowTargetNode(int nodeIdx)
-    {
-        showTargetNode?.Invoke(nodeIdx);
-    }
+ 
 }

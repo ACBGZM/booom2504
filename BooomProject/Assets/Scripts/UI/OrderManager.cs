@@ -143,7 +143,7 @@ public class OrderManager : MonoBehaviour {
         order.chatHistory = new List<ChatFragment>();
         // 展示地图目标节点
         int nodeIdx = MapDataManager.Instance.nodeAddress[order.customerSO.customerAddress];
-        EventHandlerManager.CallShowTargetNode(nodeIdx);
+        GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx,true);
         // 添加到已接列表
         _acceptedOrders.Add(order);
         GenerateAcceptOrder();
@@ -153,22 +153,24 @@ public class OrderManager : MonoBehaviour {
         // 从已接列表移除
         _acceptedOrders.Remove(order);
         Destroy(orderItem.gameObject);
-
+        // 结束展示地图目标节点
+        int nodeIdx = MapDataManager.Instance.nodeAddress[order.customerSO.customerAddress];
+        GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
         // 将订单重新加入可用列表
         _availableOrders.Add(order);
     }
-    // 更新订单剩余时间(速度改变，外卖员当前所在节点位置更新调用)
+    // 更新订单预计到达时间与距离(外卖员当前所在节点位置更新调用)
     private void OnUpdateArriveDistAndTime(int currentNode,int speed)
     {
         foreach (OrderSO order in _availableOrders)
         {
-            float dist = EventHandlerManager.CallGetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);
-            order.time = dist / speed;
+            float dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);
             order.orderDistance = $"{dist:F1}km";
+            order.time = dist / speed;
         }
         foreach (OrderSO order in _acceptedOrders)
         {
-            float dist = EventHandlerManager.CallGetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);
+            float dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);
             order.time = dist / speed;
             order.orderDistance = $"{dist:F1}km";
         }
