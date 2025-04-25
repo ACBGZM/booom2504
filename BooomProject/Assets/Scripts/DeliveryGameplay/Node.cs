@@ -90,4 +90,9 @@ public class Node : MonoBehaviour, IClickable
         UnityEditor.Handles.Label(transform.position + Vector3.up * 0.5f, $"ID:{NodeID}", nodeIDDisplayStyle);
     }
 #endif
+    // TODO：节点作为目的地，高亮方式
+    public void TargetNodeHighLight()
+    {
+
+    }
 }

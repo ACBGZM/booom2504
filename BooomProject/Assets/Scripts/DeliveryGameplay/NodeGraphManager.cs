@@ -60,11 +60,13 @@ public class NodeGraphManager : MonoBehaviour
     {
         EventHandlerManager.getDistance += OnGetDistance;
         EventHandlerManager.getCurrentNode += OnGetCurrentNode;
+        EventHandlerManager.showTargetNode += OnShowTargetNode;
     }
     private void OnDisable()
     {
         EventHandlerManager.getDistance -= OnGetDistance;
         EventHandlerManager.getCurrentNode -= OnGetCurrentNode;
+        EventHandlerManager.showTargetNode -= OnShowTargetNode;
     }
     private void ResetDist()
     {
@@ -230,5 +232,9 @@ public class NodeGraphManager : MonoBehaviour
     private int OnGetCurrentNode()
     {
         return CurrentNode.NodeID;
+    }
+    private void OnShowTargetNode(int nodeIdx)
+    {
+        GetNodeByIDEditor(nodeIdx).TargetNodeHighLight();
     }
 }

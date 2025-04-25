@@ -141,6 +141,9 @@ public class OrderManager : MonoBehaviour {
         Destroy(orderItem.gameObject);
         // 接取订单后 初始化其历史聊天
         order.chatHistory = new List<ChatFragment>();
+        // 展示地图目标节点
+        int nodeIdx = MapDataManager.Instance.nodeAddress[order.customerSO.customerAddress];
+        EventHandlerManager.CallShowTargetNode(nodeIdx);
         // 添加到已接列表
         _acceptedOrders.Add(order);
         GenerateAcceptOrder();

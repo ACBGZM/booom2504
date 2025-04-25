@@ -16,9 +16,13 @@ public static class EventHandlerManager
     public static event Action chatWindowShow;
 
     #endregion
+
+    #region µØÍ¼
     public static event Action<int, int> updateArriveDistAndTime;
     public static event Func<int, int, float> getDistance;
     public static event Func<int> getCurrentNode;
+    public static event Action<int> showTargetNode;
+    #endregion
     public static void CallRollFinish(int val)
     {
         rollFinish?.Invoke(val);
@@ -61,5 +65,9 @@ public static class EventHandlerManager
     public static void CallChatWindowShow()
     {
         chatWindowShow?.Invoke();
+    }
+    public static void CallShowTargetNode(int nodeIdx)
+    {
+        showTargetNode?.Invoke(nodeIdx);
     }
 }
