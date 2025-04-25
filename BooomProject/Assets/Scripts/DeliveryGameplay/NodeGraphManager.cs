@@ -221,6 +221,8 @@ public class NodeGraphManager : MonoBehaviour
   
     public void ShowTargetNode(int nodeIdx,bool finished)
     {
-        GetNodeByIDEditor(nodeIdx).TargetNodeHighLight(finished);
+        if (nodeIdx == -1) return;
+       
+        GetNodeByIDRuntime(nodeIdx).TargetNodeHighLight(finished);
     }
 }

@@ -8,7 +8,7 @@ public class Node : MonoBehaviour, IClickable
 
     [SerializeField] private EventSequenceExecutor _executor;
     [SerializeField] private NodeActionType type;
-
+    public bool test;
     public virtual void ExecuteEvents()
     {
         if (_executor != null)
@@ -93,6 +93,6 @@ public class Node : MonoBehaviour, IClickable
     // TODO：节点作为目的地，高亮方式
     public void TargetNodeHighLight(bool finished)
     {
-
+        if (finished) test = true;
     }
 }

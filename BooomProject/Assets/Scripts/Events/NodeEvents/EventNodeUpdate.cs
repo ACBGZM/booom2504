@@ -5,8 +5,7 @@ using UnityEngine;
 // 到达节点事件
 public class EventNodeUpdate : EventNodeBase
 {
-    // 送达该节点次数
-    int arriveCnt;
+
     public override void Execute()
     {
         base.Execute();
@@ -15,9 +14,8 @@ public class EventNodeUpdate : EventNodeBase
         // 判断该节点是否为目的节点
         if(EventHandlerManager.CallCheckNodeOrder(nodeIdx))
         {
-            // 累加送达次数
-            arriveCnt++;
-            // TODO：根据送达次数 执行事件
+
+            // TODO：判断具体某个订单，执行某个事件
 
             
 
