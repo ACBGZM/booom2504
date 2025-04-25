@@ -39,16 +39,16 @@ public class DiceController : MonoBehaviour
     Rigidbody rb;
     
     CountdownTimer rollTimer;
-    // ÷»×ÓÆğÊ¼Î»ÖÃ
+    // éª°å­èµ·å§‹ä½ç½®
     [SerializeField]
     Vector3 originPosition;
     [SerializeField]
-    // Î»ÒÆËÙ¶È
+    // ä½ç§»é€Ÿåº¦
     Vector3 currentVelocity;
-    // ÊÇ·ñ»Ø¹éÆğÊ¼Î»ÖÃ
+    // æ˜¯å¦å›å½’èµ·å§‹ä½ç½®
     public Vector3 pos;
     bool finalize;
-    // ÷»×ÓÍø¸ñ
+    // éª°å­ç½‘æ ¼
     MeshCollider meshCollider;
 
     // public int idx;
@@ -62,7 +62,7 @@ public class DiceController : MonoBehaviour
         meshCollider = GetComponent<MeshCollider>();
         originPosition = transform.localPosition;
         
-        //  ×î´ó³ÖĞøÊ±¼ä¼ÆÊıÆ÷
+        //  æœ€å¤§æŒç»­æ—¶é—´è®¡æ•°å™¨
         rollTimer = new CountdownTimer(maxRollTime);
         
         rollTimer.OnTimerStart += PerformInitialRoll;
@@ -79,36 +79,36 @@ public class DiceController : MonoBehaviour
     private void Update()
     {
         
-        // ¸üĞÂ¼ÆÊıÆ÷
+        // æ›´æ–°è®¡æ•°å™¨
         rollTimer.Tick(Time.deltaTime);
-        // ÷»×ÓÊÇ·ñÍ¶ÖÀ½áÊø
+        // éª°å­æ˜¯å¦æŠ•æ·ç»“æŸ
         if (finalize)
         {
             MoveDiceToCenter();
         }
     }
 
-    // ÷»×Ó×²»÷±ßÔµ
+    // éª°å­æ’å‡»è¾¹ç¼˜
     private void OnCollisionEnter(Collision collision)
     {
-        // ÷»×ÓÍ£Ö¹Éè¶¨
+        // éª°å­åœæ­¢è®¾å®š
         if(rollTimer.IsRunning && rollTimer.Progress < 0.5f && rb.angularVelocity.magnitude < minAnqularVelocity)
         {
             finalize = true;
         }
         //audioSource.PlayOneShot(impactClip);
-        // ×²»÷Á£×ÓĞ§¹û
+        // æ’å‡»ç²’å­æ•ˆæœ
         var particles = Instantiate(impactEffect, collision.contacts[0].point, Quaternion.identity);
         particles.transform.localScale = Vector3.one * 0.6f;
         particles.transform.rotation = Quaternion.AngleAxis(90, Vector3.left);
-        // 1ÃëºóÏú»Ù
+        // 1ç§’åé”€æ¯
         Destroy(particles, 1f);
     }
 
     private void PerformInitialRoll()
     {
         ResetDiceState();
-        // Ëæ»úÊ©Á¦·½Ïò
+        // éšæœºæ–½åŠ›æ–¹å‘
         //  Vector3 targetPos = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         //  Vector3 dir = (targetPos - transform.position).normalized;
        
@@ -165,7 +165,7 @@ public class DiceController : MonoBehaviour
         if (rollTimer.IsRunning) return;
         rollTimer.Start();
     }
-    // ÖØÖÃ÷»×Ó×´Ì¬
+    // é‡ç½®éª°å­çŠ¶æ€
     private void ResetDiceState()
     {
         rb.velocity = Vector3.zero;
@@ -187,15 +187,15 @@ public class DiceController : MonoBehaviour
     private List<DiceSide> FindDiceSides(Mesh mesh)
     {
         List<DiceSide> result = new List<DiceSide>();
-        // »ñÈ¡Íø¸ñµÄÈı½ÇĞÎË÷ÒıÊı×é
+        // è·å–ç½‘æ ¼çš„ä¸‰è§’å½¢ç´¢å¼•æ•°ç»„
         int[] triangles = mesh.GetTriangles(0);
-        // »ñÈ¡Íø¸ñµÄ¶¥µãÊı×é
+        // è·å–ç½‘æ ¼çš„é¡¶ç‚¹æ•°ç»„
         Vector3[] vertices = mesh.vertices;
-        // »ñÈ¡Íø¸ñµÄ·¨ÏßÊı×é
+        // è·å–ç½‘æ ¼çš„æ³•çº¿æ•°ç»„
         Vector3[] normals = mesh.normals;
         for(int i = 0; i < triangles.Length; i += 3)
         {
-            // ´¦ÀíÃ¿¸öÈı½ÇĞÎĞÅÏ¢
+            // å¤„ç†æ¯ä¸ªä¸‰è§’å½¢ä¿¡æ¯
             Vector3 a = vertices[triangles[i]];
             Vector3 b = vertices[triangles[i + 1]];
             Vector3 c = vertices[triangles[i + 2]];

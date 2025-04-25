@@ -6,23 +6,24 @@ using UnityEngine;
 
 public static class EventHandlerManager
 {
-    #region Ğ¡½ÚµãÊÂ¼ş
+    #region å°èŠ‚ç‚¹äº‹ä»¶
     public static event Action<int> rollFinish;
     public static event Action<NodeActionType, bool> updateBuff;
     public static event Action<bool> trafficBuff;
     public static event Action<bool> heavyRainBuff;
     #endregion
-    #region ÊÖ»úUI
+    #region æ‰‹æœºUI
     public static event Action chatWindowShow;
 
     #endregion
 
-    #region µØÍ¼
+    #region åœ°å›¾
     public static event Action<int, int> updateArriveDistAndTime;
     public static event Func<int, int, float> getDistance;
     public static event Func<int> getCurrentNode;
     public static event Action<int> showTargetNode;
     #endregion
+
     public static void CallRollFinish(int val)
     {
         rollFinish?.Invoke(val);

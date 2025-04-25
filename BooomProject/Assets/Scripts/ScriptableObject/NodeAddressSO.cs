@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// ½ÚµãµØÖ·Ó³ÉäÊı¾İÈİÆ÷
+// èŠ‚ç‚¹åœ°å€æ˜ å°„æ•°æ®å®¹å™¨
 [CreateAssetMenu(fileName = "NodeAddress", menuName = "NodeAddress/NodeAddressSO")]
 public class NodeAddressSO : ScriptableObject
 {
-    // ¼ü µØÖ·Ãû  Öµ ½Úµã±àºÅ
+    // é”® åœ°å€å  å€¼ èŠ‚ç‚¹ç¼–å·
     public SerializableDictionary<string, int> nodeAddress;
 }

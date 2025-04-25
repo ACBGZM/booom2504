@@ -2,24 +2,24 @@ using System.Collections;
 using UnityEngine;
 
 public class DayNightCycle : MonoBehaviour {
-    [Header("Ê±¼ä½ÚµãÅäÖÃ")]
-    [SerializeField] private int morningHour = 6;    // Ôç³¿ÇĞ»»Ê±¼ä
-    [SerializeField] private int noonHour = 10;      // ÖĞÎçÇĞ»»Ê±¼ä
-    [SerializeField] private int eveningHour = 18;   // °øÍíÇĞ»»Ê±¼ä
-    [SerializeField] private int nightHour = 21;     // Ò¹ÍíÇĞ»»Ê±¼ä
+    [Header("æ—¶é—´èŠ‚ç‚¹é…ç½®")]
+    [SerializeField] private int morningHour = 6;    // æ—©æ™¨åˆ‡æ¢æ—¶é—´
+    [SerializeField] private int noonHour = 10;      // ä¸­åˆåˆ‡æ¢æ—¶é—´
+    [SerializeField] private int eveningHour = 18;   // å‚æ™šåˆ‡æ¢æ—¶é—´
+    [SerializeField] private int nightHour = 21;     // å¤œæ™šåˆ‡æ¢æ—¶é—´
 
-    [Header("±³¾°ÌùÍ¼")]
+    [Header("èƒŒæ™¯è´´å›¾")]
     [SerializeField] private Sprite morningSprite;
     [SerializeField] private Sprite noonSprite;
     [SerializeField] private Sprite eveningSprite;
     [SerializeField] private Sprite nightSprite;
 
-    [Header("×é¼şÒıÓÃ")]
+    [Header("ç»„ä»¶å¼•ç”¨")]
     [SerializeField] private SpriteRenderer rendererA;
     [SerializeField] private SpriteRenderer rendererB;
     [SerializeField] private TimeManager timeManager;
 
-    [Header("¹ı¶ÉĞ§¹û")]
+    [Header("è¿‡æ¸¡æ•ˆæœ")]
     [SerializeField] private float fadeDuration = 2.0f;
 
     private Coroutine fadeCoroutine;
@@ -30,9 +30,9 @@ public class DayNightCycle : MonoBehaviour {
             rendererA.color = new Color(1, 1, 1, 1);
         if (rendererB != null)
             rendererB.color = new Color(1, 1, 1, 0);
-        // ¼àÌıĞ¡Ê±±ä»¯
+        // ç›‘å¬å°æ—¶å˜åŒ–
         timeManager.OnHourPassed.AddListener(UpdateBackground);
-        // ³õÊ¼»¯
+        // åˆå§‹åŒ–
         UpdateBackground(timeManager.currentTime);
     }
 
@@ -49,15 +49,15 @@ public class DayNightCycle : MonoBehaviour {
 
     public void CrossFadeTo(Sprite newSprite) {
         if (usingRendererA) {
-            // ½«ĞÂÌùÍ¼¸³¸øÒş²ØµÄ rendererB
+            // å°†æ–°è´´å›¾èµ‹ç»™éšè—çš„ rendererB
             rendererB.sprite = newSprite;
             StartCoroutine(CrossFade(rendererA, rendererB));
         } else {
-            // ½«ĞÂÌùÍ¼¸³¸øÒş²ØµÄ rendererA
+            // å°†æ–°è´´å›¾èµ‹ç»™éšè—çš„ rendererA
             rendererA.sprite = newSprite;
             StartCoroutine(CrossFade(rendererB, rendererA));
         }
-        // ½»»»±ê¼Ç
+        // äº¤æ¢æ ‡è®°
         usingRendererA = !usingRendererA;
     }
 

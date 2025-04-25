@@ -47,14 +47,14 @@ public class EventDice : EventNodeBase
     public IEnumerator DiceShake()
     {
      
-        // ÷»×Ó´¥·¢ ĞèÊÖ¶¯µã»÷roll
+        // éª°å­è§¦å‘ éœ€æ‰‹åŠ¨ç‚¹å‡»roll
        
-        // ×´Ì¬¸ÄÎª´¥·¢¾çÇé
+        // çŠ¶æ€æ”¹ä¸ºè§¦å‘å‰§æƒ…
         GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
 
         yield return new WaitUntil(() => DiceUIManager.Instance.val != 0);
         
-        // ÷»×Ó½á¹û¶¯»­
+        // éª°å­ç»“æœåŠ¨ç”»
         yield return new WaitForSeconds(2);
         if (DiceUIManager.Instance.val != 0)
         {

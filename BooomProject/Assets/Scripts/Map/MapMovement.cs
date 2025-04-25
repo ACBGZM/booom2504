@@ -90,14 +90,14 @@ public class MapMovement : MonoBehaviour
     
     void Movement()
     {
-        // ¼ÇÂ¼ÒÆ¶¯Ç°µÄÎ»ÖÃ
+        // è®°å½•ç§»åŠ¨å‰çš„ä½ç½®
         lastMapPosX = _camera.transform.position.x;
         lastMapPosY = _camera.transform.position.y;
         
         return;
         
         var pos = Input.mousePosition;
-        // ÉãÏñ»úÒÆ¶¯
+        // æ‘„åƒæœºç§»åŠ¨
         if (pos.x <= left)
         {
             _camera.transform.Translate(Vector2.left * GameplaySettings.map_move_speed * Time.deltaTime);
@@ -148,8 +148,8 @@ public class MapMovement : MonoBehaviour
         0.2 |___/              \___
             minSize          maxSize
             
-            ÖĞĞÄÇøÓò£¨30%~70%£©£ºÈ«ËÙ
-            ±ß½ç»º³å£¨30%£©£ºÏßĞÔ¼õËÙµ½È«ËÙµÄ25%
+            ä¸­å¿ƒåŒºåŸŸï¼ˆ30%~70%ï¼‰ï¼šå…¨é€Ÿ
+            è¾¹ç•Œç¼“å†²ï¼ˆ30%ï¼‰ï¼šçº¿æ€§å‡é€Ÿåˆ°å…¨é€Ÿçš„25%
         */
         return ratio switch
         {
@@ -172,16 +172,16 @@ public class MapMovement : MonoBehaviour
         //  0   3
         //  1   2
         
-        // ×óÓÒĞèÒªµ÷Õû
+        // å·¦å³éœ€è¦è°ƒæ•´
         if (mapCurrentScreenCorners[0].x > _padding  || mapCurrentScreenCorners[2].x < Screen.width - _padding)
         {
-            // »¹Ô­xÎ»ÖÃ
+            // è¿˜åŸxä½ç½®
             _camera.transform.position = new Vector3(lastMapPosX, _camera.transform.position.y, _camera.transform.position.z);
         }
-        // ÉÏÏÂĞèÒªµ÷Õû
+        // ä¸Šä¸‹éœ€è¦è°ƒæ•´
         if (mapCurrentScreenCorners[1].y > _padding || mapCurrentScreenCorners[3].y < Screen.height - _padding)
         {
-            // »¹Ô­yÎ»ÖÃ
+            // è¿˜åŸyä½ç½®
             _camera.transform.position = new Vector3(_camera.transform.position.x, lastMapPosY, _camera.transform.position.z);
         }
     }

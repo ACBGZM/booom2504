@@ -10,20 +10,20 @@ public class DiceSides : MonoBehaviour
 
     public Quaternion GetWorldRotationFor(int index)
     {
-        // »ñµÃ¸ÃÃæ·¨ÏòÁ¿µÄÊÀ½ç·½Ïò
+        // è·å¾—è¯¥é¢æ³•å‘é‡çš„ä¸–ç•Œæ–¹å‘
         Vector3 worldNormalToMatch = transform.TransformDirection(GetDiceSide(index).normal);
         return Quaternion.FromToRotation(worldNormalToMatch, Vector3.up) * transform.rotation;
     }
 
-    //ÓÃÓÚ¼ÆËãµ±Ç°÷»×Ó³¯ÉÏµÄÃæËù´ú±íµÄµãÊı
+    //ç”¨äºè®¡ç®—å½“å‰éª°å­æœä¸Šçš„é¢æ‰€ä»£è¡¨çš„ç‚¹æ•°
     public int GetMatch()
     {
 
-        // ÊÀ½çÃæ³¯Ïò×ª÷»×Ó±¾µØ·½Ïò
+        // ä¸–ç•Œé¢æœå‘è½¬éª°å­æœ¬åœ°æ–¹å‘
         Vector3 loaclVectorToMatch = transform.InverseTransformDirection(Vector3.up);
-        // ×îÆ¥Åä³¯ÉÏµÄÃæ
+        // æœ€åŒ¹é…æœä¸Šçš„é¢
         DiceSide closestSide = null;
-        // ÀûÓÃµã»ı¼ÆËãÆ¥Åä
+        // åˆ©ç”¨ç‚¹ç§¯è®¡ç®—åŒ¹é…
         float closestDot = -1;
 
         foreach (DiceSide side in sides)
@@ -34,13 +34,13 @@ public class DiceSides : MonoBehaviour
                 closestSide = side;
                 closestDot = dot;
             }
-            // ¾«È·Æ¥ÅäÖ±½Ó·µ»Ø
+            // ç²¾ç¡®åŒ¹é…ç›´æ¥è¿”å›
             if (dot > GameplaySettings.exact_match_value)
             {
                 return closestSide.val;
             }
         }
-        // ·Ç¾«È·Æ¥Åä·µ»Ø×î´óÃæ
+        // éç²¾ç¡®åŒ¹é…è¿”å›æœ€å¤§é¢
         return closestSide?.val ?? -1;
     }
 }

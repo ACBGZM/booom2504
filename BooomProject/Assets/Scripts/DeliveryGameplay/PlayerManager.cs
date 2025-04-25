@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Î¬»¤ÆïÊÖĞÅÏ¢
+// ç»´æŠ¤éª‘æ‰‹ä¿¡æ¯
 public class PlayerManager : Singleton<PlayerManager>
 {
-    // ÆïÊÖËÙ¶È
+    // éª‘æ‰‹é€Ÿåº¦
     public int speed;
-    // ÆïÊÖÉùÓş
+    // éª‘æ‰‹å£°èª‰
     public int fame;
-    // ÆïÊÖºÃÆÀÂÊ
+    // éª‘æ‰‹å¥½è¯„ç‡
     public int feedback;
 
     protected override void init()
@@ -21,7 +21,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public void UpdateSpeed(int val)
     {
         speed += val;
-        // ËÙ¶È¸üĞÂÊ±£¬¸üĞÂ¶©µ¥Ê±¼äºÍ¾àÀë
+        // é€Ÿåº¦æ›´æ–°æ—¶ï¼Œæ›´æ–°è®¢å•æ—¶é—´å’Œè·ç¦»
      //   EventHandlerManager.CallUpdateArriveDistAndTime(EventHandlerManager.CallGetCurrentNode(), speed);
     }
 }

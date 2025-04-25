@@ -7,12 +7,12 @@ using TMPro;
 public class PhoneChatUI : MonoBehaviour {
     [SerializeField] private Transform buttomButton;
     [SerializeField] private TextMeshProUGUI chatTitle;
-    [SerializeField] private Image phoneBackGroundImage;// phoneBackGround ×é¼ş
-    [SerializeField] private Sprite chatSprtie; // ÁÄÌì½çÃæUIÍ¼
-    [SerializeField] private Sprite orderSprite; // ¶©µ¥½çÃæUIÍ¼
-    [SerializeField] private GameObject tabArea; // tab×é¼ş
-    [SerializeField] private GameObject myOrderList; // ÎÒµÄ¶©µ¥×é¼ş
-    [SerializeField] private GameObject chatButton; // ÁÄÌì½çÃæµÄ°´Å¥
+    [SerializeField] private Image phoneBackGroundImage;// phoneBackGround ç»„ä»¶
+    [SerializeField] private Sprite chatSprtie; // èŠå¤©ç•Œé¢UIå›¾
+    [SerializeField] private Sprite orderSprite; // è®¢å•ç•Œé¢UIå›¾
+    [SerializeField] private GameObject tabArea; // tabç»„ä»¶
+    [SerializeField] private GameObject myOrderList; // æˆ‘çš„è®¢å•ç»„ä»¶
+    [SerializeField] private GameObject chatButton; // èŠå¤©ç•Œé¢çš„æŒ‰é’®
 
 
  //   public event EventHandler OnChatWindowShow;
@@ -46,7 +46,7 @@ public class PhoneChatUI : MonoBehaviour {
         gameObject.SetActive(false);
     }
     public void CreateChat() {
-        // ´´½¨ÀúÊ·¶Ô»°
+        // åˆ›å»ºå†å²å¯¹è¯
         foreach (ChatFragment fragment in ChatWindowManager.Instance.history) {
             GameObject obj;
             if (fragment.left) obj = Instantiate(ChatWindowManager.Instance.leftItem, itemsParent);
@@ -57,38 +57,38 @@ public class PhoneChatUI : MonoBehaviour {
     }
 
     public void UpdateContent() {
-        // Çå¿Õ¶Ô»°
+        // æ¸…ç©ºå¯¹è¯
         for (int i = 0; i < itemsParent.childCount; i++) {
             Destroy(itemsParent.GetChild(i).gameObject);
         }
         CreateChat();
     }
-    // ·¢ËÍĞÅÏ¢
+    // å‘é€ä¿¡æ¯
     public void OnSubmit(string content) {
         DateTime NowTime = DateTime.Now.ToLocalTime();
-        // ½«Ê±¼ä¸ñÊ½»¯
+        // å°†æ—¶é—´æ ¼å¼åŒ–
         string currentTime = NowTime.ToString("HH:mm");
         GameObject obj = Instantiate(ChatWindowManager.Instance.rightItem, itemsParent);
         print(content);
         ChatFragment newChat = new ChatFragment(currentTime, ChatWindowManager.Instance.ownerIcon, content, false, "Test");
         obj.GetComponent<ChatItemUI>().init(newChat);
       
-        // Ìí¼Óµ½ÀúÊ·
+        // æ·»åŠ åˆ°å†å²
         ChatWindowManager.Instance.history.Add(newChat);
         scrollRect.verticalNormalizedPosition = 0f;
     }
 
-    // ÁªÏµ¹Ë¿Í°´Å¥¼àÌıÊÂ¼ş
+    // è”ç³»é¡¾å®¢æŒ‰é’®ç›‘å¬äº‹ä»¶
     public void OnChatWindowShow() {
         print("open window");
-        chatTitle.text = string.Format("ÎÒ,{0},µê¼Ò", ChatWindowManager.Instance.customerName);
+        chatTitle.text = string.Format("æˆ‘,{0},åº—å®¶", ChatWindowManager.Instance.customerName);
         ShowMe();
         UpdateContent();
 
     }
 
     public void ShowMe() {
-        // ĞÂÔö
+        // æ–°å¢
         phoneBackGroundImage.sprite = chatSprtie;
         tabArea.gameObject.SetActive(false);
         myOrderList.gameObject.SetActive(false);
@@ -99,7 +99,7 @@ public class PhoneChatUI : MonoBehaviour {
     }
 
     public void HideMe() {
-        // ĞÂÔö
+        // æ–°å¢
         phoneBackGroundImage.sprite = orderSprite;
         chatButton.SetActive(false);
         tabArea.gameObject.SetActive(true);

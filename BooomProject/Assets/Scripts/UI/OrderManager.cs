@@ -14,8 +14,8 @@ public class OrderManager : MonoBehaviour {
     [SerializeField] private Transform _availableOrderContainer;
     [SerializeField] private Transform _acceptedOrderContainer;
 
-    private List<OrderSO> _availableOrders; // ¿ÉÓÃ¶©µ¥
-    private List<OrderSO> _acceptedOrders;  // ÒÑ½Ó¶©µ¥ÁĞ±í
+    private List<OrderSO> _availableOrders; // å¯ç”¨è®¢å•
+    private List<OrderSO> _acceptedOrders;  // å·²æ¥è®¢å•åˆ—è¡¨
     
     private void Awake() {
         _availableOrders = new List<OrderSO>();
@@ -32,14 +32,14 @@ public class OrderManager : MonoBehaviour {
     {
         EventHandlerManager.updateArriveDistAndTime -= OnUpdateArriveDistAndTime;
     }
-    // °´¾àÀëÅÅĞò
+    // æŒ‰è·ç¦»æ’åº
     public void SortOrders() {
         _availableOrders.Clear();
         var sortedOrders = _allOrders.OrderBy(order => order.orderDistance).ToList();
         GenerateOrder(sortedOrders);
     }
 
-    // ¶©µ¥ÈÎÎñÉú³É·½·¨
+    // è®¢å•ä»»åŠ¡ç”Ÿæˆæ–¹æ³•
     private void GenerateOrder(List<OrderSO> availableOrder) {
 
         
@@ -52,7 +52,7 @@ public class OrderManager : MonoBehaviour {
                 addressText: order.customerSO.customerAddress,
                 range: order.range,
                 profileImage: order.customerSO.customerProfile
-            // TODO Ìí¼ÓÏÔÊ¾Ê±¼äÎÄ±¾
+            // TODO æ·»åŠ æ˜¾ç¤ºæ—¶é—´æ–‡æœ¬
             );
             Button btn = orderItem.GetComponentInChildren<Button>();
             btn.onClick.RemoveAllListeners();
@@ -61,13 +61,13 @@ public class OrderManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Éú³É¶©µ¥ĞÅÏ¢
+    /// ç”Ÿæˆè®¢å•ä¿¡æ¯
     /// </summary>
-    /// <param name="orderNameText">¶©µ¥Ê±¼ä</param>
-    /// <param name="customerNameText">¹Ë¿ÍÃû³Æ</param>
-    /// <param name="distanceText">¾àÀë</param>
-    /// <param name="addressText">¹Ë¿ÍµØÖ·</param>
-    /// <param name="profileImage">¹Ë¿ÍÍ·Ïñ</param>
+    /// <param name="orderNameText">è®¢å•æ—¶é—´</param>
+    /// <param name="customerNameText">é¡¾å®¢åç§°</param>
+    /// <param name="distanceText">è·ç¦»</param>
+    /// <param name="addressText">é¡¾å®¢åœ°å€</param>
+    /// <param name="profileImage">é¡¾å®¢å¤´åƒ</param>
     public Transform GenerateAvailableOrder(string orderNameText, string customerNameText, string distanceText, string addressText, int range, Sprite profileImage) {
         
         
@@ -131,33 +131,33 @@ public class OrderManager : MonoBehaviour {
         return _acceptedOrders;
     }
 
-    // ½Óµ¥°´Å¥µã»÷ÊÂ¼ş
+    // æ¥å•æŒ‰é’®ç‚¹å‡»äº‹ä»¶
     private void OnAcceptOrder(OrderSO order, Transform orderItem) {
         if (_acceptedOrders.Count >= GameplaySettings.m_max_accepted_orders) {
-            Debug.Log("×î´ó½Óµ¥ÊıÁ¿");
+            Debug.Log("æœ€å¤§æ¥å•æ•°é‡");
             return;
         }
         _availableOrders.Remove(order);
         Destroy(orderItem.gameObject);
-        // ½ÓÈ¡¶©µ¥ºó ³õÊ¼»¯ÆäÀúÊ·ÁÄÌì
+        // æ¥å–è®¢å•å åˆå§‹åŒ–å…¶å†å²èŠå¤©
         order.chatHistory = new List<ChatFragment>();
-        // Õ¹Ê¾µØÍ¼Ä¿±ê½Úµã
+        // å±•ç¤ºåœ°å›¾ç›®æ ‡èŠ‚ç‚¹
         int nodeIdx = MapDataManager.Instance.nodeAddress[order.customerSO.customerAddress];
         EventHandlerManager.CallShowTargetNode(nodeIdx);
-        // Ìí¼Óµ½ÒÑ½ÓÁĞ±í
+        // æ·»åŠ åˆ°å·²æ¥åˆ—è¡¨
         _acceptedOrders.Add(order);
         GenerateAcceptOrder();
     }
 
     private void OnCompleteOrder(OrderSO order, Transform orderItem) {
-        // ´ÓÒÑ½ÓÁĞ±íÒÆ³ı
+        // ä»å·²æ¥åˆ—è¡¨ç§»é™¤
         _acceptedOrders.Remove(order);
         Destroy(orderItem.gameObject);
 
-        // ½«¶©µ¥ÖØĞÂ¼ÓÈë¿ÉÓÃÁĞ±í
+        // å°†è®¢å•é‡æ–°åŠ å…¥å¯ç”¨åˆ—è¡¨
         _availableOrders.Add(order);
     }
-    // ¸üĞÂ¶©µ¥Ê£ÓàÊ±¼ä(ËÙ¶È¸Ä±ä£¬ÍâÂôÔ±µ±Ç°ËùÔÚ½ÚµãÎ»ÖÃ¸üĞÂµ÷ÓÃ)
+    // æ›´æ–°è®¢å•å‰©ä½™æ—¶é—´(é€Ÿåº¦æ”¹å˜ï¼Œå¤–å–å‘˜å½“å‰æ‰€åœ¨èŠ‚ç‚¹ä½ç½®æ›´æ–°è°ƒç”¨)
     private void OnUpdateArriveDistAndTime(int currentNode,int speed)
     {
         foreach (OrderSO order in _availableOrders)

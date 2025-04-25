@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public enum NodeActionType
 {
-    // ÍâÂô¹ñ
+    // å¤–å–æŸœ
     TakeoutCabinet,
-    // ÔØ¾ß¸Ä×°
+    // è½½å…·æ”¹è£…
     Refit,
-    // ÖèÓê
+    // éª¤é›¨
     HeavyRain,
-    // ºìÂÌµÆ
+    // çº¢ç»¿ç¯
     trafficLight
 }
 

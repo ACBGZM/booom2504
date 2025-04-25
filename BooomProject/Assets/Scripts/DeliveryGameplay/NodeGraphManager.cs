@@ -13,7 +13,7 @@ public class NodeGraphManager : MonoBehaviour
 
     private Dictionary<int, Node> _allNodes = new Dictionary<int, Node>();
 
-    // ÈÎÒâÁ½½Úµã¼ä×î¶ÌÏûºÄ
+    // ä»»æ„ä¸¤èŠ‚ç‚¹é—´æœ€çŸ­æ¶ˆè€—
     private float[,] dist;
     private int nodeCnt;
     private void Awake()

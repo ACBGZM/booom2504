@@ -2,15 +2,15 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EventNodeUpdate", menuName = "Event/NodeActions/EventNodeUpdate")]
-// µ½´ï½ÚµãÊÂ¼ş
+// åˆ°è¾¾èŠ‚ç‚¹äº‹ä»¶
 public class EventNodeUpdate : EventNodeBase
 {
    
     public override void Execute()
     {
         base.Execute();
-        Debug.Log("µ±Ç°Î»ÖÃ" + EventHandlerManager.CallGetCurrentNode());
-        // ¸üĞÂÊ±¼äÓë¾àÀë
+        Debug.Log("å½“å‰ä½ç½®" + EventHandlerManager.CallGetCurrentNode());
+        // æ›´æ–°æ—¶é—´ä¸è·ç¦»
       //  EventHandlerManager.CallUpdateArriveDistAndTime(EventHandlerManager.CallGetCurrentNode(), PlayerManager.Instance.speed);
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);

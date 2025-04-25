@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameplaySettings {
     #region player
     public const float m_walk_speed = 6.0f;
-    public const float m_acceleration_Time = 0.05f;     // ´ïµ½×î¿ìËÙ¶ÈµÄÊ±¼ä
+    public const float m_acceleration_Time = 0.05f;     // è¾¾åˆ°æœ€å¿«é€Ÿåº¦çš„æ—¶é—´
     public const string ANIMATOR_BOOL_IS_WALKING = "IsWalking";
     // player triggered fade
     //public const float m_fade_duration = 0.35f;
@@ -41,21 +41,21 @@ public class GameplaySettings {
     #endregion
 
     #region Dice
-    // ÷»×ÓÃæ³¯ÉÏµÄ¾«È·Æ¥ÅäÖµ
+    // éª°å­é¢æœä¸Šçš„ç²¾ç¡®åŒ¹é…å€¼
     public const float exact_match_value = 0.995f;
     #endregion
 
     #region NodeAction
-    // ºìÂÌµÆ
+    // çº¢ç»¿ç¯
     public const int traffic_speed_award = -1;
     public const int traffic_speed_punishment = 2;
-    // ÖèÓê
+    // éª¤é›¨
     public const int heavy_rain_fame_award = 1;
     public const int heavy_rain_fame_punishment = 0;
-    // ¸Ä×°ÔØ¾ß
+    // æ”¹è£…è½½å…·
     public const int refit_speed_award = 1;
     public const int refit_speed_punishment = 0;
-    // ÍâÂô¹ñ
+    // å¤–å–æŸœ
     public const int takeout_cabinet_award = 0;
     public const int takeout_cabinet_punishment = 0;
     #endregion

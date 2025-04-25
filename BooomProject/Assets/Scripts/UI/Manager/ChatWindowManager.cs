@@ -6,13 +6,13 @@ using UnityEngine;
 
 
 
-// 维护聊天界面数据
+// 缁存姢鑱婂ぉ鐣岄潰鏁版嵁
 public class ChatWindowManager : Singleton<ChatWindowManager>
 {
     [SerializeField] private OrderManager _orderManager;
     public GameObject leftItem;
     public GameObject rightItem;
-    // 当前对象历史
+    // 褰撳墠瀵硅薄鍘嗗彶
     public List<ChatFragment> history = new List<ChatFragment>();
     public string customerName;
     public Sprite shopIcon;
@@ -28,7 +28,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
         history = order.chatHistory;
         customerName = order.customerSO.customerName;
         customerIcon = order.customerSO.customerProfile;
-        // TODO: 商家头像信息获取
+        // TODO: 鍟嗗澶村儚淇℃伅鑾峰彇
         EventHandlerManager.CallChatWindowShow();
         
     }
