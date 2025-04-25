@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class DayNightCycle : MonoBehaviour {
+public class DayNightCycle : MonoBehaviour
+{
     [Header("时间节点配置")]
     [SerializeField] private int morningHour = 6;    // 早晨切换时间
     [SerializeField] private int noonHour = 10;      // 中午切换时间
@@ -25,7 +26,8 @@ public class DayNightCycle : MonoBehaviour {
     private Coroutine fadeCoroutine;
     private bool usingRendererA = true;
 
-    void Start() {
+    private void Start()
+    {
         if (rendererA != null)
             rendererA.color = new Color(1, 1, 1, 1);
         if (rendererB != null)
@@ -36,23 +38,29 @@ public class DayNightCycle : MonoBehaviour {
         UpdateBackground(timeManager.currentTime);
     }
 
-    private void UpdateBackground(GameTime time) {
+    private void UpdateBackground(GameTime time)
+    {
         Sprite targetSprite = GetBackgroundByTime(time.hour);
         SpriteRenderer backgroundRenderer = usingRendererA ? rendererA : rendererB;
-        if (backgroundRenderer.sprite != targetSprite) {
-            if (fadeCoroutine != null) {
+        if (backgroundRenderer.sprite != targetSprite)
+        {
+            if (fadeCoroutine != null)
+            {
                 StopCoroutine(fadeCoroutine);
             }
             CrossFadeTo(targetSprite);
         }
     }
 
-    public void CrossFadeTo(Sprite newSprite) {
-        if (usingRendererA) {
+    public void CrossFadeTo(Sprite newSprite)
+    {
+        if (usingRendererA)
+        {
             // 将新贴图赋给隐藏的 rendererB
             rendererB.sprite = newSprite;
             StartCoroutine(CrossFade(rendererA, rendererB));
-        } else {
+        } else
+        {
             // 将新贴图赋给隐藏的 rendererA
             rendererA.sprite = newSprite;
             StartCoroutine(CrossFade(rendererB, rendererA));
@@ -61,26 +69,33 @@ public class DayNightCycle : MonoBehaviour {
         usingRendererA = !usingRendererA;
     }
 
-    private Sprite GetBackgroundByTime(int hour) {
-        if (hour >= nightHour || hour < morningHour) {
+    private Sprite GetBackgroundByTime(int hour)
+    {
+        if (hour >= nightHour || hour < morningHour)
+        {
             return nightSprite;
-        } else if (hour >= eveningHour) {
+        } else if (hour >= eveningHour)
+        {
             return eveningSprite;
-        } else if (hour >= noonHour) {
+        } else if (hour >= noonHour)
+        {
             return noonSprite;
-        } else if (hour >= morningHour) {
+        } else if (hour >= morningHour)
+        {
             return morningSprite;
         }
 
         return rendererA.sprite;
     }
 
-    private IEnumerator CrossFade(SpriteRenderer fadeOutRenderer, SpriteRenderer fadeInRenderer) {
+    private IEnumerator CrossFade(SpriteRenderer fadeOutRenderer, SpriteRenderer fadeInRenderer)
+    {
         float timer = 0f;
         Color outColor = fadeOutRenderer.color;
         Color inColor = fadeInRenderer.color;
 
-        while (timer < fadeDuration) {
+        while (timer < fadeDuration)
+        {
             timer += Time.deltaTime;
             float alpha = timer / fadeDuration;
             fadeOutRenderer.color = new Color(outColor.r, outColor.g, outColor.b, 1f - alpha);

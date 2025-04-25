@@ -1,4 +1,4 @@
-public interface IClickable 
+public interface IClickable
 {
     void OnClick();
 }

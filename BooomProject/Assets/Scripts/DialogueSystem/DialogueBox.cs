@@ -8,6 +8,7 @@ public class DialogueBox : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Image m_background;
+
     private FadeEffect m_box_fade_effect;
 
     [SerializeField] private AdvancedTMProUGUI m_text_content;
@@ -29,9 +30,11 @@ public class DialogueBox : MonoBehaviour
     private bool m_is_auto_play;
 
     private Action<bool> m_next_text_status_action;
+
     public void SetNextTextStatusAction(Action<bool> action) => m_next_text_status_action = action;
 
     private Dialogue m_first_dialogue;
+
     public void SetFirstDialogue(Dialogue first_dialogue) => m_first_dialogue = first_dialogue;
 
     public void Awake()
@@ -70,8 +73,7 @@ public class DialogueBox : MonoBehaviour
                 m_next_cursor_fade_effect.Fade(0.0f, GameplaySettings.m_next_cursor_fade_duration, null);
 
                 m_next_text_status_action(true);
-            }
-            else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
+            } else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
             {
                 m_is_interactable = false;
                 m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
@@ -79,8 +81,7 @@ public class DialogueBox : MonoBehaviour
 
                 m_next_text_status_action(false);
             }
-        }
-        else
+        } else
         {
             if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Cancel.triggered)
             {
@@ -88,8 +89,7 @@ public class DialogueBox : MonoBehaviour
                 {
                     m_text_content.QuickShowRemainingText();
                 }
-            }
-            else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
+            } else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
             {
                 if (m_text_can_skip)
                 {
@@ -104,8 +104,7 @@ public class DialogueBox : MonoBehaviour
         if (m_is_auto_play)
         {
             m_is_interactable = false;
-        }
-        else
+        } else
         {
             m_is_interactable = true;
             m_is_show_finished = true;
@@ -150,7 +149,8 @@ public class DialogueBox : MonoBehaviour
             m_is_interactable = true;
         }
         this.gameObject.SetActive(true);
-        if (!m_text_content.gameObject.activeInHierarchy) {
+        if (!m_text_content.gameObject.activeInHierarchy)
+        {
             m_text_content.gameObject.SetActive(true);
         }
         m_text_content.StartCoroutine(m_text_content.ShowText(dialogue.m_text, next_text_method));
@@ -173,8 +173,7 @@ public class DialogueBox : MonoBehaviour
             m_box_fade_effect.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
             m_speaker_name_text.GetComponent<FadeEffect>()?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
             m_speaker_avatar.GetComponent<FadeEffect>()?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
-        }
-        else
+        } else
         {
             callback?.Invoke();
         }

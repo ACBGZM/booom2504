@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +9,7 @@ public class EventDice : EventNodeBase
     public List<Dialogue> branch1;
     public List<Dialogue> branch2;
     public NodeActionType type;
+
     public override void Execute()
     {
         base.Execute();
@@ -17,15 +17,16 @@ public class EventDice : EventNodeBase
         ShowShake();
     }
 
-
     public void ShowDialogueText()
     {
         DialogueUIManager.GetInstance().StartCoroutine(StepThroughDialogueDataList());
     }
+
     public void ShowShake()
     {
         DiceUIManager.Instance.StartCoroutine(DiceShake());
     }
+
     public IEnumerator StepThroughDialogueDataList()
     {
         for (int i = 0; i < dialogues.Count; ++i)
@@ -44,21 +45,20 @@ public class EventDice : EventNodeBase
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
     }
+
     public IEnumerator DiceShake()
     {
-     
         // 骰子触发 需手动点击roll
-       
+
         // 状态改为触发剧情
         GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
 
         yield return new WaitUntil(() => DiceUIManager.Instance.val != 0);
-        
+
         // 骰子结果动画
         yield return new WaitForSeconds(2);
         if (DiceUIManager.Instance.val != 0)
         {
-
             int val = DiceUIManager.Instance.val;
             Dialogue dialogue = new Dialogue();
             List<Dialogue> choice;
@@ -67,13 +67,12 @@ public class EventDice : EventNodeBase
             {
                 award = true;
                 choice = branch1;
-            }
-            else
+            } else
             {
                 choice = branch2;
             }
             EventHandlerManager.CallUpdateBuff(type, award);
-            foreach(var temp in choice)
+            foreach (var temp in choice)
             {
                 Dialogue d = new Dialogue();
                 d.m_text = temp.m_text;
@@ -83,12 +82,7 @@ public class EventDice : EventNodeBase
                 d.m_can_skip = temp.m_can_skip;
                 dialogues.Add(d);
             }
-            
         }
         DialogueUIManager.OpenDialogueBox(ShowDialogueText, dialogues[0]);
-        
-        
-       
-        
     }
 }

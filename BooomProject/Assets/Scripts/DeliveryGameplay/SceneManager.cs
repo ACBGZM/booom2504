@@ -1,16 +1,16 @@
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
-    [SerializeField] GameObject _loadingPanel;
-    [SerializeField] Slider _progressBar;
-    [SerializeField] TMP_Text _progressText;
-    [SerializeField] List<GameObject> _disableWhileLoading;
+    [SerializeField] private GameObject _loadingPanel;
+    [SerializeField] private Slider _progressBar;
+    [SerializeField] private TMP_Text _progressText;
+    [SerializeField] private List<GameObject> _disableWhileLoading;
 
     public void LoadSync(string target_scene)
     {
@@ -32,7 +32,7 @@ public class GameSceneManager : MonoBehaviour
         StartCoroutine(LoadSceneAsync(target_scene));
     }
 
-    IEnumerator LoadSceneAsync(string target_scene)
+    private IEnumerator LoadSceneAsync(string target_scene)
     {
         _loadingPanel.SetActive(true);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(target_scene);

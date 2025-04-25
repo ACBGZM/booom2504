@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 #if UNITY_EDITOR
 using UnityEditor;
+
 #endif
 
 public class NodeGraphManager : MonoBehaviour
@@ -13,13 +13,13 @@ public class NodeGraphManager : MonoBehaviour
 
     private Dictionary<int, Node> _allNodes = new Dictionary<int, Node>();
 
-    // 任意两节点间最短消耗
-    private float[,] dist;
+    private float[,] dist;    // 任意两节点间最短消耗
     private int nodeCnt;
+
     private void Awake()
     {
         nodeCnt = _nodeGraphData._edges.Count;
-        dist = new float[nodeCnt,nodeCnt];
+        dist = new float[nodeCnt, nodeCnt];
         ResetDist();
         Floyed();
         Node[] nodes = FindObjectsOfType<Node>();
@@ -27,7 +27,7 @@ public class NodeGraphManager : MonoBehaviour
         {
             _allNodes.Add(node.NodeID, node);
         }
-        
+
         foreach (EdgeData edgeData in _nodeGraphData._edges)
         {
             if (!_allNodes.ContainsKey(edgeData.nodeA) || !_allNodes.ContainsKey(edgeData.nodeB))
@@ -37,7 +37,7 @@ public class NodeGraphManager : MonoBehaviour
             }
 
             Vector3 begin = _allNodes[edgeData.nodeA].transform.position;
-            Vector3 end =  _allNodes[edgeData.nodeB].transform.position;
+            Vector3 end = _allNodes[edgeData.nodeB].transform.position;
 
             List<Vector3> path = new List<Vector3> { begin };
             foreach (var point in edgeData.curvePoints)
@@ -56,14 +56,14 @@ public class NodeGraphManager : MonoBehaviour
                 new Node.Edge(edgeData.cost, reversedPath.ToArray()));
         }
     }
-   
+
     private void ResetDist()
     {
         for (int i = 0; i < nodeCnt; i++)
         {
             for (int j = 0; j < nodeCnt; j++)
             {
-                dist[i,j] = -1;
+                dist[i, j] = -1;
             }
         }
         foreach (EdgeData edgeData in _nodeGraphData._edges)
@@ -72,23 +72,23 @@ public class NodeGraphManager : MonoBehaviour
             dist[edgeData.nodeB, edgeData.nodeA] = edgeData.cost;
         }
     }
+
     private void Floyed()
     {
-        for(int i = 0; i < nodeCnt; i ++ )
+        for (int i = 0; i < nodeCnt; i++)
         {
-            for(int k = 0; k < nodeCnt; k ++ )
+            for (int k = 0; k < nodeCnt; k++)
             {
                 if (dist[i, k] == -1) continue;
-                for(int j = 0; j < nodeCnt; j ++ )
+                for (int j = 0; j < nodeCnt; j++)
                 {
-                    if (dist[k,j] == -1) continue;
-                    dist[i,j] = Mathf.Min(dist[i, j], dist[i,k] + dist[k,j]);
+                    if (dist[k, j] == -1) continue;
+                    dist[i, j] = Mathf.Min(dist[i, j], dist[i, k] + dist[k, j]);
                 }
             }
         }
-
-        
     }
+
     public void Start()
     {
         ShowCanMoveNodes(CurrentNode, true);
@@ -110,7 +110,7 @@ public class NodeGraphManager : MonoBehaviour
             targetNode.ShowIsMovingTo(true);
 
             GameManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
-            , () => 
+            , () =>
             {
                 targetNode.ShowIsMovingTo(false);
                 _currentNodeID = targetNode.NodeID;
@@ -196,8 +196,7 @@ public class NodeGraphManager : MonoBehaviour
         if (edge.curvePoints.Length == 0)
         {
             Handles.DrawLine(start, end);
-        }
-        else
+        } else
         {
             List<Vector3> path = new List<Vector3> { start };
             foreach (var point in edge.curvePoints)
@@ -213,16 +212,18 @@ public class NodeGraphManager : MonoBehaviour
         Vector3 labelPos = Vector3.Lerp(start, end, 0.5f);
         Handles.Label(labelPos, $"Cost: {edge.cost}");
     }
+
 #endif
+
     public float GetDistance(int currentNode, int targetNode)
     {
         return dist[currentNode, targetNode];
     }
-  
-    public void ShowTargetNode(int nodeIdx,bool finished)
+
+    public void ShowTargetNode(int nodeIdx, bool finished)
     {
         if (nodeIdx == -1) return;
-       
+
         GetNodeByIDRuntime(nodeIdx).TargetNodeHighLight(finished);
     }
 }

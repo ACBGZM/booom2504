@@ -15,7 +15,7 @@ public class EventSequenceExecutor : ScriptableObject
     {
         m_index = 0;
 
-        foreach(EventNodeBase node in m_event_nodes)
+        foreach (EventNodeBase node in m_event_nodes)
         {
             node.Initialize(OnNodeFinished);
         }
@@ -28,8 +28,7 @@ public class EventSequenceExecutor : ScriptableObject
         if (success)
         {
             ExecuteNextNode();
-        }
-        else
+        } else
         {
             m_on_finished?.Invoke(false);
         }
@@ -40,8 +39,8 @@ public class EventSequenceExecutor : ScriptableObject
         if (m_index < m_event_nodes.Count)
         {
             // todo: should move into specific business event
-            if ((m_event_nodes[m_index] is EventShowResponse) 
-                && (m_event_nodes[m_index] as EventShowResponse).MuseLoopAll() 
+            if ((m_event_nodes[m_index] is EventShowResponse)
+                && (m_event_nodes[m_index] as EventShowResponse).MuseLoopAll()
                 && (m_event_nodes[m_index] as EventShowResponse).IsAllLooped())
             {
                 ++m_index;
@@ -50,14 +49,13 @@ public class EventSequenceExecutor : ScriptableObject
             m_event_nodes[m_index++].Execute();
 
             // todo: should move into specific business event
-            if ((m_event_nodes[m_index - 1] is EventShowResponse) 
+            if ((m_event_nodes[m_index - 1] is EventShowResponse)
                 && (m_event_nodes[m_index - 1] as EventShowResponse).MuseLoopAll()
                 && !(m_event_nodes[m_index - 1] as EventShowResponse).IsAllLooped())
             {
                 --m_index;
             }
-        }
-        else
+        } else
         {
             m_on_finished?.Invoke(true);
         }

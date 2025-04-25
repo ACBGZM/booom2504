@@ -1,16 +1,14 @@
-using UnityEngine;
-using System.Collections.Generic;
-using System;
 using System.Collections;
-using static UI.TabGroup;
-using static UnityEngine.Rendering.DebugUI;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace UI {
-
-    public class TabGroup : MonoBehaviour {
-
+namespace UI
+{
+    public class TabGroup : MonoBehaviour
+    {
         [System.Serializable]
-        public class TabPagePair {
+        public class TabPagePair
+        {
             public TabButton button;
             public GameObject page;
         }
@@ -29,23 +27,30 @@ namespace UI {
 
         private Dictionary<TabButton, Coroutine> _activeCoroutines = new Dictionary<TabButton, Coroutine>();
 
-        private void Awake() {
-            foreach (var pair in _tabPagePairs) {    // 初始化按钮大小
-                if (pair.button != null) {
+        private void Awake()
+        {
+            foreach (var pair in _tabPagePairs)
+            {    // 初始化按钮大小
+                if (pair.button != null)
+                {
                     _buttonOriginalScales[pair.button] = pair.button.transform.localScale;
                 }
             }
         }
 
-        private void Start() {
-            if (_tabPagePairs.Count > 0) {
+        private void Start()
+        {
+            if (_tabPagePairs.Count > 0)
+            {
                 OnTabSelected(_tabPagePairs[0].button);
             }
         }
 
-        public void OnTabEnter(TabButton button) {
+        public void OnTabEnter(TabButton button)
+        {
             if (_tabSelected != null && _tabSelected == button) return;
-            if (_activeCoroutines.TryGetValue(button, out Coroutine existingCoroutine)) {
+            if (_activeCoroutines.TryGetValue(button, out Coroutine existingCoroutine))
+            {
                 StopCoroutine(existingCoroutine);
             }
             Vector3 targetScale = _buttonOriginalScales[button] * _hoverScale;
@@ -57,9 +62,11 @@ namespace UI {
             ));
         }
 
-        public void OnTabExit(TabButton button) {
+        public void OnTabExit(TabButton button)
+        {
             if (_tabSelected != null && _tabSelected == button) return;
-            if (_activeCoroutines.TryGetValue(button, out Coroutine existingCoroutine)) {
+            if (_activeCoroutines.TryGetValue(button, out Coroutine existingCoroutine))
+            {
                 StopCoroutine(existingCoroutine);
             }
             Vector3 targetScale = _tabSelected == button ?
@@ -73,15 +80,19 @@ namespace UI {
             ));
         }
 
-        public void OnTabSelected(TabButton button) {
-            foreach (var pair in _tabPagePairs) {
-                if (_activeCoroutines.TryGetValue(pair.button, out Coroutine coroutine)) {
+        public void OnTabSelected(TabButton button)
+        {
+            foreach (var pair in _tabPagePairs)
+            {
+                if (_activeCoroutines.TryGetValue(pair.button, out Coroutine coroutine))
+                {
                     StopCoroutine(coroutine);
                     _activeCoroutines.Remove(pair.button);
                 }
             }
             _tabSelected = button;
-            foreach (var pair in _tabPagePairs) {
+            foreach (var pair in _tabPagePairs)
+            {
                 bool isSelected = pair.button == button;
                 pair.page.SetActive(isSelected);
                 Vector3 targetScale = isSelected ?
@@ -105,16 +116,20 @@ namespace UI {
                 ));
             }
         }
+
         // 泛型支持Vector3 和 Color 将属性从 startValue 逐渐过渡到 endValue，并通过 setter 委托应用变化
-        private IEnumerator AnimateProperty<T>(T startValue, T endValue, System.Action<T> setter, TabButton button) {
+        private IEnumerator AnimateProperty<T>(T startValue, T endValue, System.Action<T> setter, TabButton button)
+        {
             // 记录动画已经过去的时间
             float elapsed = 0f;
-            while (elapsed < _animationDuration) {
+            while (elapsed < _animationDuration)
+            {
                 elapsed += Time.deltaTime;
                 // 计算插值 t
                 float t = _scaleCurve.Evaluate(elapsed / _animationDuration);
                 // 判断泛型 T 的类型
-                if (typeof(T) == typeof(Vector3)) {
+                if (typeof(T) == typeof(Vector3))
+                {
                     // 使用 Vector3.Lerp 进行线性插值
                     Vector3 current = Vector3.Lerp(
                         (Vector3)(object)startValue,
@@ -123,7 +138,8 @@ namespace UI {
                     );
                     // 调用 setter 委托更新属性值
                     setter((T)(object)current);
-                } else if (typeof(T) == typeof(Color)) {
+                } else if (typeof(T) == typeof(Color))
+                {
                     // 使用 Color.Lerp 进行线性插值
                     Color current = Color.Lerp(
                         (Color)(object)startValue,
@@ -138,6 +154,5 @@ namespace UI {
             setter(endValue);
             _activeCoroutines.Remove(button);
         }
-
     }
 }

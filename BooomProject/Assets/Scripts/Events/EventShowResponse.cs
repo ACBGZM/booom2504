@@ -9,6 +9,7 @@ public class EventShowResponse : EventNodeBase
     // When a player selects a response, the corresponding executor will be triggered.
     // Once the executor is complete, the entile node will be concluded.
     public List<Response> m_responses;
+
     public int m_default_select_index;
     public bool m_must_loop_all;
 
@@ -51,8 +52,7 @@ public class EventShowResponse : EventNodeBase
         if (index < m_responses.Count && m_responses[index] != null && m_responses[index].m_executor != null)
         {
             m_responses[index].m_executor.Execute();
-        }
-        else
+        } else
         {
             m_on_finished(true);
         }

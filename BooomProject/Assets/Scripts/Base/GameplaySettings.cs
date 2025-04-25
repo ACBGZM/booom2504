@@ -1,7 +1,5 @@
-using System.CodeDom;
-using UnityEngine;
-
-public class GameplaySettings {
+public class GameplaySettings
+{
     #region player
     public const float m_walk_speed = 6.0f;
     public const float m_acceleration_Time = 0.05f;     // 达到最快速度的时间
@@ -43,20 +41,25 @@ public class GameplaySettings {
     #region Dice
     // 骰子面朝上的精确匹配值
     public const float exact_match_value = 0.995f;
+
     #endregion
 
     #region NodeAction
     // 红绿灯
     public const int traffic_speed_award = -1;
+
     public const int traffic_speed_punishment = 2;
     // 骤雨
     public const int heavy_rain_fame_award = 1;
+
     public const int heavy_rain_fame_punishment = 0;
     // 改装载具
     public const int refit_speed_award = 1;
+
     public const int refit_speed_punishment = 0;
     // 外卖柜
     public const int takeout_cabinet_award = 0;
+
     public const int takeout_cabinet_punishment = 0;
     #endregion
 }

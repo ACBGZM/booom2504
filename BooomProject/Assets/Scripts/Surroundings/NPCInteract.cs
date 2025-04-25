@@ -10,11 +10,11 @@ public class NPCInteract : MonoBehaviour, IInteractable
         {
             return;
         }
-        
+
         executor.Initialize(OnExecutorFinished);
         executor.Execute();
     }
-    
+
     private void OnExecutorFinished(bool success)
     {
         // Debug.Log("success: " + success);

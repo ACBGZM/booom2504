@@ -37,6 +37,7 @@ public abstract class Timer
     }
 
     public void Resume() => IsRunning = true;
+
     public void Pause() => IsRunning = false;
 
     public abstract void Tick(float deltaTime);
@@ -44,7 +45,9 @@ public abstract class Timer
 
 public class CountdownTimer : Timer
 {
-    public CountdownTimer(float value) : base(value) { }
+    public CountdownTimer(float value) : base(value)
+    {
+    }
 
     public override void Tick(float deltaTime)
     {
@@ -72,7 +75,9 @@ public class CountdownTimer : Timer
 
 public class StopwatchTimer : Timer
 {
-    public StopwatchTimer() : base(0) { }
+    public StopwatchTimer() : base(0)
+    {
+    }
 
     public override void Tick(float deltaTime)
     {

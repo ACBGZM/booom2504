@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="EventPlayAnimation", menuName ="Event/GP/Play Animation")]
+[CreateAssetMenu(fileName = "EventPlayAnimation", menuName = "Event/GP/Play Animation")]
 public class EventPlayAnimation : EventNodeBase
 {
     [SerializeField] private string m_go_name;

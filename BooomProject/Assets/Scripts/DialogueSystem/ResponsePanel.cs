@@ -55,7 +55,7 @@ public class ResponsePanel : MonoBehaviour
         m_fade_effect.m_render_opacity = 0.0f;
         m_fade_effect.Fade(1.0f, GameplaySettings.m_response_fade_in_duration, () =>
         {
-            if(default_select_index >= 0 && default_select_index < m_buttons.Count)
+            if (default_select_index >= 0 && default_select_index < m_buttons.Count)
             {
                 m_buttons[default_select_index].Select();
             }
@@ -85,4 +85,3 @@ public class ResponsePanel : MonoBehaviour
         DialogueUIManager.HideSelectCursor();
     }
 }
-

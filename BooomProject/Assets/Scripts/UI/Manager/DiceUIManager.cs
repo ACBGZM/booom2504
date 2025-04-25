@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class DiceUIManager : Singleton<DiceUIManager>
 {
-    
     public Button rollBtn;
     public TMP_Text result;
     public int val;
+
     protected override void init()
     {
         rollBtn = gameObject.GetComponentInChildren<Button>();
@@ -18,20 +15,23 @@ public class DiceUIManager : Singleton<DiceUIManager>
         {
             rollBtn.gameObject.SetActive(false);
         });
-       
     }
+
     private void OnEnable()
     {
         EventHandlerManager.rollFinish += OnRollFinish;
     }
+
     private void OnDisable()
     {
         EventHandlerManager.rollFinish -= OnRollFinish;
     }
+
     private void Start()
     {
         HideMe();
     }
+
     public void ShowMe()
     {
         Reset();

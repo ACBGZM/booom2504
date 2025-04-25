@@ -1,9 +1,9 @@
-using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DialogueUIManager : MonoBehaviour
 {
@@ -17,14 +17,20 @@ public class DialogueUIManager : MonoBehaviour
 
     public static bool m_can_show_next_text;
     public static bool m_next_text_force_fadein;
+
     public static bool GetCanShowNextDialogue() => m_can_show_next_text;
+
     public static void SetCanShowNextDialogue(bool can_show_next) => m_can_show_next_text = can_show_next;
 
     private static Selectable m_current_selectable;
+
     public static void SetCurrentSelectable(Selectable selectable) => m_current_selectable = selectable;
 
     private static DialogueUIManager s_instance;
-    private DialogueUIManager() { }
+
+    private DialogueUIManager()
+    { }
+
     public static DialogueUIManager GetInstance() // => s_instance;
     {
         if (s_instance == null)
@@ -48,8 +54,7 @@ public class DialogueUIManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        }
-        else
+        } else
         {
             s_instance = this;
             // DontDestroyOnLoad(gameObject);
@@ -60,9 +65,9 @@ public class DialogueUIManager : MonoBehaviour
 
     private void Update()
     {
-        if(EventSystem.current.currentSelectedGameObject == null)
+        if (EventSystem.current.currentSelectedGameObject == null)
         {
-            if(m_current_selectable != null)
+            if (m_current_selectable != null)
             {
                 m_current_selectable.Select();
             }
@@ -100,7 +105,7 @@ public class DialogueUIManager : MonoBehaviour
 
     public static void SetSelectedCursorPosition(Vector3 position)
     {
-        if(!s_instance.m_select_cursor_transform.gameObject.activeSelf)
+        if (!s_instance.m_select_cursor_transform.gameObject.activeSelf)
         {
             s_instance.m_select_cursor_transform.gameObject.SetActive(true);
         }
@@ -121,10 +126,11 @@ public class DialogueUIManager : MonoBehaviour
     #endregion select cursor
 
     #region responses
+
     public static void CreateResponseButtons(List<Response> responses, Action<int> confirm_callback, int default_select_index)
     {
         int index = 0;
-        foreach(Response response in responses)
+        foreach (Response response in responses)
         {
             if (response != null && !string.IsNullOrEmpty(response.m_text))
             {

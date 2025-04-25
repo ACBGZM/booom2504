@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +17,6 @@ public class DiceSides : MonoBehaviour
     //用于计算当前骰子朝上的面所代表的点数
     public int GetMatch()
     {
-
         // 世界面朝向转骰子本地方向
         Vector3 loaclVectorToMatch = transform.InverseTransformDirection(Vector3.up);
         // 最匹配朝上的面

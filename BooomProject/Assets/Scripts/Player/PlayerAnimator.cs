@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -10,8 +8,8 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Awake() => _animator = GetComponent<Animator>();
 
-    private void Update() {
+    private void Update()
+    {
         _animator.SetBool(GameplaySettings.ANIMATOR_BOOL_IS_WALKING, _playerController.IsWalking());
     }
-
 }

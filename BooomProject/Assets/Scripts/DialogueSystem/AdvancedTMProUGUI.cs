@@ -23,7 +23,7 @@ public class RubyTextInfo
 
     public int m_begin_index { get; set; }
     public int m_end_index { get; set; }
-    public string m_content {  get; set; }
+    public string m_content { get; set; }
 }
 
 public class AdvancedTextPreprocessor : ITextPreprocessor
@@ -42,7 +42,7 @@ public class AdvancedTextPreprocessor : ITextPreprocessor
         m_pause_map.Clear();
         m_ruby_list.Clear();
 
-        if(string.IsNullOrEmpty(text))
+        if (string.IsNullOrEmpty(text))
         {
             return "";
         }
@@ -80,16 +80,14 @@ public class AdvancedTextPreprocessor : ITextPreprocessor
 
                 processing_text = processing_text.Remove(match.Index - custom_label_index_offset, match.Length);
                 custom_label_index_offset += match.Length;
-            }
-            else if (Regex.IsMatch(value, "^r=.+"))
+            } else if (Regex.IsMatch(value, "^r=.+"))
             {
                 ruby.m_begin_index = match.Index - custom_label_index_offset - other_label_index_offset;
                 ruby.m_content = value.Substring(2);
 
                 processing_text = processing_text.Remove(match.Index - custom_label_index_offset, match.Length);
                 custom_label_index_offset += match.Length;
-            }
-            else if (value == "/r")
+            } else if (value == "/r")
             {
                 ruby.m_end_index = match.Index - custom_label_index_offset - other_label_index_offset;
                 m_ruby_list.Add(ruby);
@@ -97,8 +95,7 @@ public class AdvancedTextPreprocessor : ITextPreprocessor
 
                 processing_text = processing_text.Remove(match.Index - custom_label_index_offset, match.Length);
                 custom_label_index_offset += match.Length;
-            }
-            else
+            } else
             {
                 other_label_index_offset += match.Length;
 
@@ -141,6 +138,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
 
     // ruby text
     private GameObject m_ruby_prefab;
+
     private List<GameObject> m_ruby_text_objects;
 
     public Action m_finish_action;
@@ -181,7 +179,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
 
         Initialize();
 
-        if(m_typing_coroutine != null)
+        if (m_typing_coroutine != null)
         {
             StopCoroutine(m_typing_coroutine);
             m_typing_coroutine = null;
@@ -226,11 +224,11 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         }
     }
 
-    IEnumerator Typing()
+    private IEnumerator Typing()
     {
         ForceMeshUpdate();
 
-        for(int i = 0; i < m_characterCount; ++i)
+        for (int i = 0; i < m_characterCount; ++i)
         {
             ModifyCharacterAlphaAtIndex(i, 0);
         }
@@ -244,8 +242,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
             if (m_custom_text_preprocessor.m_pause_map.TryGetValue(m_typing_index, out float pause_time))
             {
                 yield return YieldHelper.WaitForSeconds(pause_time, true);
-            }
-            else
+            } else
             {
                 yield return YieldHelper.WaitForSeconds(1.0f / GameplaySettings.m_type_speed, true);
             }
@@ -254,7 +251,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         m_finish_action?.Invoke();
     }
 
-    IEnumerator CharacterFadeIn(int index)
+    private IEnumerator CharacterFadeIn(int index)
     {
         if (m_custom_text_preprocessor.FindRubyAtBeginIndex(index, out RubyTextInfo ruby))
         {
@@ -265,11 +262,10 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         if (duration <= 0)
         {
             ModifyCharacterAlphaAtIndex(index, 255);
-        }
-        else
+        } else
         {
             float time = 0.0f;
-            while(time < GameplaySettings.m_character_fade_in_duration)
+            while (time < GameplaySettings.m_character_fade_in_duration)
             {
                 time = Mathf.Clamp(time + Time.unscaledDeltaTime, 0.0f, duration);
                 ModifyCharacterAlphaAtIndex(index, (byte)(time / duration * 255));
@@ -289,7 +285,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
         int material_index = character_info.materialReferenceIndex;
         int vertex_index = character_info.vertexIndex;
 
-        for(int i = 0; i < 4; ++i)
+        for (int i = 0; i < 4; ++i)
         {
             textInfo.meshInfo[material_index].colors32[vertex_index + i].a = alpha;
         }
@@ -305,7 +301,7 @@ public class AdvancedTMProUGUI : TextMeshProUGUI
 
     public void QuickShowRemainingText()
     {
-        if(m_typing_coroutine != null)
+        if (m_typing_coroutine != null)
         {
             StopCoroutine(m_typing_coroutine);
 

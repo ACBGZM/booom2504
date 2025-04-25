@@ -17,6 +17,7 @@ public class NodeGraphData : ScriptableObject
     public List<EdgeData> _edges = new List<EdgeData>();
 
 #if UNITY_EDITOR
+
     private void OnValidate()
     {
         EditorApplication.delayCall += TriggerRefresh;
@@ -35,5 +36,6 @@ public class NodeGraphData : ScriptableObject
             manager.ReloadNodeGraph();
         }
     }
+
 #endif
 }

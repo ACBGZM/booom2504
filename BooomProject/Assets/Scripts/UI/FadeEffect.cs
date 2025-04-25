@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent (typeof(CanvasGroup))]
+[RequireComponent(typeof(CanvasGroup))]
 public class FadeEffect : MonoBehaviour
 {
     private CanvasGroup m_canvas_group;
@@ -26,7 +26,7 @@ public class FadeEffect : MonoBehaviour
 
     public void Fade(float a, float duration, Action callback)
     {
-        if(m_render_opacity == a)
+        if (m_render_opacity == a)
         {
             callback?.Invoke();
             return;
@@ -36,10 +36,10 @@ public class FadeEffect : MonoBehaviour
         {
             m_render_opacity = a;
             callback?.Invoke();
-        }
-        else
+        } else
         {
-            if (m_fade_coroutine != null) {
+            if (m_fade_coroutine != null)
+            {
                 StopCoroutine(m_fade_coroutine);
                 m_fade_coroutine = null;
             }
@@ -51,7 +51,7 @@ public class FadeEffect : MonoBehaviour
     {
         float time = 0;
         float former_a = m_render_opacity;
-        while(time < duration)
+        while (time < duration)
         {
             time = Mathf.Clamp(time + Time.unscaledDeltaTime, 0, duration);
             m_render_opacity = Mathf.Lerp(former_a, a, m_fading_curve.Evaluate(time / duration));

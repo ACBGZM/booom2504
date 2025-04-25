@@ -10,18 +10,18 @@ public class EventFame : EventNodeBase
     public List<Dialogue> branch2;
     public NodeActionType type;
     public int fameThreshold;
+
     public override void Execute()
     {
         base.Execute();
         CheckFame();
-
-
     }
+
     public void ShowDialogueText()
     {
         DialogueUIManager.GetInstance().StartCoroutine(StepThroughDialogueDataList());
     }
-  
+
     public IEnumerator StepThroughDialogueDataList()
     {
         for (int i = 0; i < dialogues.Count; ++i)
@@ -34,15 +34,15 @@ public class EventFame : EventNodeBase
 
             yield return new WaitUntil(() => DialogueUIManager.GetCanShowNextDialogue());
         }
- 
+
         dialogues.Clear();
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
     }
+
     public void CheckFame()
     {
         GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
-
 
         //TODO 声誉获取
         //测试声誉
@@ -54,8 +54,7 @@ public class EventFame : EventNodeBase
         {
             award = true;
             choice = branch1;
-        }
-        else
+        } else
         {
             choice = branch2;
         }

@@ -1,84 +1,95 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+
 public class DiceController : MonoBehaviour
 {
+    [SerializeField]
+    private float rollForce = 50f;
 
-    
     [SerializeField]
-    float rollForce = 50f;
-    [SerializeField]
-    float torqueAmount = 20f;
-    [SerializeField]
-    float maxRollTime = 4f;
-    [SerializeField]
-    float minAnqularVelocity = 0.1f;
-    [SerializeField]
-    float smoothTime = 0.01f;
-    [SerializeField]
-    float maxSpeed = 15f;
+    private float torqueAmount = 20f;
 
+    [SerializeField]
+    private float maxRollTime = 4f;
+
+    [SerializeField]
+    private float minAnqularVelocity = 0.1f;
+
+    [SerializeField]
+    private float smoothTime = 0.01f;
+
+    [SerializeField]
+    private float maxSpeed = 15f;
 
     [Header("Audio & Particle Effects")]
     [SerializeField]
-    AudioClip shakeClip;
+    private AudioClip shakeClip;
+
     [SerializeField]
-    AudioSource rollclip;
+    private AudioSource rollclip;
+
     [SerializeField]
-    AudioClip impactClip;
+    private AudioClip impactClip;
+
     [SerializeField]
-    AudioClip finalResultClip;
+    private AudioClip finalResultClip;
+
     [SerializeField]
-    GameObject impactEffect;
+    private GameObject impactEffect;
+
     [SerializeField]
-    GameObject finalResultEffect;
+    private GameObject finalResultEffect;
+
     [SerializeField]
-    DiceSides diceSides;
-    AudioSource audioSource;
-    Rigidbody rb;
-    
-    CountdownTimer rollTimer;
+    private DiceSides diceSides;
+
+    private AudioSource audioSource;
+    private Rigidbody rb;
+
+    private CountdownTimer rollTimer;
     // 骰子起始位置
     [SerializeField]
-    Vector3 originPosition;
+    private Vector3 originPosition;
+
     [SerializeField]
+    private
     // 位移速度
     Vector3 currentVelocity;
+
     // 是否回归起始位置
     public Vector3 pos;
-    bool finalize;
+
+    private bool finalize;
     // 骰子网格
-    MeshCollider meshCollider;
+    private MeshCollider meshCollider;
 
     // public int idx;
 
     private void Awake()
     {
-
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         diceSides = GetComponent<DiceSides>();
         meshCollider = GetComponent<MeshCollider>();
         originPosition = transform.localPosition;
-        
+
         //  最大持续时间计数器
         rollTimer = new CountdownTimer(maxRollTime);
-        
+
         rollTimer.OnTimerStart += PerformInitialRoll;
         rollTimer.OnTimerStop += () => finalize = true;
-       
+
         CalculateSides();
     }
-  
-  
+
     public void Show(int idx)
     {
         transform.rotation = diceSides.GetWorldRotationFor(idx);
     }
+
     private void Update()
     {
-        
         // 更新计数器
         rollTimer.Tick(Time.deltaTime);
         // 骰子是否投掷结束
@@ -92,7 +103,7 @@ public class DiceController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 骰子停止设定
-        if(rollTimer.IsRunning && rollTimer.Progress < 0.5f && rb.angularVelocity.magnitude < minAnqularVelocity)
+        if (rollTimer.IsRunning && rollTimer.Progress < 0.5f && rb.angularVelocity.magnitude < minAnqularVelocity)
         {
             finalize = true;
         }
@@ -111,9 +122,9 @@ public class DiceController : MonoBehaviour
         // 随机施力方向
         //  Vector3 targetPos = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         //  Vector3 dir = (targetPos - transform.position).normalized;
-       
+
         Vector3 dir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
-        rb.AddForce(dir * rollForce,ForceMode.Impulse);
+        rb.AddForce(dir * rollForce, ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * torqueAmount, ForceMode.Impulse);
         audioSource.clip = shakeClip;
         audioSource.loop = true;
@@ -123,10 +134,9 @@ public class DiceController : MonoBehaviour
     private void MoveDiceToCenter()
     {
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, originPosition, ref currentVelocity, smoothTime);
-        
+
         if (InRnageof(transform.localPosition, originPosition, 1f))
         {
-            
             FinalizeRoll();
         }
     }
@@ -138,25 +148,23 @@ public class DiceController : MonoBehaviour
         print(diceSides.GetMatch());
         ResetDiceState();
 
-        
         audioSource.Stop();
         audioSource.loop = false;
         audioSource.clip = null;
 
         EventHandlerManager.CallRollFinish(diceSides.GetMatch());
         //audioSource.PlayOneShot(finalResultClip);
-  
+
         var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
         particles.transform.localScale = Vector3.one * 1.5f;
-        
+
         particles.transform.rotation *= Quaternion.AngleAxis(90f, Vector3.up);
         Destroy(particles, 2f);
-
     }
-    
+
     private void OnMouseUp()
     {
-        if(rollTimer.IsRunning) return;
+        if (rollTimer.IsRunning) return;
         rollTimer.Start();
     }
 
@@ -165,6 +173,7 @@ public class DiceController : MonoBehaviour
         if (rollTimer.IsRunning) return;
         rollTimer.Start();
     }
+
     // 重置骰子状态
     private void ResetDiceState()
     {
@@ -177,13 +186,13 @@ public class DiceController : MonoBehaviour
     {
         Mesh mesh = meshCollider.sharedMesh;
         List<DiceSide> foundSides = FindDiceSides(mesh);
-        for(int i = 0; i < foundSides.Count; i++)
+        for (int i = 0; i < foundSides.Count; i++)
         {
             diceSides.sides[i].center = foundSides[i].center;
             diceSides.sides[i].normal = foundSides[i].normal;
         }
-
     }
+
     private List<DiceSide> FindDiceSides(Mesh mesh)
     {
         List<DiceSide> result = new List<DiceSide>();
@@ -193,7 +202,7 @@ public class DiceController : MonoBehaviour
         Vector3[] vertices = mesh.vertices;
         // 获取网格的法线数组
         Vector3[] normals = mesh.normals;
-        for(int i = 0; i < triangles.Length; i += 3)
+        for (int i = 0; i < triangles.Length; i += 3)
         {
             // 处理每个三角形信息
             Vector3 a = vertices[triangles[i]];
@@ -203,7 +212,7 @@ public class DiceController : MonoBehaviour
             result.Add(new DiceSide
             {
                 center = (a + b + c) / 3f,
-                normal = Vector3.Cross(b - a,c - a).normalized,
+                normal = Vector3.Cross(b - a, c - a).normalized,
             });
         }
         return result;

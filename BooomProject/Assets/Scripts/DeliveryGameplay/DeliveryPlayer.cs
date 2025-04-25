@@ -8,8 +8,6 @@ public class DeliveryPlayer : MonoBehaviour
     [SerializeField] private float _moveDuration = 0f;
     [SerializeField] private bool _useSpeed = true;
 
-
-
     public void Start()
     {
         transform.position = GameManager.Instance.NodeGraphManager.CurrentNode.transform.position;
@@ -43,7 +41,7 @@ public class DeliveryPlayer : MonoBehaviour
         }
 
         StartMoving();
-        
+
         int currentSegment = 0;
 
         while (currentSegment < path.Length - 1)
@@ -52,7 +50,7 @@ public class DeliveryPlayer : MonoBehaviour
             Vector2 begin = path[currentSegment];
             Vector2 end = path[currentSegment + 1];
             float segmentDistance = Vector2.Distance(begin, end);
-            float segmentDuration =  _useSpeed ?
+            float segmentDuration = _useSpeed ?
                 (segmentDistance / _moveSpeed)
                 : (segmentDistance / totalDistance * totalTime);
 
@@ -67,12 +65,12 @@ public class DeliveryPlayer : MonoBehaviour
         }
 
         transform.position = path[^1];
-        
+
         StopMoving();
-        
+
         onComplete?.Invoke();
     }
-    
+
     private void StartMoving()
     {
         GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerMoving;

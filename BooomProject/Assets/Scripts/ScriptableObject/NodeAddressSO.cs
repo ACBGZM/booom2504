@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 // 节点地址映射数据容器
 [CreateAssetMenu(fileName = "NodeAddress", menuName = "NodeAddress/NodeAddressSO")]
 public class NodeAddressSO : ScriptableObject

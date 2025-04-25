@@ -1,14 +1,14 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class Node : MonoBehaviour, IClickable
 {
     // runtime adjacent nodes reference
-
     [SerializeField] private EventSequenceExecutor _executor;
     [SerializeField] private NodeActionType type;
     public bool test;
+
     public virtual void ExecuteEvents()
     {
         if (_executor != null)
@@ -17,11 +17,11 @@ public class Node : MonoBehaviour, IClickable
             _executor.Execute();
         }
     }
-    
+
     protected virtual void OnExecutorFinished(bool success)
     {
     }
-   
+
     public struct Edge
     {
         public Edge(int cost, Vector3[] path)
@@ -51,6 +51,7 @@ public class Node : MonoBehaviour, IClickable
     }
 
     private Vector3 _originalScale;
+
     public void ShowCanMove(bool canMove)
     {
         if (canMove)
@@ -58,14 +59,13 @@ public class Node : MonoBehaviour, IClickable
             transform.DOScale(_originalScale * 1.2f, 0.5f)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
-        }
-        else
+        } else
         {
             transform.DOKill();
             transform.localScale = _originalScale;
         }
     }
-    
+
     public void ShowIsMovingTo(bool isMovingTo)
     {
         if (isMovingTo)
@@ -73,8 +73,7 @@ public class Node : MonoBehaviour, IClickable
             transform.DOScale(_originalScale * 1.5f, 0.3f)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
-        }
-        else
+        } else
         {
             transform.DOKill();
             transform.localScale = _originalScale;
@@ -82,6 +81,7 @@ public class Node : MonoBehaviour, IClickable
     }
 
 #if UNITY_EDITOR
+
     private void OnDrawGizmos()
     {
         GUIStyle nodeIDDisplayStyle = new();
@@ -89,7 +89,9 @@ public class Node : MonoBehaviour, IClickable
         Vector3 nodeIDDisplayPosition = transform.position + new Vector3(0.0f, 1.0f, 0.0f) * 0.5f;
         UnityEditor.Handles.Label(transform.position + Vector3.up * 0.5f, $"ID:{NodeID}", nodeIDDisplayStyle);
     }
+
 #endif
+
     // TODO：节点作为目的地，高亮方式
     public void TargetNodeHighLight(bool finished)
     {
