@@ -16,7 +16,25 @@ using System; using System.Collections.Generic; using System.Linq; using T
                 nodeIdx = -1;
             }
             GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
-        }          // 删除order数据后刷新列表         GenerateAcceptOrder();                                 }     // 更新订单预计到达时间与距离(外卖员当前所在节点位置更新调用)      private void OnUpdateArriveDistAndTime(int currentNode,int speed)     {         foreach (OrderSO order in _availableOrders)         {             float dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);             order.orderDistance = $"{dist:F1}km";             order.time = dist / speed;         }         foreach (OrderSO order in _acceptedOrders)         {             float dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, MapDataManager.Instance.nodeAddress[order.orderAddress]);             order.time = dist / speed;             order.orderDistance = $"{dist:F1}km";         }     }     // 判断是否有当前节点的订单     private bool OnCheckNodeOrder(int nodeIdx)
+        }          // 删除order数据后刷新列表         GenerateAcceptOrder();                                 }     // 更新订单预计到达时间与距离(外卖员当前所在节点位置更新调用)      private void OnUpdateArriveDistAndTime(int currentNode,int speed)     {
+        int targetNodeIdx;
+        float dist;         foreach (OrderSO order in _availableOrders)         {            
+            if (MapDataManager.Instance.nodeAddress.TryGetValue(order.orderAddress, out targetNodeIdx))
+            {                 dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, targetNodeIdx);
+                order.orderDistance = $"{dist:F1}km";
+                order.time = dist / speed;
+            }             else
+            {                 order.orderDistance = "未设置目的地节点，请检查映射表";
+                order.time = -1;
+            }                      }         foreach (OrderSO order in _acceptedOrders)         {           
+            if (MapDataManager.Instance.nodeAddress.TryGetValue(order.orderAddress, out targetNodeIdx))
+            {                 dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, targetNodeIdx);
+                order.orderDistance = $"{dist:F1}km";
+                order.time = dist / speed;
+            }             else
+            {                 order.orderDistance = "未设置目的地节点，请检查映射表";
+                order.time = -1;
+            }         }     }     // 判断是否有当前节点的订单     private bool OnCheckNodeOrder(int nodeIdx)
     {          if (acceptedOrdersNode.ContainsValue(nodeIdx))
         {
             // 查找与当前节点有关的订单
