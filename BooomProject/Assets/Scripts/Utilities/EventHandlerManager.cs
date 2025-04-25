@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public static class EventHandlerManager
@@ -12,9 +13,10 @@ public static class EventHandlerManager
     public static event Action<bool> heavyRainBuff;
     #endregion
     #region ÊÖ»úUI
-    public static event Action<int, int> updateArriveDistAndTime;
+    public static event Action chatWindowShow;
 
     #endregion
+    public static event Action<int, int> updateArriveDistAndTime;
     public static event Func<int, int, float> getDistance;
     public static event Func<int> getCurrentNode;
     public static void CallRollFinish(int val)
@@ -55,5 +57,9 @@ public static class EventHandlerManager
     public static int CallGetCurrentNode()
     {
         return getCurrentNode?.Invoke() ?? -1;
+    }
+    public static void CallChatWindowShow()
+    {
+        chatWindowShow?.Invoke();
     }
 }

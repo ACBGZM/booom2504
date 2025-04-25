@@ -23,4 +23,6 @@ public class OrderSO : ScriptableObject {
     public string bubble;
     [Tooltip("预计送达时间")]
     public float time;
+    [Tooltip("订单聊天历史记录")]
+    public List<ChatFragment> chatHistory;
 }

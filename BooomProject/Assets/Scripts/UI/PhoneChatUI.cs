@@ -15,7 +15,7 @@ public class PhoneChatUI : MonoBehaviour {
     [SerializeField] private GameObject chatButton; // 聊天界面的按钮
 
 
-    public event EventHandler OnChatWindowShow;
+ //   public event EventHandler OnChatWindowShow;
     public Button backBtn;
     public Text title;
     public TMP_InputField inputField;
@@ -29,6 +29,21 @@ public class PhoneChatUI : MonoBehaviour {
             OnSubmit(message);
             inputField.text = string.Empty;
         });
+        
+    }
+    private void OnEnable()
+    {
+        
+        EventHandlerManager.chatWindowShow += OnChatWindowShow;
+    }
+    private void OnDestroy()
+    {
+        
+        EventHandlerManager.chatWindowShow -= OnChatWindowShow;
+    }
+    private void Start()
+    {
+        gameObject.SetActive(false);
     }
     public void CreateChat() {
         // 创建历史对话
@@ -64,10 +79,9 @@ public class PhoneChatUI : MonoBehaviour {
     }
 
     // 联系顾客按钮监听事件
-    // 测试方法
-    public void OnButtonClick() {
-        // 传入history
-        // 传入信息
+    public void OnChatWindowShow() {
+        print("open window");
+        chatTitle.text = string.Format("我,{0},店家", ChatWindowManager.Instance.customerName);
         ShowMe();
         UpdateContent();
 

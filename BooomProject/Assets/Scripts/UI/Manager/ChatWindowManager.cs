@@ -24,13 +24,20 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
     }
 
     private void OrderManager_OnChatWindowOpen(OrderSO order) {
-        Debug.Log(order.customerSO.customerName);
+        
+        history = order.chatHistory;
+        customerName = order.customerSO.customerName;
+        customerIcon = order.customerSO.customerProfile;
+        // TODO: 商家头像信息获取
+        EventHandlerManager.CallChatWindowShow();
+        
     }
 
     protected override void init()
     {
         leftItem = Resources.Load<GameObject>(GameplaySettings.left_item_prefab_path);
         rightItem = Resources.Load<GameObject>(GameplaySettings.right_item_prefab_path);
+        ownerIcon = Resources.Load<Sprite>(GameplaySettings.owner_icon_path);
     }
 
 }

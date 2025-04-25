@@ -139,6 +139,8 @@ public class OrderManager : MonoBehaviour {
         }
         _availableOrders.Remove(order);
         Destroy(orderItem.gameObject);
+        // 接取订单后 初始化其历史聊天
+        order.chatHistory = new List<ChatFragment>();
         // 添加到已接列表
         _acceptedOrders.Add(order);
         GenerateAcceptOrder();
