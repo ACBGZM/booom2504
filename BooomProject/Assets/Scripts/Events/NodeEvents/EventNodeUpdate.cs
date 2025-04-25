@@ -5,11 +5,21 @@ using UnityEngine;
 // 到达节点事件
 public class EventNodeUpdate : EventNodeBase
 {
-   
+    // 送达该节点次数
+    int arriveCnt;
     public override void Execute()
     {
         base.Execute();
-        Debug.Log("当前位置" + GameManager.Instance.NodeGraphManager.CurrentNode.NodeID);
+        int nodeIdx = GameManager.Instance.NodeGraphManager.CurrentNode.NodeID;
+        Debug.Log("当前位置" + nodeIdx);
+        // 判断该节点是否为目的节点
+        if(EventHandlerManager.CallCheckNodeOrder(nodeIdx))
+        {
+            // TODO：根据送达次数 执行事件
+
+            // 事件结束，累加送达次数
+            arriveCnt++;
+        }
         // 订单剩余时间与距离
         //  EventHandlerManager.CallUpdateArriveDistAndTime(EventHandlerManager.CallGetCurrentNode(), PlayerManager.Instance.speed);
         m_state = EventNodeState.Finished;

@@ -21,7 +21,7 @@ public static class EventHandlerManager
     public static event Action<int, int> updateArriveDistAndTime;
 
     #endregion
-
+    public static event Func<int,bool> checkNodeOrder;
     public static void CallRollFinish(int val)
     {
         rollFinish?.Invoke(val);
@@ -53,11 +53,13 @@ public static class EventHandlerManager
         updateArriveDistAndTime?.Invoke(currentNode, speed);
     }
 
-  
-  
     public static void CallChatWindowShow()
     {
         chatWindowShow?.Invoke();
     }
- 
+
+    public static bool CallCheckNodeOrder(int nodeIdx)
+    {
+        return checkNodeOrder?.Invoke(nodeIdx) ?? false;
+    }
 }
