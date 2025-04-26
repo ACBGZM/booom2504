@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -84,13 +85,18 @@ public class OrderManager : Singleton<OrderManager>
             _acceptedOrders.Remove(order);
 
             acceptedOrdersNode.Remove(order);
-            // 结束展示地图目标节点
-            int nodeIdx;
-            if (!MapDataManager.Instance.nodeAddress.TryGetValue(order.customerSO.customerAddress, out nodeIdx))
+            // 执行特殊事件
+            if(order.orderEvent !=  null)
             {
-                nodeIdx = -1;
+                StartCoroutine(ExecuteOrderEvents(order));
             }
-            GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
+            // 结束展示地图目标节点
+            //int nodeIdx;
+            //if (!MapDataManager.Instance.nodeAddress.TryGetValue(order.customerSO.customerAddress, out nodeIdx))
+            //{
+            //    nodeIdx = -1;
+            //}
+            //GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
         }
 
     }
@@ -168,4 +174,12 @@ public class OrderManager : Singleton<OrderManager>
         return false;
     }
 
+    private IEnumerator ExecuteOrderEvents(OrderSO order)
+    {
+        bool finished = false;
+        order.orderEvent.Initialize((b) => finished = b);
+        order.orderEvent.Execute();
+
+        yield return new WaitUntil(() => finished == true);
+    }
 }

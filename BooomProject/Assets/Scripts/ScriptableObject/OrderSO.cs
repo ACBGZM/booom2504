@@ -47,4 +47,7 @@ public class OrderSO : ScriptableObject
 
     [Tooltip("订单聊天历史记录")]
     public List<ChatFragment> chatHistory;
+
+    [Tooltip("订单特殊事件")]
+    public EventSequenceExecutor orderEvent;
 }

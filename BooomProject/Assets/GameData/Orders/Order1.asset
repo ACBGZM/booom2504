@@ -22,3 +22,4 @@ MonoBehaviour:
   bubble: "\u90A3\u6211\u95EE\u4F60"
   time: 0
   chatHistory: []
+  orderEvent: {fileID: 0}

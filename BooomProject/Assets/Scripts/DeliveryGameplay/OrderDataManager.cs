@@ -64,9 +64,9 @@ public class OrderDataManager : Singleton<OrderDataManager>
 
         _acceptedOrders.Add(order);
 
-        // int nodeIdx = GetNodeIndexForOrder(order);
-        // acceptedOrdersNode.Add(order, nodeIdx);
-        // GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, true);
+        int nodeIdx = GetNodeIndexForOrder(order);
+        acceptedOrdersNode.Add(order, nodeIdx);
+        GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, true);
 
         Debug.Log($"接单: {order.orderTitle}");
 
@@ -81,9 +81,9 @@ public class OrderDataManager : Singleton<OrderDataManager>
             if (_acceptedOrders.Remove(order)) {
                 Debug.Log($"订单完成: {order.orderTitle}");
                 changed = true;
-                // int nodeIdx = GetNodeIndexForOrder(order);
-                // acceptedOrdersNode.Remove(order);
-                // GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
+                int nodeIdx = GetNodeIndexForOrder(order);
+                acceptedOrdersNode.Remove(order);
+                GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
             }
         }
 

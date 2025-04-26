@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
+  m_Name: EventTriggered
+  m_EditorClassIdentifier: 
+  m_state: 0
+  m_dialogues:
+  - m_speaker_name: "\uFF1F\uFF1F\uFF1F"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u597D\u4E86\uFF0C\u8FD9\u6B21\u4F60\u5230\u8FBE\u70E7\u70E4\u644A\u7684\u65F6\u5019\uFF0C\u6797\u76D0\u6B63\u5728\u5F80\u70E7\u70E4\u4E0A\u5229\u843D\u5730\u5237\u7740\u849C\u84C9\u9171\u3002"
+    m_display_method: 3
+    m_can_skip: 1
+  - m_speaker_name: "\uFF1F\uFF1F\uFF1F"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u4F46\u662F\u4ED6\u7684\u5916\u5356\u4F9D\u65E7\u4E0D\u653E\u849C\u3002"
+    m_display_method: 3
+    m_can_skip: 1
