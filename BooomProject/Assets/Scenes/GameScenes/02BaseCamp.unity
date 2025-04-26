@@ -2811,7 +2811,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _phoneUI: {fileID: 0}
-  _phoneMask: {fileID: 0}
 --- !u!1 &1434545800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,8 +3609,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03957091, y: 0.1900566}
-  m_Size: {x: 7.9729743, y: 20.439367}
+  m_Offset: {x: 0, y: 1.4}
+  m_Size: {x: 1.8, y: 4.5}
   m_Direction: 0
 --- !u!4 &1761805213
 Transform:
@@ -4064,4 +4063,5 @@ SceneRoots:
   - {fileID: 1627382178}
   - {fileID: 471841058}
   - {fileID: 363121721}
+  - {fileID: 179817982}
   - {fileID: 375317988}
