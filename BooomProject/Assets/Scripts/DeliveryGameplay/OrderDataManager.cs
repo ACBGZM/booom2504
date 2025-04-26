@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class OrderDataManager : Singleton<OrderDataManager>
+public class OrderDataManager : MonoBehaviour
 {
     public event Action OnAvailableOrdersChanged;
     public event Action OnAcceptedOrdersChanged;
@@ -20,7 +20,7 @@ public class OrderDataManager : Singleton<OrderDataManager>
     public List<OrderSO> GetAvailableOrders() => new List<OrderSO>(_availableOrders); // 防止外部修改
     public List<OrderSO> GetAcceptedOrders() => new List<OrderSO>(_acceptedOrders);
 
-    protected override void init() {
+    protected void Awake() {
         _availableOrders = new List<OrderSO>();
         _acceptedOrders = new List<OrderSO>();
         acceptedOrdersNode = new Dictionary<OrderSO, int>();
@@ -78,7 +78,7 @@ public class OrderDataManager : Singleton<OrderDataManager>
 
         int nodeIdx = order.customerSO.destNodeId;
         acceptedOrdersNode.Add(order, nodeIdx);
-        GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, true);
+        CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, true);
 
         Debug.Log($"接单: {order.orderTitle}");
 
@@ -99,7 +99,7 @@ public class OrderDataManager : Singleton<OrderDataManager>
                 changed = true;
                 int nodeIdx = order.customerSO.destNodeId;
                 acceptedOrdersNode.Remove(order);
-                GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
+                CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
             }
         }
 
@@ -170,8 +170,8 @@ public class OrderDataManager : Singleton<OrderDataManager>
         int targetNodeIdx;
         float dist;
         foreach (OrderSO order in _availableOrders) {
-            if (GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId) != null) {
-                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, order.customerSO.destNodeId);
+            if (CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId) != null) {
+                dist = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(currentNode, order.customerSO.destNodeId);
                 order.orderDistance = $"{dist:F1}km";
                 order.time = dist / speed;
             } else {
@@ -180,8 +180,8 @@ public class OrderDataManager : Singleton<OrderDataManager>
             }
         }
         foreach (OrderSO order in _acceptedOrders) {
-            if (GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId) != null) {
-                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, order.customerSO.destNodeId);
+            if (CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId) != null) {
+                dist = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(currentNode, order.customerSO.destNodeId);
                 order.orderDistance = $"{dist:F1}km";
                 order.time = dist / speed;
             } else {

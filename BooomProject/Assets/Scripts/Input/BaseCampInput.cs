@@ -1,24 +1,27 @@
 using System;
 using UnityEngine;
 
-public class GameInput : CommonInput
+public class BaseCampInputHandler : CommonInput
 {
+    private InputActions.BaseCampGameplayActions _baseCampGameplayInputActions;
+    public InputActions.BaseCampGameplayActions BaseCampGameplayInputActions => _baseCampGameplayInputActions;
+
     public event EventHandler OnInteractAction;
 
     private void Awake()
     {
         base.Awake();
 
-        _playerInputActions.BaseCampGameplay.Enable();
-        _playerInputActions.BaseCampGameplay.Interact.performed += Interact_performed;
+        _baseCampGameplayInputActions = _playerInputActions.BaseCampGameplay;
+        _baseCampGameplayInputActions.Enable();
+        _baseCampGameplayInputActions.Interact.performed += Interact_performed;
     }
 
     private void OnDestroy()
     {
         base.OnDestroy();
 
-        _playerInputActions.BaseCampGameplay.Interact.performed += Interact_performed;
-        _playerInputActions.Dispose();
+        _baseCampGameplayInputActions.Interact.performed += Interact_performed;
     }
 
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

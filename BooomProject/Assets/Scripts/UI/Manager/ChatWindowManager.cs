@@ -4,7 +4,7 @@ using UnityEngine;
 // 维护聊天界面数据
 public class ChatWindowManager : Singleton<ChatWindowManager>
 {
-    [SerializeField] private OrderDataManager _orderManager;
+    private OrderDataManager _orderDataManager;
     public GameObject leftItem;
     public GameObject rightItem;
     // 当前对象历史
@@ -17,10 +17,11 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
 
     private void Start()
     {
-        _orderManager.OnChatWindowOpen += OrderManager_OnChatWindowOpen;
+        _orderDataManager = CommonGameplayManager.GetInstance().OrderDataManager;
+        _orderDataManager.OnChatWindowOpen += OrderDataManagerOnChatWindowOpen;
     }
 
-    private void OrderManager_OnChatWindowOpen(OrderSO order)
+    private void OrderDataManagerOnChatWindowOpen(OrderSO order)
     {
         history = order.chatHistory;
         customerName = order.customerSO.customerName;

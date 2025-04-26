@@ -12,7 +12,7 @@ public class EventCloseDialogueBox : EventNodeBase
 
     public void OnDialogueBoxClosed()
     {
-        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerIdle;
+        CommonGameplayManager.GetInstance().PlayerState = EPlayerState.PlayerIdle;
         m_on_finished?.Invoke(true);
     }
 }

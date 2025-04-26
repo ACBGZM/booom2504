@@ -15,9 +15,9 @@ public class OrderUIManager : Singleton<OrderUIManager> {
 
     private void Start() {
         // 订阅数据层事件
-        if (OrderDataManager.Instance != null) {
-            OrderDataManager.Instance.OnAvailableOrdersChanged += RefreshAvailableOrdersUI;
-            OrderDataManager.Instance.OnAcceptedOrdersChanged += RefreshAcceptedOrdersUI;
+        if (CommonGameplayManager.GetInstance().OrderDataManager != null) {
+            CommonGameplayManager.GetInstance().OrderDataManager.OnAvailableOrdersChanged += RefreshAvailableOrdersUI;
+            CommonGameplayManager.GetInstance().OrderDataManager.OnAcceptedOrdersChanged += RefreshAcceptedOrdersUI;
             // 初始加载
             RefreshAvailableOrdersUI();
             RefreshAcceptedOrdersUI();
@@ -28,7 +28,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     // 刷新可用订单UI
     private void RefreshAvailableOrdersUI() {
         ClearContainer(_availableOrderContainer);
-        List<OrderSO> availableOrders = OrderDataManager.Instance.GetAvailableOrders();
+        List<OrderSO> availableOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAvailableOrders();
         foreach (var order in availableOrders) {
             Transform orderItem = _orderPool.Get(_orderTemplatePrefab, _availableOrderContainer);
             SetupAvailableOrderUI(orderItem, order);
@@ -39,7 +39,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     // 刷新已接订单UI
     private void RefreshAcceptedOrdersUI() {
         ClearContainer(_acceptedOrderContainer);
-        List<OrderSO> acceptedOrders = OrderDataManager.Instance.GetAcceptedOrders();
+        List<OrderSO> acceptedOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAcceptedOrders();
         foreach (var order in acceptedOrders) {
             Transform orderItem = _orderPool.Get(_myOrderTemplatePrefab, _acceptedOrderContainer);
             SetupAcceptedOrderUI(orderItem, order);
@@ -57,7 +57,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         if (ui.customerNameText != null) ui.customerNameText.text = order.customerSO.customerName;
         if (ui.distanceText != null) ui.distanceText.text = $"{order.orderDistance:F1}km";
         if (ui.customerAddressText != null) ui.customerAddressText.text
-            = GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._address;
+            = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId)._address;
         // if (ui.rangeText != null) ui.rangeText.text = $"Range: {order.range}";
 
         Button btn = ui.mainButton;
@@ -65,9 +65,9 @@ public class OrderUIManager : Singleton<OrderUIManager> {
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => {
                 Debug.Log($"已接单: {order.orderTitle}");
-                OrderDataManager.Instance.AcceptOrder(order);
+                CommonGameplayManager.GetInstance().OrderDataManager.AcceptOrder(order);
             });
-            btn.interactable = OrderDataManager.Instance.CanAcceptMoreOrders();
+            btn.interactable = CommonGameplayManager.GetInstance().OrderDataManager.CanAcceptMoreOrders();
         }
     }
 
@@ -85,10 +85,10 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         if (ui.orderAddressText != null) ui.orderAddressText.text = order.orderAddress;
         if (ui.customerAddressNameText != null)
             ui.customerAddressNameText.text
-                = GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._address;
+                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._address;
         if (ui.customerAddressText != null)
             ui.customerAddressText.text
-                = GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._addressDetail;
+                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._addressDetail;
         if (ui.bubbleText != null) ui.bubbleText.text = order.bubble;
 
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
@@ -120,9 +120,9 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     }
 
     protected override void OnDestroy() {
-        if (OrderDataManager.Instance != null) {
-            OrderDataManager.Instance.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
-            OrderDataManager.Instance.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
+        if (CommonGameplayManager.GetInstance().OrderDataManager != null) {
+            CommonGameplayManager.GetInstance().OrderDataManager.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
+            CommonGameplayManager.GetInstance().OrderDataManager.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
         }
         _orderPool.ClearPool();
     }

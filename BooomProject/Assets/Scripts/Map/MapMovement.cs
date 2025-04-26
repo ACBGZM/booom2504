@@ -60,10 +60,10 @@ public class MapMovement : MonoBehaviour
 
     private void Start()
     {
-        _zoomInputAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.ZoomMap;
-        _dragInputAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.DragMap;
-        _inputPositionAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.InputPosition;
-        _restoreCameraInputAction = GameManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.RestoreCamera;
+        _zoomInputAction = DeliveryGameplayManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.ZoomMap;
+        _dragInputAction = DeliveryGameplayManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.DragMap;
+        _inputPositionAction = DeliveryGameplayManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.InputPosition;
+        _restoreCameraInputAction = DeliveryGameplayManager.Instance.DeliverySceneInputHandler.DeliveryGameplayInputActions.RestoreCamera;
 
         _dragInputAction.started += StartDrag;
         _dragInputAction.canceled += StopDrag;
@@ -71,7 +71,7 @@ public class MapMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.DeliverySceneInputHandler.IsPointerOverUI())
+        if (DeliveryGameplayManager.Instance.DeliverySceneInputHandler.IsPointerOverUI())
         {
             _isDragging = false;
             return;
@@ -218,8 +218,8 @@ public class MapMovement : MonoBehaviour
         if (_restoreCameraInputAction.IsPressed())
         {
             _camera.transform.position = new(
-                GameManager.Instance.DeliveryPlayer.transform.position.x,
-                GameManager.Instance.DeliveryPlayer.transform.position.y,
+                DeliveryGameplayManager.Instance.DeliveryPlayer.transform.position.x,
+                DeliveryGameplayManager.Instance.DeliveryPlayer.transform.position.y,
                 _camera.transform.position.z);
         }
     }

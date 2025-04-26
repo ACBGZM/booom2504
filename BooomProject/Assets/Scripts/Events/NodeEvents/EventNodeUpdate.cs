@@ -6,14 +6,14 @@ public class EventNodeUpdate : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        int nodeIdx = GameManager.Instance.NodeGraphManager.CurrentNode.NodeID;
+        int nodeIdx = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
         Debug.Log("当前位置" + nodeIdx);
         // 判断该节点是否为目的节点,并执行事件
         if (EventHandlerManager.CallCheckNodeOrder(nodeIdx))
         {
-           
+
         }
-    
+
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
     }

@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController controllerInstance { get; private set; }
     public IInteractable currentInteractable => _interactables.Count > 0 ? _interactables[0] : null;
 
-    [SerializeField] private GameInput _gameInput;
+    [SerializeField] private BaseCampInputHandler _baseCampInputHandler;
     private List<IInteractable> _interactables = new List<IInteractable>();
     private bool _isWalking = false;
     private Rigidbody2D _playerRigidBody;
@@ -25,10 +25,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        _gameInput.OnInteractAction += GameInput_OnInteractAction;
+        _baseCampInputHandler.OnInteractAction += BaseCampInputHandlerOnInteractAction;
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    private void BaseCampInputHandlerOnInteractAction(object sender, System.EventArgs e)
     {
         currentInteractable?.Interact(PlayerController.controllerInstance);
     }
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        _moveDir = _gameInput.GetMovement();
+        _moveDir = _baseCampInputHandler.GetMovement();
         _isWalking = _moveDir != Vector2.zero;
         //_playerRigidBody.MovePosition(_playerRigidBody.position +
         //    (new Vector2(_moveDir.x, _moveDir.y)) * GameplaySettings.m_walk_speed * Time.deltaTime);
@@ -92,9 +92,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (_gameInput != null)
+        if (_baseCampInputHandler != null)
         {
-            _gameInput.OnInteractAction -= GameInput_OnInteractAction;
+            _baseCampInputHandler.OnInteractAction -= BaseCampInputHandlerOnInteractAction;
         }
         if (controllerInstance == this)
         {

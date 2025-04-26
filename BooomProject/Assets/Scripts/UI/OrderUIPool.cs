@@ -15,6 +15,7 @@ public class OrderUIPool {
         Transform item;
         if (_pool[prefabGO].Count > 0) {
             item = _pool[prefabGO].Dequeue();
+            item.transform.localScale = Vector3.one;    // hack
             item.SetParent(parent, false); // 设置父级
             item.gameObject.SetActive(true);
         } else {
