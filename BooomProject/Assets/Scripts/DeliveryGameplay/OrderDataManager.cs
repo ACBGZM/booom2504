@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class OrderDataManager : Singleton<OrderDataManager>
 {
     public event Action OnAvailableOrdersChanged;
     public event Action OnAcceptedOrdersChanged;
+    public event Action<OrderSO> OnChatWindowOpen;
 
     [SerializeField] private List<OrderSO> _allOrders;
     private List<OrderSO> _availableOrders = new List<OrderSO>();
@@ -27,6 +29,16 @@ public class OrderDataManager : Singleton<OrderDataManager>
     private void Start() {
         SortOrders();
         TimeManager.Instance.OnMinutePassed.AddListener(UpdateOrderTimes);
+    }
+
+    private void OnEnable() {
+        EventHandlerManager.updateArriveDistAndTime += OnUpdateArriveDistAndTime;
+        EventHandlerManager.checkNodeOrder += OnCheckNodeOrder;
+    }
+
+    private void OnDisable() {
+        EventHandlerManager.updateArriveDistAndTime -= OnUpdateArriveDistAndTime;
+        EventHandlerManager.checkNodeOrder -= OnCheckNodeOrder;
     }
 
     // 按距离排序
@@ -73,6 +85,10 @@ public class OrderDataManager : Singleton<OrderDataManager>
         // 通知UI
         OnAvailableOrdersChanged?.Invoke();
         OnAcceptedOrdersChanged?.Invoke();
+    }
+
+    private void OnChatWithCustormer(OrderSO order) {
+        OnChatWindowOpen?.Invoke(order);
     }
 
     public void CompleteOrders(List<OrderSO> ordersToComplete) {
@@ -135,5 +151,70 @@ public class OrderDataManager : Singleton<OrderDataManager>
            nodeIdx = -1; // Or handle error appropriately
         }
         return nodeIdx;
+    }
+
+    // 每分钟更新所有订单剩余时间
+    private void UpdateAllOrdersTime(GameTime currentTime) {
+        List<OrderSO> timeoutOrders = new List<OrderSO>();
+
+        foreach (var order in _acceptedOrders) {
+            int elapsed = CalculateElapsedMinutes(order.acceptedTime, currentTime);
+            order.remainingMinutes = order.orderLimitTime - elapsed;
+
+            if (order.remainingMinutes <= 0) {
+                order.isTimeout = true;
+                timeoutOrders.Add(order);
+            }
+        }
+        // 处理超时订单
+        foreach (var order in timeoutOrders) {
+            Debug.Log($"订单超时：{order.orderTitle}");
+            // 扣声誉等
+        }
+    }
+
+    // 更新订单预计到达时间与距离(外卖员当前所在节点位置更新调用)
+    private void OnUpdateArriveDistAndTime(int currentNode, int speed) {
+        int targetNodeIdx;
+        float dist;
+        foreach (OrderSO order in _availableOrders) {
+            if (MapDataManager.Instance.nodeAddress.TryGetValue(order.orderAddress, out targetNodeIdx)) {
+                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, targetNodeIdx);
+                order.orderDistance = $"{dist:F1}km";
+                order.time = dist / speed;
+            } else {
+                order.orderDistance = "未设置目的地节点，请检查映射表";
+                order.time = -1;
+            }
+        }
+        foreach (OrderSO order in _acceptedOrders) {
+            if (MapDataManager.Instance.nodeAddress.TryGetValue(order.orderAddress, out targetNodeIdx)) {
+                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, targetNodeIdx);
+                order.orderDistance = $"{dist:F1}km";
+                order.time = dist / speed;
+            } else {
+                order.orderDistance = "未设置目的地节点，请检查映射表";
+                order.time = -1;
+            }
+        }
+    }
+
+    // 判断是否有当前节点的订单
+    private bool OnCheckNodeOrder(int nodeIdx) {
+        if (acceptedOrdersNode.ContainsValue(nodeIdx)) {
+            // 查找与当前节点有关的订单
+            var orders = acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key);
+            CompleteOrders(orders.ToList());
+            return true;
+        }
+        return false;
+    }
+
+    private IEnumerator ExecuteOrderEvents(OrderSO order) {
+        bool finished = false;
+        order.orderEvent.Initialize((b) => finished = b);
+        order.orderEvent.Execute();
+
+        yield return new WaitUntil(() => finished == true);
     }
 }

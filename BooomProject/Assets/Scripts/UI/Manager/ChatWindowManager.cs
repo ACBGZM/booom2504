@@ -4,7 +4,7 @@ using UnityEngine;
 // 维护聊天界面数据
 public class ChatWindowManager : Singleton<ChatWindowManager>
 {
-    [SerializeField] private OrderManager _orderManager;
+    [SerializeField] private OrderDataManager _orderManager;
     public GameObject leftItem;
     public GameObject rightItem;
     // 当前对象历史
