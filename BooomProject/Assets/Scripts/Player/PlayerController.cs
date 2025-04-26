@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             float facingDir = 1.0f;
             if (_moveDir.x < 0) facingDir = -1.0f;
-            transform.localScale = new Vector3(facingDir, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(facingDir * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
