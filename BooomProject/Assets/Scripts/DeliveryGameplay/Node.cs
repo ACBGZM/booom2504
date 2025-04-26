@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Node : MonoBehaviour, IClickable
 {
-    // runtime adjacent nodes reference
+    [Tooltip("地址")]
+    public string _address;
+
+    [Tooltip("详细地址")]
+    public string _addressDetail;
+
     [SerializeField] private EventSequenceExecutor _executor;
     [SerializeField] private NodeActionType type;
     public bool test;
@@ -34,6 +39,7 @@ public class Node : MonoBehaviour, IClickable
         public Vector3[] _path;
     }
 
+    // runtime adjacent nodes reference
     public Dictionary<Node, Edge> AdjacentNodes { get; set; } = new Dictionary<Node, Edge>();
 
     [SerializeField] private int _nodeID;

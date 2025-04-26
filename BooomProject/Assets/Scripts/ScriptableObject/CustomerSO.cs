@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 顾客信息数据容器
@@ -12,9 +13,6 @@ public class CustomerSO : ScriptableObject
     [Tooltip("顾客姓名")]
     public string customerName;
 
-    [Tooltip("顾客地址")]
-    public string customerAddressName;
-
-    [Tooltip("顾客详细地址")]
-    public string customerAddress;
+    [Tooltip("目标结点id")]
+    public int destNodeId;
 }

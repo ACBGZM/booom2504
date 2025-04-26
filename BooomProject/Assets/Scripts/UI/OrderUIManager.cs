@@ -53,10 +53,11 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         if (ui == null) return;
         if (ui.profileImage != null) ui.profileImage.sprite = order.customerSO.customerProfile;
 
-        if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 {order.orderLimitTime} 分钟内送达"; 
+        if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 {order.orderLimitTime} 分钟内送达";
         if (ui.customerNameText != null) ui.customerNameText.text = order.customerSO.customerName;
         if (ui.distanceText != null) ui.distanceText.text = $"{order.orderDistance:F1}km";
-        if (ui.customerAddressText != null) ui.customerAddressText.text = order.customerSO.customerAddress;
+        if (ui.customerAddressText != null) ui.customerAddressText.text
+            = GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._address;
         // if (ui.rangeText != null) ui.rangeText.text = $"Range: {order.range}";
 
         Button btn = ui.mainButton;
@@ -82,8 +83,12 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         }
         if (ui.orderTitleText != null) ui.orderTitleText.text = order.orderTitle;
         if (ui.orderAddressText != null) ui.orderAddressText.text = order.orderAddress;
-        if (ui.customerAddressNameText != null) ui.customerAddressNameText.text = order.customerSO.customerAddressName;
-        if (ui.customerAddressText != null) ui.customerAddressText.text = order.customerSO.customerAddress;
+        if (ui.customerAddressNameText != null)
+            ui.customerAddressNameText.text
+                = GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._address;
+        if (ui.customerAddressText != null)
+            ui.customerAddressText.text
+                = GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._addressDetail;
         if (ui.bubbleText != null) ui.bubbleText.text = order.bubble;
 
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
