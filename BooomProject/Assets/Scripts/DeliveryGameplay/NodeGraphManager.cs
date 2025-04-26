@@ -25,7 +25,7 @@ public class NodeGraphManager : MonoBehaviour
         Node[] nodes = FindObjectsOfType<Node>();
         foreach (Node node in nodes)
         {
-            _allNodes.Add(node.NodeID, node);
+            _allNodes.TryAdd(node.NodeID, node);
         }
 
         foreach (EdgeData edgeData in _nodeGraphData._edges)
@@ -109,7 +109,7 @@ public class NodeGraphManager : MonoBehaviour
             ShowCanMoveNodes(CurrentNode, false);
             targetNode.ShowIsMovingTo(true);
 
-            GameManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
+            DeliveryGameplayManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
             , () =>
             {
                 targetNode.ShowIsMovingTo(false);

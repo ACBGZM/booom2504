@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StatDisplayUI : MonoBehaviour
 {
-    [SerializeField] private PlayerDataManager _playerDataManager;
+    private PlayerDataManager _playerDataManager;
 
     [Header("数值显示")]
     [SerializeField] private TextMeshProUGUI _speed;
@@ -14,6 +14,8 @@ public class StatDisplayUI : MonoBehaviour
 
     private void Start()
     {
+        _playerDataManager = CommonGameplayManager.GetInstance().PlayerDataManager;
+
         // 初始化显示
         UpdateSpeedDisplay(_playerDataManager.Speed.Value);
         UpdateReputationDisplay(_playerDataManager.Reputation.Value);

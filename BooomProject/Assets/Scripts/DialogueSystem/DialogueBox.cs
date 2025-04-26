@@ -66,14 +66,14 @@ public class DialogueBox : MonoBehaviour
     {
         if (m_is_show_finished)
         {
-            if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Cancel.triggered)
+            if (EventHandlerManager.CallGetCommonInputHandler().UIInputActions.Cancel.triggered)
             {
                 m_is_interactable = false;
                 m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
                 m_next_cursor_fade_effect.Fade(0.0f, GameplaySettings.m_next_cursor_fade_duration, null);
 
                 m_next_text_status_action(true);
-            } else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
+            } else if (EventHandlerManager.CallGetCommonInputHandler().UIInputActions.Submit.triggered)
             {
                 m_is_interactable = false;
                 m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
@@ -83,13 +83,13 @@ public class DialogueBox : MonoBehaviour
             }
         } else
         {
-            if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Cancel.triggered)
+            if (EventHandlerManager.CallGetCommonInputHandler().UIInputActions.Cancel.triggered)
             {
                 if (m_text_can_skip)
                 {
                     m_text_content.QuickShowRemainingText();
                 }
-            } else if (GameManager.Instance.DeliverySceneInputHandler.UIInputActions.Submit.triggered)
+            } else if (EventHandlerManager.CallGetCommonInputHandler().UIInputActions.Submit.triggered)
             {
                 if (m_text_can_skip)
                 {

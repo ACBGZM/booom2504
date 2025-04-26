@@ -19,6 +19,11 @@ public static class EventHandlerManager
 
     #endregion
 
+    #region 全局manager
+    public static event Action playerStateChanged;
+    public static event Func<CommonInput> getCommonInputHandler;
+    #endregion
+
     public static event Func<int, bool> checkNodeOrder;
 
     public static void CallRollFinish(int val)
@@ -63,5 +68,15 @@ public static class EventHandlerManager
     public static bool CallCheckNodeOrder(int nodeIdx)
     {
         return checkNodeOrder?.Invoke(nodeIdx) ?? false;
+    }
+
+    public static void CallPlayerStateChanged()
+    {
+        playerStateChanged?.Invoke();
+    }
+
+    public static CommonInput CallGetCommonInputHandler()
+    {
+        return getCommonInputHandler?.Invoke();
     }
 }

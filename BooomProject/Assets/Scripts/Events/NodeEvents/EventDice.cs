@@ -51,7 +51,7 @@ public class EventDice : EventNodeBase
         // 骰子触发 需手动点击roll
 
         // 状态改为触发剧情
-        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
+        CommonGameplayManager.GetInstance().PlayerState = EPlayerState.InCutscene;
 
         yield return new WaitUntil(() => DiceUIManager.Instance.val != 0);
 

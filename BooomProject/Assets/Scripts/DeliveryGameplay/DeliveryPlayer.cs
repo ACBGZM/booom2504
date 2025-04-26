@@ -10,7 +10,7 @@ public class DeliveryPlayer : MonoBehaviour
 
     public void Start()
     {
-        transform.position = GameManager.Instance.NodeGraphManager.CurrentNode.transform.position;
+        transform.position = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.transform.position;
     }
 
     public bool Move(Vector3[] path, Action onComplete = null)
@@ -73,11 +73,11 @@ public class DeliveryPlayer : MonoBehaviour
 
     private void StartMoving()
     {
-        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerMoving;
+        CommonGameplayManager.GetInstance().PlayerState = EPlayerState.PlayerMoving;
     }
 
     private void StopMoving()
     {
-        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.PlayerIdle;
+        CommonGameplayManager.GetInstance().PlayerState = EPlayerState.PlayerIdle;
     }
 }

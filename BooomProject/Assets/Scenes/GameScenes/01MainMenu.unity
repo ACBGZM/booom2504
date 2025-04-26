@@ -388,8 +388,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1331539273}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 99488577}
+        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -895,7 +895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _deliveryPlayer: {fileID: 0}
   _nodeGraphManager: {fileID: 0}
-  _deliveryInputHandler: {fileID: 0}
+  _deliverySceneInputHandler: {fileID: 0}
   _sceneManager: {fileID: 99488577}
 --- !u!1 &1398880157
 GameObject:

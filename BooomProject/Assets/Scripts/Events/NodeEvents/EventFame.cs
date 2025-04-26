@@ -42,7 +42,7 @@ public class EventFame : EventNodeBase
 
     public void CheckFame()
     {
-        GameManager.Instance.GameplayState = GameManager.DeliveryGameplayState.InCutscene;
+        CommonGameplayManager.GetInstance().PlayerState = EPlayerState.InCutscene;
 
         //TODO 声誉获取
         //测试声誉

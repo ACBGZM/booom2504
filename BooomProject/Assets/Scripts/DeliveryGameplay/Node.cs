@@ -53,7 +53,7 @@ public class Node : MonoBehaviour, IClickable
     public void OnClick()
     {
         // Debug.Log($"node clicked ({_nodeID})");
-        GameManager.Instance.NodeGraphManager.CheckAndMoveTo(this);
+        CommonGameplayManager.GetInstance().NodeGraphManager.CheckAndMoveTo(this);
     }
 
     private Vector3 _originalScale;
