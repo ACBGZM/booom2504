@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class OrderDataManager : Singleton<OrderDataManager> 
+public class OrderDataManager : Singleton<OrderDataManager>
 {
     public event Action OnAvailableOrdersChanged;
     public event Action OnAcceptedOrdersChanged;
@@ -76,7 +76,7 @@ public class OrderDataManager : Singleton<OrderDataManager>
 
         _acceptedOrders.Add(order);
 
-        int nodeIdx = GetNodeIndexForOrder(order);
+        int nodeIdx = order.customerSO.destNodeId;
         acceptedOrdersNode.Add(order, nodeIdx);
         GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, true);
 
@@ -97,7 +97,7 @@ public class OrderDataManager : Singleton<OrderDataManager>
             if (_acceptedOrders.Remove(order)) {
                 Debug.Log($"订单完成: {order.orderTitle}");
                 changed = true;
-                int nodeIdx = GetNodeIndexForOrder(order);
+                int nodeIdx = order.customerSO.destNodeId;
                 acceptedOrdersNode.Remove(order);
                 GameManager.Instance.NodeGraphManager.ShowTargetNode(nodeIdx, false);
             }
@@ -145,14 +145,6 @@ public class OrderDataManager : Singleton<OrderDataManager>
         return Mathf.Max(0, endMinutes - startMinutes);
     }
 
-    private int GetNodeIndexForOrder(OrderSO order) {
-        int nodeIdx;
-        if (!MapDataManager.Instance.nodeAddress.TryGetValue(order.customerSO.customerAddress, out nodeIdx)) {
-           nodeIdx = -1; // Or handle error appropriately
-        }
-        return nodeIdx;
-    }
-
     // 每分钟更新所有订单剩余时间
     private void UpdateAllOrdersTime(GameTime currentTime) {
         List<OrderSO> timeoutOrders = new List<OrderSO>();
@@ -178,8 +170,8 @@ public class OrderDataManager : Singleton<OrderDataManager>
         int targetNodeIdx;
         float dist;
         foreach (OrderSO order in _availableOrders) {
-            if (MapDataManager.Instance.nodeAddress.TryGetValue(order.orderAddress, out targetNodeIdx)) {
-                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, targetNodeIdx);
+            if (GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId) != null) {
+                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, order.customerSO.destNodeId);
                 order.orderDistance = $"{dist:F1}km";
                 order.time = dist / speed;
             } else {
@@ -188,8 +180,8 @@ public class OrderDataManager : Singleton<OrderDataManager>
             }
         }
         foreach (OrderSO order in _acceptedOrders) {
-            if (MapDataManager.Instance.nodeAddress.TryGetValue(order.orderAddress, out targetNodeIdx)) {
-                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, targetNodeIdx);
+            if (GameManager.Instance.NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId) != null) {
+                dist = GameManager.Instance.NodeGraphManager.GetDistance(currentNode, order.customerSO.destNodeId);
                 order.orderDistance = $"{dist:F1}km";
                 order.time = dist / speed;
             } else {

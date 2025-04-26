@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerProfile: {fileID: 21300000, guid: a4d021a0b724a479f8c02a5fdcb275b3, type: 3}
   customerName: "Test\u6D4B\u8BD5-2"
-  customerAddressName: "\u6C88\u9633\u5927\u8857"
-  customerAddress: "\u53EE\u549A\u9E21"
+  destNodeId: 2
