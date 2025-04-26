@@ -4083,6 +4083,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1999408777}
   - component: {fileID: 1999408776}
+  - component: {fileID: 1999408779}
+  - component: {fileID: 1999408778}
   m_Layer: 0
   m_Name: OrderManager
   m_TagString: Untagged
@@ -4127,6 +4129,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1674546463}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1999408778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999408775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d2146fd11cc6346823f5f4e35453d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _allOrders:
+  - {fileID: 11400000, guid: c677b406e6261684b9e361771bff3ba6, type: 2}
+  - {fileID: 11400000, guid: 23b254cba180e6d40b0ce431b325f636, type: 2}
+  - {fileID: 11400000, guid: da7d836dbbd054d42a294a601ab4ac9b, type: 2}
+  - {fileID: 11400000, guid: 914da4e3852914a43980bda028182233, type: 2}
+  - {fileID: 11400000, guid: f0f72c20e4537ea42b44e66100148c61, type: 2}
+--- !u!114 &1999408779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999408775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aed7530cc07fd4c8521fae66801a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _orderTemplatePrefab: {fileID: 3637161892144271548, guid: 5334412d71ffcd442a002333de1b2031, type: 3}
+  _myOrderTemplatePrefab: {fileID: 4054409438465819628, guid: 55f713755969e5e40b36f546eff788b3, type: 3}
+  _availableOrderContainer: {fileID: 597720018}
+  _acceptedOrderContainer: {fileID: 741274099}
 --- !u!1 &2024179465
 GameObject:
   m_ObjectHideFlags: 0
