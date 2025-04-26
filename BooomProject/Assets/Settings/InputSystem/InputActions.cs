@@ -151,15 +151,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TogglePhone"",
-                    ""type"": ""Button"",
-                    ""id"": ""6265e4ad-a21f-4362-b101-b573a4e94993"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""InputPosition"",
                     ""type"": ""Value"",
                     ""id"": ""0ed5262d-2e7f-47f2-a48d-e398981c35cb"",
@@ -205,17 +196,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4559619f-8a7a-40b6-946c-658b59bf1b67"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TogglePhone"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -345,6 +325,34 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CommonGameplay"",
+            ""id"": ""e375a20e-94bb-475a-bb44-8f285fc4f376"",
+            ""actions"": [
+                {
+                    ""name"": ""TogglePhone"",
+                    ""type"": ""Button"",
+                    ""id"": ""7848d850-b38b-4b45-b511-f9cb8ebfdc37"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""abed8944-2bfd-492e-a7e5-be190752401f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePhone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -356,7 +364,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // DeliveryGameplay
         m_DeliveryGameplay = asset.FindActionMap("DeliveryGameplay", throwIfNotFound: true);
         m_DeliveryGameplay_Click = m_DeliveryGameplay.FindAction("Click", throwIfNotFound: true);
-        m_DeliveryGameplay_TogglePhone = m_DeliveryGameplay.FindAction("TogglePhone", throwIfNotFound: true);
         m_DeliveryGameplay_InputPosition = m_DeliveryGameplay.FindAction("InputPosition", throwIfNotFound: true);
         m_DeliveryGameplay_ZoomMap = m_DeliveryGameplay.FindAction("ZoomMap", throwIfNotFound: true);
         m_DeliveryGameplay_DragMap = m_DeliveryGameplay.FindAction("DragMap", throwIfNotFound: true);
@@ -365,6 +372,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        // CommonGameplay
+        m_CommonGameplay = asset.FindActionMap("CommonGameplay", throwIfNotFound: true);
+        m_CommonGameplay_TogglePhone = m_CommonGameplay.FindAction("TogglePhone", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -372,6 +382,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_BaseCampGameplay.enabled, "This will cause a leak and performance issues, InputActions.BaseCampGameplay.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_DeliveryGameplay.enabled, "This will cause a leak and performance issues, InputActions.DeliveryGameplay.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputActions.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_CommonGameplay.enabled, "This will cause a leak and performance issues, InputActions.CommonGameplay.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -488,7 +499,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_DeliveryGameplay;
     private List<IDeliveryGameplayActions> m_DeliveryGameplayActionsCallbackInterfaces = new List<IDeliveryGameplayActions>();
     private readonly InputAction m_DeliveryGameplay_Click;
-    private readonly InputAction m_DeliveryGameplay_TogglePhone;
     private readonly InputAction m_DeliveryGameplay_InputPosition;
     private readonly InputAction m_DeliveryGameplay_ZoomMap;
     private readonly InputAction m_DeliveryGameplay_DragMap;
@@ -498,7 +508,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         private @InputActions m_Wrapper;
         public DeliveryGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Click => m_Wrapper.m_DeliveryGameplay_Click;
-        public InputAction @TogglePhone => m_Wrapper.m_DeliveryGameplay_TogglePhone;
         public InputAction @InputPosition => m_Wrapper.m_DeliveryGameplay_InputPosition;
         public InputAction @ZoomMap => m_Wrapper.m_DeliveryGameplay_ZoomMap;
         public InputAction @DragMap => m_Wrapper.m_DeliveryGameplay_DragMap;
@@ -515,9 +524,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
-            @TogglePhone.started += instance.OnTogglePhone;
-            @TogglePhone.performed += instance.OnTogglePhone;
-            @TogglePhone.canceled += instance.OnTogglePhone;
             @InputPosition.started += instance.OnInputPosition;
             @InputPosition.performed += instance.OnInputPosition;
             @InputPosition.canceled += instance.OnInputPosition;
@@ -537,9 +543,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
-            @TogglePhone.started -= instance.OnTogglePhone;
-            @TogglePhone.performed -= instance.OnTogglePhone;
-            @TogglePhone.canceled -= instance.OnTogglePhone;
             @InputPosition.started -= instance.OnInputPosition;
             @InputPosition.performed -= instance.OnInputPosition;
             @InputPosition.canceled -= instance.OnInputPosition;
@@ -623,6 +626,52 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // CommonGameplay
+    private readonly InputActionMap m_CommonGameplay;
+    private List<ICommonGameplayActions> m_CommonGameplayActionsCallbackInterfaces = new List<ICommonGameplayActions>();
+    private readonly InputAction m_CommonGameplay_TogglePhone;
+    public struct CommonGameplayActions
+    {
+        private @InputActions m_Wrapper;
+        public CommonGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @TogglePhone => m_Wrapper.m_CommonGameplay_TogglePhone;
+        public InputActionMap Get() { return m_Wrapper.m_CommonGameplay; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CommonGameplayActions set) { return set.Get(); }
+        public void AddCallbacks(ICommonGameplayActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CommonGameplayActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CommonGameplayActionsCallbackInterfaces.Add(instance);
+            @TogglePhone.started += instance.OnTogglePhone;
+            @TogglePhone.performed += instance.OnTogglePhone;
+            @TogglePhone.canceled += instance.OnTogglePhone;
+        }
+
+        private void UnregisterCallbacks(ICommonGameplayActions instance)
+        {
+            @TogglePhone.started -= instance.OnTogglePhone;
+            @TogglePhone.performed -= instance.OnTogglePhone;
+            @TogglePhone.canceled -= instance.OnTogglePhone;
+        }
+
+        public void RemoveCallbacks(ICommonGameplayActions instance)
+        {
+            if (m_Wrapper.m_CommonGameplayActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICommonGameplayActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CommonGameplayActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CommonGameplayActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CommonGameplayActions @CommonGameplay => new CommonGameplayActions(this);
     public interface IBaseCampGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -631,7 +680,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IDeliveryGameplayActions
     {
         void OnClick(InputAction.CallbackContext context);
-        void OnTogglePhone(InputAction.CallbackContext context);
         void OnInputPosition(InputAction.CallbackContext context);
         void OnZoomMap(InputAction.CallbackContext context);
         void OnDragMap(InputAction.CallbackContext context);
@@ -641,5 +689,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+    }
+    public interface ICommonGameplayActions
+    {
+        void OnTogglePhone(InputAction.CallbackContext context);
     }
 }

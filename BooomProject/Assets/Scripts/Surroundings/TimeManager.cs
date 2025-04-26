@@ -28,7 +28,7 @@ public class TimeManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded; // 注册场景加载事件
-            LoadTime(); // 加载保存的时间
+            // LoadTime(); // 加载保存的时间
             FindAndUpdateTimeDisplay(); // 初始化查找
         } else {
             Destroy(gameObject);
@@ -118,7 +118,7 @@ public class TimeManager : MonoBehaviour
     {
         _timeScale = Mathf.Max(scale, 0f); // 禁止负数
     }
-
+/*
     // 保存时间数据
     public void SaveTime() {
         string json = JsonUtility.ToJson(currentTime);
@@ -138,7 +138,7 @@ public class TimeManager : MonoBehaviour
     private void OnApplicationQuit() {
         SaveTime();
     }
-
+*/
     public void UpdateTimeDisplay(TextMeshProUGUI newDisplay) {
         _currentTimeText = newDisplay;
         if (_currentTimeText != null) {

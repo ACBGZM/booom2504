@@ -129,15 +129,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TogglePhone",
-                    "type": "Button",
-                    "id": "6265e4ad-a21f-4362-b101-b573a4e94993",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "InputPosition",
                     "type": "Value",
                     "id": "0ed5262d-2e7f-47f2-a48d-e398981c35cb",
@@ -183,17 +174,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4559619f-8a7a-40b6-946c-658b59bf1b67",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TogglePhone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -319,6 +299,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "CommonGameplay",
+            "id": "e375a20e-94bb-475a-bb44-8f285fc4f376",
+            "actions": [
+                {
+                    "name": "TogglePhone",
+                    "type": "Button",
+                    "id": "7848d850-b38b-4b45-b511-f9cb8ebfdc37",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "abed8944-2bfd-492e-a7e5-be190752401f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TogglePhone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
