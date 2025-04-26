@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 45669927}
   m_Layer: 5
   m_Name: CurrentTimeText
-  m_TagString: Untagged
+  m_TagString: TimeDisplay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1031,7 +1031,6 @@ Transform:
   - {fileID: 555330560}
   - {fileID: 1154372587}
   - {fileID: 1989436079}
-  - {fileID: 375317988}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &363121722
@@ -1062,7 +1061,7 @@ GameObject:
   - component: {fileID: 375317989}
   m_Layer: 0
   m_Name: TimeManager
-  m_TagString: Untagged
+  m_TagString: TimeManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1075,12 +1074,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375317987}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 363121721}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &375317989
 MonoBehaviour:
@@ -1107,7 +1106,6 @@ MonoBehaviour:
     day: 1
     hour: 6
     minute: 0
-  _currentTimeText: {fileID: 45669927}
   _timeRatio: 1
   _isPaused: 0
   _timeScale: 1
@@ -1873,7 +1871,7 @@ Transform:
   m_GameObject: {fileID: 943457535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.49, y: -4.1059, z: 0}
+  m_LocalPosition: {x: -9.39, y: -6.67, z: 0}
   m_LocalScale: {x: 1, y: 2.6642945, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3841,7 +3839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1894305867
 Transform:
   m_ObjectHideFlags: 0
@@ -4026,3 +4024,4 @@ SceneRoots:
   - {fileID: 471841058}
   - {fileID: 363121721}
   - {fileID: 179817982}
+  - {fileID: 375317988}

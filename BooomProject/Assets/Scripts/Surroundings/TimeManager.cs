@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager Instance { get; private set; }
     [Header("Events")]
     public UnityEvent<GameTime> OnMinutePassed;    // 每分钟触发
     public UnityEvent<GameTime> OnHourPassed;    // 每小时触发
@@ -11,7 +13,6 @@ public class TimeManager : MonoBehaviour
     // 当前游戏时间
     [Header("Current Time")]
     [SerializeField] public GameTime currentTime;
-    [SerializeField] private TextMeshProUGUI _currentTimeText;
     // 时间配置参数
     [Header("Time Settings")]
     [SerializeField] private float _timeRatio = 1f; // 现实1秒 = 游戏1分钟
@@ -19,53 +20,91 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private float _timeScale = 1f; // 时间倍速（1=正常，2=双倍速）
 
     private float timer = 0f;
+    private TextMeshProUGUI _currentTimeText;
+    private const string SAVE_KEY = "GameTimeData";
 
-    private void Update()
-    {
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded; // 注册场景加载事件
+            LoadTime(); // 加载保存的时间
+            FindAndUpdateTimeDisplay(); // 初始化查找
+        } else {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy() {
+        if (Instance == this) {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        FindAndUpdateTimeDisplay();
+    }
+
+    private void FindAndUpdateTimeDisplay() {
+        _currentTimeText = FindTimeTextInScene();
+        UpdateUI();
+    }
+
+    private TextMeshProUGUI FindTimeTextInScene() {
+        GameObject timeDisplayObj = GameObject.FindWithTag("TimeDisplay");
+        if (timeDisplayObj != null) {
+            return timeDisplayObj.GetComponent<TextMeshProUGUI>();
+        }
+        Debug.LogWarning("TimeDisplay object not found in scene.");
+        return null;
+    }
+
+    private void UpdateUI() {
+        if (_currentTimeText != null)
+            _currentTimeText.text = currentTime.ToString();
+    }
+
+    // 更新时间
+    private void Update() {
         if (_isPaused) return;
-        // 更新时间
+
         timer += Time.deltaTime * _timeScale;
-        if (timer >= _timeRatio)
-        {
+        if (timer >= _timeRatio) {
             timer = 0f;
             AddMinute(1);
-            _currentTimeText.text = currentTime.ToString();
+            UpdateUI();
         }
     }
 
     // 增加分钟数，并触发时间更新
-    private void AddMinute(int minutes)
-    {
+    private void AddMinute(int minutes) {
         currentTime.minute += minutes;
 
-        // 时间进位
-        while (currentTime.minute >= 60)
-        {
-            currentTime.minute -= 60;
-            AddHour(1);
+        // 处理分钟进位
+        if (currentTime.minute >= 60) {
+            int carryHours = currentTime.minute / 60;
+            currentTime.minute %= 60;
+            AddHour(carryHours);
         }
+
         OnMinutePassed?.Invoke(currentTime);
     }
 
-    private void AddHour(int hours)
-    {
+    private void AddHour(int hours) {
         currentTime.hour += hours;
-        if (currentTime.hour >= 24)
-        {
-            currentTime.hour = 0;
-            AddDay(1);
+
+        // 处理小时进位
+        if (currentTime.hour >= 24) {
+            int carryDays = currentTime.hour / 24;
+            currentTime.hour %= 24;
+            AddDay(carryDays);
         }
+
         OnHourPassed?.Invoke(currentTime);
     }
 
-    private void AddDay(int days)
-    {
+    private void AddDay(int days) {
         currentTime.day += days;
-        // 假设每月固定30天（可根据需求扩展）
-        if (currentTime.day > 30)
-        {
-            currentTime.day = 1;
-        }
         OnDayPassed?.Invoke(currentTime);
     }
 
@@ -78,5 +117,32 @@ public class TimeManager : MonoBehaviour
     public void SetTimeScale(float scale)
     {
         _timeScale = Mathf.Max(scale, 0f); // 禁止负数
+    }
+
+    // 保存时间数据
+    public void SaveTime() {
+        string json = JsonUtility.ToJson(currentTime);
+        PlayerPrefs.SetString(SAVE_KEY, json);
+        PlayerPrefs.Save();
+    }
+
+    // 加载时间数据
+    public void LoadTime() {
+        if (PlayerPrefs.HasKey(SAVE_KEY)) {
+            string json = PlayerPrefs.GetString(SAVE_KEY);
+            currentTime = JsonUtility.FromJson<GameTime>(json);
+        }
+    }
+
+    // 退出游戏时自动保存
+    private void OnApplicationQuit() {
+        SaveTime();
+    }
+
+    public void UpdateTimeDisplay(TextMeshProUGUI newDisplay) {
+        _currentTimeText = newDisplay;
+        if (_currentTimeText != null) {
+            _currentTimeText.text = currentTime.ToString();
+        }
     }
 }

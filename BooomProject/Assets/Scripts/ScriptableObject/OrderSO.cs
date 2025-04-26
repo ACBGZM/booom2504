@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,18 @@ public class OrderSO : ScriptableObject
 
     [Tooltip("订单标题")]
     public string orderTitle;
+
+    [Tooltip("订单限制时间")]
+    public int orderLimitTime;
+
+    [Tooltip("接单时间")] //（运行时计算）
+    [System.NonSerialized] public GameTime acceptedTime;
+
+    [Tooltip("剩余时间")]
+    [System.NonSerialized] public float remainingMinutes;
+
+    [Tooltip("是否超时")]
+    [System.NonSerialized] public bool isTimeout;
 
     [Tooltip("订单地址")]
     public string orderAddress;

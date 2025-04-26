@@ -8,6 +8,8 @@ TagManager:
   - Interactable
   - BgCamera
   - FxTemporaire
+  - TimeDisplay
+  - TimeManager
   layers:
   - Default
   - TransparentFX
