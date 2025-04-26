@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: NodeAddress
   m_EditorClassIdentifier: 
   nodeAddress:
-    keys: []
-    values: 
+    keys:
+    - "\u54C8\u5170\u5E02"
+    - "\u53EE\u549A\u9E21"
+    values: 0100000002000000
