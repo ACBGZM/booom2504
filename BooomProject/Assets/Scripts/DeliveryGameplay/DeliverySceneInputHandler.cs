@@ -14,6 +14,7 @@ public class DeliverySceneInputHandler : MonoBehaviour
     public InputActions.UIActions UIInputActions => _uiInputActions;
 
     [SerializeField] private GameObject _phoneUI;
+    [SerializeField] private GameObject _phoneMask; // 手机弹窗遮罩
 
     private void Awake()
     {
@@ -67,18 +68,19 @@ public class DeliverySceneInputHandler : MonoBehaviour
     }
 
     public void ShowPhoneUI(bool show)
-    {
+    {   
         if (_phoneUI != null)
         {
             _phoneUI.SetActive(show);
         }
     }
-
+        
     public void TogglePhone()
     {
         if (_phoneUI != null)
         {
             _phoneUI.SetActive(!_phoneUI.activeInHierarchy);
+            _phoneMask.SetActive(!_phoneMask.activeInHierarchy);
         }
     }
 
