@@ -25,6 +25,8 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         } else {
             Debug.LogError("未找到 OrderDataManager 实例");
         }
+
+        Debug.Log(Application.dataPath + "/UI/Phone/hstz.png");
     }
     // 刷新可用订单UI
     private void RefreshAvailableOrdersUI() {
@@ -64,8 +66,22 @@ public class OrderUIManager : Singleton<OrderUIManager> {
                 if (child == ui.rewardIconPrefab) continue;
                 Destroy(child.gameObject);
             }
-            for (int i = 0; i < order.sourceOrder.baseReward - 1; i++) {
+
+            /*for (int i = 0; i < order.sourceOrder.baseReward - 1; i++) {
                 Instantiate(ui.rewardIconPrefab, ui.rewardContainer);
+            }*/
+
+            if (order.sourceOrder.baseReward >= 3 && order.sourceOrder.baseReward < 5)
+            {
+                Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/lvstz.png", 101, 50);
+                orderImage.rectTransform.sizeDelta = new Vector2(101, 50);
+            }
+            else if (order.sourceOrder.baseReward >= 5)
+            {
+                Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/hstz.png", 202, 50);
+                orderImage.rectTransform.sizeDelta = new Vector2(202, 50);
             }
         }
 
@@ -104,8 +120,22 @@ public class OrderUIManager : Singleton<OrderUIManager> {
                 if (child == ui.rewardIconPrefab) continue;
                 Destroy(child.gameObject);
             }
-            for (int i = 0; i < order.sourceOrder.baseReward - 1; i++) {
+
+            /*for (int i = 0; i < order.sourceOrder.baseReward - 1; i++) {
                 Instantiate(ui.rewardIconPrefab, ui.rewardContainer);
+            }*/
+
+            if (order.sourceOrder.baseReward >= 3 && order.sourceOrder.baseReward < 5)
+            {
+                Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/lvstz.png", 101, 50);
+                orderImage.rectTransform.sizeDelta = new Vector2(101, 50);
+            }
+            else if (order.sourceOrder.baseReward >= 5)
+            {
+                Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/hstz.png", 202, 50);
+                orderImage.rectTransform.sizeDelta = new Vector2(202, 50);
             }
         }
 

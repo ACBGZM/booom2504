@@ -4,11 +4,13 @@ using UnityEngine;
 public class LoadFile : MonoBehaviour
 {
     /// <summary>
-    /// 加载订单顾客头像
+    /// 动态加载图片
     /// </summary>
     /// <param name="path">文件路径</param>
+    /// <param name="weight">需要更换的图片宽</param>
+    /// <param name="hight">需要更换的图片高</param>
     /// <returns></returns>
-    public static Sprite LoadImage(string path)
+    public static Sprite LoadImage(string path, int weight, int hight)
     {
         // 创建文件流
         FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -24,7 +26,7 @@ public class LoadFile : MonoBehaviour
         fileStream = null;
 
         // 创建TexuTure 更换图片
-        Texture2D texture2D = new Texture2D(154, 147);
+        Texture2D texture2D = new Texture2D(weight, hight);
         texture2D.LoadImage(bytes);
         Sprite sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
         return sprite;
