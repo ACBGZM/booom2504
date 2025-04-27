@@ -15,6 +15,6 @@ MonoBehaviour:
   m_state: 0
   m_responses:
   - m_text: "\u6253\u62DB\u547C"
-    m_executor: {fileID: 11400000, guid: a24e9746375bcbd40b22b6058bec1296, type: 2}
+    m_executor: {fileID: 0}
   m_default_select_index: -1
   m_must_loop_all: 0

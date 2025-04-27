@@ -13,13 +13,9 @@ MonoBehaviour:
   m_Name: Greet-PlayerWithStationAgent1
   m_EditorClassIdentifier: 
   m_event_nodes:
-  - {fileID: 11400000, guid: 88d431308735aa44fb7dcbfb71631859, type: 2}
+  - {fileID: 11400000, guid: e15285efe8588094c9ed1d5774cb9bc9, type: 2}
   - {fileID: 11400000, guid: e633a44ff616bc84e87c2ef32ebabad5, type: 2}
-  - {fileID: 11400000, guid: 61df8224d9ea7ca4ab60f6675990b933, type: 2}
-  - {fileID: 11400000, guid: 605961040f550bd449b89979356e5482, type: 2}
-  - {fileID: 11400000, guid: e650e3988643a6c43a03d85d3ea9082b, type: 2}
-  - {fileID: 11400000, guid: db9d56629cd730c45b77f2862cd537a7, type: 2}
-  - {fileID: 11400000, guid: 4df9ad0bceae0c940ba445efa9c2969e, type: 2}
-  - {fileID: 11400000, guid: df181e4c3f323c6428acb35c4ab935c7, type: 2}
+  - {fileID: 11400000, guid: 88d431308735aa44fb7dcbfb71631859, type: 2}
   - {fileID: 11400000, guid: d5d08997f5d765d449c02323eb855639, type: 2}
-  - {fileID: 11400000, guid: c0d14608d2a102d468d623cd36c77a82, type: 2}
+  - {fileID: 11400000, guid: 7deb2a46172bd6444a717667924901d4, type: 2}
+  - {fileID: 11400000, guid: 814ae81ad2869174caaba07c147a56c2, type: 2}
