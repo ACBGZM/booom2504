@@ -12,6 +12,8 @@ public class OrderDataManager : MonoBehaviour {
     private List<RuntimeOrderSO> _availableOrders = new List<RuntimeOrderSO>();
     private List<RuntimeOrderSO> _acceptedOrders = new List<RuntimeOrderSO>();
     private Dictionary<RuntimeOrderSO, int> _acceptedOrdersNode = new Dictionary<RuntimeOrderSO, int>();
+    // 当前送达正在处理的订单
+    private RuntimeOrderSO currentHandleOrder;
     // private Dictionary<OrderSO, int> acceptedOrdersNode = new Dictionary<OrderSO, int>();
     //已接订单与目的节点编号映射表 TODO: 待持久化
 
@@ -31,11 +33,13 @@ public class OrderDataManager : MonoBehaviour {
     private void OnEnable() {
         EventHandlerManager.updateArriveDistAndTime += OnUpdateArriveDistAndTime;
         EventHandlerManager.checkNodeOrder += OnCheckNodeOrder;
+        EventHandlerManager.getCurrentOrder += OnGetCurrentOrder;
     }
 
     private void OnDisable() {
         EventHandlerManager.updateArriveDistAndTime -= OnUpdateArriveDistAndTime;
         EventHandlerManager.checkNodeOrder -= OnCheckNodeOrder;
+        EventHandlerManager.getCurrentOrder -= OnGetCurrentOrder;
     }
 
     public bool CanAcceptMoreOrders() {
@@ -77,14 +81,16 @@ public class OrderDataManager : MonoBehaviour {
         bool changed = false;
         foreach (RuntimeOrderSO order in ordersToComplete) {
             if (_acceptedOrders.Remove(order)) {
-                Debug.Log($"订单完成: {order.sourceOrder.orderTitle}");
+           //     Debug.Log($"订单完成: {order.sourceOrder.orderTitle}");
                 changed = true;
                 int nodeIdx = order.sourceOrder.customerSO.destNodeId;
                 _acceptedOrdersNode.Remove(order);
                 CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
                 if(order.sourceOrder.orderEvent != null)
                 {
+                    currentHandleOrder = order;
                     yield return StartCoroutine(ExecuteOrderEvents(order));
+                    currentHandleOrder = null;
                 }
             }
         }
@@ -166,5 +172,10 @@ public class OrderDataManager : MonoBehaviour {
         order.sourceOrder.orderEvent.Execute();
 
         yield return new WaitUntil(() => finished == true);
+    }
+
+    private RuntimeOrderSO OnGetCurrentOrder()
+    {
+        return currentHandleOrder;
     }
 }

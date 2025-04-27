@@ -24,7 +24,10 @@ public static class EventHandlerManager
     public static event Func<CommonInput> getCommonInputHandler;
     #endregion
 
+    #region order
     public static event Func<int, bool> checkNodeOrder;
+    public static event Func<RuntimeOrderSO> getCurrentOrder;
+    #endregion
 
     public static void CallRollFinish(int val)
     {
@@ -78,5 +81,10 @@ public static class EventHandlerManager
     public static CommonInput CallGetCommonInputHandler()
     {
         return getCommonInputHandler?.Invoke();
+    }
+
+    public static RuntimeOrderSO CallGetCurrentOrder()
+    {
+        return getCurrentOrder?.Invoke() ?? null;
     }
 }
