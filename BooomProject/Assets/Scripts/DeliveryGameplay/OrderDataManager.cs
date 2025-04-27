@@ -73,10 +73,6 @@ public class OrderDataManager : MonoBehaviour {
         OnAcceptedOrdersChanged?.Invoke();
     }
 
-    private void OnChatWithCustormer(RuntimeOrderSO order) {
-        OnChatWindowOpen?.Invoke(order);
-    }
-
     public IEnumerator CompleteOrders(List<RuntimeOrderSO> ordersToComplete) {
         bool changed = false;
         foreach (RuntimeOrderSO order in ordersToComplete) {
