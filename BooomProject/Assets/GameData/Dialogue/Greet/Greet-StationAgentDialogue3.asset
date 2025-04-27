@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 0
   m_dialogues:
-  - m_speaker_name: ???
+  - m_speaker_name: "\u4F60"
     m_speaker_avatar: {fileID: 0}
-    m_text: "\u54C8\u54C8\u54C8\uFF0C\u4ED6\u4EEC\u90FD\u53EB\u6211\u8001\u4F59\u3002"
+    m_text: "\u8C22\u8C22\u4F60\uFF0C\u8001\u4F59\u3002"
     m_display_method: 2
     m_can_skip: 0

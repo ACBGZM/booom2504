@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 0
   m_responses:
-  - m_text: "\u660E\u767D"
-    m_executor: {fileID: 11400000, guid: 3a7d3e77403e41f49a8f741d35f0b395, type: 2}
+  - m_text: "\u660E\u767D!"
+    m_executor: {fileID: 0}
   m_default_select_index: -1
   m_must_loop_all: 0

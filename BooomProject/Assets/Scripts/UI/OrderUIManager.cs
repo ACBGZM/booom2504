@@ -159,7 +159,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         }
     }
 
-    protected override void OnDestroy() {
+    private void OnDisable() {
         if (CommonGameplayManager.GetInstance().OrderDataManager != null) {
             CommonGameplayManager.GetInstance().OrderDataManager.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
             CommonGameplayManager.GetInstance().OrderDataManager.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
