@@ -27,6 +27,7 @@ public static class EventHandlerManager
     #region order
     public static event Func<int, bool> checkNodeOrder;
     public static event Func<RuntimeOrderSO> getCurrentOrder;
+    public static event Action updateOrderStateToTransit;
     #endregion
 
     public static void CallRollFinish(int val)
@@ -86,5 +87,9 @@ public static class EventHandlerManager
     public static RuntimeOrderSO CallGetCurrentOrder()
     {
         return getCurrentOrder?.Invoke() ?? null;
+    }
+    public static void CallUpdateOrderStateToTransit()
+    {
+        updateOrderStateToTransit?.Invoke();
     }
 }

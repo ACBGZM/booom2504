@@ -8,8 +8,13 @@ public class EventNodeUpdate : EventNodeBase
         base.Execute();
         int nodeIdx = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
         Debug.Log("当前位置" + nodeIdx);
+        // 走到大本营节点，更新订单状态为已取货
+        if(CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID == CommonGameplayManager.GetInstance().NodeGraphManager.BaseNodeID)
+        {
+            EventHandlerManager.CallUpdateOrderStateToTransit();
+        }
         // 判断该节点是否为目的节点,并执行事件
-      
+        
         if (EventHandlerManager.CallCheckNodeOrder(nodeIdx))
         {
        

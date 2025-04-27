@@ -34,12 +34,14 @@ public class OrderDataManager : MonoBehaviour {
         EventHandlerManager.updateArriveDistAndTime += OnUpdateArriveDistAndTime;
         EventHandlerManager.checkNodeOrder += OnCheckNodeOrder;
         EventHandlerManager.getCurrentOrder += OnGetCurrentOrder;
+        EventHandlerManager.updateOrderStateToTransit += OnUpdateOrderStateToTransit;
     }
 
     private void OnDisable() {
         EventHandlerManager.updateArriveDistAndTime -= OnUpdateArriveDistAndTime;
         EventHandlerManager.checkNodeOrder -= OnCheckNodeOrder;
         EventHandlerManager.getCurrentOrder -= OnGetCurrentOrder;
+        EventHandlerManager.updateOrderStateToTransit -= OnUpdateOrderStateToTransit;
     }
 
     public bool CanAcceptMoreOrders() {
@@ -63,7 +65,12 @@ public class OrderDataManager : MonoBehaviour {
         runtimeOrder.remainingMinutes = runtimeOrder.sourceOrder.initialLimitTime;
         runtimeOrder.isTimeout = false;
         runtimeOrder.currentState = OrderState.Accepted;
-
+        // 判断是否在大本营节点接单，若是，则改为已取餐
+        if(CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID == CommonGameplayManager.GetInstance().NodeGraphManager.BaseNodeID)
+        {
+            print($"{runtimeOrder.sourceOrder.orderTitle}已取货！");
+            runtimeOrder.currentState = OrderState.InTransit;
+        }
         _acceptedOrders.Add(runtimeOrder);
 
         int nodeIdx = runtimeOrder.sourceOrder.destinationNodeId;
@@ -158,8 +165,16 @@ public class OrderDataManager : MonoBehaviour {
         if (_acceptedOrdersNode.ContainsValue(nodeIdx)) {
             
             // 查找与当前节点有关的订单
-            var orders = _acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key);
-            StartCoroutine(CompleteOrders(orders.ToList()));
+            var orders = _acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key).ToList();
+            // 剔除未取货的订单
+            for (int i = orders.Count - 1; i >= 0; i--)
+            {
+                if (orders[i].currentState != OrderState.InTransit)
+                {
+                    orders.RemoveAt(i);
+                }
+            }
+            StartCoroutine(CompleteOrders(orders));
             
             return true;
         }
@@ -177,5 +192,15 @@ public class OrderDataManager : MonoBehaviour {
     private RuntimeOrderSO OnGetCurrentOrder()
     {
         return currentHandleOrder;
+    }
+
+    private void OnUpdateOrderStateToTransit()
+    {
+        foreach(var order in _acceptedOrders)
+        {
+            print($"{order.sourceOrder.orderTitle}已取货！");
+            order.currentState = OrderState.InTransit;
+        }
+      
     }
 }
