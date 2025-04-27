@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class OrderUIManager : Singleton<OrderUIManager> {
-    public event Action<OrderSO> OnChatWindowOpen;
+    public event Action<RuntimeOrderSO> OnChatWindowOpen;
     [SerializeField] private Transform _orderTemplatePrefab;
     [SerializeField] private Transform _myOrderTemplatePrefab;
     [SerializeField] private Transform _availableOrderContainer;
     [SerializeField] private Transform _acceptedOrderContainer;
 
     private OrderUIPool _orderPool = new OrderUIPool();
+    private OrderDataManager _orderDataManager;
 
     private void Start() {
         // 订阅数据层事件
@@ -28,7 +29,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     // 刷新可用订单UI
     private void RefreshAvailableOrdersUI() {
         ClearContainer(_availableOrderContainer);
-        List<OrderSO> availableOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAvailableOrders();
+        List<RuntimeOrderSO> availableOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAvailableOrders();
         foreach (var order in availableOrders) {
             Transform orderItem = _orderPool.Get(_orderTemplatePrefab, _availableOrderContainer);
             SetupAvailableOrderUI(orderItem, order);
@@ -39,7 +40,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     // 刷新已接订单UI
     private void RefreshAcceptedOrdersUI() {
         ClearContainer(_acceptedOrderContainer);
-        List<OrderSO> acceptedOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAcceptedOrders();
+        List<RuntimeOrderSO> acceptedOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAcceptedOrders();
         foreach (var order in acceptedOrders) {
             Transform orderItem = _orderPool.Get(_myOrderTemplatePrefab, _acceptedOrderContainer);
             SetupAcceptedOrderUI(orderItem, order);
@@ -48,23 +49,23 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     }
 
     // 设置可用订单UI项
-    private void SetupAvailableOrderUI(Transform item, OrderSO order) {
+    private void SetupAvailableOrderUI(Transform item, RuntimeOrderSO order) {
         OrderUIItem ui = item.GetComponent<OrderUIItem>();
         if (ui == null) return;
-        if (ui.profileImage != null) ui.profileImage.sprite = order.customerSO.customerProfile;
+        if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
 
-        if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 {order.orderLimitTime} 分钟内送达";
-        if (ui.customerNameText != null) ui.customerNameText.text = order.customerSO.customerName;
-        if (ui.distanceText != null) ui.distanceText.text = $"{order.orderDistance:F1}km";
+        if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 {order.sourceOrder.initialLimitTime} 分钟内送达";
+        if (ui.customerNameText != null) ui.customerNameText.text = order.sourceOrder.customerSO.customerName;
+        if (ui.distanceText != null) ui.distanceText.text = order.currentDistance;
         if (ui.customerAddressText != null) ui.customerAddressText.text
-            = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.customerSO.destNodeId)._address;
+            = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._address;
         // if (ui.rangeText != null) ui.rangeText.text = $"Range: {order.range}";
 
         Button btn = ui.mainButton;
         if (btn != null) {
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => {
-                Debug.Log($"已接单: {order.orderTitle}");
+                Debug.Log($"已接单: {order.sourceOrder.orderTitle}");
                 CommonGameplayManager.GetInstance().OrderDataManager.AcceptOrder(order);
             });
             btn.interactable = CommonGameplayManager.GetInstance().OrderDataManager.CanAcceptMoreOrders();
@@ -72,30 +73,29 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     }
 
     // 设置已接订单UI项
-    private void SetupAcceptedOrderUI(Transform item, OrderSO order) {
+    private void SetupAcceptedOrderUI(Transform item, RuntimeOrderSO order) {
         OrderUIItem ui = item.GetComponent<OrderUIItem>();
-        if (ui == null) return;
-        if (ui.profileImage != null) ui.profileImage.sprite = order.customerSO.customerProfile;
+        OrderSO sourceOrder = order.sourceOrder;
 
-        if (ui.remainingTimeText != null) {
-            ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"剩余 {order.remainingMinutes} 分钟";
-            //ui.remainingTimeText.color = order.isTimeout ? Color.red : (order.remainingMinutes < 30 ? Color.yellow : Color.green);
-        }
-        if (ui.orderTitleText != null) ui.orderTitleText.text = order.orderTitle;
-        if (ui.orderAddressText != null) ui.orderAddressText.text = order.orderAddress;
+        ui.remainingTimeText.text = order.isTimeout ? "已超时"
+            : $"剩余 {order.remainingMinutes} 分钟";
+        //ui.remainingTimeText.color = order.isTimeout ? Color.red : (order.remainingMinutes < 30 ? Color.yellow : Color.green);
+        if (ui.orderTitleText != null) ui.orderTitleText.text = order.sourceOrder.orderTitle;
+        if (ui.orderAddressText != null) ui.orderAddressText.text = order.sourceOrder.destinationAddress;
         if (ui.customerAddressNameText != null)
             ui.customerAddressNameText.text
-                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._address;
+                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.sourceOrder.customerSO.destNodeId)._address;
+        if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
         if (ui.customerAddressText != null)
             ui.customerAddressText.text
-                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.customerSO.destNodeId)._addressDetail;
-        if (ui.bubbleText != null) ui.bubbleText.text = order.bubble;
+                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.sourceOrder.customerSO.destNodeId)._addressDetail;
+        if (ui.bubbleText != null) ui.bubbleText.text = order.sourceOrder.bubble;
 
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
             foreach (Transform child in ui.rewardContainer) {
                 Destroy(child.gameObject);
             }
-            for (int i = 0; i < order.reward; i++) {
+            for (int i = 0; i < order.sourceOrder.baseReward; i++) {
                 Instantiate(ui.rewardIconPrefab, ui.rewardContainer);
             }
         }
@@ -108,9 +108,9 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         }
     }
 
-    private void OnChatButtonClicked(OrderSO order) {
-        Debug.Log($"点击聊天: {order.orderTitle}");
-        OnChatWindowOpen?.Invoke(order);
+    private void OnChatButtonClicked(RuntimeOrderSO runtimeOrder) {
+        Debug.Log($"点击聊天: {runtimeOrder.sourceOrder.orderTitle}");
+        OnChatWindowOpen?.Invoke(runtimeOrder);
     }
 
     private void ClearContainer(Transform container) {

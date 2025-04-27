@@ -21,11 +21,11 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
         _orderDataManager.OnChatWindowOpen += OrderDataManagerOnChatWindowOpen;
     }
 
-    private void OrderDataManagerOnChatWindowOpen(OrderSO order)
+    private void OrderDataManagerOnChatWindowOpen(RuntimeOrderSO order)
     {
-        history = order.chatHistory;
-        customerName = order.customerSO.customerName;
-        customerIcon = order.customerSO.customerProfile;
+        history = order.sourceOrder.chatHistory;
+        customerName = order.sourceOrder.customerSO.customerName;
+        customerIcon = order.sourceOrder.customerSO.customerProfile;
         // TODO: 商家头像信息获取
         EventHandlerManager.CallChatWindowShow();
     }
