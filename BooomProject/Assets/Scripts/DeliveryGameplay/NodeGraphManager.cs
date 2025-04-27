@@ -10,24 +10,33 @@ public class NodeGraphManager : MonoBehaviour
 {
     [SerializeField] private NodeGraphData _nodeGraphData;
     public NodeGraphData NodeGraphData => _nodeGraphData;
-
+    
     private Dictionary<int, Node> _allNodes = new Dictionary<int, Node>();
-
+    // 节点ID 映射到 索引
+    private Dictionary<int, int> nodeIdTOIndex = new Dictionary<int, int>();
     private float[,] dist;    // 任意两节点间最短消耗
     private int nodeCnt;
-
+    // TODO：大本营节点ID，待修改
+    private int baseNodeID = 0;
+    public int BaseNodeID => baseNodeID;
     private void Awake()
     {
-        nodeCnt = _nodeGraphData._edges.Count;
-        dist = new float[nodeCnt, nodeCnt];
-        ResetDist();
-        Floyed();
+        nodeCnt = 0;
+       
         Node[] nodes = FindObjectsOfType<Node>();
         foreach (Node node in nodes)
         {
-            _allNodes.TryAdd(node.NodeID, node);
-        }
+            if(_allNodes.TryAdd(node.NodeID, node))
+            {
+                // 索引从0开始
+                nodeIdTOIndex.Add(node.NodeID,nodeCnt);
+                nodeCnt++;
+            }
 
+        }
+        dist = new float[nodeCnt, nodeCnt];
+        ResetDist();
+        Floyed();
         foreach (EdgeData edgeData in _nodeGraphData._edges)
         {
             if (!_allNodes.ContainsKey(edgeData.nodeA) || !_allNodes.ContainsKey(edgeData.nodeB))
@@ -63,6 +72,7 @@ public class NodeGraphManager : MonoBehaviour
         {
             for (int j = 0; j < nodeCnt; j++)
             {
+                // -1代表无边权
                 dist[i, j] = -1;
             }
         }

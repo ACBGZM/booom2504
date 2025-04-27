@@ -91,7 +91,7 @@ public class OrderDataManager : MonoBehaviour
         OnChatWindowOpen?.Invoke(order);
     }
 
-    public void CompleteOrders(List<OrderSO> ordersToComplete) {
+    public IEnumerator CompleteOrders(List<OrderSO> ordersToComplete) {
         bool changed = false;
         foreach (OrderSO order in ordersToComplete) {
             if (_acceptedOrders.Remove(order)) {
@@ -102,7 +102,8 @@ public class OrderDataManager : MonoBehaviour
                 CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
                 if(order.orderEvent != null)
                 {
-                    StartCoroutine(ExecuteOrderEvents(order));
+                    yield return StartCoroutine(ExecuteOrderEvents(order));
+
                 }
             }
         }
@@ -196,11 +197,11 @@ public class OrderDataManager : MonoBehaviour
     }
 
     // 判断是否有当前节点的订单
-    private bool OnCheckNodeOrder(int nodeIdx) {
+    public bool OnCheckNodeOrder(int nodeIdx) {
         if (acceptedOrdersNode.ContainsValue(nodeIdx)) {
             // 查找与当前节点有关的订单
             var orders = acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key);
-            CompleteOrders(orders.ToList());
+            StartCoroutine(CompleteOrders(orders.ToList()));
             return true;
         }
         return false;

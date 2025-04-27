@@ -18,5 +18,8 @@ public class EvaluationEvent : EventNodeBase
         {
             // 差评订单 + 1
         }
+        m_state = EventNodeState.Finished;
+        m_on_finished?.Invoke(true);
     }
+
 }
