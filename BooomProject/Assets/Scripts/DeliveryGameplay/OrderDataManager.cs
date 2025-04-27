@@ -100,6 +100,10 @@ public class OrderDataManager : MonoBehaviour
                 int nodeIdx = order.customerSO.destNodeId;
                 acceptedOrdersNode.Remove(order);
                 CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
+                if(order.orderEvent != null)
+                {
+                    StartCoroutine(ExecuteOrderEvents(order));
+                }
             }
         }
 
