@@ -12,7 +12,6 @@ public class RuntimeOrderSO {
     public string currentDistance { get; set; }
     public float currentDeliveryTime { get; set; }
     public float praiseProbability { get; set; }
-    public string chatTitle { get; set; }
 
     public RuntimeOrderSO(OrderSO sourceOrder) {
         this.sourceOrder = sourceOrder;

@@ -27,6 +27,6 @@ MonoBehaviour:
   quickResponses:
   - buttonText: '?'
     responseText: "\u8C01\u8BA9\u4F60\u95EE\u4E86"
-    consumeOrder: 1
+    cannotReatedly: 1
   destinationAddress: "\u795E\u4EBA\u5927\u8857"
   destinationNodeId: 0

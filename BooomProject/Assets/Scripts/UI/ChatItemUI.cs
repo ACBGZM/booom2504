@@ -10,15 +10,6 @@ public class ChatItemUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private TextMeshProUGUI _contentText;
     [SerializeField] private Image _profileImage;
-    //public bool isLeft;
-    //public void init(ChatFragment chat)
-    //{
-    //    customerProfileImage.sprite = chat.profile;
-    //    contentText.text = chat.content;
-    //    timeText.text = chat.time;
-    //    isLeft = chat.left;
-    //    chatTitle = chat.chatTitle;
-    //}
     public void Init(ChatFragment chat) {
         // 设置头像
         _profileImage = chat.profile;

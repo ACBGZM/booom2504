@@ -52,7 +52,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
         } else {
             _replyButton.SetActive(false);
         }
-        _chatTitleText.text = order.chatTitle;
+        _chatTitleText.text = $"（店家、{order.sourceOrder.customerSO.customerName}、我";
         _history = order.sourceOrder.chatHistory;
         UpdateContent();
         SetupReplyButton();
@@ -104,7 +104,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
             _scrollRect.verticalNormalizedPosition = 1f;
             Debug.Log("发送信息: " + currentReply.responseText);
             // 如果快速回复使用后被消耗
-            if (currentReply.consumeOrder) {
+            if (currentReply.cannotReatedly) {
                 _currentOrder.sourceOrder.quickResponses.RemoveAt(_currentReplyIndex);
                 if (_currentOrder.sourceOrder.quickResponses.Count == 0) {
                     // 重置下标并禁用按钮
