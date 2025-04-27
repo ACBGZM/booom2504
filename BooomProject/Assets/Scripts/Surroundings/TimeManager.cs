@@ -26,7 +26,6 @@ public class TimeManager : MonoBehaviour
     void Awake() {
         if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded; // 注册场景加载事件
             // LoadTime(); // 加载保存的时间
             FindAndUpdateTimeDisplay(); // 初始化查找

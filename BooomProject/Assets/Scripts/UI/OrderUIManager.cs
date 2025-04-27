@@ -10,15 +10,15 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     [SerializeField] private Transform _myOrderTemplatePrefab;
     [SerializeField] private Transform _availableOrderContainer;
     [SerializeField] private Transform _acceptedOrderContainer;
-    [SerializeField] private OrderDataManager _orderDataManager;
+    //[SerializeField] private OrderDataManager _orderDataManager;
 
     private OrderUIPool _orderPool = new OrderUIPool();
 
     private void Start() {
         // 订阅数据层事件
-        if (_orderDataManager != null) {
-            _orderDataManager.OnAvailableOrdersChanged += RefreshAvailableOrdersUI;
-            _orderDataManager.OnAcceptedOrdersChanged += RefreshAcceptedOrdersUI;
+        if (CommonGameplayManager.GetInstance().OrderDataManager != null) {
+            CommonGameplayManager.GetInstance().OrderDataManager.OnAvailableOrdersChanged += RefreshAvailableOrdersUI;
+            CommonGameplayManager.GetInstance().OrderDataManager.OnAcceptedOrdersChanged += RefreshAcceptedOrdersUI;
             // 初始加载
             RefreshAvailableOrdersUI();
             RefreshAcceptedOrdersUI();
@@ -160,8 +160,8 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     }
 
     protected override void OnDestroy() {
-        _orderDataManager.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
-        _orderDataManager.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
+        CommonGameplayManager.GetInstance().OrderDataManager.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
+        CommonGameplayManager.GetInstance().OrderDataManager.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
         _orderPool.ClearPool();
     }
 }
