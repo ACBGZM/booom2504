@@ -11,12 +11,14 @@ public class GameplaySettings
 
     #region Delivery
     public const int m_max_accepted_orders = 4;
+    
     #endregion
 
     #region map
     public const float map_move_speed = 10f;
     public const float map_scroll_speed = 5f;
     public const float map_drag_speed = 50f;
+    
     #endregion
 
     #region Chat

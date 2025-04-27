@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profileImage: {fileID: 2622267044776237492}
-  mainButton: {fileID: 0}
+  mainButton: {fileID: 7489094281864840001}
   limitTimeText: {fileID: 0}
   customerNameText: {fileID: 0}
   distanceText: {fileID: 0}
@@ -241,7 +241,7 @@ MonoBehaviour:
   customerAddressText: {fileID: 350568517281472711}
   bubbleText: {fileID: 256391075631693104}
   rewardContainer: {fileID: 5291259840151029596}
-  rewardIconPrefab: {fileID: 2586908492116788835}
+  rewardIconPrefab: {fileID: 3956579930424659721}
 --- !u!1 &606621242386513972
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,8 +926,8 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
+  m_Spacing: 2
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0

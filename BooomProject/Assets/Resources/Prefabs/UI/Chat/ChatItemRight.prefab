@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 334.35498, y: -209.16}
-  m_SizeDelta: {x: 557, y: 0}
+  m_SizeDelta: {x: 560, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &156710085461595659
 MonoBehaviour:
@@ -92,11 +92,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18a4423682e52d4a9b05cc950c50163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeText: {fileID: 2117892020817346016}
-  profileImage: {fileID: 8535428990239133791}
-  contentText: {fileID: 5045187833068467188}
-  isLeft: 0
-  chatTitle: 
+  _bubbleBackground: {fileID: 3620819011088397993}
+  _customerBubbleColor: {r: 0.28627452, g: 0.9019608, b: 0.49019608, a: 1}
+  _timeText: {fileID: 2117892020817346016}
+  _contentText: {fileID: 5045187833068467188}
+  _profileImage: {fileID: 8535428990239133791}
 --- !u!1 &1349472210094710017
 GameObject:
   m_ObjectHideFlags: 0

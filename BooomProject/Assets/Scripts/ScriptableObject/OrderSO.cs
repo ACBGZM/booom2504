@@ -59,11 +59,21 @@ public class OrderSO : ScriptableObject {
 
     [Header("奖励与交互")]
     public int baseReward;
-    public List<ChatFragment> chatHistory;
     public EventSequenceExecutor orderEvent;
     public string bubble;
+
+    [Header("聊天设置")]
+    public List<ChatFragment> chatHistory;
+    public List<QuickResponse> quickResponses = new List<QuickResponse>();
 
     [Header("位置信息")]
     public string destinationAddress;
     public int destinationNodeId;
+}
+
+[System.Serializable]
+public class QuickResponse {
+    public string buttonText; // 按钮显示文本
+    public string responseText; // 实际发送文本
+    public bool consumeOrder = false; // 使用后是否消耗订单
 }

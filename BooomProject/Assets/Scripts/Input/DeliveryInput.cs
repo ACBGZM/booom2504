@@ -8,7 +8,7 @@ public class DeliverySceneInputHandler : CommonInput
     private InputActions.DeliveryGameplayActions _deliveryGameplayInputActions;
     public InputActions.DeliveryGameplayActions DeliveryGameplayInputActions => _deliveryGameplayInputActions;
 
-    private void Awake()
+    private new void Awake()
     {
         base.Awake();
 
@@ -18,7 +18,7 @@ public class DeliverySceneInputHandler : CommonInput
         _deliveryGameplayInputActions.Click.performed += OnClickScenePerformed;
     }
 
-    private void OnDestroy()
+    private new void OnDestroy()
     {
         _deliveryGameplayInputActions.Click.performed -= OnClickScenePerformed;
     }
