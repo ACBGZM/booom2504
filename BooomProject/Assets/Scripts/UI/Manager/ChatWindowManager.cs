@@ -1,16 +1,17 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 // 维护聊天界面数据
-public class ChatWindowManager : Singleton<ChatWindowManager>
-{
+public class ChatWindowManager : Singleton<ChatWindowManager> {
     [SerializeField] private Transform _chatUITransform;
     [SerializeField] private OrderUIManager _orderUIManager;
     [SerializeField] private Transform _tabArea;
     [SerializeField] private TextMeshProUGUI _chatTitleText;
-    [SerializeField] private GameObject _replyButton;
+    [SerializeField] private Transform _replyButtonContainer;
+    [SerializeField] private Button _defaultReplyButton;
     [SerializeField] private Transform _itemsParent;
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private Button _returnButton;
@@ -26,16 +27,14 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
     // 当前回复下标
     private int _currentReplyIndex = -1;
 
-    private void Start()
-    {
+    private void Start() {
         _chatUITransform.gameObject.SetActive(false);
         _orderUIManager.OnChatWindowOpen += OrderDataManager_OnChatWindowOpen;
         _returnButton.onClick.AddListener(Close);
     }
 
     // 添加聊天标题属性
-    protected override void init()
-    {
+    protected override void init() {
         _leftItem = Resources.Load<GameObject>(GameplaySettings.left_item_prefab_path);
         _rightItem = Resources.Load<GameObject>(GameplaySettings.right_item_prefab_path);
         _myProfile = Resources.Load<Image>(GameplaySettings.owner_icon_path);
@@ -45,14 +44,14 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
     public void OrderDataManager_OnChatWindowOpen(RuntimeOrderSO order) {
         _currentOrder = order;
         _tabArea.gameObject.SetActive(false);
-        // 初始快速回复设置
+        // 设置初始回复
         if (_currentOrder.sourceOrder.quickResponses != null && _currentOrder.sourceOrder.quickResponses.Count > 0) {
             _currentReplyIndex = 0;
-            _replyButton.SetActive(true);
+            _replyButtonContainer.gameObject.SetActive(true);
         } else {
-            _replyButton.SetActive(false);
+            _replyButtonContainer.gameObject.SetActive(false);
         }
-        _chatTitleText.text = $"（店家、{order.sourceOrder.customerSO.customerName}、我";
+        _chatTitleText.text = $"（店家、{order.sourceOrder.customerSO.customerName}、我)";
         _history = order.sourceOrder.chatHistory;
         UpdateContent();
         SetupReplyButton();
@@ -74,51 +73,91 @@ public class ChatWindowManager : Singleton<ChatWindowManager>
     /// 更新回复按钮文本和点击事件的监听
     /// </summary>
     public void SetupReplyButton() {
-        // 如果没有订单数据，或者快速回复列表为空，则关闭回复按钮
-        if (_currentOrder == null || _currentOrder.sourceOrder.quickResponses.Count == 0) {
-            _replyButton.SetActive(false);
+        _currentReplyIndex = -1;
+        if (_replyButtonContainer == null || _defaultReplyButton == null) return;
+        if (_currentOrder == null ||
+            _currentOrder.sourceOrder == null ||
+            _currentOrder.sourceOrder.quickResponses == null) {
+            _replyButtonContainer.gameObject.SetActive(false);
             return;
         }
-        // 显示当前使用的快速回复文本
-        QuickResponse currentReply = _currentOrder.sourceOrder.quickResponses[_currentReplyIndex];
-        _replyButton.GetComponentInChildren<TextMeshProUGUI>().text = currentReply.buttonText;
 
-        Button replyBtn = _replyButton.GetComponent<Button>();
-        replyBtn.onClick.RemoveAllListeners();
-        replyBtn.onClick.AddListener(() => {
-            GameTime now = TimeManager.Instance.currentTime;
-            string currentTime = now.ToString().Split(' ')[3];
-            // 生成一个新的聊天气泡项
-            GameObject obj = Instantiate(_rightItem, _itemsParent);
-            ChatFragment newChat = new ChatFragment(
-                currentTime,
-                _myProfile,
-                currentReply.responseText,
-                false,
-                _currentOrder.sourceOrder.customerSO.customerName
-            );
-            // 添加到全局聊天历史中
-            _history.Add(newChat);
-            UpdateContent();
-            // 滚动到最新聊天位置
-            _scrollRect.verticalNormalizedPosition = 1f;
-            Debug.Log("发送信息: " + currentReply.responseText);
-            // 如果快速回复使用后被消耗
-            if (currentReply.cannotReatedly) {
-                _currentOrder.sourceOrder.quickResponses.RemoveAt(_currentReplyIndex);
-                if (_currentOrder.sourceOrder.quickResponses.Count == 0) {
-                    // 重置下标并禁用按钮
-                    _currentReplyIndex = -1;
-                    _replyButton.SetActive(false);
-                } else {
-                    if (_currentReplyIndex >= _currentOrder.sourceOrder.quickResponses.Count) {
-                        _currentReplyIndex = 0;
-                    }
-                    // 更新按钮显示
-                    SetupReplyButton();
-                }
+        List<QuickResponse> currentReply = _currentOrder.sourceOrder.quickResponses;
+        _replyButtonContainer.gameObject.SetActive(currentReply.Count > 0);
+
+        Button[] existingButtons = _replyButtonContainer.GetComponentsInChildren<Button>(true);
+
+        // 激活/创建足够数量的按钮
+        for (int i = 0; i < currentReply.Count; i++) {
+            Button button;
+            if (i < existingButtons.Length) {
+                button = existingButtons[i];
+                button.gameObject.SetActive(true);
+            } else {
+                button = Instantiate(_defaultReplyButton, _replyButtonContainer);
+                //button.gameObject.AddComponent<ReplyButtonAnim>(); // 动画组件
             }
-        });
+            SetupSingleButton(button, currentReply[i], i);
+        }
+
+        // 隐藏多余按钮
+        for (int i = currentReply.Count; i < existingButtons.Length; i++) {
+            existingButtons[i].gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// 设置单个按钮的属性和事件
+    /// </summary>
+    private void SetupSingleButton(Button button, QuickResponse response, int index) {
+        // 设置按钮文本
+        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+        if (buttonText != null) {
+            buttonText.text = response.buttonText;
+        } else {
+            Debug.LogWarning("按钮缺少TextMeshPro组件");
+        }
+        // 移除旧监听
+        button.onClick.RemoveAllListeners();
+        int localIndex = index;
+        QuickResponse localResponse = response;
+        // 添加新监听
+        button.onClick.AddListener(() => HandleReplyClick(localResponse, localIndex));
+    }
+
+    /// <summary>
+    /// 处理回复按钮点击事件
+    /// </summary>
+    private void HandleReplyClick(QuickResponse response, int index) {
+        if (_currentOrder == null || response == null) return;
+        // 生成聊天记录
+        GameTime now = TimeManager.Instance.currentTime;
+        string currentTime = $"{now.hour:00}:{now.minute:00}";
+        ChatFragment newChat = new ChatFragment(
+            currentTime,
+            _myProfile,
+            response.responseText,
+            false,
+            _currentOrder.sourceOrder.customerSO.customerName
+        );
+        // 更新数据
+        _history.Add(newChat);
+        if (response.cannotReatedly) {
+            _currentOrder.sourceOrder.quickResponses.RemoveAt(index);
+            StartCoroutine(RefreshButtonsAfterFrame()); // 延迟刷新
+        }
+        // 更新UI
+        UpdateContent();
+        _scrollRect.normalizedPosition = Vector2.zero;
+        //OnMessageSent?.Invoke(response.responseText);
+    }
+
+    /// <summary>
+    /// 延迟一帧刷新
+    /// </summary>
+    private IEnumerator RefreshButtonsAfterFrame() {
+        yield return null;
+        SetupReplyButton();
     }
 
     /// <summary>
