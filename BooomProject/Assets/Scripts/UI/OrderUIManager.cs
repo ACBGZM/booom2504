@@ -34,7 +34,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
             Transform orderItem = _orderPool.Get(_orderTemplatePrefab, _availableOrderContainer);
             SetupAvailableOrderUI(orderItem, order);
         }
-        Debug.Log($"已刷新 {availableOrders.Count} 个可用订单。");
+        // Debug.Log($"已刷新 {availableOrders.Count} 个可用订单。");
     }
 
     // 刷新已接订单UI
@@ -45,7 +45,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
             Transform orderItem = _orderPool.Get(_myOrderTemplatePrefab, _acceptedOrderContainer);
             SetupAcceptedOrderUI(orderItem, order);
         }
-        Debug.Log($"已刷新 {acceptedOrders.Count} 个已接订单。");
+        // Debug.Log($"已刷新 {acceptedOrders.Count} 个已接订单。");
     }
 
     // 设置可用订单UI项
@@ -59,7 +59,15 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         if (ui.distanceText != null) ui.distanceText.text = order.currentDistance;
         if (ui.customerAddressText != null) ui.customerAddressText.text
             = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._address;
-        // if (ui.rangeText != null) ui.rangeText.text = $"Range: {order.range}";
+        if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
+            foreach (Transform child in ui.rewardContainer) {
+                if (child == ui.rewardIconPrefab) continue;
+                Destroy(child.gameObject);
+            }
+            for (int i = 0; i < order.sourceOrder.baseReward - 1; i++) {
+                Instantiate(ui.rewardIconPrefab, ui.rewardContainer);
+            }
+        }
 
         Button btn = ui.mainButton;
         if (btn != null) {
@@ -84,24 +92,26 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         if (ui.orderAddressText != null) ui.orderAddressText.text = order.sourceOrder.destinationAddress;
         if (ui.customerAddressNameText != null)
             ui.customerAddressNameText.text
-                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.sourceOrder.customerSO.destNodeId)._address;
+                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._address;
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
         if (ui.customerAddressText != null)
             ui.customerAddressText.text
-                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime( order.sourceOrder.customerSO.destNodeId)._addressDetail;
+                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._addressDetail;
         if (ui.bubbleText != null) ui.bubbleText.text = order.sourceOrder.bubble;
 
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
             foreach (Transform child in ui.rewardContainer) {
+                if (child == ui.rewardIconPrefab) continue;
                 Destroy(child.gameObject);
             }
-            for (int i = 0; i < order.sourceOrder.baseReward; i++) {
+            for (int i = 0; i < order.sourceOrder.baseReward - 1; i++) {
                 Instantiate(ui.rewardIconPrefab, ui.rewardContainer);
             }
         }
 
         Button btn = ui.mainButton;
         if (btn != null) {
+            // Debug.Log($"添加聊天事件: {order.sourceOrder.orderTitle}");
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => OnChatButtonClicked(order));
             btn.interactable = true;

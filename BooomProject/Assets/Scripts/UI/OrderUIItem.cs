@@ -19,7 +19,7 @@ public class OrderUIItem : MonoBehaviour {
     public TextMeshProUGUI customerAddressText;
     public TextMeshProUGUI bubbleText;
     public Transform rewardContainer;
-    public Image rewardIconPrefab;
+    public Transform rewardIconPrefab;
 
     // public Button acceptButton;
     // public Button chatButton;

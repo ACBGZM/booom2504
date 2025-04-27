@@ -10,7 +10,7 @@ public static class EventHandlerManager
     #endregion
 
     #region 手机UI
-    public static event Action chatWindowShow;
+    // public static event Action chatWindowShow;
 
     #endregion
 
@@ -60,10 +60,10 @@ public static class EventHandlerManager
         updateArriveDistAndTime?.Invoke(currentNode, speed);
     }
 
-    public static void CallChatWindowShow()
-    {
-        chatWindowShow?.Invoke();
-    }
+    //public static void CallChatWindowShow()
+    //{
+    //    chatWindowShow?.Invoke();
+    //}
 
     public static bool CallCheckNodeOrder(int nodeIdx)
     {

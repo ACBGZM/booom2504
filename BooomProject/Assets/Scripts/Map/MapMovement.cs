@@ -95,25 +95,25 @@ public class MapMovement : MonoBehaviour
 
         return;
 
-        var pos = Input.mousePosition;
-        // 摄像机移动
-        if (pos.x <= left)
-        {
-            _camera.transform.Translate(Vector2.left * GameplaySettings.map_move_speed * Time.deltaTime);
-        }
-        if (pos.x >= right)
-        {
-            _camera.transform.Translate(Vector2.right * GameplaySettings.map_move_speed * Time.deltaTime);
-        }
+        //var pos = Input.mousePosition;
+        //// 摄像机移动
+        //if (pos.x <= left)
+        //{
+        //    _camera.transform.Translate(Vector2.left * GameplaySettings.map_move_speed * Time.deltaTime);
+        //}
+        //if (pos.x >= right)
+        //{
+        //    _camera.transform.Translate(Vector2.right * GameplaySettings.map_move_speed * Time.deltaTime);
+        //}
 
-        if (pos.y >= top)
-        {
-            _camera.transform.Translate(Vector2.up * GameplaySettings.map_move_speed * Time.deltaTime);
-        }
-        if (pos.y <= bottom)
-        {
-            _camera.transform.Translate(Vector2.down * GameplaySettings.map_move_speed * Time.deltaTime);
-        }
+        //if (pos.y >= top)
+        //{
+        //    _camera.transform.Translate(Vector2.up * GameplaySettings.map_move_speed * Time.deltaTime);
+        //}
+        //if (pos.y <= bottom)
+        //{
+        //    _camera.transform.Translate(Vector2.down * GameplaySettings.map_move_speed * Time.deltaTime);
+        //}
     }
 
     private void Zoom()

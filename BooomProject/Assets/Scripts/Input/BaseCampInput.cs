@@ -8,7 +8,7 @@ public class BaseCampInputHandler : CommonInput
 
     public event EventHandler OnInteractAction;
 
-    private void Awake()
+    private new void Awake()
     {
         base.Awake();
 
@@ -17,7 +17,7 @@ public class BaseCampInputHandler : CommonInput
         _baseCampGameplayInputActions.Interact.performed += Interact_performed;
     }
 
-    private void OnDestroy()
+    private new void OnDestroy()
     {
         base.OnDestroy();
 

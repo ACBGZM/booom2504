@@ -7,7 +7,6 @@ using UnityEngine;
 public class OrderDataManager : MonoBehaviour {
     public event Action OnAvailableOrdersChanged;
     public event Action OnAcceptedOrdersChanged;
-    public event Action<RuntimeOrderSO> OnChatWindowOpen;
 
     [SerializeField] private List<OrderSO> _allOrders;
     private List<RuntimeOrderSO> _availableOrders = new List<RuntimeOrderSO>();
@@ -72,10 +71,6 @@ public class OrderDataManager : MonoBehaviour {
         // 通知UI
         OnAvailableOrdersChanged?.Invoke();
         OnAcceptedOrdersChanged?.Invoke();
-    }
-
-    private void OnChatWithCustormer(RuntimeOrderSO order) {
-        OnChatWindowOpen?.Invoke(order);
     }
 
     public void CompleteOrders(List<RuntimeOrderSO> ordersToComplete) {
