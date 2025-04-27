@@ -73,7 +73,11 @@ public class OrderDataManager : MonoBehaviour {
         OnAcceptedOrdersChanged?.Invoke();
     }
 
-    public void CompleteOrders(List<RuntimeOrderSO> ordersToComplete) {
+    private void OnChatWithCustormer(RuntimeOrderSO order) {
+        OnChatWindowOpen?.Invoke(order);
+    }
+
+    public IEnumerator CompleteOrders(List<RuntimeOrderSO> ordersToComplete) {
         bool changed = false;
         foreach (RuntimeOrderSO order in ordersToComplete) {
             if (_acceptedOrders.Remove(order)) {
@@ -82,6 +86,10 @@ public class OrderDataManager : MonoBehaviour {
                 int nodeIdx = order.sourceOrder.customerSO.destNodeId;
                 _acceptedOrdersNode.Remove(order);
                 CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
+                if(order.sourceOrder.orderEvent != null)
+                {
+                    yield return StartCoroutine(ExecuteOrderEvents(order));
+                }
             }
         }
 
@@ -144,19 +152,22 @@ public class OrderDataManager : MonoBehaviour {
 
     // 判断是否有当前节点的订单
     private bool OnCheckNodeOrder(int nodeIdx) {
+     
         if (_acceptedOrdersNode.ContainsValue(nodeIdx)) {
+            
             // 查找与当前节点有关的订单
             var orders = _acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key);
-            CompleteOrders(orders.ToList());
+            StartCoroutine(CompleteOrders(orders.ToList()));
+            
             return true;
         }
         return false;
     }
 
-    private IEnumerator ExecuteOrderEvents(OrderSO order) {
+    private IEnumerator ExecuteOrderEvents(RuntimeOrderSO order) {
         bool finished = false;
-        order.orderEvent.Initialize((b) => finished = b);
-        order.orderEvent.Execute();
+        order.sourceOrder.orderEvent.Initialize((b) => finished = b);
+        order.sourceOrder.orderEvent.Execute();
 
         yield return new WaitUntil(() => finished == true);
     }
