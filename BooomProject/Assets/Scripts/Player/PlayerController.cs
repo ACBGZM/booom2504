@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController controllerInstance { get; private set; }
+    public event UnityAction<IInteractable,bool> OnInteractableObjectChange;
     public IInteractable currentInteractable => _interactables.Count > 0 ? _interactables[0] : null;
 
     [SerializeField] private BaseCampInputHandler _baseCampInputHandler;
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Interactable") && collision.TryGetComponent(out IInteractable interactable))
         {
             AddInteractable(interactable);
+            OnInteractableObjectChange?.Invoke(interactable, true);
         }
     }
 
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Interactable") && collision.TryGetComponent(out IInteractable interactable))
         {
             RemoveInteractable(interactable);
+            OnInteractableObjectChange?.Invoke(interactable, false);
         }
     }
 

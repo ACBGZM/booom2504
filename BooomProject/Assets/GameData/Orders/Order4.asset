@@ -14,12 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerSO: {fileID: 11400000, guid: ecb2473d525ab29439045d87c4cb900e, type: 2}
   orderTitle: I
-  orderLimitTime: 200
-  orderAddress: "\u795E\u4EBA\u5546\u4E1A\u533A4"
-  orderDistance: 32
-  range: 2
-  reward: 0
-  bubble: "\u5C16\u5C16"
-  time: 0
+  initialLimitTime: 350
+  baseReward: 6
   chatHistory: []
-  orderEvent: {fileID: 11400000, guid: 87b269ca450338449b0a065de0ab02e2, type: 2}
+  orderEvent: {fileID: 0}
+  bubble: "\u5C16\u5C16"
+  destinationAddress: "\u6C88\u9633\u5927\u8857"
+  destinationNodeId: 0

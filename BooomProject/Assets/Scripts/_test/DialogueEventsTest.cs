@@ -34,4 +34,8 @@ public class DialogueEventsTest : MonoBehaviour, IInteractable
     {
         Debug.Log("success: " + success);
     }
+
+    public string GetInteractableName() {
+        return "Dialogue";
+    }
 }

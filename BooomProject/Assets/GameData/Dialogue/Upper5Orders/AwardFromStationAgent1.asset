@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
+  m_Name: AwardFromStationAgent1
+  m_EditorClassIdentifier: 
+  m_event_nodes:
+  - {fileID: 11400000, guid: 3d45c48c8d05cea46af8fbe15fee5fd1, type: 2}
+  - {fileID: 11400000, guid: 11554b0c0a0541140875d12f2d31e557, type: 2}
+  - {fileID: 11400000, guid: 8c6cbe71ea5aa5b43b67d83b681dbf51, type: 2}
+  - {fileID: 11400000, guid: f2cbf4da955eb7d4db6591d62b198007, type: 2}
+  - {fileID: 11400000, guid: 3a1a1154c80be774c8d6034dd52234ad, type: 2}
