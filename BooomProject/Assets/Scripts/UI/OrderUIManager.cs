@@ -4,21 +4,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OrderUIManager : Singleton<OrderUIManager> {
+public class OrderUIManager : MonoBehaviour{
     public event Action<RuntimeOrderSO> OnChatWindowOpen;
     [SerializeField] private Transform _orderTemplatePrefab;
     [SerializeField] private Transform _myOrderTemplatePrefab;
     [SerializeField] private Transform _availableOrderContainer;
     [SerializeField] private Transform _acceptedOrderContainer;
-    //[SerializeField] private OrderDataManager _orderDataManager;
+    private OrderDataManager _orderDataManagerInstant;
 
     private OrderUIPool _orderPool = new OrderUIPool();
 
     private void Start() {
+        _orderDataManagerInstant = CommonGameplayManager.GetInstance().OrderDataManager;
         // 订阅数据层事件
-        if (CommonGameplayManager.GetInstance().OrderDataManager != null) {
-            CommonGameplayManager.GetInstance().OrderDataManager.OnAvailableOrdersChanged += RefreshAvailableOrdersUI;
-            CommonGameplayManager.GetInstance().OrderDataManager.OnAcceptedOrdersChanged += RefreshAcceptedOrdersUI;
+        if (_orderDataManagerInstant != null) {
+            _orderDataManagerInstant.OnAvailableOrdersChanged += RefreshAvailableOrdersUI;
+            _orderDataManagerInstant.OnAcceptedOrdersChanged += RefreshAcceptedOrdersUI;
             // 初始加载
             RefreshAvailableOrdersUI();
             RefreshAcceptedOrdersUI();
@@ -31,7 +32,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     // 刷新可用订单UI
     private void RefreshAvailableOrdersUI() {
         ClearContainer(_availableOrderContainer);
-        List<RuntimeOrderSO> availableOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAvailableOrders();
+        List<RuntimeOrderSO> availableOrders = _orderDataManagerInstant.GetAvailableOrders();
         foreach (var order in availableOrders) {
             Transform orderItem = _orderPool.Get(_orderTemplatePrefab, _availableOrderContainer);
             SetupAvailableOrderUI(orderItem, order);
@@ -42,7 +43,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
     // 刷新已接订单UI
     private void RefreshAcceptedOrdersUI() {
         ClearContainer(_acceptedOrderContainer);
-        List<RuntimeOrderSO> acceptedOrders = CommonGameplayManager.GetInstance().OrderDataManager.GetAcceptedOrders();
+        List<RuntimeOrderSO> acceptedOrders = _orderDataManagerInstant.GetAcceptedOrders();
         foreach (var order in acceptedOrders) {
             Transform orderItem = _orderPool.Get(_myOrderTemplatePrefab, _acceptedOrderContainer);
             SetupAcceptedOrderUI(orderItem, order);
@@ -90,7 +91,7 @@ public class OrderUIManager : Singleton<OrderUIManager> {
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => {
                 Debug.Log($"已接单: {order.sourceOrder.orderTitle}");
-                CommonGameplayManager.GetInstance().OrderDataManager.AcceptOrder(order);
+                _orderDataManagerInstant.AcceptOrder(order);
             });
             btn.interactable = CommonGameplayManager.GetInstance().OrderDataManager.CanAcceptMoreOrders();
         }
@@ -159,9 +160,11 @@ public class OrderUIManager : Singleton<OrderUIManager> {
         }
     }
 
-    protected override void OnDestroy() {
-        CommonGameplayManager.GetInstance().OrderDataManager.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
-        CommonGameplayManager.GetInstance().OrderDataManager.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
+    private void OnDisable() {
+        if (_orderDataManagerInstant != null) {
+            _orderDataManagerInstant.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
+            _orderDataManagerInstant.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
+        }
         _orderPool.ClearPool();
     }
 }
