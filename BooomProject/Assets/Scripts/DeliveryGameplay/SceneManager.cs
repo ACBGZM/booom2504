@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,9 +13,41 @@ public class GameSceneManager : MonoBehaviour {
     [SerializeField] private TMP_Text _progressText;
     [SerializeField] private List<GameObject> _disableWhileLoading;
 
+    // 场景切换
+    private SceneLoader _sceneLoader;
+
+    private void Start()
+    {
+        _sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+    }
+
     public void LoadSync(string target_scene) {
         HandleSceneTransition(() => SceneManager.LoadScene(target_scene));
+        StartCoroutine(SceneLoader(target_scene));
     }
+
+    // 异步加载场景动画
+    #region 
+    IEnumerator SceneLoader(string target_scene)
+    {
+        // 设置动画机状态
+        _sceneLoader.sceneAnimator.SetBool("FadeIn", true);
+        _sceneLoader.sceneAnimator.SetBool("FadeOut", false);
+
+        yield return new WaitForSeconds((float)0.75);
+
+        AsyncOperation async = SceneManager.LoadSceneAsync(target_scene);
+        async.completed += OnLoadScene;
+    }
+
+    private void OnLoadScene(AsyncOperation operation)
+    {
+        // 设置动画机状态
+        _sceneLoader.sceneAnimator.SetBool("FadeIn", false);
+        _sceneLoader.sceneAnimator.SetBool("FadeOut", true);
+    }
+    #endregion
+
 
     public void LoadAsync(string target_scene) {
         StartCoroutine(LoadSceneAsync(target_scene));
@@ -49,7 +82,8 @@ public class GameSceneManager : MonoBehaviour {
         foreach (GameObject panel in _disableWhileLoading) {
             panel.SetActive(false);
         }
-        loadAction?.Invoke();
+
+        //loadAction?.Invoke();
     }
 
     private float UpdateProgressUI(AsyncOperation operation, float fakeProgress) {
