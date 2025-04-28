@@ -16,7 +16,7 @@ MonoBehaviour:
   orderTitle: Man
   initialLimitTime: 100
   baseReward: 4
-  orderEvent: {fileID: 0}
+  orderEvent: {fileID: 11400000, guid: d55de1589da076a428ffdece5e6e1c28, type: 2}
   bubble: "\u90A3\u6211\u95EE\u4F60"
   chatHistory:
   - chatTitle: "(\u5E97,123,\u6211)"
@@ -32,4 +32,4 @@ MonoBehaviour:
     responseText: What Can I Say
     cannotReatedly: 1
   destinationAddress: "\u795E\u4EBA\u5927\u8857"
-  destinationNodeId: 0
+  destinationNodeId: 2

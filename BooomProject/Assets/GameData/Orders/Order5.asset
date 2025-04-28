@@ -16,8 +16,9 @@ MonoBehaviour:
   orderTitle: Say
   initialLimitTime: 800
   baseReward: 4
-  chatHistory: []
-  orderEvent: {fileID: 0}
+  orderEvent: {fileID: 11400000, guid: 30ddb5945a9dd6a4aaae6f8f9cba4793, type: 2}
   bubble: "\u7684"
+  chatHistory: []
+  quickResponses: []
   destinationAddress: "\u6211\u8BF7\u95EE\u4E86"
-  destinationNodeId: 0
+  destinationNodeId: 2
