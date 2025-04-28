@@ -4,14 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OrderUIManager : MonoBehaviour{
+public class OrderUIManager : MonoBehaviour {
     public event Action<RuntimeOrderSO> OnChatWindowOpen;
     [SerializeField] private Transform _orderTemplatePrefab;
     [SerializeField] private Transform _myOrderTemplatePrefab;
     [SerializeField] private Transform _availableOrderContainer;
     [SerializeField] private Transform _acceptedOrderContainer;
     private OrderDataManager _orderDataManagerInstant;
-
+    private TextMeshProUGUI _buttonText;
     private OrderUIPool _orderPool = new OrderUIPool();
 
     private void Start() {
@@ -56,10 +56,10 @@ public class OrderUIManager : MonoBehaviour{
         OrderUIItem ui = item.GetComponent<OrderUIItem>();
         if (ui == null) return;
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
-
-        if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 {order.sourceOrder.initialLimitTime} 分钟内送达";
+        if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 <size=+5><color=#5bb0ff>{order.sourceOrder.initialLimitTime}</color></size> 分钟内送达";
         if (ui.customerNameText != null) ui.customerNameText.text = order.sourceOrder.customerSO.customerName;
         if (ui.distanceText != null) ui.distanceText.text = order.currentDistance;
+
         if (ui.customerAddressText != null) ui.customerAddressText.text
             = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._address;
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
@@ -72,16 +72,13 @@ public class OrderUIManager : MonoBehaviour{
                 Instantiate(ui.rewardIconPrefab, ui.rewardContainer);
             }*/
 
-            if (order.sourceOrder.baseReward >= 3 && order.sourceOrder.baseReward < 5)
-            {
+            if (order.sourceOrder.baseReward >= 3 && order.sourceOrder.baseReward < 5) {
                 Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
-                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/lvstz.png", 101, 50);
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/lvstz.png", 101, 35);
                 orderImage.rectTransform.sizeDelta = new Vector2(101, 50);
-            }
-            else if (order.sourceOrder.baseReward >= 5)
-            {
+            } else if (order.sourceOrder.baseReward >= 5) {
                 Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
-                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/hstz.png", 202, 50);
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/hstz.png", 202, 35);
                 orderImage.rectTransform.sizeDelta = new Vector2(202, 50);
             }
         }
@@ -101,21 +98,14 @@ public class OrderUIManager : MonoBehaviour{
     private void SetupAcceptedOrderUI(Transform item, RuntimeOrderSO order) {
         OrderUIItem ui = item.GetComponent<OrderUIItem>();
         OrderSO sourceOrder = order.sourceOrder;
-
-        ui.remainingTimeText.text = order.isTimeout ? "已超时"
-            : $"剩余 {order.remainingMinutes} 分钟";
-        //ui.remainingTimeText.color = order.isTimeout ? Color.red : (order.remainingMinutes < 30 ? Color.yellow : Color.green);
-        if (ui.orderTitleText != null) ui.orderTitleText.text = order.sourceOrder.orderTitle;
-        if (ui.orderAddressText != null) ui.orderAddressText.text = order.sourceOrder.destinationAddress;
-        if (ui.customerAddressNameText != null)
-            ui.customerAddressNameText.text
-                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._address;
+        if (ui.remainingTimeText != null) ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"剩余 <size=+5><color=#5bb0ff>{order.remainingMinutes.ToString()}</color></size> 分钟";
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
+        if (ui.customerLandMarkText != null) ui.customerLandMarkText.text = order.sourceOrder.destinationAddress;
+        if (ui.bubbleText != null) ui.bubbleText.text = order.sourceOrder.bubble;
+
         if (ui.customerAddressText != null)
             ui.customerAddressText.text
                 = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._addressDetail;
-        if (ui.bubbleText != null) ui.bubbleText.text = order.sourceOrder.bubble;
-
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
             foreach (Transform child in ui.rewardContainer) {
                 if (child == ui.rewardIconPrefab) continue;
@@ -126,26 +116,28 @@ public class OrderUIManager : MonoBehaviour{
                 Instantiate(ui.rewardIconPrefab, ui.rewardContainer);
             }*/
 
-            if (order.sourceOrder.baseReward >= 3 && order.sourceOrder.baseReward < 5)
-            {
+            if (order.sourceOrder.baseReward >= 3 && order.sourceOrder.baseReward < 5) {
                 Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
-                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/lvstz.png", 101, 50);
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/lvstz.png", 101, 35);
                 orderImage.rectTransform.sizeDelta = new Vector2(101, 50);
-            }
-            else if (order.sourceOrder.baseReward >= 5)
-            {
+            } else if (order.sourceOrder.baseReward >= 5) {
                 Image orderImage = ui.rewardIconPrefab.GetComponent<Image>();
-                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/hstz.png", 202, 50);
+                orderImage.sprite = LoadFile.LoadImage(Application.dataPath + @"/Art/UI/Phone/hstz.png", 202, 35);
                 orderImage.rectTransform.sizeDelta = new Vector2(202, 50);
             }
         }
 
         Button btn = ui.mainButton;
         if (btn != null) {
-            // Debug.Log($"添加聊天事件: {order.sourceOrder.orderTitle}");
-            btn.onClick.RemoveAllListeners();
-            btn.onClick.AddListener(() => OnChatButtonClicked(order));
-            btn.interactable = true;
+            if (order.isTakeDelivery) {
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() => OnChatButtonClicked(order));
+                btn.interactable = true;
+            } else {
+                _buttonText = btn.GetComponentInChildren<TextMeshProUGUI>();
+                _buttonText.text = "待取货";
+                btn.interactable = false;
+            }
         }
     }
 

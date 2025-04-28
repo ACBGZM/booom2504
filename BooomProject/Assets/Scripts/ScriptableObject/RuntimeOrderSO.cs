@@ -6,9 +6,10 @@ public class RuntimeOrderSO {
 
     // 运行时状态
     public GameTime acceptedTime { get; set; }
+    public OrderState currentState { get; set; }
     public float remainingMinutes { get; set; }
     public bool isTimeout { get; set; }
-    public OrderState currentState { get; set; }
+    public bool isTakeDelivery {  get; set; }   // 是否取货
     public string currentDistance { get; set; }
     public float currentDeliveryTime { get; set; }
     public float praiseProbability { get; set; }
