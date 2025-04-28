@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
-  m_Name: AwardFromStationAgent1
+  m_Script: {fileID: 11500000, guid: 13ef9b82d1902c34897fcd71adc1859a, type: 3}
+  m_Name: MengMianCun
   m_EditorClassIdentifier: 
-  m_event_nodes:
-  - {fileID: 11400000, guid: 3d45c48c8d05cea46af8fbe15fee5fd1, type: 2}
-  - {fileID: 11400000, guid: 3a1a1154c80be774c8d6034dd52234ad, type: 2}
+  customerProfile: {fileID: 0}
+  customerName: "\u5B5F\u7EF5\u5B58"
+  destNodeId: 0

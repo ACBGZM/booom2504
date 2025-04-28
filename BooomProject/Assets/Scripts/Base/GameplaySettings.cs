@@ -11,7 +11,8 @@ public class GameplaySettings
 
     #region Delivery
     public const int m_max_accepted_orders = 4;
-    
+    public const int m_max_generate_special_orders = 2;
+    public const int m_max_generate_common_orders = 4;
     #endregion
 
     #region map

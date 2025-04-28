@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
-  m_Name: Award2-PlayerSelection1
+  m_Script: {fileID: 11500000, guid: 13ef9b82d1902c34897fcd71adc1859a, type: 3}
+  m_Name: QuYang
   m_EditorClassIdentifier: 
-  m_event_nodes:
-  - {fileID: 11400000, guid: 16261ff7807413a4ca4ebcd5b3302e70, type: 2}
+  customerProfile: {fileID: 0}
+  customerName: "\u66F2\u7F8A"
+  destNodeId: 0

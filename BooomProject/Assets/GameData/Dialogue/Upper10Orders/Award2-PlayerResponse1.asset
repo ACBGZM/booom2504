@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45208a98f3eec24a84b76ba2b17e5c6, type: 3}
   m_Name: Award2-PlayerResponse1
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 1
   m_responses:
   - m_text: "\u5C0F\u58F0"
-    m_executor: {fileID: 11400000, guid: 3be5943caba951743bee21ca6f239a3e, type: 2}
+    m_executor: {fileID: 0}
   m_default_select_index: -1
   m_must_loop_all: 0

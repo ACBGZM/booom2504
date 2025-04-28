@@ -11,21 +11,28 @@ public class OrderDataManager : MonoBehaviour {
     [SerializeField] private List<OrderSO> _allOrders;
     private List<RuntimeOrderSO> _availableOrders = new List<RuntimeOrderSO>();
     private List<RuntimeOrderSO> _acceptedOrders = new List<RuntimeOrderSO>();
+    //已接订单与目的节点编号映射表 TODO: 待持久化
     private Dictionary<RuntimeOrderSO, int> _acceptedOrdersNode = new Dictionary<RuntimeOrderSO, int>();
     // 当前送达正在处理的订单
     private RuntimeOrderSO currentHandleOrder;
-    // private Dictionary<OrderSO, int> acceptedOrdersNode = new Dictionary<OrderSO, int>();
-    //已接订单与目的节点编号映射表 TODO: 待持久化
 
+    [NonSerialized] public int generatedSpecialOrdersCount = 0;
+    [NonSerialized] public int generatedCommonOrdersCount = 0;
     public List<RuntimeOrderSO> GetAvailableOrders() => _availableOrders;
     public List<RuntimeOrderSO> GetAcceptedOrders() => _acceptedOrders;
 
     private void Start() {
-        // 按距离排序
+        // 按报酬排序
         _availableOrders.Clear();
         var sortedOrder = _allOrders.OrderBy(order => order.baseReward).ToList();
-        for (int i = _allOrders.Count - 1; i >= 0; i--) {
-            _availableOrders.Add(new RuntimeOrderSO(_allOrders[i]));
+        for (int i = 0; i < _allOrders.Count; i++) {
+            if (_allOrders[i].isSpecialOrder && generatedSpecialOrdersCount <= GameplaySettings.m_max_generate_special_orders) {
+                _availableOrders.Add(new RuntimeOrderSO(_allOrders[i]));
+                generatedSpecialOrdersCount++;
+            } else if (!_allOrders[i].isSpecialOrder && generatedCommonOrdersCount <= GameplaySettings.m_max_generate_common_orders) {
+                _availableOrders.Add(new RuntimeOrderSO(_allOrders[i]));
+                generatedCommonOrdersCount++;
+            }
         }
         TimeManager.Instance.OnMinutePassed.AddListener(UpdateOrderTimes);
     }
@@ -100,6 +107,11 @@ public class OrderDataManager : MonoBehaviour {
                     currentHandleOrder = null;
                 }
             }
+            if (order.sourceOrder.isSpecialOrder) {
+                generatedSpecialOrdersCount--;
+            } else {
+                generatedCommonOrdersCount--;
+            }
         }
 
         if (changed) {
@@ -161,9 +173,7 @@ public class OrderDataManager : MonoBehaviour {
 
     // 判断是否有当前节点的订单
     private bool OnCheckNodeOrder(int nodeIdx) {
-     
         if (_acceptedOrdersNode.ContainsValue(nodeIdx)) {
-            
             // 查找与当前节点有关的订单
             var orders = _acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key).ToList();
             // 剔除未取货的订单
@@ -175,7 +185,6 @@ public class OrderDataManager : MonoBehaviour {
                 }
             }
             StartCoroutine(CompleteOrders(orders));
-            
             return true;
         }
         return false;

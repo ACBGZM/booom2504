@@ -14,12 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_event_nodes:
   - {fileID: 11400000, guid: fb47dc1a1e372e849818673e6d0a23e3, type: 2}
-  - {fileID: 11400000, guid: 8a8f1db0e7dc3e040aea650491af64cc, type: 2}
-  - {fileID: 11400000, guid: 16dbb6d691e768c4ebe2ac23b83e8642, type: 2}
   - {fileID: 11400000, guid: dc27ba07ca1f0d14db893d5146143078, type: 2}
-  - {fileID: 11400000, guid: 16261ff7807413a4ca4ebcd5b3302e70, type: 2}
-  - {fileID: 11400000, guid: 0ceaa9cd3445c04498abcb18e2f1ee68, type: 2}
-  - {fileID: 11400000, guid: 2a606d233326d484cb77ff1429d56b1b, type: 2}
-  - {fileID: 11400000, guid: 9d5ad773550225045b2fa365b057e3b2, type: 2}
-  - {fileID: 11400000, guid: 9d5ad773550225045b2fa365b057e3b2, type: 2}
-  - {fileID: 11400000, guid: 80aa9bf54ca56634ea36d837ebe0fdfe, type: 2}
+  - {fileID: 11400000, guid: f2881d6f683a1a148868ba6f30090a63, type: 2}
+  - {fileID: 11400000, guid: 814ae81ad2869174caaba07c147a56c2, type: 2}

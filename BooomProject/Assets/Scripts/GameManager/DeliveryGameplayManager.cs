@@ -8,7 +8,7 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
     [SerializeField] private DeliverySceneInputHandler _deliverySceneInputHandler;
     public DeliverySceneInputHandler DeliverySceneInputHandler => _deliverySceneInputHandler;
 
-    [SerializeField] private GameSceneManager _sceneManager;
+    // [SerializeField] private GameSceneManager _sceneManager;
 
     // todo: currently dialogue ui manager is a singleton
     // [SerializeField] private DialogueUIManager _dialogueUIManager;

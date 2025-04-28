@@ -12,10 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
   m_Name: Award2-StationAgent1
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 2
   m_dialogues:
   - m_speaker_name: "\u8001\u4F59"
     m_speaker_avatar: {fileID: 0}
     m_text: "\u54E6\u54E6\u54E6\uFF01\u90A3\u8FB9\u90A3\u4E2A\u975E\u5E38\u52AA\u529B\u7684\u5154\u9A91\u58EB\uFF01"
-    m_display_method: 0
+    m_display_method: 2
+    m_can_skip: 0
+  - m_speaker_name: "\u8001\u4F59"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u51ED\u4F60\u75BE\u98CE\u6012\u6D9B\u4E00\u822C\u7684\u9A7E\u9A76\uFF0C\u8DB3\u4EE5\u914D\u5F97\u4E0A\u3010\u8D85\u7EA7\u5154\u9A91\u58EB\u3011\u8FD9\u4E2A\u79F0\u53F7\u4E86\u3002"
+    m_display_method: 2
+    m_can_skip: 0
+  - m_speaker_name: "\u8001\u4F59"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u5C3D\u60C5\u5730\u4EAB\u53D7\u751C\u7F8E\u7684\u4F11\u606F\u65F6\u95F4\u548C\u8001\u4F59\u51C6\u5907\u7684\u5C0F\u96F6\u98DF\u5427\u3002"
+    m_display_method: 2
     m_can_skip: 0

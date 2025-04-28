@@ -14,6 +14,8 @@ public class OrderSO : ScriptableObject {
     public string orderTitle;
     [Tooltip("订单限制时间")]
     public int initialLimitTime;
+    [Tooltip("特殊订单")]
+    public bool isSpecialOrder;
 
     [Header("奖励与交互")]
     [Tooltip("本单奖励")]

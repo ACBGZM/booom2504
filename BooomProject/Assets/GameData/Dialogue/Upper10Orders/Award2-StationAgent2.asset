@@ -12,10 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
   m_Name: Award2-StationAgent2
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 2
   m_dialogues:
+  - m_speaker_name: "\u4F60"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\uFF08\u4F46\u662F\uFF0C\u5C0F\u96F6\u98DF\u4E0D\u662F\u672C\u6765\u5C31\u968F\u4FBF\u5403\u7684\u5417\xB7\xB7\xB7\xB7\xB7\xB7\uFF09"
+    m_display_method: 2
+    m_can_skip: 0
   - m_speaker_name: "\u8001\u4F59"
     m_speaker_avatar: {fileID: 0}
-    m_text: "\u51ED\u4F60\u75BE\u98CE\u6012\u6D9B\u4E00\u822C\u7684\u9A7E\u9A76\uFF0C\u8DB3\u4EE5\u914D\u5F97\u4E0A\u3010\u8D85\u7EA7\u5154\u9A91\u58EB\u3011\u8FD9\u4E2A\u79F0\u53F7\u4E86\u3002"
-    m_display_method: 0
+    m_text: "\u5514\u5514\uFF1F\u597D\u50CF\u4ECE\u5154\u9A91\u58EB\u7684\u8138\u4E0A\u770B\u5230\u4E86\u4E0D\u6EE1\u8DB3\uFF1F"
+    m_display_method: 2
+    m_can_skip: 0
+  - m_speaker_name: "\u8001\u4F59"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u771F\u6CA1\u529E\u6CD5\u554A\uFF0C\u90A3\u5C31\u53EA\u597D\u4F7F\u7528\u8001\u4F59\u7684\u6697\u5668\u2014\u2014\u6BDB\u8338\u8338\u7684\u5927\u5C3E\u5DF4\u54AF\u3002"
+    m_display_method: 2
+    m_can_skip: 0
+  - m_speaker_name: "\u8001\u4F59"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u6765\u5427\u6765\u5427\uFF0C\u53EF\u4EE5\u5C3D\u60C5\u6478\u6478\u54E6\u3002"
+    m_display_method: 2
     m_can_skip: 0
