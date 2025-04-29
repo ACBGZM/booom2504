@@ -5,70 +5,49 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventFame", menuName = "Event/NodeActions/EventFame")]
 public class EventFame : EventNodeBase
 {
-    public List<Dialogue> dialogues = new List<Dialogue>();
-    public List<Dialogue> branch1;
-    public List<Dialogue> branch2;
+    
+    [SerializeField] private EventSequenceExecutor successExecutor;
+    [SerializeField] private EventSequenceExecutor failureExecutor;
     public NodeActionType type;
-    public int fameThreshold;
+    [SerializeField] private int fameThreshold;
 
     public override void Execute()
     {
         base.Execute();
         CheckFame();
     }
-
-    public void ShowDialogueText()
-    {
-        DialogueUIManager.GetInstance().StartCoroutine(StepThroughDialogueDataList());
-    }
-
-    public IEnumerator StepThroughDialogueDataList()
-    {
-        for (int i = 0; i < dialogues.Count; ++i)
-        {
-            DialogueUIManager.SetCanShowNextDialogue(false);
-
-            Dialogue dialogue = dialogues[i];
-
-            yield return DialogueUIManager.ShowDialogue(dialogue);
-
-            yield return new WaitUntil(() => DialogueUIManager.GetCanShowNextDialogue());
-        }
-
-        dialogues.Clear();
-        m_state = EventNodeState.Finished;
-        m_on_finished?.Invoke(true);
-    }
-
     public void CheckFame()
     {
         CommonGameplayManager.GetInstance().PlayerState = EPlayerState.InCutscene;
 
-        //TODO 声誉获取
-        //测试声誉
-        int Fame = Random.Range(0, 10);
+        int Fame = CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value;
         Debug.Log(Fame);
-        List<Dialogue> choice;
-        bool award = false;
-        if (Fame > fameThreshold)
+
+        if (Fame > fameThreshold && successExecutor != null)
         {
-            award = true;
-            choice = branch1;
-        } else
-        {
-            choice = branch2;
+            successExecutor.Initialize(Finished);
+            successExecutor.Execute();
+            EventHandlerManager.CallUpdateBuff(type, true);
+
         }
-        EventHandlerManager.CallUpdateBuff(type, award);
-        foreach (var temp in choice)
+        else if (Fame <= fameThreshold && failureExecutor != null)
         {
-            Dialogue d = new Dialogue();
-            d.m_text = temp.m_text;
-            d.m_speaker_avatar = temp.m_speaker_avatar;
-            d.m_speaker_name = temp.m_speaker_name;
-            d.m_display_method = temp.m_display_method;
-            d.m_can_skip = temp.m_can_skip;
-            dialogues.Add(d);
+            
+            failureExecutor.Initialize(Finished);
+            failureExecutor.Execute();
+            EventHandlerManager.CallUpdateBuff(type, false);
+            
         }
-        DialogueUIManager.OpenDialogueBox(ShowDialogueText, dialogues[0]);
+        else
+        {
+            Finished(true);
+        }
+    }
+    private void Finished(bool success)
+    {
+        DiceUIManager.Instance.HideMe();
+        m_state = EventNodeState.Finished;
+        m_on_finished?.Invoke(true);
     }
 }
+

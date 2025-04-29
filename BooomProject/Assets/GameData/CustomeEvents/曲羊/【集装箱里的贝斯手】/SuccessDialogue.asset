@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
   m_Name: SuccessDialogue
   m_EditorClassIdentifier: 
-  m_state: 0
-  m_dialogues: []
+  m_state: 2
+  m_dialogues:
+  - m_speaker_name: "\u3010\u96C6\u88C5\u7BB1\u91CC\u7684\u8D1D\u65AF\u624B\u3011"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u4F60\u7B54\u5E94\u4E86\u3002\u4F60\u518D\u4E5F\u4E0D\u7528\u4E3A\u90A3\u767E\u5206\u4E4B\u96F6\u70B9\u51E0\u7684\u6570\u5B57\u75B2\u4E8E\u5954\u547D\uFF0C\u664B\u5347\u6210\u7231\u5403\u5154\u7684\u5916\u5356\u5458\u57F9\u8BAD\u7ECF\u7406\uFF0C\u5230\u5904\u5BA3\u8BB2\u4F60\u7684\u51C6\u65F6\u4E8B\u8FF9\u2014\u2014\u5F53\u7136\uFF0C\u8FD9\u80CC\u540E\u79BB\u4E0D\u5F00\u66F2\u7F8A\u7684\u201C\u4E0D\u61C8\u52AA\u529B\u201D\u3002"
+    m_display_method: 3
+    m_can_skip: 1

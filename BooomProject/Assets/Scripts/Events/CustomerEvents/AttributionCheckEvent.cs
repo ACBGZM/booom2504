@@ -50,7 +50,7 @@ public class AttributionCheckEvent : EventNodeBase
     }
     private void Finished(bool success)
     {
-        Debug.Log("执行完毕");
+        
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
     }

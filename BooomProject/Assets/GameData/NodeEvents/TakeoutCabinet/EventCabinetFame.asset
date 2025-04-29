@@ -13,18 +13,7 @@ MonoBehaviour:
   m_Name: EventCabinetFame
   m_EditorClassIdentifier: 
   m_state: 2
-  dialogues: []
-  branch1:
-  - m_speaker_name: "\u3010\u653E\u5230\u5916\u5356\u67DC\u3011"
-    m_speaker_avatar: {fileID: 0}
-    m_text: "\u7528\u6237\u540C\u610F\u4E86\u4F60\u7684\u8BF7\u6C42\u3002"
-    m_display_method: 3
-    m_can_skip: 1
-  branch2:
-  - m_speaker_name: "\u3010\u653E\u5230\u5916\u5356\u67DC\u3011"
-    m_speaker_avatar: {fileID: 0}
-    m_text: "\u4F60\u7684\u7528\u6237\u5728\u7535\u8BDD\u91CC\u8FB1\u9A82\u4F60\uFF0C\u4F60\u53EA\u5F97\u81EA\u5DF1\u638F\u94B1\u5BC4\u5B58\u3002"
-    m_display_method: 3
-    m_can_skip: 1
+  successExecutor: {fileID: 11400000, guid: 780b6f306ca1c1147a94f8bbcdf82491, type: 2}
+  failureExecutor: {fileID: 11400000, guid: ebfb995a697236444b6d884f4f9aa296, type: 2}
   type: 0
   fameThreshold: 3

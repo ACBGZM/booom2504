@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
   m_Name: Choice2
   m_EditorClassIdentifier: 
-  m_event_nodes:
-  - {fileID: 11400000, guid: 117c107b9b49d8b47be38b3835eb1fe2, type: 2}
-  - {fileID: 11400000, guid: 66c5014a983f0ac4b90b3d23a2c34ca0, type: 2}
+  m_event_nodes: []

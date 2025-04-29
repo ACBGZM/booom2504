@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c9bd3697c25b74e8cacd0c0026e179, type: 3}
   m_Name: FameCheckEvent
   m_EditorClassIdentifier: 
-  m_state: 0
-  successExecutor: {fileID: 0}
-  failureExecutor: {fileID: 0}
-  threshold: 0
+  m_state: 2
+  successExecutor: {fileID: 11400000, guid: 7ed076d4b60c1254288a062264b1328b, type: 2}
+  failureExecutor: {fileID: 11400000, guid: 4baf6eabff9e2af48a2ebf2009b49996, type: 2}
+  threshold: 7
+  playerAttribution: 1

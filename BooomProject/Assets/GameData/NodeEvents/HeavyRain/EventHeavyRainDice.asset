@@ -13,17 +13,7 @@ MonoBehaviour:
   m_Name: EventHeavyRainDice
   m_EditorClassIdentifier: 
   m_state: 0
-  dialogues: []
-  branch1:
-  - m_speaker_name: "\u3010\u9AA4\u96E8\u3011"
-    m_speaker_avatar: {fileID: 0}
-    m_text: "\u4F60\u50CF\u662F\u5251\u9C7C\u4E00\u6837\u5207\u5F00\u4E86\u66B4\u96E8\uFF01\u4F60\u7684\u914D\u9001\u901F\u5EA6\u8BA9\u7528\u6237\u975E\u5E38\u6EE1\u610F\u3002"
-    m_display_method: 3
-    m_can_skip: 1
-  branch2:
-  - m_speaker_name: "\u3010\u9AA4\u96E8\u3011"
-    m_speaker_avatar: {fileID: 0}
-    m_text: "\u4F60\u679C\u7136\u88AB\u7ECA\u4F4F\u4E86\u811A\u6B65\uFF0C\u4F60\u7684\u7528\u6237\u975E\u5E38\u4E0D\u6EE1\u3002"
-    m_display_method: 3
-    m_can_skip: 1
+  successExecutor: {fileID: 11400000, guid: 5f36fb2700379244c9b3de1c2677f31e, type: 2}
+  failureExecutor: {fileID: 11400000, guid: 377e046b1c5280843b1a872c155e9f94, type: 2}
   type: 2
+  TrafficThreshold: 10

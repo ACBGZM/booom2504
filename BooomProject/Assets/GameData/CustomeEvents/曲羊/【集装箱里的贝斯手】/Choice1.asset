@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Choice1
   m_EditorClassIdentifier: 
   m_event_nodes:
-  - {fileID: 11400000, guid: b1c570491a5ada54c8f1ba23dba513a3, type: 2}
-  - {fileID: 11400000, guid: afd6606bc35afe543a25b851f77d15f5, type: 2}
+  - {fileID: 11400000, guid: 20e2ba8bb88a9844095e427bcba23afc, type: 2}

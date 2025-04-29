@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
   m_Name: SuccessSequence
   m_EditorClassIdentifier: 
-  m_event_nodes: []
+  m_event_nodes:
+  - {fileID: 11400000, guid: ce5ee0a02d49a524e9ada2ed2eed8ba4, type: 2}

@@ -15,8 +15,9 @@ MonoBehaviour:
   customerSO: {fileID: 11400000, guid: ecb2473d525ab29439045d87c4cb900e, type: 2}
   orderTitle: I
   initialLimitTime: 350
+  isSpecialOrder: 0
   baseReward: 6
-  orderEvent: {fileID: 11400000, guid: 87b269ca450338449b0a065de0ab02e2, type: 2}
+  orderEvent: {fileID: 11400000, guid: 76f0decf10198f84184ff91e263d96c7, type: 2}
   bubble: "\u5C16\u5C16"
   chatHistory: []
   quickResponses: []

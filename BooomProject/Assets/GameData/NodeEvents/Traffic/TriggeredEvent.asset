@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
-  m_Name: TriggerDialogue
+  m_Name: TriggeredEvent
   m_EditorClassIdentifier: 
   m_state: 2
   m_dialogues:
   - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
-    m_speaker_avatar: {fileID: 679222839, guid: aa89013d6563345999cf8b2c28bdc86b, type: 3}
-    m_text: "\u7EA2\u8272\u7684\u5012\u8BA1\u65F6\u5728\u4F60\u5934\u4E0A\u95EA\u70C1\uFF0C\u914D\u5408\u624B\u673A\u5C4F\u5E55\u4E0A\u7684\u914D\u9001\u65F6\u95F4\u63D0\u9192\uFF0C\u4F60\u7684\u624B\u5FC3\u6C81\u51FA\u6C57\u6765\u3002\r\n"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u7EA2\u8272\u7684\u5012\u8BA1\u65F6\u5728\u4F60\u5934\u4E0A\u95EA\u70C1\uFF0C\u914D\u5408\u624B\u673A\u5C4F\u5E55\u4E0A\u7684\u914D\u9001\u65F6\u95F4\u63D0\u9192\uFF0C\u4F60\u7684\u624B\u5FC3\u6C81\u51FA\u6C57\u6765\u3002"
     m_display_method: 3
     m_can_skip: 1
   - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
-    m_speaker_avatar: {fileID: 679222839, guid: aa89013d6563345999cf8b2c28bdc86b, type: 3}
+    m_speaker_avatar: {fileID: 0}
     m_text: "\u8981\u52A0\u901F\u95EF\u8FC7\u53BB\u5417\uFF1F\u53CD\u6B63\u5F88\u591A\u4EBA\u90FD\u8FD9\u4E48\u5E72\u3002"
     m_display_method: 3
     m_can_skip: 1

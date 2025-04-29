@@ -211,5 +211,12 @@ public class OrderDataManager : MonoBehaviour {
             order.currentState = OrderState.InTransit;
         }
         OnAcceptedOrdersChanged?.Invoke();
+
+        foreach (var order in _acceptedOrders)
+        {
+            print($"{order.sourceOrder.orderTitle}状态：{order.currentState.ToString()}！");
+            
+        }
+
     }
 }
