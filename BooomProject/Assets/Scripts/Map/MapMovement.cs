@@ -5,13 +5,8 @@ using UnityEngine.InputSystem;
 public class MapMovement : MonoBehaviour
 {
     private static readonly float _padding = 20;
-    private readonly float left = _padding;
-    private readonly float right = Screen.width - _padding;
-    private readonly float top = Screen.height - _padding;
-    private readonly float bottom = _padding;
-    public List<Transform> mapWorldCorners;
 
-    public Vector2[] mapCurrentScreenCorners;
+    private Vector2[] mapCurrentScreenCorners;
     private float lastMapPosX;
     private float lastMapPosY;
     // public float lastScale;
@@ -33,7 +28,6 @@ public class MapMovement : MonoBehaviour
     [SerializeField] private float _maxOrthoSize;
 
     [SerializeField] private float _dragSpeed;
-    [SerializeField] private Vector2[] _dragBoundary;
 
     /*
         private void UpdateOrthoSize()
@@ -52,9 +46,32 @@ public class MapMovement : MonoBehaviour
     #endif
     */
 
+    private Sprite _mapSprite;
+
+    //  0   3
+    //  1   2
+    private List<Vector3> _mapVertices;
+
     private void Awake()
     {
-        mapCurrentScreenCorners = new Vector2[mapWorldCorners.Count];
+        _mapSprite = GetComponent<SpriteRenderer>().sprite;
+        // AABB
+        Bounds bounds =  _mapSprite.bounds;
+        Vector3 bottomLeft = bounds.min;
+        Vector3 topRight = bounds.max;
+        Vector3 topLeft = new Vector3(bounds.min.x, bounds.max.y, bounds.center.z);
+        Vector3 bottomRight = new Vector3(bounds.max.x, bounds.min.y, bounds.center.z);
+
+        _mapVertices = new List<Vector3>()
+        {
+            transform.localScale.x * 0.95f * topLeft,
+            transform.localScale.x * 0.95f * bottomLeft,
+            transform.localScale.x * 0.95f * bottomRight,
+            transform.localScale.x * 0.95f * topRight,
+        };
+
+        mapCurrentScreenCorners = new Vector2[_mapVertices.Count];
+
         // UpdateOrthoSize();
     }
 
@@ -80,6 +97,7 @@ public class MapMovement : MonoBehaviour
         Zoom();
         Movement();
         Drag();
+
         UpdateWorldCornersToScreen();
 
         Adjust();
@@ -160,9 +178,9 @@ public class MapMovement : MonoBehaviour
 
     private void UpdateWorldCornersToScreen()
     {
-        for (int i = 0; i < mapWorldCorners.Count; i++)
+        for (int i = 0; i < _mapVertices.Count; i++)
         {
-            mapCurrentScreenCorners[i] = _camera.WorldToScreenPoint(mapWorldCorners[i].position);
+            mapCurrentScreenCorners[i] = _camera.WorldToScreenPoint(_mapVertices[i]);
         }
     }
 
