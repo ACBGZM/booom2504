@@ -29,7 +29,7 @@ public class TwoDiceUIManager : Singleton<TwoDiceUIManager>
 
     private void OnDisable()
     {
-        EventHandlerManager.rollFinish -= OnRollFinish;
+        EventHandlerManager.rollFinish -= OnRollFinish; 
     }
     private void Start()
     {

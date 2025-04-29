@@ -38,7 +38,7 @@ public class EventDice : EventNodeBase
             NodeActionType.HeavyRain => CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value >= needSpeed,
             NodeActionType.Refit => CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value >= needReputation,
             NodeActionType.TakeoutCabinet => CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value >= needReputation,
-            _ => false
+            _ => false 
         };
         Debug.Log(twoDice);
         CommonGameplayManager.GetInstance().StartCoroutine(DiceShake(twoDice));
