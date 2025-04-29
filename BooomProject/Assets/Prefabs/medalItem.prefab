@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2671697840054144592}
   - component: {fileID: 6620529985765847549}
   m_Layer: 5
-  m_Name: medalItem
+  m_Name: MedalItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

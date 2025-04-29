@@ -87,7 +87,7 @@ public class OrderUIManager : MonoBehaviour {
         if (btn != null) {
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => {
-                Debug.Log($"已接单: {order.sourceOrder.orderTitle}");
+                Debug.Log($"已接单: {order.sourceOrder.orderUID}");
                 _orderDataManagerInstance.AcceptOrder(order);
             });
             btn.interactable = CommonGameplayManager.GetInstance().OrderDataManager.CanAcceptMoreOrders();
@@ -97,7 +97,6 @@ public class OrderUIManager : MonoBehaviour {
     // 设置已接订单UI项
     private void SetupAcceptedOrderUI(Transform item, RuntimeOrderSO order) {
         OrderUIItem ui = item.GetComponent<OrderUIItem>();
-        OrderSO sourceOrder = order.sourceOrder;
         if (ui.remainingTimeText != null) ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"剩余 <size=+5><color=#5bb0ff>{order.remainingMinutes.ToString()}</color></size> 分钟";
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
         if (ui.customerLandMarkText != null) ui.customerLandMarkText.text = order.sourceOrder.destinationAddress;
@@ -146,7 +145,7 @@ public class OrderUIManager : MonoBehaviour {
     }
 
     private void OnChatButtonClicked(RuntimeOrderSO runtimeOrder) {
-        Debug.Log($"点击聊天: {runtimeOrder.sourceOrder.orderTitle}");
+        Debug.Log($"点击聊天: {runtimeOrder.sourceOrder.orderUID}");
         OnChatWindowOpen?.Invoke(runtimeOrder);
     }
 

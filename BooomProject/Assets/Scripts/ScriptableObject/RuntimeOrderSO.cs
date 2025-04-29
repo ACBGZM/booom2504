@@ -14,6 +14,7 @@ public class RuntimeOrderSO {
     public float praiseProbability { get; set; }
 
     public RuntimeOrderSO(OrderSO sourceOrder) {
+        sourceOrder.bubble = sourceOrder.chatHistory.Count == 0 ? "未送达" : sourceOrder.chatHistory[0].content;
         this.sourceOrder = sourceOrder;
         currentState = OrderState.Available;
     }

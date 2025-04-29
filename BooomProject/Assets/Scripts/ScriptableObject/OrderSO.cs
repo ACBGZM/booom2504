@@ -11,8 +11,8 @@ public class OrderSO : ScriptableObject {
     [Header("基础信息")]
     [Tooltip("关联的顾客信息")]
     public CustomerSO customerSO;
-    [Tooltip("订单标题")]
-    public string orderTitle;
+    [Tooltip("订单内部ID")]
+    public string orderUID;
     [Tooltip("订单限制时间")]
     public int initialLimitTime;
     [Tooltip("特殊订单")]

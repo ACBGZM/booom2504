@@ -25,7 +25,7 @@ public class GameplaySettings
     #region Chat
     public const string left_item_prefab_path = "Prefabs/UI/Chat/ChatItemLeft";
     public const string right_item_prefab_path = "Prefabs/UI/Chat/ChatItemRight";
-    public const string owner_icon_path = "Prefabs/UI/Chat/OwnerIcon";
+    public const string player_profile_path = "Prefabs/UI/Chat/PlayerProfile";
     #endregion
 
     #region dialogue system

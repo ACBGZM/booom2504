@@ -1822,7 +1822,7 @@ GameObject:
   - component: {fileID: 6263697081240757071}
   - component: {fileID: 2622267044776237492}
   m_Layer: 5
-  m_Name: ShopProfileImage
+  m_Name: CustomerProfileImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

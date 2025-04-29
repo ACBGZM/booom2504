@@ -57,7 +57,7 @@ public class OrderDataManager : MonoBehaviour {
 
     public void AcceptOrder(RuntimeOrderSO runtimeOrder) {
         if (!CanAcceptMoreOrders() || !_availableOrders.Contains(runtimeOrder)) {
-            Debug.LogWarning($"无法接单：{runtimeOrder.sourceOrder.orderTitle} , 已达到上限");
+            Debug.LogWarning($"无法接单：{runtimeOrder.sourceOrder.orderUID} , 已达到上限");
             return;
         }
 
@@ -75,7 +75,7 @@ public class OrderDataManager : MonoBehaviour {
         // 判断是否在大本营节点接单，若是，则改为已取餐
         if(CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID == CommonGameplayManager.GetInstance().NodeGraphManager.BaseNodeID)
         {
-            print($"{runtimeOrder.sourceOrder.orderTitle}已取货！");
+            print($"{runtimeOrder.sourceOrder.orderUID}已取货！");
             runtimeOrder.currentState = OrderState.InTransit;
         }
         _acceptedOrders.Add(runtimeOrder);
@@ -84,7 +84,7 @@ public class OrderDataManager : MonoBehaviour {
         _acceptedOrdersNode.Add(runtimeOrder, nodeIdx);
         CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, true);
 
-        Debug.Log($"接单: {runtimeOrder.sourceOrder.orderTitle}");
+        Debug.Log($"接单: {runtimeOrder.sourceOrder.orderUID}");
 
         // 通知UI
         OnAvailableOrdersChanged?.Invoke();
@@ -131,7 +131,7 @@ public class OrderDataManager : MonoBehaviour {
                 runtimeOrder.isTimeout = true;
                 runtimeOrder.currentState = OrderState.Expired;
                 // 处理超时订单
-                Debug.Log($"订单超时：{runtimeOrder.sourceOrder.orderTitle}");
+                Debug.Log($"订单超时：{runtimeOrder.sourceOrder.orderUID}");
                 // 扣声誉等
             }
         }
@@ -207,14 +207,14 @@ public class OrderDataManager : MonoBehaviour {
     {
         foreach(var order in _acceptedOrders)
         {
-            print($"{order.sourceOrder.orderTitle}已取货！");
+            print($"{order.sourceOrder.orderUID}已取货！");
             order.currentState = OrderState.InTransit;
         }
         OnAcceptedOrdersChanged?.Invoke();
 
         foreach (var order in _acceptedOrders)
         {
-            print($"{order.sourceOrder.orderTitle}状态：{order.currentState.ToString()}！");
+            print($"{order.sourceOrder.orderUID}状态：{order.currentState.ToString()}！");
             
         }
 

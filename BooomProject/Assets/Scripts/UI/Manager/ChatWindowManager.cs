@@ -39,7 +39,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
     protected override void init() {
         _leftItem = Resources.Load<GameObject>(GameplaySettings.left_item_prefab_path);
         _rightItem = Resources.Load<GameObject>(GameplaySettings.right_item_prefab_path);
-        _myProfile = Resources.Load<Sprite>(GameplaySettings.owner_icon_path);
+        _myProfile = Resources.Load<Sprite>(GameplaySettings.player_profile_path);
     }
 
     // 调用聊天窗口打开的事件
@@ -140,7 +140,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         // 更新数据
         _history.Add(newChat);
         if (response.cannotReatedly) {
-            _currentOrder.sourceOrder.quickResponses.RemoveAt(index);
+            _currentOrder.sourceOrder.quickResponses.Clear();
             StartCoroutine(RefreshButtonsAfterFrame()); // 延迟刷新
         }
         // 更新UI
