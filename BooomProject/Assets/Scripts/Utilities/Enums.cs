@@ -12,3 +12,10 @@ public enum NodeActionType
     // 红绿灯
     trafficLight
 }
+public enum PlayerAttribution
+{
+    // 速度
+    Speed,
+    // 声誉
+    Reputation
+}

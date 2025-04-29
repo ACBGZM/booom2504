@@ -15,8 +15,8 @@ MonoBehaviour:
   m_state: 0
   m_responses:
   - m_text: "\u3010\u7B54\u5E94\u4ED6\u3011"
-    m_executor: {fileID: 11400000, guid: e2e0bcb729e10304eb502606047d379e, type: 2}
+    m_executor: {fileID: 11400000, guid: 9d449e214fc5dbc4daf3c8754b4dd33c, type: 2}
   - m_text: "\u3010\u62D2\u7EDD\u4ED6\u3011"
-    m_executor: {fileID: 11400000, guid: b2ff92050ba50c848b73fd7a3dbb7f42, type: 2}
+    m_executor: {fileID: 11400000, guid: 8c278182eddd8b24a92c2efdf863a48d, type: 2}
   m_default_select_index: 0
   m_must_loop_all: 0

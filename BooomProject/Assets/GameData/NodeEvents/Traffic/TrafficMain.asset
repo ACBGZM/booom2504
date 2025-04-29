@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TrafficMain
   m_EditorClassIdentifier: 
   m_event_nodes:
+  - {fileID: 11400000, guid: dbcc88b7fa62f474db406ff1506470f3, type: 2}
   - {fileID: 11400000, guid: 56861c5bbff42b34bbbe5beb0adf11a2, type: 2}
   - {fileID: 11400000, guid: 9a8213ede80a14349b7445d8e4c45f85, type: 2}
   - {fileID: 11400000, guid: 01dab4e9408f8f740be0bae9e46baef0, type: 2}
