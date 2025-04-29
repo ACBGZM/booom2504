@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 // 维护聊天界面数据
 public class ChatWindowManager : Singleton<ChatWindowManager> {
+    public event Action<bool> OnOrderComplete;
+    [SerializeField] private PlayerDataManager _playerDataManager;
     [SerializeField] private Transform _chatUITransform;
     [SerializeField] private OrderUIManager _orderUIManager;
     [SerializeField] private Transform _tabArea;
@@ -21,23 +25,21 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
     private RuntimeOrderSO _currentOrder;
     private GameObject _leftItem;
     private GameObject _rightItem;
-    //private Sprite _customerProfile;
-    private Image _myProfile;
-
-    // 当前回复下标
-    private int _currentReplyIndex = -1;
+    private Sprite _customerProfile;
+    private Sprite _myProfile;
 
     private void Start() {
         _chatUITransform.gameObject.SetActive(false);
         _orderUIManager.OnChatWindowOpen += OrderDataManager_OnChatWindowOpen;
         _returnButton.onClick.AddListener(Close);
+        OnOrderComplete += PlayerDataManager_OnOrderComplete;
     }
 
     // 添加聊天标题属性
     protected override void init() {
         _leftItem = Resources.Load<GameObject>(GameplaySettings.left_item_prefab_path);
         _rightItem = Resources.Load<GameObject>(GameplaySettings.right_item_prefab_path);
-        _myProfile = Resources.Load<Image>(GameplaySettings.owner_icon_path);
+        _myProfile = Resources.Load<Sprite>(GameplaySettings.owner_icon_path);
     }
 
     // 调用聊天窗口打开的事件
@@ -46,13 +48,13 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         _tabArea.gameObject.SetActive(false);
         // 设置初始回复
         if (_currentOrder.sourceOrder.quickResponses != null && _currentOrder.sourceOrder.quickResponses.Count > 0) {
-            _currentReplyIndex = 0;
             _replyButtonContainer.gameObject.SetActive(true);
         } else {
             _replyButtonContainer.gameObject.SetActive(false);
         }
         _chatTitleText.text = $"（店家、{order.sourceOrder.customerSO.customerName}、我)";
         _history = order.sourceOrder.chatHistory;
+        _customerProfile = order.sourceOrder.customerSO.customerProfile;
         UpdateContent();
         SetupReplyButton();
     }
@@ -61,10 +63,8 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         _chatUITransform.gameObject.SetActive(true);
         foreach (ChatFragment fragment in _history) {
             GameObject obj;
-            if (fragment.left)
-                obj = Instantiate(_leftItem, _itemsParent);
-            else
-                obj = Instantiate(_rightItem, _itemsParent);
+            if (fragment.left) obj = Instantiate(_leftItem, _itemsParent);
+            else obj = Instantiate(_rightItem, _itemsParent);
             obj.GetComponent<ChatItemUI>().Init(fragment);
         }
     }
@@ -73,7 +73,6 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
     /// 更新回复按钮文本和点击事件的监听
     /// </summary>
     public void SetupReplyButton() {
-        _currentReplyIndex = -1;
         if (_replyButtonContainer == null || _defaultReplyButton == null) return;
         if (_currentOrder == null ||
             _currentOrder.sourceOrder == null ||
@@ -122,23 +121,21 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         int localIndex = index;
         QuickResponse localResponse = response;
         // 添加新监听
-        button.onClick.AddListener(() => HandleReplyClick(localResponse, localIndex));
+        button.onClick.AddListener(() => HandleReplyClick(localResponse, localIndex, response.isGoodReputation));
     }
 
     /// <summary>
     /// 处理回复按钮点击事件
     /// </summary>
-    private void HandleReplyClick(QuickResponse response, int index) {
+    private void HandleReplyClick(QuickResponse response, int index, bool isGood) {
         if (_currentOrder == null || response == null) return;
         // 生成聊天记录
-        GameTime now = TimeManager.Instance.currentTime;
-        string currentTime = $"{now.hour:00}:{now.minute:00}";
+        string currentTime = TimeManager.Instance.currentTime.GetHourAndMinute();
         ChatFragment newChat = new ChatFragment(
             currentTime,
             _myProfile,
             response.responseText,
-            false,
-            _currentOrder.sourceOrder.customerSO.customerName
+            false
         );
         // 更新数据
         _history.Add(newChat);
@@ -149,7 +146,34 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         // 更新UI
         UpdateContent();
         _scrollRect.normalizedPosition = Vector2.zero;
-        //OnMessageSent?.Invoke(response.responseText);
+        OnOrderComplete?.Invoke(isGood);
+        if (!string.IsNullOrEmpty(response.customerResponseText)) {
+            StartCoroutine(ShowCustomerReply(response.customerResponseText, 1.5f));
+        }
+    }
+
+    private void PlayerDataManager_OnOrderComplete(bool isGoodReputation) {
+        if (isGoodReputation) {
+            //_playerDataManager.CompleteOrder();
+        } else {
+            _playerDataManager.NegativeCommentOrder();
+        }
+    }
+
+    // 客户延迟回复
+    private IEnumerator ShowCustomerReply(string customerText, float delay) {
+        yield return new WaitForSeconds(delay);
+        Sprite customerProfile = _currentOrder.sourceOrder.customerSO.customerProfile;
+        // 创建客户回复片段
+        ChatFragment customerChat = new ChatFragment(
+            TimeManager.Instance.currentTime.GetHourAndMinute(),
+            customerProfile,
+            customerText,
+            true // 左侧显示
+        );
+        _history.Add(customerChat);
+        UpdateContent();
+        _scrollRect.normalizedPosition = Vector2.zero;
     }
 
     /// <summary>
@@ -168,8 +192,10 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         for (int i = 0; i < _itemsParent.childCount; i++) {
             Destroy(_itemsParent.GetChild(i).gameObject);
         }
+        StartCoroutine(ShowCustomerReply(1.5f));
         CreateChat();
     }
+    private IEnumerator ShowCustomerReply(float delay) { yield return new WaitForSeconds(delay); }
 
     public void Close() {
         _tabArea.gameObject.SetActive(true);

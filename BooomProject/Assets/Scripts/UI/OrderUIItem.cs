@@ -9,6 +9,7 @@ public class OrderUIItem : MonoBehaviour {
     public Transform rewardContainer;
     public Transform rewardIconPrefab;
     public TextMeshProUGUI customerAddressText;
+    public TextMeshProUGUI orderState;
     [Header("可用订单")]
     public TextMeshProUGUI limitTimeText;
     public TextMeshProUGUI customerNameText;

@@ -5,19 +5,17 @@ using UnityEngine.UI;
 [System.Serializable]
 public class ChatFragment
 {
-    public string chatTitle;
     public string time;
-    public Image profile;
+    public Sprite profile;
     public string content;
     public bool left;
 
-    public ChatFragment(string time, Image profile, string content, bool left, string chatTitle)
+    public ChatFragment(string time, Sprite profile, string content, bool left)
     {
         this.time = time;
         this.profile = profile;
         this.content = content;
         this.left = left;
-        this.chatTitle = chatTitle;
     }
 }
 

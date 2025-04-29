@@ -210,6 +210,6 @@ public class OrderDataManager : MonoBehaviour {
             print($"{order.sourceOrder.orderTitle}已取货！");
             order.currentState = OrderState.InTransit;
         }
-      
+        OnAcceptedOrdersChanged?.Invoke();
     }
 }

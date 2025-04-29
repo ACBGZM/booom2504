@@ -14,9 +14,8 @@ public class CommonGameplayManager : MonoBehaviour {
     private CommonGameplayManager() { }
 
     public static CommonGameplayManager GetInstance() {
-        // 如果应用正在退出，不生成新的实例
         if (_isQuitting) {
-            Debug.LogWarning("应用程序正在退出，不创建新实例。");
+            Debug.LogWarning("应用程序正在退出，不生成新的实例。");
             return null;
         }
 

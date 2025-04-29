@@ -4443,7 +4443,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _deliveryPlayer: {fileID: 728454887}
   _deliverySceneInputHandler: {fileID: 1175562083}
-  _sceneManager: {fileID: 1775847554}
 --- !u!1 &1699760326
 GameObject:
   m_ObjectHideFlags: 0
@@ -5548,6 +5547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65b4e2049bcf924ca1205911b0fc7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerDataManager: {fileID: 356504957}
   _chatUITransform: {fileID: 1860191534}
   _orderUIManager: {fileID: 1999408779}
   _tabArea: {fileID: 277788264}
