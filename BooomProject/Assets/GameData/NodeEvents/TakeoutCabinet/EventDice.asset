@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 450ce74c9e370a646b137095a43e8b42, type: 3}
-  m_Name: EventHeavyRainDice
+  m_Name: EventDice
   m_EditorClassIdentifier: 
   m_state: 0
-  successExecutor: {fileID: 11400000, guid: 5f36fb2700379244c9b3de1c2677f31e, type: 2}
-  failureExecutor: {fileID: 11400000, guid: 377e046b1c5280843b1a872c155e9f94, type: 2}
-  type: 2
+  successExecutor: {fileID: 11400000, guid: 780b6f306ca1c1147a94f8bbcdf82491, type: 2}
+  failureExecutor: {fileID: 11400000, guid: ebfb995a697236444b6d884f4f9aa296, type: 2}
+  type: 0
   threshold: 15
-  needSpeed: 3
-  needReputation: 0
+  needSpeed: 0
+  needReputation: 3
   needEvaluation: 0
-  awardType: 0
-  awardValue: 1
+  awardType: 3
+  awardValue: 0

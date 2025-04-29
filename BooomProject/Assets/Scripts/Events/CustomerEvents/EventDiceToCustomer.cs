@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "EventDice", menuName = "Event/NodeActions/EventDice")]
-public class EventDice : EventNodeBase
+[CreateAssetMenu(fileName = "EventDiceToCustomer", menuName = "Event/Customer/EventDiceToCustomer")]
+public class EventDiceToCustomer : EventNodeBase
 {
-  
+
     [SerializeField] private EventSequenceExecutor successExecutor;
     [SerializeField] private EventSequenceExecutor failureExecutor;
-    public NodeActionType type;
     [SerializeField] private int threshold;
     // 2d20触发需要的速度
     [SerializeField] private float needSpeed;
@@ -16,18 +14,19 @@ public class EventDice : EventNodeBase
     [SerializeField] private int needReputation;
     // 2d20触发需要的好评率
     [SerializeField] private float needEvaluation;
+    // 事件参考的人物属性
+    [SerializeField] private PlayerAttribution reference;
     // 奖励的属性
     [SerializeField] private PlayerAttribution awardType;
-    [SerializeField] private float awardValue;
-    // 骰子点数
-    private int val;
 
+    [SerializeField] private float awardValue;
+   
 
     public override void Execute()
     {
         base.Execute();
-        
-        
+
+
         ShowShake();
     }
 
@@ -35,13 +34,12 @@ public class EventDice : EventNodeBase
     {
         Debug.Log(CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value);
 
-        bool twoDice = type switch
+        bool twoDice = reference switch
         {
-            NodeActionType.trafficLight => CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value >= needSpeed,
-            NodeActionType.HeavyRain => CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value >= needSpeed,
-            NodeActionType.Refit => CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value >= needReputation,
-            NodeActionType.TakeoutCabinet => CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value >= needReputation,
-            _ => false 
+            PlayerAttribution.Speed => CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value >= needSpeed,
+            PlayerAttribution.Reputation=> CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value >= needReputation,
+            PlayerAttribution.Evaluation => CommonGameplayManager.GetInstance().PlayerDataManager.Rating.Value >= needEvaluation,
+            _ => false
         };
         Debug.Log(twoDice);
         CommonGameplayManager.GetInstance().StartCoroutine(DiceShake(twoDice));
@@ -54,8 +52,9 @@ public class EventDice : EventNodeBase
 
         // 状态改为触发剧情
         CommonGameplayManager.GetInstance().PlayerState = EPlayerState.InCutscene;
+        // 骰子点数
         int val = 0;
-        if(twoDice)
+        if (twoDice)
         {
             TwoDiceUIManager.Instance.ShowMe();
             yield return new WaitUntil(() => TwoDiceUIManager.Instance.result.text != string.Empty);
@@ -68,24 +67,24 @@ public class EventDice : EventNodeBase
             val = DiceUIManager.Instance.val;
         }
         Debug.Log(val);
-            // 骰子结果动画
+        // 骰子结果动画
         yield return new WaitForSeconds(1.5f);
         //if (DiceUIManager.Instance.val != 0)
         //{
- 
+
 
         if (val > threshold && successExecutor != null)
         {
             successExecutor.Initialize(Finished);
             successExecutor.Execute();
             EventHandlerManager.CallUpdateAttribution(awardType, awardValue);
-                
+
         }
         else if (val <= threshold && failureExecutor != null)
         {
             failureExecutor.Initialize(Finished);
             failureExecutor.Execute();
-            EventHandlerManager.CallUpdateAttribution(awardType, awardValue); 
+            EventHandlerManager.CallUpdateAttribution(awardType, awardValue);
         }
         else
         {

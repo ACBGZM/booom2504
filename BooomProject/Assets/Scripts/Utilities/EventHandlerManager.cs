@@ -4,9 +4,9 @@ public static class EventHandlerManager
 {
     #region 小节点事件
     public static event Action<int> rollFinish;
-    public static event Action<NodeActionType, bool> updateBuff;
-    public static event Action<bool> trafficBuff;
-    public static event Action<bool> heavyRainBuff;
+    public static event Action<PlayerAttribution, float> updateAttribution;
+    //public static event Action<bool> trafficBuff;
+    //public static event Action<bool> heavyRainBuff;
     #endregion
 
     #region 手机UI
@@ -35,28 +35,29 @@ public static class EventHandlerManager
         rollFinish?.Invoke(val);
     }
 
-    public static void CallTrafficBuff(bool award)
-    {
-        trafficBuff?.Invoke(award);
-    }
+    //public static void CallTrafficBuff(bool award)
+    //{
+    //    trafficBuff?.Invoke(award);
+    //}
 
-    public static void CallHeavyRainBuff(bool award)
-    {
-        heavyRainBuff?.Invoke(award);
-    }
+    //public static void CallHeavyRainBuff(bool award)
+    //{
+    //    heavyRainBuff?.Invoke(award);
+    //}
 
-    public static void CallUpdateBuff(NodeActionType type, bool award)
+    public static void CallUpdateAttribution(PlayerAttribution type, float value)
     {
-        switch (type)
-        {
-            case NodeActionType.trafficLight:
-                CallTrafficBuff(award);
-                break;
+        //switch (type)
+        //{
+        //    case NodeActionType.trafficLight:
+        //        CallTrafficBuff(award);
+        //        break;
 
-            case NodeActionType.HeavyRain:
-                CallHeavyRainBuff(award);
-                break;
-        }
+        //    case NodeActionType.HeavyRain:
+        //        CallHeavyRainBuff(award);
+        //        break;
+        //}
+        updateAttribution?.Invoke(type, value);
     }
 
     public static void CallUpdateArriveDistAndTime(int currentNode, int speed)

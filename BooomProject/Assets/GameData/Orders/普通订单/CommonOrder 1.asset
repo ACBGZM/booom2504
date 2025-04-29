@@ -17,7 +17,7 @@ MonoBehaviour:
   initialLimitTime: 200
   isSpecialOrder: 0
   baseReward: 2
-  orderEvent: {fileID: 0}
+  orderEvent: {fileID: 11400000, guid: d55de1589da076a428ffdece5e6e1c28, type: 2}
   bubble: "\u597D\u997F\u597D\u997F\u597D\u997F\u597D\u997F"
   chatHistory:
   - time: 6:00

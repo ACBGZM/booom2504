@@ -19,5 +19,8 @@ public enum PlayerAttribution
     // 速度
     Speed,
     // 声誉
-    Reputation
+    Reputation,
+    // 好评率
+    Evaluation,
+    None
 }

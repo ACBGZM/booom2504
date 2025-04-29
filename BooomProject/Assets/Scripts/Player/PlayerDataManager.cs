@@ -13,7 +13,14 @@ public class PlayerDataManager : MonoBehaviour
     // [Header("自动保存设置")]
     // [SerializeField] private bool _autoSave = true;
     // [SerializeField] private float _saveInterval = 60f;
-
+    private void OnEnable()
+    {
+        EventHandlerManager.updateAttribution += OnUpdateAttribution;
+    }
+    private void OnDisable()
+    {
+        EventHandlerManager.updateAttribution -= OnUpdateAttribution;
+    }
     private float _saveTimer;
 
     private void Start()
@@ -89,6 +96,20 @@ public class PlayerDataManager : MonoBehaviour
             Reputation.Value = data.reputation;
             Rating.Value = data.rating;
             Medals.Value = data.medals;
+        }
+    }
+
+    private void OnUpdateAttribution(PlayerAttribution playerAttribution, float value)
+    {
+        switch(playerAttribution)
+        {
+            case PlayerAttribution.Speed:
+                Speed.Value += value;
+                break;
+            case PlayerAttribution.Reputation:
+                Reputation.Value += (int)value;
+                break;
+            default: break;
         }
     }
 }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CabinetSequence
   m_EditorClassIdentifier: 
   m_event_nodes:
-  - {fileID: 11400000, guid: 40853843f2507c54bbd4a19ff2c035ba, type: 2}
+  - {fileID: 11400000, guid: 43b7aaa8fb9577147a8ca6ec0df0d649, type: 2}
