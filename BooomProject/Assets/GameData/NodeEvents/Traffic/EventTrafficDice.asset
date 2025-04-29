@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450ce74c9e370a646b137095a43e8b42, type: 3}
   m_Name: EventTrafficDice
   m_EditorClassIdentifier: 
-  m_state: 2
+  m_state: 1
   successExecutor: {fileID: 11400000, guid: 15229a158535e994aa76f3778788564b, type: 2}
   failureExecutor: {fileID: 11400000, guid: 9917a736738ad104c8b2db9f40d9063c, type: 2}
   type: 3
-  TrafficThreshold: 10
+  threshold: 15
+  needSpeed: 0
+  needReputation: 0
+  needEvaluation: 0
