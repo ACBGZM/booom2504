@@ -4,14 +4,7 @@ using UnityEngine.InputSystem;
 
 public class MapMovement : MonoBehaviour
 {
-    private static readonly float _padding = 20;
-
-    private Vector2[] mapCurrentScreenCorners;
-    private float lastMapPosX;
-    private float lastMapPosY;
-    // public float lastScale;
     private bool _isDragging;
-
     public Vector2 dragStartPos;
 
     private InputAction _zoomInputAction;
@@ -20,8 +13,6 @@ public class MapMovement : MonoBehaviour
     private InputAction _restoreCameraInputAction;
 
     [SerializeField] private Camera _camera;
-    [SerializeField] private float _baseHeight;
-    [SerializeField] private float _baseSize;
 
     [SerializeField] private float _zoomSpeed;
     [SerializeField] private float _minOrthoSize;
@@ -30,20 +21,23 @@ public class MapMovement : MonoBehaviour
     [SerializeField] private float _dragSpeed;
 
     /*
-        private void UpdateOrthoSize()
-        {
-            float ratio = Screen.height / _baseHeight;
-            _camera.orthographicSize = _baseSize / ratio;
-        }
+    [SerializeField] private float _baseHeight;
+    [SerializeField] private float _baseSize;
 
-    #if UNITY_EDITOR
-        private void OnValidate() {
-            if (_camera != null)
-            {
-                UpdateOrthoSize();
-            }
+    private void UpdateOrthoSize()
+    {
+        float ratio = Screen.height / _baseHeight;
+        _camera.orthographicSize = _baseSize / ratio;
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate() {
+        if (_camera != null)
+        {
+            UpdateOrthoSize();
         }
-    #endif
+    }
+#endif
     */
 
     private Sprite _mapSprite;
@@ -52,27 +46,28 @@ public class MapMovement : MonoBehaviour
     //  1   2
     private List<Vector3> _mapVertices;
 
+    private Vector2 _minBound;
+    private Vector2 _maxBound;
+
     private void Awake()
     {
         _mapSprite = GetComponent<SpriteRenderer>().sprite;
-        // AABB
-        Bounds bounds =  _mapSprite.bounds;
-        Vector3 bottomLeft = bounds.min;
-        Vector3 topRight = bounds.max;
-        Vector3 topLeft = new Vector3(bounds.min.x, bounds.max.y, bounds.center.z);
-        Vector3 bottomRight = new Vector3(bounds.max.x, bounds.min.y, bounds.center.z);
+        Bounds bounds =  _mapSprite.bounds; // AABB
+        _minBound = bounds.min * transform.localScale.x * 0.95f;
+        _maxBound = bounds.max * transform.localScale.x * 0.95f;
+
+        Vector3 bottomLeft = _minBound;
+        Vector3 topRight = _maxBound;
+        Vector3 topLeft = new Vector3(_minBound.x, _maxBound.y, bounds.center.z);
+        Vector3 bottomRight = new Vector3(_maxBound.x, _minBound.y, bounds.center.z);
 
         _mapVertices = new List<Vector3>()
         {
-            transform.localScale.x * 0.95f * topLeft,
-            transform.localScale.x * 0.95f * bottomLeft,
-            transform.localScale.x * 0.95f * bottomRight,
-            transform.localScale.x * 0.95f * topRight,
+            topLeft,
+            bottomLeft,
+            bottomRight,
+            topRight,
         };
-
-        mapCurrentScreenCorners = new Vector2[_mapVertices.Count];
-
-        // UpdateOrthoSize();
     }
 
     private void Start()
@@ -95,43 +90,11 @@ public class MapMovement : MonoBehaviour
         }
 
         Zoom();
-        Movement();
         Drag();
-
-        UpdateWorldCornersToScreen();
 
         Adjust();
 
-        RestoreCamera();
-    }
-
-    private void Movement()
-    {
-        // 记录移动前的位置
-        lastMapPosX = _camera.transform.position.x;
-        lastMapPosY = _camera.transform.position.y;
-
-        return;
-
-        //var pos = Input.mousePosition;
-        //// 摄像机移动
-        //if (pos.x <= left)
-        //{
-        //    _camera.transform.Translate(Vector2.left * GameplaySettings.map_move_speed * Time.deltaTime);
-        //}
-        //if (pos.x >= right)
-        //{
-        //    _camera.transform.Translate(Vector2.right * GameplaySettings.map_move_speed * Time.deltaTime);
-        //}
-
-        //if (pos.y >= top)
-        //{
-        //    _camera.transform.Translate(Vector2.up * GameplaySettings.map_move_speed * Time.deltaTime);
-        //}
-        //if (pos.y <= bottom)
-        //{
-        //    _camera.transform.Translate(Vector2.down * GameplaySettings.map_move_speed * Time.deltaTime);
-        //}
+        RestoreCameraToPlayer();
     }
 
     private void Zoom()
@@ -176,31 +139,33 @@ public class MapMovement : MonoBehaviour
         };
     }
 
-    private void UpdateWorldCornersToScreen()
-    {
-        for (int i = 0; i < _mapVertices.Count; i++)
-        {
-            mapCurrentScreenCorners[i] = _camera.WorldToScreenPoint(_mapVertices[i]);
-        }
-    }
-
     private void Adjust()
     {
-        //  0   3
-        //  1   2
+        // 计算当前 orthographicSize 下的视口半宽和半高
+        float verticalExtent = _camera.orthographicSize;
+        float horizontalExtent = verticalExtent * _camera.aspect;
 
-        // 左右需要调整
-        if (mapCurrentScreenCorners[0].x > _padding || mapCurrentScreenCorners[2].x < Screen.width - _padding)
+        // 动态调整边界，确保相机不会超出
+        float minX = _minBound.x + horizontalExtent;
+        float maxX = _maxBound.x - horizontalExtent;
+        float minY = _minBound.y + verticalExtent;
+        float maxY = _maxBound.y - verticalExtent;
+
+        // 如果视口比边界还大，则强制居中
+        if (minX > maxX)
         {
-            // 还原x位置
-            _camera.transform.position = new Vector3(lastMapPosX, _camera.transform.position.y, _camera.transform.position.z);
+            minX = maxX = (_minBound.x + _maxBound.x) / 2f;
         }
-        // 上下需要调整
-        if (mapCurrentScreenCorners[1].y > _padding || mapCurrentScreenCorners[3].y < Screen.height - _padding)
+        if (minY > maxY)
         {
-            // 还原y位置
-            _camera.transform.position = new Vector3(_camera.transform.position.x, lastMapPosY, _camera.transform.position.z);
+            minY = maxY = (_minBound.y + _maxBound.y) / 2f;
         }
+
+        // 限制相机位置
+        Vector3 clampedPosition =  _camera.transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, minY, maxY);
+        _camera.transform.position = clampedPosition;
     }
 
     private void StartDrag(InputAction.CallbackContext context)
@@ -231,7 +196,7 @@ public class MapMovement : MonoBehaviour
         }
     }
 
-    private void RestoreCamera()
+    private void RestoreCameraToPlayer()
     {
         if (_restoreCameraInputAction.IsPressed())
         {

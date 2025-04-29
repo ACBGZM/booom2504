@@ -4488,7 +4488,7 @@ MonoBehaviour:
   _zoomSpeed: 0.004
   _minOrthoSize: 4
   _maxOrthoSize: 15
-  _dragSpeed: 0.3
+  _dragSpeed: 0.25
 --- !u!1 &1539485130
 GameObject:
   m_ObjectHideFlags: 0
