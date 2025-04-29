@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 159004066}
   - component: {fileID: 159004065}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -817,8 +817,6 @@ RectTransform:
   m_Children:
   - {fileID: 1627198017}
   - {fileID: 1651352544}
-  - {fileID: 1129875869}
-  - {fileID: 1539485131}
   m_Father: {fileID: 1831893939}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3138,11 +3136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5539707318119410028, guid: 22a2402c11fcc704daa13158ebf30950, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 204351779
+      value: 4281215267
       objectReference: {fileID: 0}
     - target: {fileID: 6993987333515814832, guid: 22a2402c11fcc704daa13158ebf30950, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 204351779
+      value: 4281215267
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3388,7 +3386,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1129875868}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3396,7 +3394,7 @@ RectTransform:
   - {fileID: 230344989}
   - {fileID: 1498633645}
   - {fileID: 1234782840}
-  m_Father: {fileID: 180425813}
+  m_Father: {fileID: 1316715506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3486,7 +3484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _phoneUI: {fileID: 1387098864}
-  _phoneMask: {fileID: 1431203256}
+  _phoneMask: {fileID: 159004063}
 --- !u!1 &1182911266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3965,14 +3963,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316715505}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1057349292}
   - {fileID: 7094556}
-  m_Father: {fileID: 1831893939}
+  - {fileID: 1057349292}
+  - {fileID: 1129875869}
+  - {fileID: 1539485131}
+  m_Father: {fileID: 1431203257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4022,7 +4022,7 @@ GameObject:
   - component: {fileID: 1431203259}
   - component: {fileID: 1431203258}
   m_Layer: 5
-  m_Name: Mask
+  m_Name: HUDCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4041,6 +4041,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 159004064}
+  - {fileID: 1316715506}
   m_Father: {fileID: 1747438243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4089,7 +4090,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
@@ -4483,8 +4484,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragStartPos: {x: 0, y: 0}
   _camera: {fileID: 1182911269}
-  _baseHeight: 1080
-  _baseSize: 7
   _zoomSpeed: 0.004
   _minOrthoSize: 4
   _maxOrthoSize: 15
@@ -4514,7 +4513,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539485130}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4522,7 +4521,7 @@ RectTransform:
   - {fileID: 359152289}
   - {fileID: 1799318693}
   - {fileID: 123905377}
-  m_Father: {fileID: 180425813}
+  m_Father: {fileID: 1316715506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6200,7 +6199,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 180425813}
-  - {fileID: 1316715506}
   m_Father: {fileID: 1747438243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
