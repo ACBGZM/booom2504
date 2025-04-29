@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class DeliveryPlayer : MonoBehaviour
@@ -8,9 +9,14 @@ public class DeliveryPlayer : MonoBehaviour
     [SerializeField] private float _moveDuration = 0f;
     [SerializeField] private bool _useSpeed = true;
 
-    public void Start()
+    private DeliveryPlayerVisual _deliveryPlayerVisual;
+
+    void Start()
     {
         transform.position = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.transform.position;
+
+        _deliveryPlayerVisual = GetComponentInChildren<DeliveryPlayerVisual>();
+        _deliveryPlayerVisual.PlayIdleAnimation();
     }
 
     public bool Move(Vector3[] path, Action onComplete = null)
@@ -42,13 +48,21 @@ public class DeliveryPlayer : MonoBehaviour
 
         StartMoving();
 
-        int currentSegment = 0;
-
-        while (currentSegment < path.Length - 1)
+        for (int currentSegment = 0; currentSegment < path.Length - 1; ++currentSegment)
         {
             float t = 0f;
             Vector2 begin = path[currentSegment];
             Vector2 end = path[currentSegment + 1];
+
+            if(end.x < begin.x)
+            {
+                _deliveryPlayerVisual.SetFlip(true);
+            }
+            else
+            {
+                _deliveryPlayerVisual.SetFlip(false);
+            }
+
             float segmentDistance = Vector2.Distance(begin, end);
             float segmentDuration = _useSpeed ?
                 (segmentDistance / _moveSpeed)
@@ -60,8 +74,6 @@ public class DeliveryPlayer : MonoBehaviour
                 transform.position = Vector2.Lerp(begin, end, Mathf.Clamp01(t));
                 yield return null;
             }
-
-            ++currentSegment;
         }
 
         transform.position = path[^1];
@@ -74,10 +86,12 @@ public class DeliveryPlayer : MonoBehaviour
     private void StartMoving()
     {
         CommonGameplayManager.GetInstance().PlayerState = EPlayerState.PlayerMoving;
+        _deliveryPlayerVisual.PlayMoveAnimation();
     }
 
     private void StopMoving()
     {
         CommonGameplayManager.GetInstance().PlayerState = EPlayerState.PlayerIdle;
+        _deliveryPlayerVisual.PlayIdleAnimation();
     }
 }
