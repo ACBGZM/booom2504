@@ -10,7 +10,9 @@ public enum NodeActionType
     HeavyRain,
 
     // 红绿灯
-    trafficLight
+    trafficLight,
+    
+    None
 }
 public enum PlayerAttribution
 {
