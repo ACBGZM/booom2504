@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
+  m_Name: FailureDialogue
+  m_EditorClassIdentifier: 
+  m_state: 0
+  m_dialogues:
+  - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u4E00\u8F86\u5927\u8D27\u8F66\u6A2A\u51B2\u8FC7\u6765\uFF0C\u4F60\u731B\u5730\u5239\u8F66\uFF0C\u60CA\u51FA\u4E86\u4E00\u8EAB\u51B7\u6C57\u3002"
+    m_display_method: 3
+    m_can_skip: 1

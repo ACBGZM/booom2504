@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
   m_Name: WaitDialogue
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 2
   m_dialogues:
-  - m_speaker_name: "\u4EBAA"
+  - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
     m_speaker_avatar: {fileID: 679222839, guid: aa89013d6563345999cf8b2c28bdc86b, type: 3}
     m_text: "\u8010\u5FC3\u7B49\u5F85\u7EFF\u706F..."
     m_display_method: 3

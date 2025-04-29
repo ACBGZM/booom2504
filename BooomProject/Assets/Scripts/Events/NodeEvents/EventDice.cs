@@ -9,6 +9,7 @@ public class EventDice : EventNodeBase
     [SerializeField] private EventSequenceExecutor successExecutor;
     [SerializeField] private EventSequenceExecutor failureExecutor;
     public NodeActionType type;
+    [SerializeField] private int TrafficThreshold;
 
     public override void Execute()
     {
@@ -27,24 +28,6 @@ public class EventDice : EventNodeBase
         DiceUIManager.Instance.StartCoroutine(DiceShake());
     }
 
-    //public IEnumerator StepThroughDialogueDataList()
-    //{
-    //    for (int i = 0; i < dialogues.Count; ++i)
-    //    {
-    //        DialogueUIManager.SetCanShowNextDialogue(false);
-
-    //        Dialogue dialogue = dialogues[i];
-
-    //        yield return DialogueUIManager.ShowDialogue(dialogue);
-
-    //        yield return new WaitUntil(() => DialogueUIManager.GetCanShowNextDialogue());
-    //    }
-    //    DiceUIManager.Instance.HideMe();
-
-    //    dialogues.Clear();
-    //    m_state = EventNodeState.Finished;
-    //    m_on_finished?.Invoke(true);
-    //}
 
     public IEnumerator DiceShake()
     {
@@ -60,41 +43,30 @@ public class EventDice : EventNodeBase
         if (DiceUIManager.Instance.val != 0)
         {
             int val = DiceUIManager.Instance.val;
-            // Dialogue dialogue = new Dialogue();
-            // List<Dialogue> choice;
 
-            if (val > 10 && successExecutor != null)
+            if (val > TrafficThreshold && successExecutor != null)
             {
-                EventHandlerManager.CallUpdateBuff(type, true);
                 successExecutor.Initialize(Finished);
                 successExecutor.Execute();
+                EventHandlerManager.CallUpdateBuff(type, true);
+                
             }
-            else if (val <= 10 && failureExecutor != null)
+            else if (val <= TrafficThreshold && failureExecutor != null)
             {
-                EventHandlerManager.CallUpdateBuff(type, false);
                 failureExecutor.Initialize(Finished);
                 failureExecutor.Execute();
+                EventHandlerManager.CallUpdateBuff(type, false); 
             }
             else
             {
                 Finished(true);
             }
-                //foreach (var temp in choice)
-                //{
-                //    Dialogue d = new Dialogue();
-                //    d.m_text = temp.m_text;
-                //    d.m_speaker_avatar = temp.m_speaker_avatar;
-                //    d.m_speaker_name = temp.m_speaker_name;
-                //    d.m_display_method = temp.m_display_method;
-                //    d.m_can_skip = temp.m_can_skip;
-                //    dialogues.Add(d);
-                //}
         }
-      //  DialogueUIManager.OpenDialogueBox(ShowDialogueText, dialogues[0]);
+
     }
     private void Finished(bool success)
     {
-
+        DiceUIManager.Instance.HideMe();
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
     }

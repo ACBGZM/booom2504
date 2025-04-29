@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
   m_Name: FailureDialogue
   m_EditorClassIdentifier: 
-  m_state: 0
-  m_dialogues: []
+  m_state: 2
+  m_dialogues:
+  - m_speaker_name: "\u3010\u96C6\u88C5\u7BB1\u91CC\u7684\u8D1D\u65AF\u624B\u3011"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u4F60\u7B54\u5E94\u4E86\u3002\u4F46\u4F60\u7684\u884C\u4E3A\u5F88\u5FEB\u88AB\u53D1\u73B0\uFF0C\u968F\u5373\u66F2\u7F8A\u88AB\u6355\u2014\u2014\u4F2F\u4ED9\u5E02\u6700\u6709\u540D\u7684\u9ED1\u5BA2\u5C31\u8FD9\u6837\u843D\u7F51\u3002"
+    m_display_method: 3
+    m_can_skip: 1

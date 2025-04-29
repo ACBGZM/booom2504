@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
   m_Name: goodEvaluationSequence
   m_EditorClassIdentifier: 
-  m_event_nodes: []
+  m_event_nodes:
+  - {fileID: 11400000, guid: 26e56f2ad541b6848a255040e3efa1e6, type: 2}

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
   m_Name: FailureSequence
   m_EditorClassIdentifier: 
-  m_event_nodes: []
+  m_event_nodes:
+  - {fileID: 11400000, guid: 9cd35f6712fdede4eafa5fe215254375, type: 2}

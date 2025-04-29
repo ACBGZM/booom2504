@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
   m_Name: BadEvaluationSequence
   m_EditorClassIdentifier: 
-  m_event_nodes: []
+  m_event_nodes:
+  - {fileID: 11400000, guid: 23709521b69de94469766d2b40a985c9, type: 2}

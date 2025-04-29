@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
   m_Name: BadDialogue
   m_EditorClassIdentifier: 
-  m_state: 0
-  m_dialogues: []
+  m_state: 2
+  m_dialogues:
+  - m_speaker_name: "\uFF1F\uFF1F\uFF1F"
+    m_speaker_avatar: {fileID: 0}
+    m_text: "\u8BA2\u5355\u5DF2\u8D85\u65F6\u9001\u8FBE\uFF0C\u83B7\u5F97\u987E\u5BA2\u5DEE\u8BC4\uFF01"
+    m_display_method: 3
+    m_can_skip: 1

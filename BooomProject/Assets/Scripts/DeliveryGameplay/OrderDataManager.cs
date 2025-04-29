@@ -210,6 +210,12 @@ public class OrderDataManager : MonoBehaviour {
             print($"{order.sourceOrder.orderTitle}已取货！");
             order.currentState = OrderState.InTransit;
         }
-      
+
+        foreach (var order in _acceptedOrders)
+        {
+            print($"{order.sourceOrder.orderTitle}状态：{order.currentState.ToString()}！");
+            
+        }
+
     }
 }
