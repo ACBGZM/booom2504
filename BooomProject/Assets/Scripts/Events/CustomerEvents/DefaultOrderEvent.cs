@@ -19,14 +19,16 @@ public class DefaultOrderEvent : EventNodeBase
             goodEvaluationSequence.Initialize(Finished);
             goodEvaluationSequence.Execute();
             //  $"{order.sourceOrder.orderTitle} 已超时送达，获得顾客差评！";
-            // TODO：获得差评
+            // 获得差评
+            EventHandlerManager.CallUpGoodOrderCount();
         }
         else if(order != null &&order.isTimeout && badEvaluationSequence != null)
         {
             badEvaluationSequence.Initialize(Finished);
             badEvaluationSequence.Execute();
+            EventHandlerManager.CallUpBadOrderCount();
             //  $"{order.sourceOrder.orderTitle} 已按时送达，获得顾客好评！";
-            // TODO：获得好评
+            // 获得好评
         }
         else
         {

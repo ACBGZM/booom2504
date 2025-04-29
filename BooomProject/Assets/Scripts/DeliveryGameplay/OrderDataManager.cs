@@ -13,6 +13,12 @@ public class OrderDataManager : MonoBehaviour {
     private List<RuntimeOrderSO> _acceptedOrders = new List<RuntimeOrderSO>();
     //已接订单与目的节点编号映射表 TODO: 待持久化
     private Dictionary<RuntimeOrderSO, int> _acceptedOrdersNode = new Dictionary<RuntimeOrderSO, int>();
+    // 已完成订单总数
+    private int finishedOrderCount;
+    // 好评订单数
+    private int goodOrderCount;
+    // 差评订单数
+    private int badOrderCount;
     // 当前送达正在处理的订单
     private RuntimeOrderSO currentHandleOrder;
 
@@ -20,7 +26,9 @@ public class OrderDataManager : MonoBehaviour {
     [NonSerialized] public int generatedCommonOrdersCount = 0;
     public List<RuntimeOrderSO> GetAvailableOrders() => _availableOrders;
     public List<RuntimeOrderSO> GetAcceptedOrders() => _acceptedOrders;
-
+    public int FinishedOrderCount => finishedOrderCount;
+    public int GoodOrderCount => goodOrderCount;
+    public int BadOrderCount => badOrderCount;
     private void Start() {
         // 按报酬排序
         _availableOrders.Clear();
@@ -42,6 +50,8 @@ public class OrderDataManager : MonoBehaviour {
         EventHandlerManager.checkNodeOrder += OnCheckNodeOrder;
         EventHandlerManager.getCurrentOrder += OnGetCurrentOrder;
         EventHandlerManager.updateOrderStateToTransit += OnUpdateOrderStateToTransit;
+        EventHandlerManager.upGoodOrderCount += OnUpGoodOrderCount;
+        EventHandlerManager.upBadOrderCount += OnUpBadOrderCount;
     }
 
     private void OnDisable() {
@@ -49,6 +59,8 @@ public class OrderDataManager : MonoBehaviour {
         EventHandlerManager.checkNodeOrder -= OnCheckNodeOrder;
         EventHandlerManager.getCurrentOrder -= OnGetCurrentOrder;
         EventHandlerManager.updateOrderStateToTransit -= OnUpdateOrderStateToTransit;
+        EventHandlerManager.upGoodOrderCount -= OnUpGoodOrderCount;
+        EventHandlerManager.upBadOrderCount -= OnUpBadOrderCount;
     }
 
     public bool CanAcceptMoreOrders() {
@@ -106,17 +118,25 @@ public class OrderDataManager : MonoBehaviour {
                     yield return StartCoroutine(ExecuteOrderEvents(order));
                     currentHandleOrder = null;
                 }
+
             }
             if (order.sourceOrder.isSpecialOrder) {
                 generatedSpecialOrdersCount--;
             } else {
                 generatedCommonOrdersCount--;
             }
+            finishedOrderCount++;
         }
 
         if (changed) {
             OnAcceptedOrdersChanged?.Invoke();
         }
+        // 送完单更新好评率
+        if(finishedOrderCount > 0)
+        {
+            CommonGameplayManager.GetInstance().PlayerDataManager.Rating.Value = goodOrderCount / finishedOrderCount;
+        }
+        
     }
 
     private void UpdateOrderTimes(GameTime currentTime) {
@@ -218,5 +238,13 @@ public class OrderDataManager : MonoBehaviour {
             
         }
 
+    }
+    private void OnUpGoodOrderCount()
+    {
+        goodOrderCount++;
+    }
+    private void OnUpBadOrderCount()
+    {
+        badOrderCount++;
     }
 }

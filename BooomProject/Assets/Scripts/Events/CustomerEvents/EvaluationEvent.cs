@@ -13,10 +13,12 @@ public class EvaluationEvent : EventNodeBase
         {
             // TODO: 订单评价
             // 好评订单 + 1
+            EventHandlerManager.CallUpGoodOrderCount();
         }
         else
         {
             // 差评订单 + 1
+            EventHandlerManager.CallUpBadOrderCount();
         }
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);

@@ -28,6 +28,8 @@ public static class EventHandlerManager
     public static event Func<int, bool> checkNodeOrder;
     public static event Func<RuntimeOrderSO> getCurrentOrder;
     public static event Action updateOrderStateToTransit;
+    public static event Action upGoodOrderCount;
+    public static event Action upBadOrderCount;
     #endregion
 
     public static void CallRollFinish(int val)
@@ -92,5 +94,13 @@ public static class EventHandlerManager
     public static void CallUpdateOrderStateToTransit()
     {
         updateOrderStateToTransit?.Invoke();
+    }
+    public static void CallUpGoodOrderCount()
+    {
+        upGoodOrderCount?.Invoke();
+    }
+    public static void CallUpBadOrderCount()
+    {
+        upBadOrderCount?.Invoke();
     }
 }
