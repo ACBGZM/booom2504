@@ -382,17 +382,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &74618135 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3421150497739407378, guid: 828a5de5443ad4c46b7b536eb265637e, type: 3}
-  m_PrefabInstance: {fileID: 1725239281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &146758539
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,17 +825,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1218518832}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &189824492 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4152809990532487663, guid: 828a5de5443ad4c46b7b536eb265637e, type: 3}
-  m_PrefabInstance: {fileID: 1725239281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &240172080
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,53 +937,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &265516543
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 265516546}
-  - component: {fileID: 265516545}
-  m_Layer: 0
-  m_Name: StatUIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &265516545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265516543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b94465167ead34da30c3834e8c2b9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: {fileID: 189824492}
-  _reputation: {fileID: 841522428}
-  _rating: {fileID: 74618135}
---- !u!4 &265516546
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265516543}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1574417602}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &286457726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1599,11 +1530,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _allOrders:
-  - {fileID: 11400000, guid: c677b406e6261684b9e361771bff3ba6, type: 2}
-  - {fileID: 11400000, guid: 23b254cba180e6d40b0ce431b325f636, type: 2}
-  - {fileID: 11400000, guid: da7d836dbbd054d42a294a601ab4ac9b, type: 2}
-  - {fileID: 11400000, guid: 914da4e3852914a43980bda028182233, type: 2}
-  - {fileID: 11400000, guid: f0f72c20e4537ea42b44e66100148c61, type: 2}
+  - {fileID: 11400000, guid: 2e76aa6a7a796af42a47197c08c6c5d7, type: 2}
+  - {fileID: 11400000, guid: d8c11c4f73dcd854c953af2f3a50f3e1, type: 2}
 --- !u!1 &471841057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1845,7 +1773,7 @@ MonoBehaviour:
         m_Calls: []
   Medals:
     _statName: Medals
-    _value: 0
+    _value: 4
     _minValue: 0
     _maxValue: 2147483647
     OnValueChanged:
@@ -2465,17 +2393,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &841522428 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3176605377819904761, guid: 828a5de5443ad4c46b7b536eb265637e, type: 3}
-  m_PrefabInstance: {fileID: 1725239281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &878103601
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,7 +4183,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 470732299}
-  - {fileID: 265516546}
   - {fileID: 702916170}
   - {fileID: 375317988}
   - {fileID: 598797196}

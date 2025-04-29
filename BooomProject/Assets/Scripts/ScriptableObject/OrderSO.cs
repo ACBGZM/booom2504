@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 订单信息数据容器
@@ -45,5 +46,9 @@ public class QuickResponse {
     [Tooltip("实际发送文本")]
     public string responseText;
     [Tooltip("是否可以重复发送")]
-    public bool cannotReatedly = false;
+    public bool cannotReatedly = true;
+    [Tooltip("点击后客户的回复文本")]
+    public string customerResponseText;
+    [Header("是否好评")]
+    public bool isGoodReputation;
 }

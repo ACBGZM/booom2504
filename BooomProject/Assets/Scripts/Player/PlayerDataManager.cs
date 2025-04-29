@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 
 public class PlayerDataManager : MonoBehaviour
 {
     [Header("基础属性")]
     public BaseStat<float> Speed = new BaseStat<float>("Speed", 5f, 0f, 15f);
-
     public BaseStat<int> Reputation = new BaseStat<int>("Reputation", 0, 0, 1000);
     public BaseStat<float> Rating = new BaseStat<float>("Rating", 0.8f, 0f, 1f);
     public BaseStat<int> Medals = new BaseStat<int>("Medals", 0, 0, int.MaxValue);
 
+    public RuntimeOrderSO _boundOrder;
     // [Header("自动保存设置")]
     // [SerializeField] private bool _autoSave = true;
     // [SerializeField] private float _saveInterval = 60f;
@@ -30,6 +31,15 @@ public class PlayerDataManager : MonoBehaviour
     //         }
     //     }
     // }
+
+    // 完成订单
+    public void CompleteOrder() {
+        UnlockMedal("飞速");
+    }
+    // 差评单
+    public void NegativeCommentOrder() {
+        Rating.Add(-0.1f);
+    }
 
     private void SetupEventListeners()
     {

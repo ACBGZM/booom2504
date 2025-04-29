@@ -481,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogBox: {fileID: 3620819011088397993}
   chatText: {fileID: 5045187833068467188}
-  maxLen: 15
+  maxLen: 12
 --- !u!114 &5045187833068467188
 MonoBehaviour:
   m_ObjectHideFlags: 0
