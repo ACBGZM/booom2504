@@ -20,7 +20,7 @@ public class EventDiceToCustomer : EventNodeBase
     [SerializeField] private PlayerAttribution awardType;
 
     [SerializeField] private float awardValue;
-   
+    [SerializeField] private float punishmentSpeed;
 
     public override void Execute()
     {
@@ -84,7 +84,7 @@ public class EventDiceToCustomer : EventNodeBase
         {
             failureExecutor.Initialize(Finished);
             failureExecutor.Execute();
-            EventHandlerManager.CallUpdateAttribution(awardType, awardValue);
+            EventHandlerManager.CallUpdateAttribution(awardType, punishmentSpeed);
         }
         else
         {

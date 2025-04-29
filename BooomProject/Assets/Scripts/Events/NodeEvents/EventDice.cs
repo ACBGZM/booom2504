@@ -19,6 +19,7 @@ public class EventDice : EventNodeBase
     // 奖励的属性
     [SerializeField] private PlayerAttribution awardType;
     [SerializeField] private float awardValue;
+    [SerializeField] private float punishmentSpeed;
     // 骰子点数
     private int val;
 
@@ -85,7 +86,7 @@ public class EventDice : EventNodeBase
         {
             failureExecutor.Initialize(Finished);
             failureExecutor.Execute();
-            EventHandlerManager.CallUpdateAttribution(awardType, awardValue); 
+            EventHandlerManager.CallUpdateAttribution(awardType, punishmentSpeed); 
         }
         else
         {
