@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -17,4 +18,7 @@ public class PlayerData
 
     [Tooltip("奖章数量")]
     public int medals;
+
+    [Tooltip("订单与完成")]
+    public List<SerializableKeyValuePair> orderSaves = new List<SerializableKeyValuePair>();
 }

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
 {
@@ -8,7 +10,10 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
     [SerializeField] private DeliverySceneInputHandler _deliverySceneInputHandler;
     public DeliverySceneInputHandler DeliverySceneInputHandler => _deliverySceneInputHandler;
 
-    // [SerializeField] private GameSceneManager _sceneManager;
+    [SerializeField] private FloatingButton _floatingEnterButton;
+
+    [SerializeField] private GameSceneManager _sceneManager;
+    public GameSceneManager SceneManager => _sceneManager;
 
     // todo: currently dialogue ui manager is a singleton
     // [SerializeField] private DialogueUIManager _dialogueUIManager;
@@ -21,6 +26,11 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
         EventHandlerManager.playerStateChanged += OnPlayerStateChanged;
         EventHandlerManager.getCommonInputHandler -= GetCommonInputHandler;
         EventHandlerManager.getCommonInputHandler += GetCommonInputHandler;
+    }
+
+    private void Start()
+    {
+        CommonGameplayManager.GetInstance().NodeGraphManager.RefreshMovingHints();
     }
 
     protected override void OnDestroy()
@@ -56,5 +66,12 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
     private CommonInput GetCommonInputHandler()
     {
         return _deliverySceneInputHandler;
+    }
+
+    public void ShowEnterButton(bool show, Transform targetObject, UnityAction action)
+    {
+        _floatingEnterButton.SetActive(show);
+        _floatingEnterButton.TargetObject = targetObject;
+        _floatingEnterButton.SetButtonAction(action);
     }
 }

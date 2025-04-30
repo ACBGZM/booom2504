@@ -16,22 +16,36 @@ public class NodeGraphManager : MonoBehaviour
     private Dictionary<int, int> nodeIdTOIndex = new Dictionary<int, int>();
     private float[,] dist;    // 任意两节点间最短消耗
     private int nodeCnt;
-    // TODO：大本营节点ID，待修改
-    private int baseNodeID = 0;
-    public int BaseNodeID => baseNodeID;
+
+    public bool IsOnBaseCampNode()
+    {
+        return _currentNodeID == 1;
+    }
+
+    public bool IsOnTargetNode()
+    {
+        return _currentNodeID is >= 2 and <= 12;
+    }
+
+    private static bool _isDataLoaded = false;
+
     private void Awake()
     {
+        if (_isDataLoaded)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         nodeCnt = 0;
 
         Node[] nodes = FindObjectsOfType<Node>();
         foreach (Node node in nodes)
         {
-            if(_allNodes.TryAdd(node.NodeID, node))
-            {
-                // 索引从0开始
-                nodeIdTOIndex.Add(node.NodeID,nodeCnt);
-                nodeCnt++;
-            }
+            _allNodes.Add(node.NodeID, node);
+            // 索引从0开始
+            nodeIdTOIndex.Add(node.NodeID,nodeCnt);
+            nodeCnt++;
         }
 
         foreach (EdgeData edgeData in _nodeGraphData._edges)
@@ -53,20 +67,28 @@ public class NodeGraphManager : MonoBehaviour
 
             path.Add(end);
 
+            float distance = 0;
+            for (int i = 0; i < path.Count - 1; ++i)
+            {
+                distance += Vector2.Distance(path[i], path[i + 1]);
+            }
+
             List<Vector3> reversedPath = new List<Vector3>(path);
             reversedPath.Reverse();
 
             _allNodes[edgeData.nodeA].AdjacentNodes.Add(
                 _allNodes[edgeData.nodeB],
-                new Node.Edge(path.ToArray()));
+                new Node.Edge(path.ToArray(), distance));
             _allNodes[edgeData.nodeB].AdjacentNodes.Add(
                 _allNodes[edgeData.nodeA],
-                new Node.Edge(reversedPath.ToArray()));
+                new Node.Edge(reversedPath.ToArray(), distance));
         }
 
         dist = new float[nodeCnt, nodeCnt];
         ResetDist();
         Floyed();
+
+        _isDataLoaded = true;
     }
 
     private void ResetDist()
@@ -83,15 +105,9 @@ public class NodeGraphManager : MonoBehaviour
         {
             Node a = GetNodeByIDRuntime(edgeData.nodeA);
             Node b = GetNodeByIDRuntime(edgeData.nodeB);
-
-            float distance = 0;
-            for (int i = 0; i < a.AdjacentNodes[b]._path.Length - 1; ++i)
-            {
-                distance += Vector2.Distance(a.AdjacentNodes[b]._path[i], a.AdjacentNodes[b]._path[i + 1]);
-            }
-
-            dist[edgeData.nodeA, edgeData.nodeB] = distance;
-            dist[edgeData.nodeB, edgeData.nodeA] = distance;
+            float distance = a.AdjacentNodes[b]._distance;
+            dist[nodeIdTOIndex[edgeData.nodeA], nodeIdTOIndex[edgeData.nodeB]] = distance;
+            dist[nodeIdTOIndex[edgeData.nodeB], nodeIdTOIndex[edgeData.nodeA]] = distance;
         }
     }
 
@@ -111,9 +127,10 @@ public class NodeGraphManager : MonoBehaviour
         }
     }
 
-    public void Start()
+    public void RefreshMovingHints()
     {
         ShowCanMoveNodes(CurrentNode, true);
+        CurrentNode.CheckShowEnterButton();
     }
 
     public Node GetNodeByIDRuntime(int nodeID)
@@ -129,6 +146,7 @@ public class NodeGraphManager : MonoBehaviour
         if (CurrentNode.AdjacentNodes.ContainsKey(targetNode))
         {
             ShowCanMoveNodes(CurrentNode, false);
+            CurrentNode.OnLeave();
             targetNode.ShowIsMovingTo(true);
 
             DeliveryGameplayManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
@@ -138,7 +156,7 @@ public class NodeGraphManager : MonoBehaviour
                 _currentNodeID = targetNode.NodeID;
                 ShowCanMoveNodes(targetNode, true);
 
-                targetNode.ExecuteEvents();
+                targetNode.OnReach();
             });
         }
     }
@@ -214,11 +232,13 @@ public class NodeGraphManager : MonoBehaviour
     private void DrawEdge(Vector3 start, Vector3 end, EdgeData edge)
     {
         Handles.color = Color.green;
-
+        float distance = 0.0f;
         if (edge.curvePoints.Length == 0)
         {
             Handles.DrawLine(start, end);
-        } else
+            distance = Vector2.Distance(start, end);
+        }
+        else
         {
             List<Vector3> path = new List<Vector3> { start };
             foreach (var point in edge.curvePoints)
@@ -229,17 +249,22 @@ public class NodeGraphManager : MonoBehaviour
             path.Add(end);
 
             Handles.DrawPolyLine(path.ToArray());
+
+            for (int i = 0; i < path.Count - 1; ++i)
+            {
+                distance += Vector2.Distance(path[i], path[i + 1]);
+            }
         }
 
         Vector3 labelPos = Vector3.Lerp(start, end, 0.5f);
-        // Handles.Label(labelPos, $"Cost: {edge.cost}");
+        Handles.Label(labelPos, $"dis: {distance:F1}");
     }
 
 #endif
 
     public float GetDistance(int currentNode, int targetNode)
     {
-        return dist[currentNode, targetNode];
+        return dist[nodeIdTOIndex[currentNode], nodeIdTOIndex[targetNode]];
     }
 
     public void ShowTargetNode(int nodeIdx, bool finished)
