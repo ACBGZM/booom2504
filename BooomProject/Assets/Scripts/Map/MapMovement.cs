@@ -53,8 +53,8 @@ public class MapMovement : MonoBehaviour
     {
         _mapSprite = GetComponent<SpriteRenderer>().sprite;
         Bounds bounds =  _mapSprite.bounds; // AABB
-        _minBound = bounds.min * transform.localScale.x * 0.95f;
-        _maxBound = bounds.max * transform.localScale.x * 0.95f;
+        _minBound = bounds.min * transform.localScale.x * 0.98f;
+        _maxBound = bounds.max * transform.localScale.x * 0.98f;
 
         Vector3 bottomLeft = _minBound;
         Vector3 topRight = _maxBound;

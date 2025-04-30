@@ -53,15 +53,21 @@ public class NodeGraphManager : MonoBehaviour
 
             path.Add(end);
 
+            float distance = 0;
+            for (int i = 0; i < path.Count - 1; ++i)
+            {
+                distance += Vector2.Distance(path[i], path[i + 1]);
+            }
+
             List<Vector3> reversedPath = new List<Vector3>(path);
             reversedPath.Reverse();
 
             _allNodes[edgeData.nodeA].AdjacentNodes.Add(
                 _allNodes[edgeData.nodeB],
-                new Node.Edge(path.ToArray()));
+                new Node.Edge(path.ToArray(), distance));
             _allNodes[edgeData.nodeB].AdjacentNodes.Add(
                 _allNodes[edgeData.nodeA],
-                new Node.Edge(reversedPath.ToArray()));
+                new Node.Edge(reversedPath.ToArray(), distance));
         }
 
         dist = new float[nodeCnt, nodeCnt];
@@ -83,13 +89,7 @@ public class NodeGraphManager : MonoBehaviour
         {
             Node a = GetNodeByIDRuntime(edgeData.nodeA);
             Node b = GetNodeByIDRuntime(edgeData.nodeB);
-
-            float distance = 0;
-            for (int i = 0; i < a.AdjacentNodes[b]._path.Length - 1; ++i)
-            {
-                distance += Vector2.Distance(a.AdjacentNodes[b]._path[i], a.AdjacentNodes[b]._path[i + 1]);
-            }
-
+            float distance = a.AdjacentNodes[b]._distance;
             dist[edgeData.nodeA, edgeData.nodeB] = distance;
             dist[edgeData.nodeB, edgeData.nodeA] = distance;
         }
@@ -214,11 +214,13 @@ public class NodeGraphManager : MonoBehaviour
     private void DrawEdge(Vector3 start, Vector3 end, EdgeData edge)
     {
         Handles.color = Color.green;
-
+        float distance = 0.0f;
         if (edge.curvePoints.Length == 0)
         {
             Handles.DrawLine(start, end);
-        } else
+            distance = Vector2.Distance(start, end);
+        }
+        else
         {
             List<Vector3> path = new List<Vector3> { start };
             foreach (var point in edge.curvePoints)
@@ -229,10 +231,15 @@ public class NodeGraphManager : MonoBehaviour
             path.Add(end);
 
             Handles.DrawPolyLine(path.ToArray());
+
+            for (int i = 0; i < path.Count - 1; ++i)
+            {
+                distance += Vector2.Distance(path[i], path[i + 1]);
+            }
         }
 
         Vector3 labelPos = Vector3.Lerp(start, end, 0.5f);
-        // Handles.Label(labelPos, $"Cost: {edge.cost}");
+        Handles.Label(labelPos, $"dis: {distance:F1}");
     }
 
 #endif

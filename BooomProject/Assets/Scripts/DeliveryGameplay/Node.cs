@@ -29,12 +29,14 @@ public class Node : MonoBehaviour, IClickable
 
     public struct Edge
     {
-        public Edge(Vector3[] path)
+        public Edge(Vector3[] path, float distance)
         {
             _path = path;
+            _distance = distance;
         }
 
         public Vector3[] _path;
+        public float _distance;
     }
 
     // runtime adjacent nodes reference
@@ -90,8 +92,10 @@ public class Node : MonoBehaviour, IClickable
     {
         GUIStyle nodeIDDisplayStyle = new();
         nodeIDDisplayStyle.normal.textColor = Color.cyan;
-        Vector3 nodeIDDisplayPosition = transform.position + new Vector3(0.0f, 1.0f, 0.0f) * 0.5f;
-        UnityEditor.Handles.Label(transform.position + Vector3.up * 0.5f, $"ID:{NodeID}", nodeIDDisplayStyle);
+        UnityEditor.Handles.Label(
+            transform.position + Vector3.up * 0.5f,
+            $"#{NodeID} {_address}",
+            nodeIDDisplayStyle);
     }
 
 #endif
