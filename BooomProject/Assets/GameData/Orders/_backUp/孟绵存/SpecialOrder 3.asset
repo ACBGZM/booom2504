@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06e33720b1883a4ba650714e43b1430, type: 3}
   m_Name: SpecialOrder 3
   m_EditorClassIdentifier: 
-  customerSO: {fileID: 11400000, guid: 0c939e3b3231750438d81006ccae693e, type: 2}
-  orderUID: Q3
-  initialLimitTime: 300
+  customerSO: {fileID: 11400000, guid: 4fbbcec5523253846bb4b55b5223e9c5, type: 2}
+  orderUID: M3
+  initialLimitTime: 400
   isSpecialOrder: 1
-  baseReward: 3
-  orderEvent: {fileID: 11400000, guid: 76f0decf10198f84184ff91e263d96c7, type: 2}
+  baseReward: 5
+  orderEvent: {fileID: 11400000, guid: 0551a3a000bcfd44f9cc9d74cea881bb, type: 2}
   bubble: 
   chatHistory: []
   quickResponses: []
   destinationAddress: 
-  destinationNodeId: 0
+  destinationNodeId: 2

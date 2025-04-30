@@ -36,7 +36,10 @@ public class OrderDataManager : MonoBehaviour {
     private void Start() {
         LoadOrderProgress();
         GenerateInitialOrders();
+        finishedOrderCount = CommonGameplayManager.GetInstance().PlayerDataManager.finishedOrderCount;
+        goodOrderCount = CommonGameplayManager.GetInstance().PlayerDataManager.goodOrderCount;
         CommonGameplayManager.GetInstance().TimeManager.OnMinutePassed.AddListener(UpdateOrderTimes);
+        OnOrderComplete += HandleOrderComplete;
     }
 
     private void OnEnable() {
@@ -188,8 +191,7 @@ public class OrderDataManager : MonoBehaviour {
         runtimeOrder.isTimeout = false;
         runtimeOrder.currentState = OrderState.Accepted;
         // 判断是否在大本营节点接单，若是，则改为已取餐
-        if(CommonGameplayManager.GetInstance().NodeGraphManager.IsOnBaseCampNode())
-        {
+        if (CommonGameplayManager.GetInstance().NodeGraphManager.IsOnBaseCampNode()) {
             print($"{runtimeOrder.sourceOrder.orderUID}已取货！");
             runtimeOrder.currentState = OrderState.InTransit;
         }
@@ -215,18 +217,17 @@ public class OrderDataManager : MonoBehaviour {
                 int nodeIdx = order.sourceOrder.customerSO.destNodeId;
                 _acceptedOrdersNode.Remove(order);
                 CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
-                if(order.sourceOrder.orderEvent != null)
-                {
+                if (order.sourceOrder.orderEvent != null) {
                     currentHandleOrder = order;
                     yield return StartCoroutine(ExecuteOrderEvents(order));
                     currentHandleOrder = null;
                 }
-
             }
             if (order.sourceOrder.isSpecialOrder) {
                 generatedSpecialOrdersCount--;
             } else {
                 generatedCommonOrdersCount--;
+                order.orderEvaluation = Evaluation.Good;
             }
             OnOrderComplete?.Invoke(order.sourceOrder.orderUID);
             finishedOrderCount++;
@@ -235,8 +236,7 @@ public class OrderDataManager : MonoBehaviour {
             OnAcceptedOrdersChanged?.Invoke();
         }
         // 送完单更新好评率
-        if(finishedOrderCount > 0)
-        {
+        if (finishedOrderCount > 0) {
             CommonGameplayManager.GetInstance().PlayerDataManager.Rating.Value = goodOrderCount / finishedOrderCount;
         }
     }
@@ -252,7 +252,10 @@ public class OrderDataManager : MonoBehaviour {
             if (runtimeOrder.remainingMinutes <= 0) {
                 runtimeOrder.isTimeout = true;
                 runtimeOrder.currentState = OrderState.Expired;
-                // -------------------- TODO 处理超时订单 -------------------------
+                // 超时订单
+                if (runtimeOrder.orderEvaluation == Evaluation.None) {
+                    runtimeOrder.orderEvaluation = Evaluation.Bad;
+                }
                 Debug.Log($"订单超时：{runtimeOrder.sourceOrder.orderUID}");
             }
         }
@@ -298,10 +301,8 @@ public class OrderDataManager : MonoBehaviour {
             // 查找与当前节点有关的订单
             var orders = _acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key).ToList();
             // 剔除未取货的订单
-            for (int i = orders.Count - 1; i >= 0; i--)
-            {
-                if (orders[i].currentState != OrderState.InTransit)
-                {
+            for (int i = orders.Count - 1; i >= 0; i--) {
+                if (orders[i].currentState != OrderState.InTransit) {
                     orders.RemoveAt(i);
                 }
             }
@@ -319,34 +320,28 @@ public class OrderDataManager : MonoBehaviour {
         yield return new WaitUntil(() => finished == true);
     }
 
-    private RuntimeOrderSO OnGetCurrentOrder()
-    {
+    private RuntimeOrderSO OnGetCurrentOrder() {
         return currentHandleOrder;
     }
 
-    private void OnUpdateOrderStateToTransit()
-    {
-        foreach(var order in _acceptedOrders)
-        {
+    private void OnUpdateOrderStateToTransit() {
+        foreach (var order in _acceptedOrders) {
             print($"{order.sourceOrder.orderUID}已取货！");
             order.currentState = OrderState.InTransit;
         }
         OnAcceptedOrdersChanged?.Invoke();
 
-        foreach (var order in _acceptedOrders)
-        {
+        foreach (var order in _acceptedOrders) {
             print($"{order.sourceOrder.orderUID}状态：{order.currentState.ToString()}！");
 
         }
     }
 
-    private void OnUpGoodOrderCount()
-    {
+    private void OnUpGoodOrderCount() {
         goodOrderCount++;
     }
 
-    private void OnUpBadOrderCount()
-    {
+    private void OnUpBadOrderCount() {
         badOrderCount++;
     }
 }
