@@ -11,7 +11,8 @@ public class MouseTxu2D : MonoBehaviour
 
     private  void Start()
     {
-        Cursor.SetCursor(mouseTex, new Vector2(55, 63), CursorMode.Auto);
+        
+        Cursor.SetCursor(mouseTex, Vector2.zero, CursorMode.Auto);
         DontDestroyOnLoad(this);
     }
 }
