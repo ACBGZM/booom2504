@@ -13,7 +13,7 @@ public struct SerializableKeyValuePair {
     }
 }
 
-public class PlayerDataManager : Singleton<PlayerDataManager> {
+public class PlayerDataManager : MonoBehaviour {
     [Header("基础属性")]
     public BaseStat<float> Speed = new BaseStat<float>("Speed", 5f, 0f, 15f);
     public BaseStat<int> Reputation = new BaseStat<int>("Reputation", 0, 0, 1000);

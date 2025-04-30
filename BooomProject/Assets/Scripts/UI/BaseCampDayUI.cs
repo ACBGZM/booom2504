@@ -8,7 +8,7 @@ public class BaseCampDayUI : MonoBehaviour
     public TextMeshProUGUI dayText;
     private void Start() {
         dayText = GetComponent<TextMeshProUGUI>();
-        TimeManager.Instance.OnDayPassed.AddListener(UpdateDayUI);
+        CommonGameplayManager.GetInstance().TimeManager.OnDayPassed.AddListener(UpdateDayUI);
     }
 
     private void UpdateDayUI(GameTime current) {
