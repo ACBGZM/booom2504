@@ -10,7 +10,9 @@ public class EventCD : EventNodeBase
         base.Execute();
         bool cd = true;
         // 以分钟为单位
-        int currentTime = TimeManager.Instance.currentTime.day * 24 * 60 + TimeManager.Instance.currentTime.hour * 60 + TimeManager.Instance.currentTime.minute;
+        int currentTime = CommonGameplayManager.GetInstance().TimeManager.currentTime.day * 24 * 60
+                          + CommonGameplayManager.GetInstance().TimeManager.currentTime.hour * 60
+                          + CommonGameplayManager.GetInstance().TimeManager.currentTime.minute;
         if (lastTriggerTime == 0 || currentTime - lastTriggerTime > GameplaySettings.TriggerCD)
         {
             lastTriggerTime = currentTime;
@@ -27,6 +29,6 @@ public class EventCD : EventNodeBase
         {
             m_on_finished?.Invoke(true);
         }
-        
+
     }
 }

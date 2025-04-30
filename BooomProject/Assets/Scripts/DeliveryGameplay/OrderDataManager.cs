@@ -36,7 +36,7 @@ public class OrderDataManager : MonoBehaviour {
     private void Start() {
         LoadOrderProgress();
         GenerateInitialOrders();
-        TimeManager.Instance.OnMinutePassed.AddListener(UpdateOrderTimes);
+        CommonGameplayManager.GetInstance().TimeManager.OnMinutePassed.AddListener(UpdateOrderTimes);
     }
 
     private void OnEnable() {
@@ -59,7 +59,7 @@ public class OrderDataManager : MonoBehaviour {
 
     private void LoadOrderProgress() {
         // 从存档加载已完成订单
-        foreach (var order in PlayerDataManager.Instance.orderSaves) {
+        foreach (var order in CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves) {
             if (order.Value) // 如果订单已完成
             {
                 ParseOrderUID(order.Key, out string prefix, out int number);
@@ -79,7 +79,7 @@ public class OrderDataManager : MonoBehaviour {
         // 生成符合条件的订单
         foreach (var order in sortedOrders) {
             if (order.isSpecialOrder) {
-                if (CanGenerateSpecialOrder(order.orderUID) || generatedSpecialOrdersCount <= GameplaySettings.m_max_generate_special_orders) {
+                if (CanGenerateSpecialOrder(order.orderUID) && generatedSpecialOrdersCount <= GameplaySettings.m_max_generate_special_orders) {
                     AddToAvailableOrders(order);
                 }
             } else {
@@ -114,10 +114,10 @@ public class OrderDataManager : MonoBehaviour {
     }
 
     private void HandleOrderComplete(string orderUID) {
-        if (PlayerDataManager.Instance.orderSaves.ContainsKey(orderUID)) {
-            PlayerDataManager.Instance.orderSaves[orderUID] = true;
+        if (CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves.ContainsKey(orderUID)) {
+            CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves[orderUID] = true;
         } else {
-            PlayerDataManager.Instance.orderSaves.Add(orderUID, true);
+            CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves.Add(orderUID, true);
         }
         ParseOrderUID(orderUID, out string prefix, out int number);
         UpdateSeriesProgress(prefix, number);
@@ -162,8 +162,8 @@ public class OrderDataManager : MonoBehaviour {
 
     // 检查订单是否已经完成
     private bool IsOrderAvailable(OrderSO order) {
-        return !PlayerDataManager.Instance.orderSaves.ContainsKey(order.orderUID) ||
-               !PlayerDataManager.Instance.orderSaves[order.orderUID];
+        return !CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves.ContainsKey(order.orderUID) ||
+               !CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves[order.orderUID];
     }
 
     public bool CanAcceptMoreOrders() {
@@ -180,9 +180,9 @@ public class OrderDataManager : MonoBehaviour {
 
         // 初始化运行时数据
         runtimeOrder.acceptedTime = new GameTime {
-            day = TimeManager.Instance.currentTime.day,
-            hour = TimeManager.Instance.currentTime.hour,
-            minute = TimeManager.Instance.currentTime.minute
+            day = CommonGameplayManager.GetInstance().TimeManager.currentTime.day,
+            hour = CommonGameplayManager.GetInstance().TimeManager.currentTime.hour,
+            minute = CommonGameplayManager.GetInstance().TimeManager.currentTime.minute
         };
         runtimeOrder.remainingMinutes = runtimeOrder.sourceOrder.initialLimitTime;
         runtimeOrder.isTimeout = false;
