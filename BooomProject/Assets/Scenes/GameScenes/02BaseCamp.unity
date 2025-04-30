@@ -6566,6 +6566,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 878103602}
     m_Modifications:
     - target: {fileID: 713716747116384748, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_Name
+      value: Text(TMP)
+      objectReference: {fileID: 0}
+    - target: {fileID: 713716747116384748, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_TagString
       value: DayDisplay
       objectReference: {fileID: 0}
@@ -6631,7 +6635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3014545073730938267, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -764
+      value: -760
       objectReference: {fileID: 0}
     - target: {fileID: 3014545073730938267, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6649,6 +6653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3605121398341839076, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3025187
+      objectReference: {fileID: 0}
     - target: {fileID: 4543833804625443733, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_fontSize
       value: 31.85
@@ -6657,15 +6665,61 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4543833804625443733, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3025187
+      objectReference: {fileID: 0}
     - target: {fileID: 5454929092026193530, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_Name
       value: TimeUIHome
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5764350567541025310, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3025187
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278827459724689567, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3025187
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579379125498332837, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3025187
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7038044490161774143, guid: 261985c1baab47d4287502e3593eee71, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5454929092026193530, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1353708920}
   m_SourcePrefab: {fileID: 100100000, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+--- !u!1 &1353708919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5454929092026193530, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+  m_PrefabInstance: {fileID: 1353708918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1353708920
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353708919}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: be497743e9f53c14dac4393e81385d22, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1358394802
 GameObject:
   m_ObjectHideFlags: 0
