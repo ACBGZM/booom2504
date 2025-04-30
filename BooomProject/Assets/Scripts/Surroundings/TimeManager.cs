@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
-    public static TimeManager Instance { get; private set; }
     [Header("Events")]
     public UnityEvent<GameTime> OnMinutePassed;    // 每分钟触发
     public UnityEvent<GameTime> OnHourPassed;    // 每小时触发
@@ -24,20 +23,13 @@ public class TimeManager : MonoBehaviour
     private const string SAVE_KEY = "GameTimeData";
 
     void Awake() {
-        if (Instance == null) {
-            Instance = this;
-            SceneManager.sceneLoaded += OnSceneLoaded; // 注册场景加载事件
-            // LoadTime(); // 加载保存的时间
-            FindAndUpdateTimeDisplay(); // 初始化查找
-        } else {
-            Destroy(gameObject);
-        }
+        SceneManager.sceneLoaded += OnSceneLoaded; // 注册场景加载事件
+        // LoadTime(); // 加载保存的时间
+        FindAndUpdateTimeDisplay(); // 初始化查找
     }
 
     private void OnDestroy() {
-        if (Instance == this) {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
