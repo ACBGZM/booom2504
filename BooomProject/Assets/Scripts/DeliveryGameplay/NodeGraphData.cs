@@ -7,7 +7,6 @@ public class EdgeData
 {
     public int nodeA;
     public int nodeB;
-    public int cost;
     public Vector2[] curvePoints;
 }
 

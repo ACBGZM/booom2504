@@ -29,13 +29,11 @@ public class Node : MonoBehaviour, IClickable
 
     public struct Edge
     {
-        public Edge(int cost, Vector3[] path)
+        public Edge(Vector3[] path)
         {
-            _cost = cost;
             _path = path;
         }
 
-        public int _cost;
         public Vector3[] _path;
     }
 

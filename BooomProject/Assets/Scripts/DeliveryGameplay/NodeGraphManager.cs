@@ -10,7 +10,7 @@ public class NodeGraphManager : MonoBehaviour
 {
     [SerializeField] private NodeGraphData _nodeGraphData;
     public NodeGraphData NodeGraphData => _nodeGraphData;
-    
+
     private Dictionary<int, Node> _allNodes = new Dictionary<int, Node>();
     // 节点ID 映射到 索引
     private Dictionary<int, int> nodeIdTOIndex = new Dictionary<int, int>();
@@ -22,7 +22,7 @@ public class NodeGraphManager : MonoBehaviour
     private void Awake()
     {
         nodeCnt = 0;
-       
+
         Node[] nodes = FindObjectsOfType<Node>();
         foreach (Node node in nodes)
         {
@@ -32,11 +32,8 @@ public class NodeGraphManager : MonoBehaviour
                 nodeIdTOIndex.Add(node.NodeID,nodeCnt);
                 nodeCnt++;
             }
-
         }
-        dist = new float[nodeCnt, nodeCnt];
-        ResetDist();
-        Floyed();
+
         foreach (EdgeData edgeData in _nodeGraphData._edges)
         {
             if (!_allNodes.ContainsKey(edgeData.nodeA) || !_allNodes.ContainsKey(edgeData.nodeB))
@@ -59,11 +56,17 @@ public class NodeGraphManager : MonoBehaviour
             List<Vector3> reversedPath = new List<Vector3>(path);
             reversedPath.Reverse();
 
-            _allNodes[edgeData.nodeA].AdjacentNodes
-                .Add(_allNodes[edgeData.nodeB], new Node.Edge(edgeData.cost, path.ToArray()));
-            _allNodes[edgeData.nodeB].AdjacentNodes.Add(_allNodes[edgeData.nodeA],
-                new Node.Edge(edgeData.cost, reversedPath.ToArray()));
+            _allNodes[edgeData.nodeA].AdjacentNodes.Add(
+                _allNodes[edgeData.nodeB],
+                new Node.Edge(path.ToArray()));
+            _allNodes[edgeData.nodeB].AdjacentNodes.Add(
+                _allNodes[edgeData.nodeA],
+                new Node.Edge(reversedPath.ToArray()));
         }
+
+        dist = new float[nodeCnt, nodeCnt];
+        ResetDist();
+        Floyed();
     }
 
     private void ResetDist()
@@ -78,8 +81,17 @@ public class NodeGraphManager : MonoBehaviour
         }
         foreach (EdgeData edgeData in _nodeGraphData._edges)
         {
-            dist[edgeData.nodeA, edgeData.nodeB] = edgeData.cost;
-            dist[edgeData.nodeB, edgeData.nodeA] = edgeData.cost;
+            Node a = GetNodeByIDRuntime(edgeData.nodeA);
+            Node b = GetNodeByIDRuntime(edgeData.nodeB);
+
+            float distance = 0;
+            for (int i = 0; i < a.AdjacentNodes[b]._path.Length - 1; ++i)
+            {
+                distance += Vector2.Distance(a.AdjacentNodes[b]._path[i], a.AdjacentNodes[b]._path[i + 1]);
+            }
+
+            dist[edgeData.nodeA, edgeData.nodeB] = distance;
+            dist[edgeData.nodeB, edgeData.nodeA] = distance;
         }
     }
 
@@ -220,7 +232,7 @@ public class NodeGraphManager : MonoBehaviour
         }
 
         Vector3 labelPos = Vector3.Lerp(start, end, 0.5f);
-        Handles.Label(labelPos, $"Cost: {edge.cost}");
+        // Handles.Label(labelPos, $"Cost: {edge.cost}");
     }
 
 #endif
