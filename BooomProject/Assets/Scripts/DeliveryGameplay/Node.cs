@@ -1,6 +1,8 @@
+using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Node : MonoBehaviour, IClickable
 {
@@ -14,7 +16,9 @@ public class Node : MonoBehaviour, IClickable
     [SerializeField] private NodeActionType type;
     public bool test;
 
-    public virtual void ExecuteEvents()
+    public string TargetSceneName;
+
+    public virtual void OnReach()
     {
         if (_executor != null)
         {
@@ -23,8 +27,25 @@ public class Node : MonoBehaviour, IClickable
         }
     }
 
+    public virtual void OnLeave()
+    {
+        DeliveryGameplayManager.Instance.ShowEnterButton(false, null, null);
+    }
+
     protected virtual void OnExecutorFinished(bool success)
     {
+        CheckShowEnterButton();
+    }
+
+    public void CheckShowEnterButton()
+    {
+        if (!String.IsNullOrEmpty(TargetSceneName))
+        {
+            DeliveryGameplayManager.Instance.ShowEnterButton(true, transform, () =>
+            {
+                DeliveryGameplayManager.Instance.SceneManager.LoadAsyncWithFading(TargetSceneName);
+            });
+        }
     }
 
     public struct Edge
@@ -52,7 +73,6 @@ public class Node : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        // Debug.Log($"node clicked ({_nodeID})");
         CommonGameplayManager.GetInstance().NodeGraphManager.CheckAndMoveTo(this);
     }
 

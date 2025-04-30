@@ -16,22 +16,36 @@ public class NodeGraphManager : MonoBehaviour
     private Dictionary<int, int> nodeIdTOIndex = new Dictionary<int, int>();
     private float[,] dist;    // 任意两节点间最短消耗
     private int nodeCnt;
-    // TODO：大本营节点ID，待修改
-    private int baseNodeID = 0;
-    public int BaseNodeID => baseNodeID;
+
+    public bool IsOnBaseCampNode()
+    {
+        return _currentNodeID == 1;
+    }
+
+    public bool IsOnTargetNode()
+    {
+        return _currentNodeID is >= 2 and <= 12;
+    }
+
+    private static bool _isDataLoaded = false;
+
     private void Awake()
     {
+        if (_isDataLoaded)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         nodeCnt = 0;
 
         Node[] nodes = FindObjectsOfType<Node>();
         foreach (Node node in nodes)
         {
-            if(_allNodes.TryAdd(node.NodeID, node))
-            {
-                // 索引从0开始
-                nodeIdTOIndex.Add(node.NodeID,nodeCnt);
-                nodeCnt++;
-            }
+            _allNodes.Add(node.NodeID, node);
+            // 索引从0开始
+            nodeIdTOIndex.Add(node.NodeID,nodeCnt);
+            nodeCnt++;
         }
 
         foreach (EdgeData edgeData in _nodeGraphData._edges)
@@ -73,6 +87,8 @@ public class NodeGraphManager : MonoBehaviour
         dist = new float[nodeCnt, nodeCnt];
         ResetDist();
         Floyed();
+
+        _isDataLoaded = true;
     }
 
     private void ResetDist()
@@ -90,8 +106,8 @@ public class NodeGraphManager : MonoBehaviour
             Node a = GetNodeByIDRuntime(edgeData.nodeA);
             Node b = GetNodeByIDRuntime(edgeData.nodeB);
             float distance = a.AdjacentNodes[b]._distance;
-            dist[edgeData.nodeA, edgeData.nodeB] = distance;
-            dist[edgeData.nodeB, edgeData.nodeA] = distance;
+            dist[nodeIdTOIndex[edgeData.nodeA], nodeIdTOIndex[edgeData.nodeB]] = distance;
+            dist[nodeIdTOIndex[edgeData.nodeB], nodeIdTOIndex[edgeData.nodeA]] = distance;
         }
     }
 
@@ -111,9 +127,10 @@ public class NodeGraphManager : MonoBehaviour
         }
     }
 
-    public void Start()
+    public void RefreshMovingHints()
     {
         ShowCanMoveNodes(CurrentNode, true);
+        CurrentNode.CheckShowEnterButton();
     }
 
     public Node GetNodeByIDRuntime(int nodeID)
@@ -129,6 +146,7 @@ public class NodeGraphManager : MonoBehaviour
         if (CurrentNode.AdjacentNodes.ContainsKey(targetNode))
         {
             ShowCanMoveNodes(CurrentNode, false);
+            CurrentNode.OnLeave();
             targetNode.ShowIsMovingTo(true);
 
             DeliveryGameplayManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
@@ -138,7 +156,7 @@ public class NodeGraphManager : MonoBehaviour
                 _currentNodeID = targetNode.NodeID;
                 ShowCanMoveNodes(targetNode, true);
 
-                targetNode.ExecuteEvents();
+                targetNode.OnReach();
             });
         }
     }
@@ -246,7 +264,7 @@ public class NodeGraphManager : MonoBehaviour
 
     public float GetDistance(int currentNode, int targetNode)
     {
-        return dist[currentNode, targetNode];
+        return dist[nodeIdTOIndex[currentNode], nodeIdTOIndex[targetNode]];
     }
 
     public void ShowTargetNode(int nodeIdx, bool finished)
