@@ -37,6 +37,8 @@ public class OrderSO : ScriptableObject {
     public string destinationAddress;
     [Tooltip("目的地节点")]
     public int destinationNodeId;
+    [Tooltip("订单评价")]
+    public Evaluation orderEvaluation;
 }
 
 [System.Serializable]

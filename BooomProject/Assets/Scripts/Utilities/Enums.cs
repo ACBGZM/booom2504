@@ -24,3 +24,10 @@ public enum PlayerAttribution
     Evaluation,
     None
 }
+
+public enum Evaluation
+{
+    Good,
+    Bad,
+    None
+}

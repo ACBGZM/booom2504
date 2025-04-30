@@ -14,27 +14,40 @@ public class DefaultOrderEvent : EventNodeBase
         RuntimeOrderSO order = EventHandlerManager.CallGetCurrentOrder();
 
         Debug.Log($"剩余时间：{order.remainingMinutes}    是否超时：{order.isTimeout}");
-        if(order != null && !order.isTimeout && goodEvaluationSequence != null)
+        bool excuteGood = false;
+        bool excuteBad = false;
+        if (order != null && goodEvaluationSequence != null)
         {
-            goodEvaluationSequence.Initialize(Finished);
-            goodEvaluationSequence.Execute();
-            //  $"{order.sourceOrder.orderTitle} 已超时送达，获得顾客差评！";
-            // 获得差评
-            EventHandlerManager.CallUpGoodOrderCount();
+            // 聊天触发好评 或者 聊天未触发且订单未超时， 结算订单好评
+            if (order.sourceOrder.orderEvaluation == Evaluation.Good ||
+                order.sourceOrder.orderEvaluation == Evaluation.None && !order.isTimeout)
+            {
+                goodEvaluationSequence.Initialize(Finished);
+                goodEvaluationSequence.Execute();
+                EventHandlerManager.CallUpGoodOrderCount();
+                excuteGood = true;
+            }
+
         }
-        else if(order != null &&order.isTimeout && badEvaluationSequence != null)
+        if(order != null && badEvaluationSequence != null)
         {
-            badEvaluationSequence.Initialize(Finished);
-            badEvaluationSequence.Execute();
-            EventHandlerManager.CallUpBadOrderCount();
-            //  $"{order.sourceOrder.orderTitle} 已按时送达，获得顾客好评！";
-            // 获得好评
+            // 聊天触发差评 或者 聊天未触发且订单超时， 结算订单差评
+            if (order.sourceOrder.orderEvaluation == Evaluation.Bad ||
+               order.sourceOrder.orderEvaluation == Evaluation.None && order.isTimeout)
+            {
+                badEvaluationSequence.Initialize(Finished);
+                badEvaluationSequence.Execute();
+                EventHandlerManager.CallUpBadOrderCount();
+                excuteBad = true;
+            }
         }
-        else
+        // 两个都没执行
+        if(!excuteGood && !excuteBad)
         {
             m_state = EventNodeState.Finished;
             m_on_finished?.Invoke(true);
         }
+        
     }
  
     private void Finished(bool success)
