@@ -128,7 +128,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
     private void HandleReplyClick(QuickResponse response, int index, bool isGood) {
         if (_currentOrder == null || response == null) return;
         // 生成聊天记录
-        string currentTime = TimeManager.Instance.currentTime.GetHourAndMinute();
+        string currentTime = CommonGameplayManager.GetInstance().TimeManager.currentTime.GetHourAndMinute();
         ChatFragment newChat = new ChatFragment(
             currentTime,
             _myProfile,
@@ -156,7 +156,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         Sprite customerProfile = _currentOrder.sourceOrder.customerSO.customerProfile;
         // 创建客户回复片段
         ChatFragment customerChat = new ChatFragment(
-            TimeManager.Instance.currentTime.GetHourAndMinute(),
+            CommonGameplayManager.GetInstance().TimeManager.currentTime.GetHourAndMinute(),
             customerProfile,
             customerText,
             true // 左侧显示

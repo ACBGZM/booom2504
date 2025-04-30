@@ -15,7 +15,6 @@ public struct SerializableKeyValuePair {
 
 public class PlayerDataManager : MonoBehaviour
 {
-    public static PlayerDataManager Instance {  get; private set; }
     [Header("基础属性")]
     public BaseStat<float> Speed = new BaseStat<float>("Speed", 5f, 0f, 15f);
     public BaseStat<int> Reputation = new BaseStat<int>("Reputation", 0, 0, 1000);
@@ -47,7 +46,6 @@ public class PlayerDataManager : MonoBehaviour
 
     private void Start()
     {
-        Instance = this;
         LoadData();
         SetupEventListeners();
     }
@@ -125,7 +123,7 @@ public class PlayerDataManager : MonoBehaviour
             string json = JsonUtility.ToJson(data);
             byte[] encryptedData = XOREncrypt(json);
             PlayerPrefs.SetString(SAVE_KEY, Convert.ToBase64String(encryptedData));
-            PlayerPrefs.Save(); 
+            PlayerPrefs.Save();
             Debug.Log("游戏数据已保存");
         } catch (Exception e) {
             Debug.LogError($"保存数据失败: {e.Message}");
