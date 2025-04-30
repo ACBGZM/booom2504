@@ -12,7 +12,8 @@ public class RuntimeOrderSO {
     public string currentDistance { get; set; }
     public float currentDeliveryTime { get; set; }
     public float praiseProbability { get; set; }
-
+    [Tooltip("订单评价")]
+    public Evaluation orderEvaluation;
     public RuntimeOrderSO(OrderSO sourceOrder) {
         sourceOrder.bubble = sourceOrder.chatHistory.Count == 0 ? "未送达" : sourceOrder.chatHistory[0].content;
         this.sourceOrder = sourceOrder;

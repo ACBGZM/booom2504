@@ -19,8 +19,8 @@ public class DefaultOrderEvent : EventNodeBase
         if (order != null && goodEvaluationSequence != null)
         {
             // 聊天触发好评 或者 聊天未触发且订单未超时， 结算订单好评
-            if (order.sourceOrder.orderEvaluation == Evaluation.Good ||
-                order.sourceOrder.orderEvaluation == Evaluation.None && !order.isTimeout)
+            if (order.orderEvaluation == Evaluation.Good ||
+                order.orderEvaluation == Evaluation.None && !order.isTimeout)
             {
                 goodEvaluationSequence.Initialize(Finished);
                 goodEvaluationSequence.Execute();
@@ -32,8 +32,8 @@ public class DefaultOrderEvent : EventNodeBase
         if(order != null && badEvaluationSequence != null)
         {
             // 聊天触发差评 或者 聊天未触发且订单超时， 结算订单差评
-            if (order.sourceOrder.orderEvaluation == Evaluation.Bad ||
-               order.sourceOrder.orderEvaluation == Evaluation.None && order.isTimeout)
+            if (order.orderEvaluation == Evaluation.Bad ||
+               order.orderEvaluation == Evaluation.None && order.isTimeout)
             {
                 badEvaluationSequence.Initialize(Finished);
                 badEvaluationSequence.Execute();
