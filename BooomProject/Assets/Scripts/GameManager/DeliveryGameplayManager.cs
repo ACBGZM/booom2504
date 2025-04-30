@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,6 +25,8 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
         EventHandlerManager.playerStateChanged += OnPlayerStateChanged;
         EventHandlerManager.getCommonInputHandler -= GetCommonInputHandler;
         EventHandlerManager.getCommonInputHandler += GetCommonInputHandler;
+        EventHandlerManager.OnEndWorking -= OnEndWorking;
+        EventHandlerManager.OnEndWorking += OnEndWorking;
     }
 
     private void Start()
@@ -38,6 +39,7 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
         base.OnDestroy();
         EventHandlerManager.playerStateChanged -= OnPlayerStateChanged;
         EventHandlerManager.getCommonInputHandler -= GetCommonInputHandler;
+        EventHandlerManager.OnEndWorking -= OnEndWorking;
     }
 
     private void OnPlayerStateChanged()
@@ -47,18 +49,24 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
             case EPlayerState.PlayerIdle:
                 _deliverySceneInputHandler.UIInputActions.Enable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Enable();
+
+                CommonGameplayManager.GetInstance().TimeManager.SetTimeScale(0.5f);
                 break;
 
             case EPlayerState.PlayerMoving:
                 _deliverySceneInputHandler.UIInputActions.Disable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Enable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Click.Disable();
+
+                CommonGameplayManager.GetInstance().TimeManager.SetTimeScale(1.0f);
                 break;
 
             case EPlayerState.InCutscene:
                 _deliverySceneInputHandler.UIInputActions.Enable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Disable();
                 _deliverySceneInputHandler.ShowPhoneUI(false);
+
+                CommonGameplayManager.GetInstance().TimeManager.SetTimeScale(0.3f);
                 break;
         }
     }
@@ -73,5 +81,11 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
         _floatingEnterButton.SetActive(show);
         _floatingEnterButton.TargetObject = targetObject;
         _floatingEnterButton.SetButtonAction(action);
+    }
+
+    public void OnEndWorking()
+    {
+        // todo: event
+        _sceneManager.LoadAsyncWithFading("02BaseCamp");
     }
 }

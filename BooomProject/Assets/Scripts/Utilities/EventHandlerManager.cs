@@ -32,6 +32,9 @@ public static class EventHandlerManager
     public static event Action upBadOrderCount;
     #endregion
 
+    public static event Action OnEndWorking;
+    public static event Action OnEndDay;
+
     public static void CallRollFinish(int val)
     {
         rollFinish?.Invoke(val);
@@ -102,5 +105,15 @@ public static class EventHandlerManager
     public static void CallUpBadOrderCount()
     {
         upBadOrderCount?.Invoke();
+    }
+
+    public static void EndWorking()
+    {
+        OnEndWorking?.Invoke();
+    }
+
+    public static void EndDay()
+    {
+        OnEndDay?.Invoke();
     }
 }
