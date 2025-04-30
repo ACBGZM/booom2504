@@ -6636,9 +6636,6 @@ MonoBehaviour:
   _allOrders:
   - {fileID: 11400000, guid: c677b406e6261684b9e361771bff3ba6, type: 2}
   - {fileID: 11400000, guid: 23b254cba180e6d40b0ce431b325f636, type: 2}
-  - {fileID: 11400000, guid: da7d836dbbd054d42a294a601ab4ac9b, type: 2}
-  - {fileID: 11400000, guid: 914da4e3852914a43980bda028182233, type: 2}
-  - {fileID: 11400000, guid: f0f72c20e4537ea42b44e66100148c61, type: 2}
 --- !u!1001 &1234768816
 PrefabInstance:
   m_ObjectHideFlags: 0

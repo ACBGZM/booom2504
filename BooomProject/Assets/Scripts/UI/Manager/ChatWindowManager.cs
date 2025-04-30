@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 // 维护聊天界面数据
 public class ChatWindowManager : Singleton<ChatWindowManager> {
-    public event Action<bool> OnOrderComplete;
     [SerializeField] private PlayerDataManager _playerDataManager;
     [SerializeField] private Transform _chatUITransform;
     [SerializeField] private OrderUIManager _orderUIManager;
@@ -32,7 +31,6 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         _chatUITransform.gameObject.SetActive(false);
         _orderUIManager.OnChatWindowOpen += OrderDataManager_OnChatWindowOpen;
         _returnButton.onClick.AddListener(Close);
-        OnOrderComplete += PlayerDataManager_OnOrderComplete;
     }
 
     // 添加聊天标题属性
@@ -146,17 +144,9 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         // 更新UI
         UpdateContent();
         _scrollRect.normalizedPosition = Vector2.zero;
-        OnOrderComplete?.Invoke(isGood);
+        // --------------------------------TODO 用户差评------------------------------
         if (!string.IsNullOrEmpty(response.customerResponseText)) {
             StartCoroutine(ShowCustomerReply(response.customerResponseText, 1.5f));
-        }
-    }
-
-    private void PlayerDataManager_OnOrderComplete(bool isGoodReputation) {
-        if (isGoodReputation) {
-            //_playerDataManager.CompleteOrder();
-        } else {
-            _playerDataManager.NegativeCommentOrder();
         }
     }
 
