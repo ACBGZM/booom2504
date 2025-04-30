@@ -13,41 +13,27 @@ public struct SerializableKeyValuePair {
     }
 }
 
-public class PlayerDataManager : MonoBehaviour
-{
-    public static PlayerDataManager Instance {  get; private set; }
+public class PlayerDataManager : Singleton<PlayerDataManager> {
     [Header("基础属性")]
     public BaseStat<float> Speed = new BaseStat<float>("Speed", 5f, 0f, 15f);
     public BaseStat<int> Reputation = new BaseStat<int>("Reputation", 0, 0, 1000);
     public BaseStat<float> Rating = new BaseStat<float>("Rating", 0.8f, 0f, 1f);
     public BaseStat<int> Medals = new BaseStat<int>("Medals", 0, 0, int.MaxValue);
     [Tooltip("特殊订单UID与是否完成")]
-    public Dictionary<string, bool> orderSaves= new Dictionary<string,bool>();
+    public Dictionary<string, bool> orderSaves = new Dictionary<string, bool>();
     //[Header("自动保存设置")]
     //[SerializeField] private bool _autoSave = true;
     //[SerializeField, Range(30, 300)] private float _saveInterval = 60f;
     private float _saveTimer;
     private bool _isDirty;
-
+    private OrderDataManager _orderDataManager;
     // 加密
     private const string SAVE_KEY = "EncryptedSaves";
     private const byte XOR_KEY = 0xCD;
 
-    private void OnEnable()
-    {
-        EventHandlerManager.updateAttribution += OnUpdateAttribution;
-        CommonGameplayManager.GetInstance().OrderDataManager.OnOrderComplete += OrderDataManager_OnSpecialOrderComplete;
-    }
-
-    private void OnDisable()
-    {
-        EventHandlerManager.updateAttribution -= OnUpdateAttribution;
-        CommonGameplayManager.GetInstance().OrderDataManager.OnOrderComplete -= OrderDataManager_OnSpecialOrderComplete;
-    }
-
-    private void Start()
-    {
-        Instance = this;
+    private void Start() {
+        _orderDataManager = CommonGameplayManager.GetInstance().OrderDataManager;
+        _orderDataManager.OnOrderComplete += OrderDataManager_OnSpecialOrderComplete;
         LoadData();
         SetupEventListeners();
     }
@@ -92,24 +78,20 @@ public class PlayerDataManager : MonoBehaviour
         _saveTimer = 0f;
     }
 
-    private void CheckSpeedAchievements(float speed)
-    {
+    private void CheckSpeedAchievements(float speed) {
         if (speed >= 10f) UnlockMedal("");
     }
 
-    private void CheckReputationMilestones(int rep)
-    {
+    private void CheckReputationMilestones(int rep) {
         if (rep >= 10) Rating.Add(0.1f);
     }
 
-    public void UnlockMedal(string medalName)
-    {
+    public void UnlockMedal(string medalName) {
         Medals.Add(1);
         Debug.Log($"解锁奖章: {medalName}");
     }
 
-    private void SaveData()
-    {
+    private void SaveData() {
         try {
             PlayerData data = new PlayerData {
                 speed = Speed.Value,
@@ -125,15 +107,14 @@ public class PlayerDataManager : MonoBehaviour
             string json = JsonUtility.ToJson(data);
             byte[] encryptedData = XOREncrypt(json);
             PlayerPrefs.SetString(SAVE_KEY, Convert.ToBase64String(encryptedData));
-            PlayerPrefs.Save(); 
+            PlayerPrefs.Save();
             Debug.Log("游戏数据已保存");
         } catch (Exception e) {
             Debug.LogError($"保存数据失败: {e.Message}");
         }
     }
 
-    private void LoadData()
-    {
+    private void LoadData() {
         try {
             if (!PlayerPrefs.HasKey(SAVE_KEY)) return;
             string encryptedString = PlayerPrefs.GetString(SAVE_KEY);
@@ -183,12 +164,12 @@ public class PlayerDataManager : MonoBehaviour
 
     private void OnApplicationQuit() {
         if (_isDirty) SaveData();
+        EventHandlerManager.updateAttribution -= OnUpdateAttribution;
+        _orderDataManager.OnOrderComplete -= OrderDataManager_OnSpecialOrderComplete;
     }
 
-    private void OnUpdateAttribution(PlayerAttribution playerAttribution, float value)
-    {
-        switch(playerAttribution)
-        {
+    private void OnUpdateAttribution(PlayerAttribution playerAttribution, float value) {
+        switch (playerAttribution) {
             case PlayerAttribution.Speed:
                 Speed.Value += value;
                 break;

@@ -21,6 +21,7 @@ public class TimeManager : MonoBehaviour
 
     private float timer = 0f;
     private TextMeshProUGUI _currentTimeText;
+    private TextMeshProUGUI _currentDayText;
     private const string SAVE_KEY = "GameTimeData";
 
     void Awake() {
@@ -59,8 +60,9 @@ public class TimeManager : MonoBehaviour
     }
 
     private void UpdateUI() {
-        if (_currentTimeText != null)
-            _currentTimeText.text = currentTime.ToString();
+        if (_currentTimeText != null) {
+            _currentTimeText.text = currentTime.GetHourAndMinute();
+        }
     }
 
     // 更新时间

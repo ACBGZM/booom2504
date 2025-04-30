@@ -79,7 +79,7 @@ public class OrderDataManager : MonoBehaviour {
         // 生成符合条件的订单
         foreach (var order in sortedOrders) {
             if (order.isSpecialOrder) {
-                if (CanGenerateSpecialOrder(order.orderUID) || generatedSpecialOrdersCount <= GameplaySettings.m_max_generate_special_orders) {
+                if (CanGenerateSpecialOrder(order.orderUID) && generatedSpecialOrdersCount <= GameplaySettings.m_max_generate_special_orders) {
                     AddToAvailableOrders(order);
                 }
             } else {

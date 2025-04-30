@@ -13,4 +13,8 @@ public class GameTime
     public string GetHourAndMinute() {
         return $"{hour:00}:{minute:00}";
     }
+
+    public string GetDay() {
+        return $"{day}";
+    }
 }
