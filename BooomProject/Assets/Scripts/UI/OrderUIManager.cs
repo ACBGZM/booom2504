@@ -61,7 +61,7 @@ public class OrderUIManager : MonoBehaviour {
         if (ui.distanceText != null) ui.distanceText.text = order.currentDistance;
 
         if (ui.customerAddressText != null) ui.customerAddressText.text
-            = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._address;
+            = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)?._address;
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
             foreach (Transform child in ui.rewardContainer) {
                 if (child == ui.rewardIconPrefab) continue;
@@ -137,7 +137,7 @@ public class OrderUIManager : MonoBehaviour {
         Button btn = ui.mainButton;
         if (btn != null) {
             // 判断是否在大本营节点接单，若是，则改为已取餐
-            if (CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID == CommonGameplayManager.GetInstance().NodeGraphManager.BaseNodeID) {
+            if (CommonGameplayManager.GetInstance().NodeGraphManager.IsOnBaseCampNode()) {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => OnChatButtonClicked(order));
             }

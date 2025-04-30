@@ -188,7 +188,7 @@ public class OrderDataManager : MonoBehaviour {
         runtimeOrder.isTimeout = false;
         runtimeOrder.currentState = OrderState.Accepted;
         // 判断是否在大本营节点接单，若是，则改为已取餐
-        if(CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID == CommonGameplayManager.GetInstance().NodeGraphManager.BaseNodeID)
+        if(CommonGameplayManager.GetInstance().NodeGraphManager.IsOnBaseCampNode())
         {
             print($"{runtimeOrder.sourceOrder.orderUID}已取货！");
             runtimeOrder.currentState = OrderState.InTransit;
@@ -336,7 +336,7 @@ public class OrderDataManager : MonoBehaviour {
         foreach (var order in _acceptedOrders)
         {
             print($"{order.sourceOrder.orderUID}状态：{order.currentState.ToString()}！");
-            
+
         }
     }
 
