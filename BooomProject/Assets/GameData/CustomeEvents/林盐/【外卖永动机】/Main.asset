@@ -15,4 +15,5 @@ MonoBehaviour:
   m_event_nodes:
   - {fileID: 11400000, guid: d1be482ddf723b34dacd0c0986b6224c, type: 2}
   - {fileID: 11400000, guid: 1eddfd4ec70081c46bc9c42f97708dc5, type: 2}
+  - {fileID: 11400000, guid: ae7f82f77cd00c6499068cf3482eaffe, type: 2}
   - {fileID: 11400000, guid: 094bdbf64d53b3e4b87b6a3531027a03, type: 2}
