@@ -2,34 +2,36 @@ using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Node : MonoBehaviour, IClickable
 {
-    [Tooltip("地址")]
-    public string _address;
+    [Tooltip("地址")] public string _address;
 
-    [Tooltip("详细地址")]
-    public string _addressDetail;
+    [Tooltip("详细地址")] public string _addressDetail;
 
     [SerializeField] private EventSequenceExecutor _executor;
     [SerializeField] private NodeActionType type;
-    public bool test;
+    public bool _isNormalNode => _nodeID > 12; // hack
 
     public string TargetSceneName;
+
     #region 结点震荡
-    [Header("震荡参数")]
-    [Tooltip("单次震荡持续时间（秒）")]
-    [SerializeField] private float shakeDuration = 1f;
-    [Tooltip("震荡强度（最大旋转角度）")]
-    [SerializeField] private float shakeStrength = 20f;
-    [Tooltip("每秒震动次数")]
-    [SerializeField] private int vibrato = 20;
-    [Tooltip("随机方向偏移角度（0-180）")]
-    [SerializeField][Range(0, 180)] private float randomness = 90f;
+
+    [Header("震荡参数")] [Tooltip("单次震荡持续时间（秒）")] [SerializeField]
+    private float shakeDuration = 1f;
+
+    [Tooltip("震荡强度（最大旋转角度）")] [SerializeField]
+    private float shakeStrength = 20f;
+
+    [Tooltip("每秒震动次数")] [SerializeField] private int vibrato = 20;
+
+    [Tooltip("随机方向偏移角度（0-180）")] [SerializeField] [Range(0, 180)]
+    private float randomness = 90f;
 
     private Tween currentShakeTween; // 当前震荡的 Tween 实例
+
     #endregion
+
     public virtual void OnReach()
     {
         if (_executor != null)
@@ -53,10 +55,8 @@ public class Node : MonoBehaviour, IClickable
     {
         if (!String.IsNullOrEmpty(TargetSceneName))
         {
-            DeliveryGameplayManager.Instance.ShowEnterButton(true, transform, () =>
-            {
-                DeliveryGameplayManager.Instance.SceneManager.LoadAsyncWithFading(TargetSceneName);
-            });
+            DeliveryGameplayManager.Instance.ShowEnterButton(true, transform,
+                () => { DeliveryGameplayManager.Instance.SceneManager.LoadAsyncWithFading(TargetSceneName); });
         }
     }
 
@@ -94,10 +94,11 @@ public class Node : MonoBehaviour, IClickable
     {
         if (canMove)
         {
-            transform.DOScale(_originalScale * 1.1f, 1.0f)
+            transform.DOScale(_originalScale * (_isNormalNode ? 1.3f : 1.1f), 1.0f)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
-        } else
+        }
+        else
         {
             transform.DOKill();
             transform.localScale = _originalScale;
@@ -111,7 +112,8 @@ public class Node : MonoBehaviour, IClickable
             transform.DOShakePosition(1.0f, 0.1f, 10, 90, false, true)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
-        } else
+        }
+        else
         {
             transform.DOKill();
             transform.localScale = _originalScale;
@@ -131,7 +133,9 @@ public class Node : MonoBehaviour, IClickable
     }
 
 #endif
+
     #region shake
+
     /// <summary>
     /// 开始循环震荡效果
     /// </summary>
@@ -142,14 +146,14 @@ public class Node : MonoBehaviour, IClickable
 
         // 创建震荡 Tween 并设置循环
         currentShakeTween = transform.DOShakeRotation(
-            duration: shakeDuration,
-            strength: new Vector3(shakeStrength, shakeStrength, shakeStrength),
-            vibrato: vibrato,
-            randomness: randomness,
-            fadeOut: false // 不自动减弱
-        )
-        .SetLoops(-1) // -1 表示无限循环
-        .SetEase(Ease.Linear); // 线性缓动保持均匀震荡
+                duration: shakeDuration,
+                strength: new Vector3(shakeStrength, shakeStrength, shakeStrength),
+                vibrato: vibrato,
+                randomness: randomness,
+                fadeOut: false // 不自动减弱
+            )
+            .SetLoops(-1) // -1 表示无限循环
+            .SetEase(Ease.Linear); // 线性缓动保持均匀震荡
     }
 
     /// <summary>
@@ -163,16 +167,19 @@ public class Node : MonoBehaviour, IClickable
             currentShakeTween.Kill(resetRotation); // 杀死 Tween 并可选重置旋转
             currentShakeTween = null;
         }
+
         if (resetRotation)
         {
             transform.rotation = Quaternion.identity;
         }
     }
+
     #endregion
+
     // TODO：节点作为目的地，高亮方式
     public void TargetNodeHighLight(bool isShow)
     {
-        if(isShow)
+        if (isShow)
         {
             // 放大
             transform.localScale *= 1.5f;
