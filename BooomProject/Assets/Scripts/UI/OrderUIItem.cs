@@ -16,6 +16,5 @@ public class OrderUIItem : MonoBehaviour {
     public TextMeshProUGUI distanceText;
     [Header("已接取订单")]
     public TextMeshProUGUI remainingTimeText;
-    public TextMeshProUGUI customerLandMarkText;
     public TextMeshProUGUI bubbleText;
 }

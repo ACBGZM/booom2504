@@ -12,7 +12,4 @@ public class CustomerSO : ScriptableObject
 
     [Tooltip("顾客姓名")]
     public string customerName;
-
-    [Tooltip("目标结点id")]
-    public int destNodeId;
 }

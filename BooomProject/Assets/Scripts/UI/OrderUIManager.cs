@@ -14,7 +14,6 @@ public class OrderUIManager : MonoBehaviour {
     [SerializeField] private Transform _acceptedOrderContainer;
     private OrderDataManager _orderDataManagerInstance;
     private TextMeshProUGUI _orderState;
-    private OrderUIPool _orderPool = new OrderUIPool();
 
     private void Start() {
         _orderDataManagerInstance = CommonGameplayManager.GetInstance().OrderDataManager;
@@ -34,20 +33,20 @@ public class OrderUIManager : MonoBehaviour {
     // 刷新可用订单UI
     private void RefreshAvailableOrdersUI() {
         ClearContainer(_availableOrderContainer);
-        List<RuntimeOrderSO> availableOrders = _orderDataManagerInstance.GetAvailableOrders();
-        foreach (var order in availableOrders) {
-            Transform orderItem = _orderPool.Get(_orderTemplatePrefab, _availableOrderContainer);
-            SetupAvailableOrderUI(orderItem, order);
+        var orders = _orderDataManagerInstance.GetAvailableOrders();
+        foreach (var order in orders) {
+            var item = Instantiate(_orderTemplatePrefab, _availableOrderContainer);
+            SetupAvailableOrderUI(item, order);
         }
     }
 
     // 刷新已接订单UI
     private void RefreshAcceptedOrdersUI() {
         ClearContainer(_acceptedOrderContainer);
-        List<RuntimeOrderSO> acceptedOrders = _orderDataManagerInstance.GetAcceptedOrders();
+        var acceptedOrders = _orderDataManagerInstance.GetAcceptedOrders();
         foreach (var order in acceptedOrders) {
-            Transform orderItem = _orderPool.Get(_myOrderTemplatePrefab, _acceptedOrderContainer);
-            SetupAcceptedOrderUI(orderItem, order);
+            var item = Instantiate(_myOrderTemplatePrefab, _acceptedOrderContainer);
+            SetupAcceptedOrderUI(item, order);
         }
     }
 
@@ -55,13 +54,16 @@ public class OrderUIManager : MonoBehaviour {
     private void SetupAvailableOrderUI(Transform item, RuntimeOrderSO order) {
         OrderUIItem ui = item.GetComponent<OrderUIItem>();
         if (ui == null) return;
+        ui.profileImage.sprite = null;
+        ui.customerAddressText.text = string.Empty;
+        ui.distanceText.text = string.Empty;
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
         if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 <size=+5><color=#5bb0ff>{order.sourceOrder.initialLimitTime}</color></size> 分钟内送达";
         if (ui.customerNameText != null) ui.customerNameText.text = order.sourceOrder.customerSO.customerName;
         if (ui.distanceText != null) ui.distanceText.text = order.currentDistance;
 
         if (ui.customerAddressText != null) ui.customerAddressText.text
-            = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)?._address;
+            = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.destinationNodeId)?._address;
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
             foreach (Transform child in ui.rewardContainer) {
                 if (child == ui.rewardIconPrefab) continue;
@@ -97,14 +99,17 @@ public class OrderUIManager : MonoBehaviour {
     // 设置已接订单UI项
     private void SetupAcceptedOrderUI(Transform item, RuntimeOrderSO order) {
         OrderUIItem ui = item.GetComponent<OrderUIItem>();
+        if (ui == null) return;
+        ui.remainingTimeText.text = string.Empty;
+        ui.profileImage.sprite = null;
+        ui.bubbleText.text = string.Empty;
+        ui.customerAddressText.text = string.Empty;
         if (ui.remainingTimeText != null) ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"剩余 <size=+5><color=#5bb0ff>{order.remainingMinutes.ToString()}</color></size> 分钟";
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
-        if (ui.customerLandMarkText != null) ui.customerLandMarkText.text = order.sourceOrder.destinationAddress;
         if (ui.bubbleText != null) ui.bubbleText.text = order.sourceOrder.bubble;
-
         if (ui.customerAddressText != null)
             ui.customerAddressText.text
-                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId)._addressDetail;
+                = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.destinationNodeId)._address;
         if (ui.rewardContainer != null && ui.rewardIconPrefab != null) {
             foreach (Transform child in ui.rewardContainer) {
                 if (child == ui.rewardIconPrefab) continue;
@@ -150,8 +155,8 @@ public class OrderUIManager : MonoBehaviour {
     }
 
     private void ClearContainer(Transform container) {
-        for (int i = container.childCount - 1; i >= 0; i--) {
-            _orderPool.Return(container.GetChild(i));
+        foreach (Transform child in container) {
+            Destroy(child.gameObject);
         }
     }
 
@@ -160,6 +165,5 @@ public class OrderUIManager : MonoBehaviour {
             _orderDataManagerInstance.OnAvailableOrdersChanged -= RefreshAvailableOrdersUI;
             _orderDataManagerInstance.OnAcceptedOrdersChanged -= RefreshAcceptedOrdersUI;
         }
-        _orderPool.ClearPool();
     }
 }

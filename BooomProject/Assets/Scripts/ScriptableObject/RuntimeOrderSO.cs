@@ -14,6 +14,7 @@ public class RuntimeOrderSO {
     public float currentDeliveryTime { get; set; }
     public float praiseProbability { get; set; }
     public List<QuickResponse> runtimeQuickResponses; // 运行时使用的副本
+    public List<ChatFragment> runtimeChatHistory;
 
     [Tooltip("订单评价")]
     public Evaluation orderEvaluation;
@@ -22,6 +23,7 @@ public class RuntimeOrderSO {
         this.sourceOrder = sourceOrder;
         currentState = OrderState.Available;
         runtimeQuickResponses = new List<QuickResponse>(sourceOrder.quickResponses);
+        runtimeChatHistory = new List<ChatFragment>(sourceOrder.chatHistory);
     }
 }
 
