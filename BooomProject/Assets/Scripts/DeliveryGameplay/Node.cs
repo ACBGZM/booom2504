@@ -18,15 +18,16 @@ public class Node : MonoBehaviour, IClickable
     #region 结点震荡
 
     [Header("震荡参数")] [Tooltip("单次震荡持续时间（秒）")] [SerializeField]
-    private float shakeDuration = 1f;
+    private float shakeDuration = 5f;
 
     [Tooltip("震荡强度（最大旋转角度）")] [SerializeField]
-    private float shakeStrength = 20f;
-
-    [Tooltip("每秒震动次数")] [SerializeField] private int vibrato = 20;
+    private float shakeStrength = 10f;
+    [Tooltip("两次震荡间隔时间（秒）")]
+    private float shakeInterval = 1f;
+    [Tooltip("每秒震动次数")] [SerializeField] private int vibrato = 1;
 
     [Tooltip("随机方向偏移角度（0-180）")] [SerializeField] [Range(0, 180)]
-    private float randomness = 90f;
+    private float randomness = 0f;
 
     private Tween currentShakeTween; // 当前震荡的 Tween 实例
 
@@ -143,17 +144,26 @@ public class Node : MonoBehaviour, IClickable
     {
         // 停止当前可能存在的震荡
         StopShake(false);
-
+      
         // 创建震荡 Tween 并设置循环
-        currentShakeTween = transform.DOShakeRotation(
-                duration: shakeDuration,
-                strength: new Vector3(shakeStrength, shakeStrength, shakeStrength),
-                vibrato: vibrato,
-                randomness: randomness,
-                fadeOut: false // 不自动减弱
-            )
-            .SetLoops(-1) // -1 表示无限循环
-            .SetEase(Ease.Linear); // 线性缓动保持均匀震荡
+        Sequence shakeSequence = DOTween.Sequence()
+             .Append(transform.DOShakeRotation( // 震荡阶段
+                 shakeDuration,
+                 new Vector3(0, 0, shakeStrength),
+                 vibrato,
+                 randomness,
+                 fadeOut: false
+             ))
+             .AppendInterval(shakeInterval) // 间隔阶段
+             .SetLoops(-1) // 无限循环（关键！）
+             .SetEase(Ease.Linear) // 线性缓动保证频率均匀
+        .OnStepComplete(() => // 每完成一次摇晃后复位（防累积）
+         {
+             transform.rotation = Quaternion.identity;
+         });
+
+        // 4. 绑定Tween到currentTween
+        currentShakeTween = shakeSequence;
     }
 
     /// <summary>
