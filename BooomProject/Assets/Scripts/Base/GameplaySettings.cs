@@ -49,7 +49,7 @@ public class GameplaySettings
 
     #region NodeAction
     // 360分钟触发CD
-    public const int TriggerCD = 360;
+    public const int TriggerCD = 0;
     // 红绿灯
     public const int traffic_speed_award = -1;
 
