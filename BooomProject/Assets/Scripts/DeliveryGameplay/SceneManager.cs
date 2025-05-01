@@ -30,8 +30,8 @@ public class GameSceneManager : MonoBehaviour {
 
     private IEnumerator LoadAsyncWithFadingOut(string targetScene)
     {
-        HandleSceneTransition();
         _fadeImage.DOFade(1f, _fadeOutDuration).SetEase(Ease.Linear);
+        HandleSceneTransition();
         yield return YieldHelper.WaitForSeconds(_fadeOutDuration);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetScene);
