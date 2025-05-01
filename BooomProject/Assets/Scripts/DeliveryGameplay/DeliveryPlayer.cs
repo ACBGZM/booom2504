@@ -66,7 +66,15 @@ public class DeliveryPlayer : MonoBehaviour
             float segmentDuration = _useSpeed ?
                 (segmentDistance / _moveSpeed)
                 : (segmentDistance / totalDistance * totalTime);
-
+            int nodeId = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
+            int tryNodeId = CommonGameplayManager.GetInstance().NodeGraphManager.TryToNode.NodeID;
+            float distance = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(tryNodeId, nodeId);
+            float costTime = distance / (CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value * 0.1f);
+           
+            int minute = (int)costTime;
+            Debug.Log($"路程消耗{minute} 分钟");
+            Debug.Log($"倍数 {minute / segmentDuration}");
+            CommonGameplayManager.GetInstance().TimeManager.SetTimeScale(minute / segmentDuration);
             while (t < 1f)
             {
                 t += Time.deltaTime / segmentDuration;

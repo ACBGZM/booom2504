@@ -60,7 +60,7 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Enable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Click.Disable();
 
-                CommonGameplayManager.GetInstance().TimeManager.SetTimeScale(1.0f);
+               // CommonGameplayManager.GetInstance().TimeManager.SetTimeScale(1.0f);
                 break;
 
             case EPlayerState.InCutscene:

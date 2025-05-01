@@ -141,8 +141,10 @@ public class NodeGraphManager : MonoBehaviour
 
     [SerializeField] private int _currentNodeID = -1;
     [SerializeField] private int _lastNodeID = -1;
+    [SerializeField] private int tryToNodeID = -1;
     public Node CurrentNode => GetNodeByIDRuntime(_currentNodeID);
     public Node LastNode => GetNodeByIDRuntime(_lastNodeID);
+    public Node TryToNode => GetNodeByIDRuntime(tryToNodeID);
     public void CheckAndMoveTo(Node targetNode)
     {
         if (CurrentNode.AdjacentNodes.ContainsKey(targetNode))
@@ -150,7 +152,7 @@ public class NodeGraphManager : MonoBehaviour
             ShowCanMoveNodes(CurrentNode, false);
             CurrentNode.OnLeave();
             targetNode.ShowIsMovingTo(true);
-
+            tryToNodeID = targetNode.NodeID;
             DeliveryGameplayManager.Instance.DeliveryPlayer.Move(CurrentNode.AdjacentNodes[targetNode]._path
             , () =>
             {
