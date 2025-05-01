@@ -6631,6 +6631,7 @@ MonoBehaviour:
   _allOrders:
   - {fileID: 11400000, guid: c677b406e6261684b9e361771bff3ba6, type: 2}
   - {fileID: 11400000, guid: 23b254cba180e6d40b0ce431b325f636, type: 2}
+  - {fileID: 11400000, guid: 8d61964a9803321419d345596d830cfe, type: 2}
 --- !u!1001 &1234768816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10433,6 +10434,7 @@ MonoBehaviour:
   _nodeGraphData: {fileID: 11400000, guid: 78e3c78cf697478408a44868e54308cb, type: 2}
   _currentNodeID: 1
   _lastNodeID: -1
+  tryToNodeID: -1
 --- !u!1 &1715897569
 GameObject:
   m_ObjectHideFlags: 0
