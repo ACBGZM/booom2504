@@ -17,7 +17,19 @@ public class Node : MonoBehaviour, IClickable
     public bool test;
 
     public string TargetSceneName;
+    #region 结点震荡
+    [Header("震荡参数")]
+    [Tooltip("单次震荡持续时间（秒）")]
+    [SerializeField] private float shakeDuration = 1f;
+    [Tooltip("震荡强度（最大旋转角度）")]
+    [SerializeField] private float shakeStrength = 20f;
+    [Tooltip("每秒震动次数")]
+    [SerializeField] private int vibrato = 20;
+    [Tooltip("随机方向偏移角度（0-180）")]
+    [SerializeField][Range(0, 180)] private float randomness = 90f;
 
+    private Tween currentShakeTween; // 当前震荡的 Tween 实例
+    #endregion
     public virtual void OnReach()
     {
         if (_executor != null)
@@ -119,10 +131,58 @@ public class Node : MonoBehaviour, IClickable
     }
 
 #endif
-
-    // TODO：节点作为目的地，高亮方式
-    public void TargetNodeHighLight(bool finished)
+    #region shake
+    /// <summary>
+    /// 开始循环震荡效果
+    /// </summary>
+    public void StartShake()
     {
-        test = finished;
+        // 停止当前可能存在的震荡
+        StopShake(false);
+
+        // 创建震荡 Tween 并设置循环
+        currentShakeTween = transform.DOShakeRotation(
+            duration: shakeDuration,
+            strength: shakeStrength,
+            vibrato: vibrato,
+            randomness: randomness,
+            fadeOut: false // 不自动减弱
+        )
+        .SetLoops(-1) // -1 表示无限循环
+        .SetEase(Ease.Linear); // 线性缓动保持均匀震荡
+    }
+
+    /// <summary>
+    /// 停止震荡效果
+    /// </summary>
+    /// <param name="resetRotation">是否重置为初始旋转角度</param>
+    public void StopShake(bool resetRotation = true)
+    {
+        if (currentShakeTween != null)
+        {
+            currentShakeTween.Kill(resetRotation); // 杀死 Tween 并可选重置旋转
+            currentShakeTween = null;
+        }
+        if (resetRotation)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+    }
+    #endregion
+    // TODO：节点作为目的地，高亮方式
+    public void TargetNodeHighLight(bool isShow)
+    {
+        if(isShow)
+        {
+            // 放大
+            transform.localScale *= 1.5f;
+            StartShake();
+        }
+        else
+        {
+            // 恢复
+            transform.localScale /= 1.5f;
+            StopShake();
+        }
     }
 }

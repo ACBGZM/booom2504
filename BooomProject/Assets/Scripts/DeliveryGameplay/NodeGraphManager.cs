@@ -267,7 +267,7 @@ public class NodeGraphManager : MonoBehaviour
         return dist[nodeIdTOIndex[currentNode], nodeIdTOIndex[targetNode]];
     }
 
-    public void ShowTargetNode(int nodeIdx, bool finished)
+    public void ShowTargetNode(int nodeIdx, bool isShow)
     {
         Node targetNode = GetNodeByIDRuntime(nodeIdx);
         if (targetNode == null || targetNode == default)
@@ -276,6 +276,6 @@ public class NodeGraphManager : MonoBehaviour
             return;
         }
 
-        targetNode.TargetNodeHighLight(finished);
+        targetNode.TargetNodeHighLight(isShow);
     }
 }
