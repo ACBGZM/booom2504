@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class DialogueBox : MonoBehaviour
 {
 // ==========================================
-    [Header("Components - Layout 1")]
-    [SerializeField] private GameObject m_layout_1;
+    [Header("Components - Layout 1")] [SerializeField]
+    private GameObject m_layout_1;
 
     [SerializeField] private AdvancedTMProUGUI m_text_content_l1;
 
@@ -21,8 +21,9 @@ public class DialogueBox : MonoBehaviour
     private Animator m_next_cursor_animator_l1;
 
 // ==========================================
-    [Header("Components - Layout 2")]
-    [SerializeField] private GameObject m_layout_2;
+    [Header("Components - Layout 2")] [SerializeField]
+    private GameObject m_layout_2;
+
     [SerializeField] private AdvancedTMProUGUI m_text_content_l2;
     [SerializeField] private GameObject m_next_cursor_l2;
     [SerializeField] private Image m_cg_image;
@@ -143,6 +144,8 @@ public class DialogueBox : MonoBehaviour
 
     public IEnumerator ShowText(Dialogue dialogue, bool auto_next, bool next_force_fadein)
     {
+        m_use_layout_1 = dialogue.m_use_layout_1;
+
         m_is_interactable = false;
         m_is_show_finished = false;
 
@@ -155,10 +158,25 @@ public class DialogueBox : MonoBehaviour
         m_text_can_skip = dialogue.m_can_skip;
         m_is_auto_play = auto_next;
 
-        m_speaker_name_text.SetText(dialogue.m_speaker_name);
-        m_speaker_avatar.sprite = dialogue.m_speaker_avatar;
+        m_layout_1.SetActive(m_use_layout_1);
+        m_layout_2.SetActive(!m_use_layout_1);
 
-        m_cg_image.sprite = dialogue.m_cg_sprite;
+        m_text_content = m_use_layout_1 ? m_text_content_l1 : m_text_content_l2;
+        m_next_cursor = m_use_layout_1 ? m_next_cursor_l1 : m_next_cursor_l2;
+        m_next_cursor_fade_effect = m_use_layout_1 ? m_next_cursor_fade_effect_l1 : m_next_cursor_fade_effect_l2;
+        m_next_cursor_animator = m_use_layout_1 ? m_next_cursor_animator_l1 : m_next_cursor_animator_l2;
+
+        if (m_use_layout_1)
+        {
+            m_speaker_name_text.SetText(dialogue.m_speaker_name);
+            m_speaker_avatar.sprite = dialogue.m_speaker_avatar;
+        }
+        else
+        {
+            m_cg_image.GetComponent<FadeEffect>()
+                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+            m_cg_image.sprite = dialogue.m_cg_sprite;
+        }
 
         AdvancedTMProUGUI.TextDisplayMethod next_text_method = dialogue.m_display_method;
         if (next_force_fadein && m_text_can_skip) // can not force fading in a dialogue which can not be skipped
@@ -185,39 +203,14 @@ public class DialogueBox : MonoBehaviour
         if (m_first_dialogue != null)
         {
             m_use_layout_1 = m_first_dialogue.m_use_layout_1;
-            if (m_first_dialogue.m_use_layout_1)
-            {
-                m_speaker_name_text.SetText(m_first_dialogue.m_speaker_name);
-                m_speaker_avatar.sprite = m_first_dialogue.m_speaker_avatar;
-            }
-            else
-            {
-                m_cg_image.sprite = m_first_dialogue.m_cg_sprite;
-            }
+            m_speaker_name_text.SetText(m_first_dialogue.m_speaker_name);
+            m_speaker_avatar.sprite = m_first_dialogue.m_speaker_avatar;
+            m_cg_image.sprite = m_first_dialogue.m_cg_sprite;
         }
 
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
-
-            if (m_use_layout_1)
-            {
-                m_layout_1.SetActive(true);
-                m_layout_2.SetActive(false);
-                m_text_content = m_text_content_l1;
-                m_next_cursor = m_next_cursor_l1;
-                m_next_cursor_fade_effect = m_next_cursor_fade_effect_l1;
-                m_next_cursor_animator = m_next_cursor_animator_l1;
-            }
-            else
-            {
-                m_layout_1.SetActive(false);
-                m_layout_2.SetActive(true);
-                m_text_content = m_text_content_l2;
-                m_next_cursor = m_next_cursor_l2;
-                m_next_cursor_fade_effect = m_next_cursor_fade_effect_l2;
-                m_next_cursor_animator = m_next_cursor_animator_l2;
-            }
 
             m_box_fade_effect.m_render_opacity = 0.0f;
             m_box_fade_effect.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
@@ -240,10 +233,14 @@ public class DialogueBox : MonoBehaviour
             callback?.Invoke();
         }
 
+        m_layout_1.SetActive(m_use_layout_1);
+        m_layout_2.SetActive(!m_use_layout_1);
+
+        m_text_content = m_use_layout_1 ? m_text_content_l1 : m_text_content_l2;
+        m_next_cursor_fade_effect = m_use_layout_1 ? m_next_cursor_fade_effect_l1 : m_next_cursor_fade_effect_l2;
+
         m_text_content.m_finish_action = CurrentTextFinish;
-
         m_text_content.Initialize();
-
         m_next_cursor_fade_effect.m_render_opacity = 0.0f;
     }
 }
