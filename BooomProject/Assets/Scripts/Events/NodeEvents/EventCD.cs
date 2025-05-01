@@ -8,7 +8,7 @@ public class EventCD : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        bool cd = true;
+        bool cd = false;
         // 以分钟为单位
         int currentTime = CommonGameplayManager.GetInstance().TimeManager.currentTime.day * 24 * 60
                           + CommonGameplayManager.GetInstance().TimeManager.currentTime.hour * 60
@@ -20,6 +20,7 @@ public class EventCD : EventNodeBase
         }
 
         m_state = EventNodeState.Finished;
+        cd = false;
         if (cd)
         {
             Debug.Log($"事件冷却中，冷却时间为{GameplaySettings.TriggerCD - (currentTime - lastTriggerTime)}分钟");

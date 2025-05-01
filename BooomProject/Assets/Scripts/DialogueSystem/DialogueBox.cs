@@ -1,34 +1,20 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueBox : MonoBehaviour
 {
-// ==========================================
-    [Header("Components - Layout 1")] [SerializeField]
-    private GameObject m_layout_1;
-
-    [SerializeField] private AdvancedTMProUGUI m_text_content_l1;
+    [SerializeField] private AdvancedTMProUGUI m_text_content;
 
     [SerializeField] private GameObject m_character_panel;
     private AdvancedTMProUGUI m_speaker_name_text;
     private Image m_speaker_avatar;
 
-// ==========================================
-    [Header("Components - Layout 2")] [SerializeField]
-    private GameObject m_layout_2;
-
-    [SerializeField] private AdvancedTMProUGUI m_text_content_l2;
+    [SerializeField] private GameObject m_cg_panel;
     [SerializeField] private Image m_cg_image;
 
-// ==========================================
-    private AdvancedTMProUGUI m_text_content;
-
     private FadeEffect m_box_fade_effect;
-
-    private bool m_use_layout_1 = true;
 
     private bool m_is_interactable;
     private bool m_is_show_finished;
@@ -121,8 +107,6 @@ public class DialogueBox : MonoBehaviour
 
     public IEnumerator ShowText(Dialogue dialogue, bool auto_next, bool next_force_fadein)
     {
-        m_use_layout_1 = dialogue.m_use_layout_1;
-
         m_is_interactable = false;
         m_is_show_finished = false;
 
@@ -135,22 +119,10 @@ public class DialogueBox : MonoBehaviour
         m_text_can_skip = dialogue.m_can_skip;
         m_is_auto_play = auto_next;
 
-        m_layout_1.SetActive(m_use_layout_1);
-        m_layout_2.SetActive(!m_use_layout_1);
+        m_speaker_name_text.SetText(dialogue.m_speaker_name);
+        m_speaker_avatar.sprite = dialogue.m_speaker_avatar;
 
-        m_text_content = m_use_layout_1 ? m_text_content_l1 : m_text_content_l2;
-
-        if (m_use_layout_1)
-        {
-            m_speaker_name_text.SetText(dialogue.m_speaker_name);
-            m_speaker_avatar.sprite = dialogue.m_speaker_avatar;
-        }
-        else
-        {
-            m_cg_image.GetComponent<FadeEffect>()
-                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
-            m_cg_image.sprite = dialogue.m_cg_sprite;
-        }
+        m_cg_image.sprite = dialogue.m_cg_sprite;
 
         AdvancedTMProUGUI.TextDisplayMethod next_text_method = dialogue.m_display_method;
         if (next_force_fadein && m_text_can_skip) // can not force fading in a dialogue which can not be skipped
@@ -169,6 +141,26 @@ public class DialogueBox : MonoBehaviour
             m_text_content.gameObject.SetActive(true);
         }
 
+        if (m_speaker_avatar.sprite != null)
+        {
+            m_speaker_avatar.GetComponent<FadeEffect>()
+                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+        }
+        else
+        {
+            m_speaker_avatar.GetComponent<CanvasGroup>().alpha = 0.0f;
+        }
+
+        if (m_cg_image.sprite != null)
+        {
+            m_cg_panel.GetComponent<FadeEffect>()
+                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+        }
+        else
+        {
+            m_cg_panel.GetComponent<CanvasGroup>().alpha = 0.0f;
+        }
+
         m_text_content.StartCoroutine(m_text_content.ShowText(dialogue.m_text, next_text_method));
     }
 
@@ -176,7 +168,6 @@ public class DialogueBox : MonoBehaviour
     {
         if (m_first_dialogue != null)
         {
-            m_use_layout_1 = m_first_dialogue.m_use_layout_1;
             m_speaker_name_text.SetText(m_first_dialogue.m_speaker_name);
             m_speaker_avatar.sprite = m_first_dialogue.m_speaker_avatar;
             m_cg_image.sprite = m_first_dialogue.m_cg_sprite;
@@ -189,28 +180,26 @@ public class DialogueBox : MonoBehaviour
             m_box_fade_effect.m_render_opacity = 0.0f;
             m_box_fade_effect.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
 
-            if (m_use_layout_1)
+            if (m_speaker_avatar.sprite != null)
             {
-                m_speaker_name_text.GetComponent<FadeEffect>()
-                    ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
                 m_speaker_avatar.GetComponent<FadeEffect>()
-                    ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
+                    ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
             }
-            else
+
+            if (m_cg_image.sprite != null)
             {
-                m_cg_image.GetComponent<FadeEffect>()
-                    ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
+                m_cg_panel.GetComponent<FadeEffect>()
+                    ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
             }
+
+            m_speaker_name_text.GetComponent<FadeEffect>()
+                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
+
         }
         else
         {
             callback?.Invoke();
         }
-
-        m_layout_1.SetActive(m_use_layout_1);
-        m_layout_2.SetActive(!m_use_layout_1);
-
-        m_text_content = m_use_layout_1 ? m_text_content_l1 : m_text_content_l2;
 
         m_text_content.m_finish_action = CurrentTextFinish;
         m_text_content.Initialize();

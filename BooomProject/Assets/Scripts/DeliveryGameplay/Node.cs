@@ -155,9 +155,9 @@ public class Node : MonoBehaviour, IClickable
                  fadeOut: false
              ))
              .AppendInterval(shakeInterval) // 间隔阶段
-             .SetLoops(-1) // 无限循环（关键！）
+             .SetLoops(-1) // 无限循环
              .SetEase(Ease.Linear) // 线性缓动保证频率均匀
-        .OnStepComplete(() => // 每完成一次摇晃后复位（防累积）
+        .OnStepComplete(() => // 每完成一次摇晃后复位
          {
              transform.rotation = Quaternion.identity;
          });
