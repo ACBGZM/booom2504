@@ -269,8 +269,13 @@ public class NodeGraphManager : MonoBehaviour
 
     public void ShowTargetNode(int nodeIdx, bool finished)
     {
-        if (nodeIdx == -1) return;
+        Node targetNode = GetNodeByIDRuntime(nodeIdx);
+        if (targetNode == null || targetNode == default)
+        {
+            Debug.LogError("Invalid target node id!");
+            return;
+        }
 
-        GetNodeByIDRuntime(nodeIdx).TargetNodeHighLight(finished);
+        targetNode.TargetNodeHighLight(finished);
     }
 }

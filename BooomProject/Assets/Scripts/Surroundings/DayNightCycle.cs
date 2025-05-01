@@ -4,10 +4,17 @@ using UnityEngine;
 public class DayNightCycle : MonoBehaviour
 {
     [Header("时间节点配置")]
-    [SerializeField] private int morningHour = 6;    // 早晨切换时间
-    [SerializeField] private int noonHour = 10;      // 中午切换时间
-    [SerializeField] private int eveningHour = 18;   // 傍晚切换时间
-    [SerializeField] private int nightHour = 21;     // 夜晚切换时间
+
+    [SerializeField] private int dawnHour;    // 早晨切换时间
+    [SerializeField] private int dawnMinute;    // 早晨切换时间
+    [SerializeField] private int morningHour;    // 早晨切换时间
+    [SerializeField] private int morningMinute;  // 早晨切换分钟
+    [SerializeField] private int noonHour;      // 中午切换时间
+    [SerializeField] private int noonMinute;     // 中午切换分钟
+    [SerializeField] private int duskHour;   // 傍晚切换时间
+    [SerializeField] private int duskMinute;  // 傍晚切换分钟
+    [SerializeField] private int nightHour;     // 夜晚切换时间
+    [SerializeField] private int nightMinute;    // 夜晚切换分钟
 
     [Header("背景贴图")]
     [SerializeField] private Sprite morningSprite;
@@ -26,6 +33,22 @@ public class DayNightCycle : MonoBehaviour
     private Coroutine fadeCoroutine;
     private bool usingRendererA = true;
 
+
+    private float _dawnTime;
+    private float _morningTime;
+    private float _noonTime;
+    private float _duskTime;
+    private float _nightTime;
+
+    private void Awake()
+    {
+        _dawnTime = dawnHour + dawnMinute / 60.0f;
+        _morningTime = morningHour + morningMinute / 60.0f;
+        _noonTime = noonHour + noonMinute / 60.0f;
+        _duskTime = duskHour + duskMinute / 60.0f;
+        _nightTime = nightHour + nightMinute / 60.0f;
+    }
+
     private void Start()
     {
         if (rendererA != null)
@@ -33,14 +56,14 @@ public class DayNightCycle : MonoBehaviour
         if (rendererB != null)
             rendererB.color = new Color(1, 1, 1, 0);
         // 监听小时变化
-        timeManager.OnHourPassed.AddListener(UpdateBackground);
+        timeManager.OnMinutePassed.AddListener(UpdateBackground);
         // 初始化
         UpdateBackground(timeManager.currentTime);
     }
 
     private void UpdateBackground(GameTime time)
     {
-        Sprite targetSprite = GetBackgroundByTime(time.hour);
+        Sprite targetSprite = GetBackgroundByTime(time.hour, time.minute);
         SpriteRenderer backgroundRenderer = usingRendererA ? rendererA : rendererB;
         if (backgroundRenderer.sprite != targetSprite)
         {
@@ -69,18 +92,21 @@ public class DayNightCycle : MonoBehaviour
         usingRendererA = !usingRendererA;
     }
 
-    private Sprite GetBackgroundByTime(int hour)
+    private Sprite GetBackgroundByTime(int hour, int minute)
     {
-        if (hour >= nightHour || hour < morningHour)
+        float time = hour + minute / 60.0f;
+
+        if (time >= _nightTime || time < _dawnTime)
         {
             return nightSprite;
-        } else if (hour >= eveningHour)
+        } else if (time >= _duskTime && time < _nightTime)
         {
             return eveningSprite;
-        } else if (hour >= noonHour)
+        } else if (time >= _noonTime && time < _duskTime)
         {
             return noonSprite;
-        } else if (hour >= morningHour)
+        } else if (time >= _morningTime && time < _noonTime
+                   || time >= _dawnTime && time < _morningTime) // todo: dawn
         {
             return morningSprite;
         }

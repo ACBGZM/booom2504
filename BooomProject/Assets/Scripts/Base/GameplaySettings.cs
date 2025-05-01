@@ -19,7 +19,7 @@ public class GameplaySettings
     public const float map_move_speed = 10f;
     public const float map_scroll_speed = 5f;
     public const float map_drag_speed = 50f;
-    
+
     #endregion
 
     #region Chat
@@ -67,4 +67,15 @@ public class GameplaySettings
 
     public const int takeout_cabinet_punishment = 0;
     #endregion
+
+
+
+    public const int _wakeUpHour = 6;
+    public const int _wakeUpMinute = 30;
+    public const int _offWorkHour = 19;
+    public const int _offWorkMinute = 30;
+    public const int _endDayHour = 20;
+    public const int _endDayMinute = 00;
+    public const int _maxGameDayCount = 7;
+
 }

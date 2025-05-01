@@ -17,7 +17,7 @@ MonoBehaviour:
   initialLimitTime: 400
   isSpecialOrder: 1
   baseReward: 4
-  orderEvent: {fileID: 11400000, guid: d55de1589da076a428ffdece5e6e1c28, type: 2}
+  orderEvent: {fileID: 11400000, guid: 0551a3a000bcfd44f9cc9d74cea881bb, type: 2}
   bubble: 
   chatHistory:
   - time: 6:00
@@ -27,13 +27,11 @@ MonoBehaviour:
   quickResponses:
   - buttonText: "\u4E0D\u662F\u6697\u7684\u95EE\u9898"
     responseText: "\u6211\u89C9\u5F97\u4E0D\u662F\u6697\u7684\u95EE\u9898"
-    cannotReatedly: 1
     customerResponseText: "\u522B\u5BB3\u6015\uFF0C\u6211\u4F4F\u7740\u90FD\u4E60\u60EF\u4E86"
-    isGoodReputation: 1
+    responseEvaluate: 2
   - buttonText: "\u611F\u8C22"
     responseText: "\u8C22\u8C22\u63D0\u9192"
-    cannotReatedly: 1
     customerResponseText: "\u5916\u5356\u6211\u7684\u5916\u5356\u597D\u60F3\u5403"
-    isGoodReputation: 1
+    responseEvaluate: 2
   destinationAddress: 
   destinationNodeId: 2

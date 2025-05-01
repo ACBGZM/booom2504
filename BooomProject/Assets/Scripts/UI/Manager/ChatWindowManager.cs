@@ -45,7 +45,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         _currentOrder = order;
         _tabArea.gameObject.SetActive(false);
         // 设置初始回复
-        if (_currentOrder.sourceOrder.quickResponses != null && _currentOrder.sourceOrder.quickResponses.Count > 0) {
+        if (_currentOrder.runtimeQuickResponses != null && _currentOrder.runtimeQuickResponses.Count > 0) {
             _replyButtonContainer.gameObject.SetActive(true);
         } else {
             _replyButtonContainer.gameObject.SetActive(false);
@@ -74,12 +74,12 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         if (_replyButtonContainer == null || _defaultReplyButton == null) return;
         if (_currentOrder == null ||
             _currentOrder.sourceOrder == null ||
-            _currentOrder.sourceOrder.quickResponses == null) {
+            _currentOrder.runtimeQuickResponses == null) {
             _replyButtonContainer.gameObject.SetActive(false);
             return;
         }
 
-        List<QuickResponse> currentReply = _currentOrder.sourceOrder.quickResponses;
+        List<QuickResponse> currentReply = _currentOrder.runtimeQuickResponses;
         _replyButtonContainer.gameObject.SetActive(currentReply.Count > 0);
 
         Button[] existingButtons = _replyButtonContainer.GetComponentsInChildren<Button>(true);
@@ -119,13 +119,13 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         int localIndex = index;
         QuickResponse localResponse = response;
         // 添加新监听
-        button.onClick.AddListener(() => HandleReplyClick(localResponse, localIndex, response.isGoodReputation));
+        button.onClick.AddListener(() => HandleReplyClick(localResponse, localIndex, response.responseEvaluate));
     }
 
     /// <summary>
     /// 处理回复按钮点击事件
     /// </summary>
-    private void HandleReplyClick(QuickResponse response, int index, bool isGood) {
+    private void HandleReplyClick(QuickResponse response, int index, Evaluation responseEvaluate) {
         if (_currentOrder == null || response == null) return;
         // 生成聊天记录
         string currentTime = CommonGameplayManager.GetInstance().TimeManager.currentTime.GetHourAndMinute();
@@ -137,14 +137,17 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         );
         // 更新数据
         _history.Add(newChat);
-        if (response.cannotReatedly) {
-            _currentOrder.sourceOrder.quickResponses.Clear();
-            StartCoroutine(RefreshButtonsAfterFrame()); // 延迟刷新
-        }
+        _currentOrder.runtimeQuickResponses.Clear();
+        StartCoroutine(RefreshButtonsAfterFrame()); // 延迟刷新
         // 更新UI
         UpdateContent();
         _scrollRect.normalizedPosition = Vector2.zero;
-        // --------------------------------TODO 用户差评------------------------------
+        // 用户评价
+        if (_currentOrder.sourceOrder.isSpecialOrder) {
+            _currentOrder.orderEvaluation = Evaluation.None;
+        } else {
+            _currentOrder.orderEvaluation = responseEvaluate;
+        }
         if (!string.IsNullOrEmpty(response.customerResponseText)) {
             StartCoroutine(ShowCustomerReply(response.customerResponseText, 1.5f));
         }
@@ -182,10 +185,8 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         for (int i = 0; i < _itemsParent.childCount; i++) {
             Destroy(_itemsParent.GetChild(i).gameObject);
         }
-        StartCoroutine(ShowCustomerReply(1.5f));
         CreateChat();
     }
-    private IEnumerator ShowCustomerReply(float delay) { yield return new WaitForSeconds(delay); }
 
     public void Close() {
         _tabArea.gameObject.SetActive(true);

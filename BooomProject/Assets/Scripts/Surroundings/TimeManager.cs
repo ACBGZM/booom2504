@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,11 +23,25 @@ public class TimeManager : MonoBehaviour
     private TextMeshProUGUI _currentTimeText;
     private TextMeshProUGUI _currentDayText;
     private const string SAVE_KEY = "GameTimeData";
+    private float _offWorkTime;
+    private float _endDayTime;
+
+    enum DayStatus
+    {
+        Work,
+        OffWork
+    };
+    private DayStatus _dayStatus = DayStatus.Work;
 
     void Awake() {
         SceneManager.sceneLoaded += OnSceneLoaded; // 注册场景加载事件
         // LoadTime(); // 加载保存的时间
         FindAndUpdateTimeDisplay(); // 初始化查找
+
+        OnMinutePassed.AddListener(CheckAndNotifyTimeEvents);
+
+        _offWorkTime = GameplaySettings._offWorkHour + GameplaySettings._offWorkMinute / 60.0f;
+        _endDayTime = GameplaySettings._endDayHour + GameplaySettings._endDayMinute / 60.0f;
     }
 
     private void OnDestroy() {
@@ -35,25 +50,34 @@ public class TimeManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         FindAndUpdateTimeDisplay();
+        _isPaused = false;
     }
 
     private void FindAndUpdateTimeDisplay() {
-        _currentTimeText = FindTimeTextInScene();
+        FindTimeTextInScene();
         UpdateUI();
     }
 
-    private TextMeshProUGUI FindTimeTextInScene() {
+    private void FindTimeTextInScene() {
         GameObject timeDisplayObj = GameObject.FindWithTag("TimeDisplay");
         if (timeDisplayObj != null) {
-            return timeDisplayObj.GetComponent<TextMeshProUGUI>();
+            _currentTimeText = timeDisplayObj.GetComponent<TextMeshProUGUI>();
         }
-        Debug.LogWarning("TimeDisplay object not found in scene.");
-        return null;
+
+        GameObject dayDisplay = GameObject.FindWithTag("DayDisplay");
+        if (dayDisplay != null) {
+            _currentDayText = dayDisplay.GetComponent<TextMeshProUGUI>();
+        }
     }
 
     private void UpdateUI() {
         if (_currentTimeText != null) {
             _currentTimeText.text = currentTime.GetHourAndMinute();
+        }
+
+        if (_currentDayText != null)
+        {
+            _currentDayText.text = currentTime.GetDay();
         }
     }
 
@@ -132,10 +156,37 @@ public class TimeManager : MonoBehaviour
         SaveTime();
     }
 */
-    public void UpdateTimeDisplay(TextMeshProUGUI newDisplay) {
-        _currentTimeText = newDisplay;
-        if (_currentTimeText != null) {
-            _currentTimeText.text = currentTime.ToString();
+
+    public void GoToNextDay()
+    {
+        ++currentTime.day;
+        currentTime.hour = GameplaySettings._wakeUpHour;
+        currentTime.minute = GameplaySettings._wakeUpMinute;
+
+        _isPaused = true;
+
+        OnDayPassed?.Invoke(currentTime);
+
+        _dayStatus = DayStatus.Work;
+    }
+
+    public bool IsGameOver()
+    {
+        return currentTime.day > GameplaySettings._maxGameDayCount;
+    }
+
+    private void CheckAndNotifyTimeEvents(GameTime time)
+    {
+        float t = currentTime.hour + currentTime.minute / 60.0f;
+        if (t >= _offWorkTime && _dayStatus == DayStatus.Work)
+        {
+            EventHandlerManager.EndWorking();
+            _dayStatus = DayStatus.OffWork;
+        }
+
+        if (t >= _endDayTime && _dayStatus == DayStatus.OffWork)
+        {
+            EventHandlerManager.EndDay();
         }
     }
 }

@@ -21,6 +21,10 @@ public class PlayerDataManager : MonoBehaviour {
     public BaseStat<int> Medals = new BaseStat<int>("Medals", 0, 0, int.MaxValue);
     [Tooltip("特殊订单UID与是否完成")]
     public Dictionary<string, bool> orderSaves = new Dictionary<string, bool>();
+    [Tooltip("订单完成总数")]
+    public int finishedOrderCount;
+    [Tooltip("订单好评数")]
+    public int goodOrderCount;
     //[Header("自动保存设置")]
     //[SerializeField] private bool _autoSave = true;
     //[SerializeField, Range(30, 300)] private float _saveInterval = 60f;
@@ -126,6 +130,8 @@ public class PlayerDataManager : MonoBehaviour {
             Reputation.Value = data.reputation;
             Rating.Value = data.rating;
             Medals.Value = data.medals;
+            finishedOrderCount = data.finishedOrderCount;
+            goodOrderCount = data.goodOrderCount;
             // 加载订单数据
             orderSaves.Clear();
             foreach (var pair in data.orderSaves) {

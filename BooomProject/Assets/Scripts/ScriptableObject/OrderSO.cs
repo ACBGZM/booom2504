@@ -46,10 +46,8 @@ public class QuickResponse {
     public string buttonText;
     [Tooltip("实际发送文本")]
     public string responseText;
-    [Tooltip("是否可以重复发送")]
-    public bool cannotReatedly = true;
     [Tooltip("点击后客户的回复文本")]
     public string customerResponseText;
-    [Header("是否好评")]
-    public bool isGoodReputation;
+    [Header("选项评价")]
+    public Evaluation responseEvaluate;
 }

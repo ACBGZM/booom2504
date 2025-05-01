@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RuntimeOrderSO {
@@ -12,12 +13,15 @@ public class RuntimeOrderSO {
     public string currentDistance { get; set; }
     public float currentDeliveryTime { get; set; }
     public float praiseProbability { get; set; }
+    public List<QuickResponse> runtimeQuickResponses; // 运行时使用的副本
+
     [Tooltip("订单评价")]
     public Evaluation orderEvaluation;
     public RuntimeOrderSO(OrderSO sourceOrder) {
         sourceOrder.bubble = sourceOrder.chatHistory.Count == 0 ? "未送达" : sourceOrder.chatHistory[0].content;
         this.sourceOrder = sourceOrder;
         currentState = OrderState.Available;
+        runtimeQuickResponses = new List<QuickResponse>(sourceOrder.quickResponses);
     }
 }
 

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06e33720b1883a4ba650714e43b1430, type: 3}
+  m_Name: SpecialOrder 4
+  m_EditorClassIdentifier: 
+  customerSO: {fileID: 11400000, guid: 94bdc5ab29579bb4d91e740c4a80c9e5, type: 2}
+  orderUID: L1
+  initialLimitTime: 300
+  isSpecialOrder: 1
+  baseReward: 3
+  orderEvent: {fileID: 11400000, guid: 87b269ca450338449b0a065de0ab02e2, type: 2}
+  bubble: 
+  chatHistory:
+  - time: 6:00
+    profile: {fileID: 0}
+    content: "\u9001\u5230\u70E7\u70E4\u644A\u4E0A\u54E6"
+    left: 1
+  quickResponses:
+  - buttonText: "\u597D\u7684"
+    responseText: "\u597D\u7684\uFF0C\u9001\u8FBE\u901A\u77E5\u60A8"
+    cannotReatedly: 1
+    customerResponseText: "\u8F9B\u82E6\u4E86"
+    isGoodReputation: 1
+  - buttonText: "\u95EE\u5730\u5740"
+    responseText: "\u524D\u6D77\u6808\u6865\u5BF9\u9762\u7684\u70E7\u70E4\u644A\u662F\u5417\uFF1F"
+    cannotReatedly: 1
+    customerResponseText: "\u5BF9\u54E6"
+    isGoodReputation: 1
+  destinationAddress: 
+  destinationNodeId: 0
