@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 0
   m_responses:
-  - m_text: "\u660E\u767D!"
+  - m_text: "\u660E\u767D\uFF01"
     m_executor: {fileID: 0}
   m_default_select_index: -1
   m_must_loop_all: 0

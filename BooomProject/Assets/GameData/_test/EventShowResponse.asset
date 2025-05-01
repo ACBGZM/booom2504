@@ -15,7 +15,7 @@ MonoBehaviour:
   m_state: 0
   m_responses:
   - m_text: "\u9009\u62E9A"
-    m_executor: {fileID: 11400000, guid: a24e9746375bcbd40b22b6058bec1296, type: 2}
+    m_executor: {fileID: 11400000, guid: 3b5b2f3a076ef674089bfb8bb69cb177, type: 2}
   - m_text: "\u9009\u62E9B"
     m_executor: {fileID: 11400000, guid: 606850ea0ab0ffa409fe3f7b1bc0d42c, type: 2}
   - m_text: obscure angle
