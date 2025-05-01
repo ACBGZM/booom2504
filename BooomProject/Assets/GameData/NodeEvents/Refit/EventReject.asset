@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 146d275c4116d6045b27fec4e42f57bc, type: 3}
-  m_Name: EventCD
+  m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
+  m_Name: EventReject
   m_EditorClassIdentifier: 
-  m_state: 2
-  lastTriggerTime: 0
+  m_event_nodes:
+  - {fileID: 11400000, guid: 0f373583e150508409515e120c71f87f, type: 2}

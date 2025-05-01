@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
-  m_Name: FailureDialogue
+  m_Name: RejectDialogue
   m_EditorClassIdentifier: 
-  m_state: 2
+  m_state: 0
   m_dialogues:
-  - m_speaker_name: "\u3010\u7EA2\u7EFF\u706F\u3011"
+  - m_speaker_name: "\u3010\u8FD8\u662F\u7B97\u4E86\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: d31ab305c21ca014e86dd68e7b3541e1, type: 3}
-    m_text: "\u4E00\u8F86\u5927\u8D27\u8F66\u6A2A\u51B2\u8FC7\u6765\uFF0C\u4F60\u731B\u5730\u5239\u8F66\uFF0C\u60CA\u51FA\u4E86\u4E00\u8EAB\u51B7\u6C57\u3002"
+    m_text: "\u591A\u4E00\u4E8B\u4E0D\u5982\u5C11\u4E00\u4E8B\uFF0C\u8FD8\u662F\u7B97\u4E86\u5427\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_use_layout_1: 0
-    m_cg_sprite: {fileID: 21300000, guid: b87953600b7088248bb409f30f2ec7f6, type: 3}
+    m_cg_sprite: {fileID: 21300000, guid: 1f32054690fe42b45a396645bff4dfb7, type: 3}

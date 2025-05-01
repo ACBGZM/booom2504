@@ -17,6 +17,6 @@ MonoBehaviour:
   - m_text: "\u3010\u6539\u88C5\uFF01\u3011"
     m_executor: {fileID: 11400000, guid: 85df90e393e626041bc4019881e4a640, type: 2}
   - m_text: "\u3010\u8FD8\u662F\u7B97\u4E86\u3011"
-    m_executor: {fileID: 0}
+    m_executor: {fileID: 11400000, guid: 55fdb8765cc47c74ea65b4828420cdbb, type: 2}
   m_default_select_index: -1
   m_must_loop_all: 0
