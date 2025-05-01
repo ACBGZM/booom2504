@@ -94,7 +94,7 @@ public class Node : MonoBehaviour, IClickable
     {
         if (canMove)
         {
-            transform.DOScale(_originalScale * 1.2f, 0.5f)
+            transform.DOScale(_originalScale * 1.1f, 1.0f)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
         } else
@@ -108,7 +108,7 @@ public class Node : MonoBehaviour, IClickable
     {
         if (isMovingTo)
         {
-            transform.DOScale(_originalScale * 1.5f, 0.3f)
+            transform.DOShakePosition(1.0f, 0.1f, 10, 90, false, true)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
         } else

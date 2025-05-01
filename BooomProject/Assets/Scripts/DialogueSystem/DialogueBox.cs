@@ -16,25 +16,15 @@ public class DialogueBox : MonoBehaviour
     private AdvancedTMProUGUI m_speaker_name_text;
     private Image m_speaker_avatar;
 
-    [SerializeField] private GameObject m_next_cursor_l1;
-    private FadeEffect m_next_cursor_fade_effect_l1;
-    private Animator m_next_cursor_animator_l1;
-
 // ==========================================
     [Header("Components - Layout 2")] [SerializeField]
     private GameObject m_layout_2;
 
     [SerializeField] private AdvancedTMProUGUI m_text_content_l2;
-    [SerializeField] private GameObject m_next_cursor_l2;
     [SerializeField] private Image m_cg_image;
-    private FadeEffect m_next_cursor_fade_effect_l2;
-    private Animator m_next_cursor_animator_l2;
 
 // ==========================================
     private AdvancedTMProUGUI m_text_content;
-    private GameObject m_next_cursor;
-    private FadeEffect m_next_cursor_fade_effect;
-    private Animator m_next_cursor_animator;
 
     private FadeEffect m_box_fade_effect;
 
@@ -63,12 +53,6 @@ public class DialogueBox : MonoBehaviour
 
         m_speaker_name_text = m_character_panel.GetComponentInChildren<AdvancedTMProUGUI>();
         m_speaker_avatar = m_character_panel.GetComponentInChildren<Image>();
-
-        m_next_cursor_fade_effect_l1 = m_next_cursor_l1.GetComponent<FadeEffect>();
-        m_next_cursor_animator_l1 = m_next_cursor_l1.GetComponent<Animator>();
-
-        m_next_cursor_fade_effect_l2 = m_next_cursor_l2.GetComponent<FadeEffect>();
-        m_next_cursor_animator_l2 = m_next_cursor_l2.GetComponent<Animator>();
     }
 
     public void Update()
@@ -86,17 +70,11 @@ public class DialogueBox : MonoBehaviour
             if (EventHandlerManager.CallGetCommonInputHandler().UIInputActions.Cancel.triggered)
             {
                 m_is_interactable = false;
-                m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
-                m_next_cursor_fade_effect.Fade(0.0f, GameplaySettings.m_next_cursor_fade_duration, null);
-
                 m_next_text_status_action(true);
             }
             else if (EventHandlerManager.CallGetCommonInputHandler().UIInputActions.Submit.triggered)
             {
                 m_is_interactable = false;
-                m_next_cursor_animator.SetTrigger(GameProperties.m_next_cursor_click_animation_hash);
-                m_next_cursor_fade_effect.Fade(0.0f, GameplaySettings.m_next_cursor_fade_duration, null);
-
                 m_next_text_status_action(false);
             }
         }
@@ -129,7 +107,6 @@ public class DialogueBox : MonoBehaviour
         {
             m_is_interactable = true;
             m_is_show_finished = true;
-            m_next_cursor_fade_effect.Fade(1, 0.5f, null);
         }
     }
 
@@ -162,9 +139,6 @@ public class DialogueBox : MonoBehaviour
         m_layout_2.SetActive(!m_use_layout_1);
 
         m_text_content = m_use_layout_1 ? m_text_content_l1 : m_text_content_l2;
-        m_next_cursor = m_use_layout_1 ? m_next_cursor_l1 : m_next_cursor_l2;
-        m_next_cursor_fade_effect = m_use_layout_1 ? m_next_cursor_fade_effect_l1 : m_next_cursor_fade_effect_l2;
-        m_next_cursor_animator = m_use_layout_1 ? m_next_cursor_animator_l1 : m_next_cursor_animator_l2;
 
         if (m_use_layout_1)
         {
@@ -237,10 +211,8 @@ public class DialogueBox : MonoBehaviour
         m_layout_2.SetActive(!m_use_layout_1);
 
         m_text_content = m_use_layout_1 ? m_text_content_l1 : m_text_content_l2;
-        m_next_cursor_fade_effect = m_use_layout_1 ? m_next_cursor_fade_effect_l1 : m_next_cursor_fade_effect_l2;
 
         m_text_content.m_finish_action = CurrentTextFinish;
         m_text_content.Initialize();
-        m_next_cursor_fade_effect.m_render_opacity = 0.0f;
     }
 }
