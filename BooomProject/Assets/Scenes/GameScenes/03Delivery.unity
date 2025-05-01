@@ -3039,14 +3039,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3605121398341839076, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 1378756899
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543833804625443733, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 1378756899
+      objectReference: {fileID: 0}
     - target: {fileID: 5454929092026193530, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_Name
       value: TimeUIHome
       objectReference: {fileID: 0}
+    - target: {fileID: 5764350567541025310, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 1378756899
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278827459724689567, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 1378756899
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579379125498332837, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 1378756899
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5454929092026193530, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1964992818}
   m_SourcePrefab: {fileID: 100100000, guid: 261985c1baab47d4287502e3593eee71, type: 3}
 --- !u!224 &455208701 stripped
 RectTransform:
@@ -11790,6 +11813,32 @@ RectTransform:
   m_AnchoredPosition: {x: 83, y: 351}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1964992815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5454929092026193530, guid: 261985c1baab47d4287502e3593eee71, type: 3}
+  m_PrefabInstance: {fileID: 455208700}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1964992818
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964992815}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 444b83b36c022c747988709fa7caad36, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1965730146
 PrefabInstance:
   m_ObjectHideFlags: 0
