@@ -25,7 +25,6 @@ public class DayNightCycle : MonoBehaviour
     [Header("组件引用")]
     [SerializeField] private SpriteRenderer rendererA;
     [SerializeField] private SpriteRenderer rendererB;
-    [SerializeField] private TimeManager timeManager;
 
     [Header("过渡效果")]
     [SerializeField] private float fadeDuration = 2.0f;
@@ -56,9 +55,9 @@ public class DayNightCycle : MonoBehaviour
         if (rendererB != null)
             rendererB.color = new Color(1, 1, 1, 0);
         // 监听小时变化
-        timeManager.OnMinutePassed.AddListener(UpdateBackground);
+        CommonGameplayManager.GetInstance().TimeManager.OnMinutePassed.AddListener(UpdateBackground);
         // 初始化
-        UpdateBackground(timeManager.currentTime);
+        UpdateBackground(CommonGameplayManager.GetInstance().TimeManager.currentTime);
     }
 
     private void UpdateBackground(GameTime time)

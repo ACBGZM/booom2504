@@ -14,6 +14,8 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
     [SerializeField] private GameSceneManager _sceneManager;
     public GameSceneManager SceneManager => _sceneManager;
 
+    [SerializeField] private EventSequenceExecutor _onEndWorkingEventSequenceExecutor;
+
     // todo: currently dialogue ui manager is a singleton
     // [SerializeField] private DialogueUIManager _dialogueUIManager;
     // public DialogueUIManager DialogueUIManager => _dialogueUIManager;
@@ -85,7 +87,7 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
 
     public void OnEndWorking()
     {
-        // todo: event
-        _sceneManager.LoadAsyncWithFading("02BaseCamp");
+        _onEndWorkingEventSequenceExecutor.Initialize(null);
+        _onEndWorkingEventSequenceExecutor.Execute();
     }
 }

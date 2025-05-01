@@ -4,6 +4,10 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
 {
     [SerializeField] private BaseCampInputHandler _baseCampInputHandler;
     [SerializeField] private GameSceneManager _sceneManager;
+    public GameSceneManager SceneManager => _sceneManager;
+
+    [SerializeField] private EventSequenceExecutor _onEndDayEventSequenceExecutor;
+    [SerializeField] private EventSequenceExecutor _onGameOverEventSequenceExecutor;
 
     protected override void Awake()
     {
@@ -73,11 +77,13 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
         if (CommonGameplayManager.GetInstance().TimeManager.IsGameOver())
         {
             CommonGameplayManager.GetInstance().TimeManager.SetPaused(true);
-            // todo: game over
+            _onGameOverEventSequenceExecutor.Initialize(null);
+            _onGameOverEventSequenceExecutor.Execute();
 
-            return;
+            // return;
         }
 
-        _sceneManager.LoadAsyncWithFading("02BaseCamp");    // hack
+        _onEndDayEventSequenceExecutor.Initialize(null);
+        _onEndDayEventSequenceExecutor.Execute();
     }
 }
