@@ -8,7 +8,7 @@ public class EventCD : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        bool cd = true;
+        bool cd = false;
         // 以分钟为单位
         int currentTime = CommonGameplayManager.GetInstance().TimeManager.currentTime.day * 24 * 60
                           + CommonGameplayManager.GetInstance().TimeManager.currentTime.hour * 60
