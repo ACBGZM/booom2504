@@ -27,13 +27,11 @@ MonoBehaviour:
   quickResponses:
   - buttonText: "\u9A6C\u4E0A"
     responseText: "\u60A8\u597D\uFF0C\u9A6C\u4E0A\u914D\u9001"
-    cannotReatedly: 1
     customerResponseText: "\u8FD8\u6709\u4E94\u5206\u949F\u54E6"
-    isGoodReputation: 1
+    responseEvaluate: 0
   - buttonText: "\u5FEB\u4E86"
     responseText: "\u5FEB\u4E86\uFF0C\u6211\u5728\u95EF\u7EA2\u706F"
-    cannotReatedly: 1
     customerResponseText: "\u90A3\u8FD8\u662F\u6162\u70B9\u5427\uFF0C\u6CE8\u610F\u5B89\u5168"
-    isGoodReputation: 1
+    responseEvaluate: 0
   destinationAddress: 
-  destinationNodeId: 0
+  destinationNodeId: 12

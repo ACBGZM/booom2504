@@ -81,6 +81,7 @@ public class OrderDataManager : MonoBehaviour {
             .ToList();
         // 生成符合条件的订单
         foreach (var order in sortedOrders) {
+            
             if (order.isSpecialOrder) {
                 if (CanGenerateSpecialOrder(order.orderUID) && generatedSpecialOrdersCount <= GameplaySettings.m_max_generate_special_orders) {
                     AddToAvailableOrders(order);
@@ -109,6 +110,7 @@ public class OrderDataManager : MonoBehaviour {
 
     private void AddToAvailableOrders(OrderSO order) {
         var runtimeOrder = new RuntimeOrderSO(order);
+       
         _availableOrders.Add(runtimeOrder);
 
         if (order.isSpecialOrder) {

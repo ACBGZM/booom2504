@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: SpecialOrder 3
   m_EditorClassIdentifier: 
   customerSO: {fileID: 11400000, guid: 0c939e3b3231750438d81006ccae693e, type: 2}
-  orderUID: Q2
+  orderUID: Q3
   initialLimitTime: 300
   isSpecialOrder: 1
   baseReward: 3
-  orderEvent: {fileID: 11400000, guid: a081a94f5971d0340bcaa0bbebee372f, type: 2}
+  orderEvent: {fileID: 11400000, guid: 76f0decf10198f84184ff91e263d96c7, type: 2}
   bubble: 
   chatHistory: []
   quickResponses: []

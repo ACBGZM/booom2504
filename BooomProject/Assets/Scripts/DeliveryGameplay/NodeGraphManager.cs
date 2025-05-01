@@ -89,6 +89,7 @@ public class NodeGraphManager : MonoBehaviour
         Floyed();
 
         _isDataLoaded = true;
+        _lastNodeID = CurrentNode.NodeID;
     }
 
     private void ResetDist()
@@ -139,8 +140,9 @@ public class NodeGraphManager : MonoBehaviour
     }
 
     [SerializeField] private int _currentNodeID = -1;
+    [SerializeField] private int _lastNodeID = -1;
     public Node CurrentNode => GetNodeByIDRuntime(_currentNodeID);
-
+    public Node LastNode => GetNodeByIDRuntime(_lastNodeID);
     public void CheckAndMoveTo(Node targetNode)
     {
         if (CurrentNode.AdjacentNodes.ContainsKey(targetNode))
@@ -153,6 +155,7 @@ public class NodeGraphManager : MonoBehaviour
             , () =>
             {
                 targetNode.ShowIsMovingTo(false);
+                _lastNodeID = _currentNodeID;
                 _currentNodeID = targetNode.NodeID;
                 ShowCanMoveNodes(targetNode, true);
 

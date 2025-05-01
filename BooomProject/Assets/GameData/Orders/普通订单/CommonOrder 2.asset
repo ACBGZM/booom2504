@@ -34,4 +34,4 @@ MonoBehaviour:
     customerResponseText: "\uFF1F\u627E\u4E8B\uFF1F"
     responseEvaluate: 1
   destinationAddress: 
-  destinationNodeId: 0
+  destinationNodeId: 3

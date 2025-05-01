@@ -143,7 +143,7 @@ public class Node : MonoBehaviour, IClickable
         // 创建震荡 Tween 并设置循环
         currentShakeTween = transform.DOShakeRotation(
             duration: shakeDuration,
-            strength: shakeStrength,
+            strength: new Vector3(shakeStrength, shakeStrength, shakeStrength),
             vibrato: vibrato,
             randomness: randomness,
             fadeOut: false // 不自动减弱
