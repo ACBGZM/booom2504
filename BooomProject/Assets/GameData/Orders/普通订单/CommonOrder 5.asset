@@ -18,7 +18,7 @@ MonoBehaviour:
   isSpecialOrder: 0
   baseReward: 3
   orderEvent: {fileID: 11400000, guid: 4461f3c9b59cf1d408685cf30be5fcec, type: 2}
-  bubble: 
+  bubble: "\u9EBB\u70E6\u5E08\u5085\u9001\u8FBE\u7684\u65F6\u5019\u5BF9\u5979\u8BF4\u4E00\u58F0\u201C\u5C0F\u516C\u4E3B\uFF01\u4F60\u7684\u5916\u5356\u5230\u4E86\u201D"
   chatHistory:
   - time: 6:00
     profile: {fileID: 21300000, guid: e62c299aa3fef458f9f46e8a98fc0608, type: 3}
@@ -33,5 +33,5 @@ MonoBehaviour:
     responseText: "\u597D\u7684"
     customerResponseText: "\u8BB0\u5F97\u54E6\uFF0C\u6211\u4F1A\u95EE\u5979\u7684"
     responseEvaluate: 0
-  destinationAddress: 
+  destinationAddress: 1213
   destinationNodeId: 6

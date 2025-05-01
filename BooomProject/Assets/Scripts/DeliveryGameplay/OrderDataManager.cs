@@ -216,7 +216,7 @@ public class OrderDataManager : MonoBehaviour {
             if (_acceptedOrders.Remove(order)) {
                 // Debug.Log($"订单完成: {order.sourceOrder.orderTitle}");
                 changed = true;
-                int nodeIdx = order.sourceOrder.customerSO.destNodeId;
+                int nodeIdx = order.sourceOrder.destinationNodeId;
                 _acceptedOrdersNode.Remove(order);
                 CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
                 if (order.sourceOrder.orderEvent != null) {
@@ -276,8 +276,8 @@ public class OrderDataManager : MonoBehaviour {
         //int targetNodeIdx;
         float dist;
         foreach (RuntimeOrderSO order in _availableOrders) {
-            if (CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId) != null) {
-                dist = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(currentNode, order.sourceOrder.customerSO.destNodeId);
+            if (CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.destinationNodeId) != null) {
+                dist = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(currentNode, order.sourceOrder.destinationNodeId);
                 order.currentDistance = $"{dist:F1}km";
                 order.currentDeliveryTime = dist / speed;
             } else {
@@ -286,8 +286,8 @@ public class OrderDataManager : MonoBehaviour {
             }
         }
         foreach (RuntimeOrderSO order in _acceptedOrders) {
-            if (CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.customerSO.destNodeId) != null) {
-                dist = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(currentNode, order.sourceOrder.customerSO.destNodeId);
+            if (CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeByIDRuntime(order.sourceOrder.destinationNodeId) != null) {
+                dist = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(currentNode, order.sourceOrder.destinationNodeId);
                 order.currentDistance = $"{dist:F1}km";
                 order.currentDeliveryTime = dist / speed;
             } else {
