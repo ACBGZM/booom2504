@@ -8,9 +8,14 @@ using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour {
     [SerializeField] private List<GameObject> _disableWhileLoading;
-
+    private TimeManager _timer;
     public void LoadSync(string target_scene) {
         HandleSceneTransition(() => SceneManager.LoadScene(target_scene));
+    }
+
+    private void Awake() {
+        _timer = CommonGameplayManager.GetInstance().TimeManager;
+        SceneManager.sceneLoaded += _timer.OnSceneLoaded; // 注册场景加载事件
     }
 
     public void Start()
@@ -70,5 +75,9 @@ public class GameSceneManager : MonoBehaviour {
     public void ResumeGame()
     {
         Time.timeScale = 1;
+    }
+
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= _timer.OnSceneLoaded;
     }
 }

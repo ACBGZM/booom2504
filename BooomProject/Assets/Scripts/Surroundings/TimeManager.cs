@@ -34,21 +34,14 @@ public class TimeManager : MonoBehaviour
     private DayStatus _dayStatus = DayStatus.Work;
 
     void Awake() {
-        SceneManager.sceneLoaded += OnSceneLoaded; // 注册场景加载事件
         // LoadTime(); // 加载保存的时间
-        FindAndUpdateTimeDisplay(); // 初始化查找
-
+        // FindAndUpdateTimeDisplay(); // 初始化查找
         OnMinutePassed.AddListener(CheckAndNotifyTimeEvents);
-
         _offWorkTime = GameplaySettings._offWorkHour + GameplaySettings._offWorkMinute / 60.0f;
         _endDayTime = GameplaySettings._endDayHour + GameplaySettings._endDayMinute / 60.0f;
     }
 
-    private void OnDestroy() {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         FindAndUpdateTimeDisplay();
         _isPaused = false;
     }
