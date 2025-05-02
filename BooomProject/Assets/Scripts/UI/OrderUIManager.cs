@@ -129,6 +129,7 @@ public class OrderUIManager : MonoBehaviour {
             //    orderImage.rectTransform.sizeDelta = new Vector2(202, 50);
             //}
         }
+        Button btn = ui.mainButton;
 
         if (order.currentState == OrderState.InTransit) {
             _orderState = ui.orderState;
@@ -136,12 +137,11 @@ public class OrderUIManager : MonoBehaviour {
         } else if (order.currentState == OrderState.Accepted) {
             _orderState = ui.orderState;
             _orderState.text = "未取餐";
+            btn.interactable = false;
         }
 
-        Button btn = ui.mainButton;
         if (btn != null) {
-            // 判断是否在大本营节点接单，若是，则改为已取餐
-            if (CommonGameplayManager.GetInstance().NodeGraphManager.IsOnBaseCampNode()) {
+            if (order.currentState == OrderState.InTransit) {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => OnChatButtonClicked(order));
             }

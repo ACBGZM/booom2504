@@ -33,8 +33,6 @@ public class OrderSO : ScriptableObject {
     public List<QuickResponse> quickResponses = new List<QuickResponse>();
 
     [Header("位置信息")]
-    [Tooltip("目的地地址")]
-    public string destinationAddress;
     [Tooltip("目的地节点")]
     public int destinationNodeId;
     

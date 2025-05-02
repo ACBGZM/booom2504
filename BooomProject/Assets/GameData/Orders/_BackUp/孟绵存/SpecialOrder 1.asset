@@ -18,10 +18,10 @@ MonoBehaviour:
   isSpecialOrder: 1
   baseReward: 4
   orderEvent: {fileID: 11400000, guid: 0551a3a000bcfd44f9cc9d74cea881bb, type: 2}
-  bubble: 
+  bubble: "\u6709\u70B9\u6697\uFF0C\u4E0A\u6765\u7684\u65F6\u5019\u6CE8\u610F\u811A\u4E0B\uFF0C\u793E\u755C\u5C31\u6307\u671B\u8FD9\u53E3\u6D3B\u7740\u4E86"
   chatHistory:
-  - time: 6:00
-    profile: {fileID: 0}
+  - time: 06:01
+    profile: {fileID: 21300000, guid: e9bee0834ad363c4a9a1654dd2eed9cd, type: 3}
     content: "\u6709\u70B9\u6697\uFF0C\u4E0A\u6765\u7684\u65F6\u5019\u6CE8\u610F\u811A\u4E0B\uFF0C\u793E\u755C\u5C31\u6307\u671B\u8FD9\u53E3\u6D3B\u7740\u4E86"
     left: 1
   quickResponses:
