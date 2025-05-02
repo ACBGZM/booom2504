@@ -2792,11 +2792,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3605121398341839076, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 1378756899
+      value: 4281215267
       objectReference: {fileID: 0}
     - target: {fileID: 4543833804625443733, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 1378756899
+      value: 4281215267
       objectReference: {fileID: 0}
     - target: {fileID: 5454929092026193530, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_Name
@@ -2804,15 +2804,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5764350567541025310, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 1378756899
+      value: 4281215267
       objectReference: {fileID: 0}
     - target: {fileID: 8278827459724689567, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 1378756899
+      value: 4281215267
       objectReference: {fileID: 0}
     - target: {fileID: 8579379125498332837, guid: 261985c1baab47d4287502e3593eee71, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 1378756899
+      value: 4281215267
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9668,9 +9668,9 @@ Transform:
   - {fileID: 990300987}
   - {fileID: 1387098868}
   - {fileID: 838760785}
-  - {fileID: 1831893939}
   - {fileID: 841761213460494353}
   - {fileID: 1256729798}
+  - {fileID: 1831893939}
   - {fileID: 1431203257}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
