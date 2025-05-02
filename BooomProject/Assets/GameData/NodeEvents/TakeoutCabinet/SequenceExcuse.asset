@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61500e9a0c1bc4448005bab0473214e, type: 3}
   m_Name: SequenceExcuse
   m_EditorClassIdentifier: 
-  m_state: 0
-  eventSequence: {fileID: 0}
+  m_state: 2
+  eventSequence: {fileID: 11400000, guid: bbfd81e7f70d43d4b80547bcda4662de, type: 2}
