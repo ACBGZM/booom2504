@@ -38,8 +38,13 @@ public class PlayerDataManager : MonoBehaviour {
     private void Start() {
         _orderDataManager = CommonGameplayManager.GetInstance().OrderDataManager;
         _orderDataManager.OnOrderComplete += OrderDataManager_OnSpecialOrderComplete;
+        _orderDataManager.OnOrderComplete += OrderDataManager_OnOrderComplete;
         LoadData();
         SetupEventListeners();
+    }
+
+    private void OrderDataManager_OnOrderComplete(string obj) {
+        UnlockMedal(obj);
     }
 
     // void Update() {
