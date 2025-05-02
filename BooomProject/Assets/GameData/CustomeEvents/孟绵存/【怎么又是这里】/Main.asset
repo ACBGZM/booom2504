@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Main
   m_EditorClassIdentifier: 
   m_event_nodes:
+  - {fileID: 11400000, guid: 66a0927b085de0044862ea19942b4bab, type: 2}
   - {fileID: 11400000, guid: 86b4c48cf636e4d419583fd5dac1f286, type: 2}
   - {fileID: 11400000, guid: a76baeb876bf1284cb221e469740340c, type: 2}
   - {fileID: 11400000, guid: 0416a353821796941a84f607754abae8, type: 2}

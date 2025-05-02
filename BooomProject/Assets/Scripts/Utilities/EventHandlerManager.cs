@@ -37,6 +37,7 @@ public static class EventHandlerManager
     public static event Action OnEndWorking;
     public static event Action OnEndDay;
 
+    public static event Action startRoll;
     public static void CallRollFinish(int val)
     {
         rollFinish?.Invoke(val);
@@ -121,5 +122,10 @@ public static class EventHandlerManager
     public static void CallHandleNodeOrder(int nodeIdx)
     {
         handleNodeOrder?.Invoke(nodeIdx);
+    }
+
+    public static void CallStartRoll()
+    {
+        startRoll?.Invoke();
     }
 }

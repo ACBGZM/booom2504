@@ -33,5 +33,4 @@ MonoBehaviour:
     responseText: "\u60A8\u597D\uFF0C\u6211\u8FD9\u8FB9\u8FD8\u6709\u5176\u4ED6\u5355\u5B50\uFF0C\u9EBB\u70E6\u5FEB\u70B9"
     customerResponseText: "\u6765\u4E86\u6765\u4E86"
     responseEvaluate: 0
-  destinationAddress: 1011
   destinationNodeId: 5

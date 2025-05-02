@@ -1,57 +1,73 @@
+using System.Diagnostics;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class DiceUIManager : Singleton<DiceUIManager>
 {
-    [SerializeField] private Image _dialogueMask;
-    [SerializeField] private Image _diceMask;
-    public Button rollBtn;
+  //  public Button rollBtn;
     public TMP_Text result;
-
+  
     public int val;
 
+    public TMP_Text speed;
+    public TMP_Text reputation;
 
-    protected override void init() {
-        rollBtn = gameObject.GetComponentInChildren<Button>();
+    protected override void init()
+    {
+     //   rollBtn = gameObject.GetComponentInChildren<Button>();
         result = gameObject.GetComponentInChildren<TMP_Text>();
-        rollBtn.onClick.AddListener(() => {
-            rollBtn.gameObject.SetActive(false);
-        });
+        Image[] images = gameObject.GetComponentsInChildren<Image>();
+        
+        speed = images[1].GetComponentInChildren<TMP_Text>();
+        
+        reputation = images[2].GetComponentInChildren<TMP_Text>();
+    
+        //rollBtn.onClick.AddListener(() =>
+        //{
+        //    rollBtn.gameObject.SetActive(false);
+        //});
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         EventHandlerManager.rollFinish += OnRollFinish;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         EventHandlerManager.rollFinish -= OnRollFinish;
     }
 
-    private void Start() {
+    private void Start()
+    {
         HideMe();
     }
 
-    public void ShowMe() {
+    public void ShowMe()
+    {
         Reset();
-        _dialogueMask.gameObject.SetActive(false);
-        _diceMask.gameObject.SetActive(true);
+        speed.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value.ToString()}";
+        reputation.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value.ToString()}";
         gameObject.SetActive(true);
-        rollBtn.gameObject.SetActive(true);
+
+        EventHandlerManager.CallStartRoll();
+      //  rollBtn.gameObject.SetActive(true);
     }
 
-    public void HideMe() {
+    public void HideMe()
+    {
         gameObject.SetActive(false);
-        _dialogueMask.gameObject.SetActive(true);
         Reset();
     }
 
-    public void OnRollFinish(int val) {
+    public void OnRollFinish(int val)
+    {
         this.val = val;
         result.text = val.ToString();
     }
 
-    public void Reset() {
+    public void Reset()
+    {
         val = 0;
         result.text = string.Empty;
     }
