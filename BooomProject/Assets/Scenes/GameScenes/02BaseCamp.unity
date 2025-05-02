@@ -2185,7 +2185,7 @@ MonoBehaviour:
       m_Calls: []
   currentTime:
     day: 1
-    hour: 6
+    hour: 7
     minute: 30
   _timeRatio: 1
   _isPaused: 0
@@ -2741,6 +2741,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d8c11c4f73dcd854c953af2f3a50f3e1, type: 2}
   - {fileID: 11400000, guid: 9aa410b70bbb88948878bacd9255701b, type: 2}
   - {fileID: 11400000, guid: d01052e5769ccff46b8ac5b6cc0f99c3, type: 2}
+  - {fileID: 11400000, guid: 8d61964a9803321419d345596d830cfe, type: 2}
+  - {fileID: 11400000, guid: c677b406e6261684b9e361771bff3ba6, type: 2}
+  - {fileID: 11400000, guid: 23b254cba180e6d40b0ce431b325f636, type: 2}
+  - {fileID: 11400000, guid: c8d11bb516ff09341963ed176f8ee6f8, type: 2}
+  - {fileID: 11400000, guid: c69fd82d524f8cf4fa3da43b366a5b3a, type: 2}
+  - {fileID: 11400000, guid: 3958e71a790b5f94da2138e21365abaf, type: 2}
+  - {fileID: 11400000, guid: b4b922c281cbeff4d87bb43e0f7e71be, type: 2}
 --- !u!1 &471841057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2998,7 +3005,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4E0B\u73ED\u65F6\u95F4"
+  m_text: "\u4F11\u606F\u65F6\u95F4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
@@ -7466,7 +7473,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 19:30
+  m_text: 22:30
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
@@ -8529,23 +8536,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b700d2e9b6c2e4bbe23abd4ad3410c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dawnHour: 5
-  dawnMinute: 30
-  morningHour: 7
-  morningMinute: 0
-  noonHour: 10
-  noonMinute: 0
-  duskHour: 17
-  duskMinute: 30
-  nightHour: 19
-  nightMinute: 15
-  morningSprite: {fileID: 21300000, guid: b9e49983721827e41b67bd382a6f7f92, type: 3}
-  noonSprite: {fileID: 21300000, guid: 74014d54adc432042976166dd6127a30, type: 3}
-  eveningSprite: {fileID: 21300000, guid: 9ca880dab8dc34d49bad303c83106021, type: 3}
-  nightSprite: {fileID: 21300000, guid: c4d9b85ade050064ea99900002774a0f, type: 3}
-  rendererA: {fileID: 1060973912}
-  rendererB: {fileID: 1339078152}
+  timePeriods:
+  - periodName: Morning
+    startHour: 6
+    startMinute: 30
+    backgroundSprite: {fileID: 21300000, guid: b9e49983721827e41b67bd382a6f7f92, type: 3}
+  - periodName: Noon
+    startHour: 10
+    startMinute: 0
+    backgroundSprite: {fileID: 21300000, guid: 74014d54adc432042976166dd6127a30, type: 3}
+  - periodName: Dusk
+    startHour: 17
+    startMinute: 30
+    backgroundSprite: {fileID: 21300000, guid: 9ca880dab8dc34d49bad303c83106021, type: 3}
+  - periodName: Night
+    startHour: 20
+    startMinute: 0
+    backgroundSprite: {fileID: 21300000, guid: c4d9b85ade050064ea99900002774a0f, type: 3}
+  primaryRenderer: {fileID: 1060973912}
+  secondaryRenderer: {fileID: 1339078152}
   fadeDuration: 2
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1642928947
 GameObject:
   m_ObjectHideFlags: 0
@@ -10204,7 +10238,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 06:30
+  m_text: 07:30
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
@@ -10280,7 +10314,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887558868}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!1001 &1946776874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10857,7 +10891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: off-work time
+  m_text: rest time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
   m_sharedMaterial: {fileID: -209743416504128799, guid: a571979b559b8224f93a088f62d1d9bd, type: 2}
