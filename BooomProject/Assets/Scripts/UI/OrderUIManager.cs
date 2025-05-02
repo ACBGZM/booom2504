@@ -27,8 +27,6 @@ public class OrderUIManager : MonoBehaviour {
         } else {
             Debug.LogError("未找到 OrderDataManager 实例");
         }
-
-        Debug.Log(Application.dataPath + "/UI/Phone/hstz.png");
     }
     // 刷新可用订单UI
     private void RefreshAvailableOrdersUI() {
@@ -104,7 +102,7 @@ public class OrderUIManager : MonoBehaviour {
         ui.profileImage.sprite = null;
         ui.bubbleText.text = string.Empty;
         ui.customerAddressText.text = string.Empty;
-        if (ui.remainingTimeText != null) ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"剩余 <size=+5><color=#5bb0ff>{order.remainingMinutes.ToString()}</color></size> 分钟";
+        if (ui.remainingTimeText != null) ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"剩余 <size=+3><color=#5bb0ff>{order.remainingMinutes.ToString()}</color></size> 分钟";
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
         if (ui.bubbleText != null) ui.bubbleText.text = order.sourceOrder.bubble;
         if (ui.customerAddressText != null)
@@ -130,6 +128,7 @@ public class OrderUIManager : MonoBehaviour {
             //    orderImage.rectTransform.sizeDelta = new Vector2(202, 50);
             //}
         }
+        Button btn = ui.mainButton;
 
         if (order.currentState == OrderState.InTransit) {
             _orderState = ui.orderState;
@@ -137,12 +136,11 @@ public class OrderUIManager : MonoBehaviour {
         } else if (order.currentState == OrderState.Accepted) {
             _orderState = ui.orderState;
             _orderState.text = "未取餐";
+            btn.interactable = false;
         }
 
-        Button btn = ui.mainButton;
         if (btn != null) {
-            // 判断是否在大本营节点接单，若是，则改为已取餐
-            if (CommonGameplayManager.GetInstance().NodeGraphManager.IsOnBaseCampNode()) {
+            if (order.currentState == OrderState.InTransit) {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => OnChatButtonClicked(order));
             }

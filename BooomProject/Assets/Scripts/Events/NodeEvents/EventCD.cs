@@ -20,6 +20,7 @@ public class EventCD : EventNodeBase
         }
 
         m_state = EventNodeState.Finished;
+        cd = false;
         if (cd)
         {
             Debug.Log($"事件冷却中，冷却时间为{GameplaySettings.TriggerCD - (currentTime - lastTriggerTime)}分钟");

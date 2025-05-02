@@ -1170,6 +1170,7 @@ GameObject:
   - component: {fileID: 254428040}
   - component: {fileID: 254428042}
   - component: {fileID: 254428041}
+  - component: {fileID: 254428043}
   m_Layer: 5
   m_Name: workTime
   m_TagString: Untagged
@@ -1237,6 +1238,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254428039}
   m_CullTransparentMesh: 1
+--- !u!95 &254428043
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254428039}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f940a0c6bc80b34f854f98e2e5f7340, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &267637384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1330,6 +1352,7 @@ GameObject:
   - component: {fileID: 286149519}
   - component: {fileID: 286149521}
   - component: {fileID: 286149520}
+  - component: {fileID: 286149522}
   m_Layer: 5
   m_Name: restTime
   m_TagString: Untagged
@@ -1397,6 +1420,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286149518}
   m_CullTransparentMesh: 1
+--- !u!95 &286149522
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286149518}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7f380c73301ad2948a8ab8500589f984, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &286457726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3715,6 +3759,7 @@ MonoBehaviour:
   _nodeGraphData: {fileID: 11400000, guid: 78e3c78cf697478408a44868e54308cb, type: 2}
   _currentNodeID: 1
   _lastNodeID: -1
+  tryToNodeID: -1
 --- !u!1001 &726514623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10565,6 +10610,7 @@ MonoBehaviour:
   _disableWhileLoading:
   - {fileID: 1821751258}
   - {fileID: 1642928947}
+  - {fileID: 878103601}
   _fadeImage: {fileID: 2073852816}
 --- !u!1001 &2001261606
 PrefabInstance:

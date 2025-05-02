@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 1
   m_responses:
-  - m_text: "\u5C0F\u58F0"
+  - m_text: "\u4F46\u662F\u2026\u2026"
     m_executor: {fileID: 0}
   m_default_select_index: -1
   m_must_loop_all: 0

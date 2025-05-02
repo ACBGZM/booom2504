@@ -17,20 +17,25 @@ MonoBehaviour:
   - m_speaker_name: "\u8001\u4F59"
     m_speaker_avatar: {fileID: 21300000, guid: b1b90b1c67667f44c865e939e385bc9a, type: 3}
     m_text: "\u770B\u6765\u4F60\u5DF2\u7ECF\u6210\u4E3A\u4E00\u4E2A\u3010\u65B0\u9510\u5154\u9A91\u58EB\u3011\u4E86\uFF01"
-    m_display_method: 2
-    m_can_skip: 0
+    m_display_method: 3
+    m_can_skip: 1
+    m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u8001\u4F59"
     m_speaker_avatar: {fileID: 21300000, guid: b1b90b1c67667f44c865e939e385bc9a, type: 3}
-    m_text: "\u8FD9\u4E2A\u79F0\u53F7\u5DF2\u7ECF\u540C\u6B65\u5230\u4F60\u7684App\u4E0A\uFF0C\u5BF9\u7528\u6237\u4E5F\u4F1A\u663E\u793A\u3002"
-    m_display_method: 2
-    m_can_skip: 0
+    m_text: "\u8FD9\u4E2A\u79F0\u53F7\u5DF2\u7ECF\u540C\u6B65\u5230\u4F60\u7684APP\u4E0A\uFF0C\u5BF9\u7528\u6237\u4E5F\u4F1A\u663E\u793A\u3002"
+    m_display_method: 3
+    m_can_skip: 1
+    m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u8001\u4F59"
     m_speaker_avatar: {fileID: 21300000, guid: b1b90b1c67667f44c865e939e385bc9a, type: 3}
-    m_text: "\u9664\u6B64\u4EE5\u5916\uFF0C\u8001\u4F59\u8FD8\u51C6\u5907\u4E86\u4E00\u70B9\u989D\u5916\u60CA\u559C\uFF0C\u8BF7\u4F60\u8DDF\u5176\u4ED6\u5154\u9A91\u58EB\u4FDD\u5BC6\u5566\u3002"
-    m_display_method: 2
-    m_can_skip: 0
+    m_text: "\u9664\u6B64\u4EE5\u5916\uFF0C\u8001\u4F59\u8FD8\u51C6\u5907\u4E86\u4E00\u70B9\u989D\u5916\u60CA\u559C\uFF0C\u8BF7\u4F60\u8DDF\u5176\u4ED6\u5154\u9A91\u58EB\u4FDD\u5BC6\u5566\u3002\uFF08\u58F0\u8A89+2
+      \u901F\u5EA6+2\uFF09"
+    m_display_method: 3
+    m_can_skip: 1
+    m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u8001\u4F59"
     m_speaker_avatar: {fileID: 21300000, guid: b1b90b1c67667f44c865e939e385bc9a, type: 3}
     m_text: "\u5C31\u662F\u8FD9\u6837\uFF01\u591A\u591A\u914D\u9001\u591A\u591A\u62FF\u8BA2\u5355\u8D70\u54E6\u3002"
-    m_display_method: 2
-    m_can_skip: 0
+    m_display_method: 3
+    m_can_skip: 1
+    m_cg_sprite: {fileID: 0}
