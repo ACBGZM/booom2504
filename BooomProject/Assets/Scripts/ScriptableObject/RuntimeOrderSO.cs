@@ -17,7 +17,7 @@ public class RuntimeOrderSO {
     public List<ChatFragment> runtimeChatHistory;
 
     [Tooltip("订单评价")]
-    public Evaluation orderEvaluation;
+    public Evaluation orderEvaluation = Evaluation.None;
     public RuntimeOrderSO(OrderSO sourceOrder) {
         sourceOrder.bubble = sourceOrder.chatHistory.Count == 0 ? "未送达" : sourceOrder.chatHistory[0].content;
         this.sourceOrder = sourceOrder;

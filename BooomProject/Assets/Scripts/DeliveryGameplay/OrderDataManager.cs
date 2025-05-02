@@ -49,6 +49,7 @@ public class OrderDataManager : MonoBehaviour {
         EventHandlerManager.updateOrderStateToTransit += OnUpdateOrderStateToTransit;
         EventHandlerManager.upGoodOrderCount += OnUpGoodOrderCount;
         EventHandlerManager.upBadOrderCount += OnUpBadOrderCount;
+        EventHandlerManager.handleNodeOrder += OnHandleNodeOrder;
     }
 
     private void OnDisable() {
@@ -58,6 +59,7 @@ public class OrderDataManager : MonoBehaviour {
         EventHandlerManager.updateOrderStateToTransit -= OnUpdateOrderStateToTransit;
         EventHandlerManager.upGoodOrderCount -= OnUpGoodOrderCount;
         EventHandlerManager.upBadOrderCount -= OnUpBadOrderCount;
+        EventHandlerManager.handleNodeOrder -= OnHandleNodeOrder;
     }
 
     private void LoadOrderProgress() {
@@ -229,9 +231,9 @@ public class OrderDataManager : MonoBehaviour {
     public IEnumerator CompleteOrders(List<RuntimeOrderSO> ordersToComplete) {
         bool changed = false;
         foreach (RuntimeOrderSO order in ordersToComplete) {
-            if (!order.sourceOrder.isSpecialOrder) {
-                order.orderEvaluation = Evaluation.Good;
-            }
+            //if (!order.sourceOrder.isSpecialOrder) {
+            //    order.orderEvaluation = Evaluation.Good;
+            //}
             string orderUID = order.sourceOrder.orderUID;
             _acceptedOrders.Remove(order);
             OnOrderComplete?.Invoke(orderUID);
@@ -309,22 +311,31 @@ public class OrderDataManager : MonoBehaviour {
     }
 
     // 判断是否有当前节点的订单
-    private bool OnCheckNodeOrder(int nodeIdx) {
+    private List<RuntimeOrderSO> OnCheckNodeOrder(int nodeIdx) {
         if (_acceptedOrdersNode.ContainsValue(nodeIdx)) {
             // 查找与当前节点有关的订单
             var orders = _acceptedOrdersNode.Where(item => item.Value.Equals(nodeIdx)).Select(item => item.Key).ToList();
             // 剔除未取货的订单
-            for (int i = orders.Count - 1; i >= 0; i--) {
-                if (orders[i].currentState != OrderState.InTransit) {
+            for (int i = orders.Count - 1; i >= 0; i--)
+            {
+                if (orders[i].currentState != OrderState.InTransit && orders[i].currentState != OrderState.Expired)
+                {
                     orders.RemoveAt(i);
                 }
             }
-            StartCoroutine(CompleteOrders(orders));
-            return true;
+            //StartCoroutine(CompleteOrders(orders));
+            return orders;
         }
-        return false;
+        return new List<RuntimeOrderSO>();
     }
-
+    private void OnHandleNodeOrder(int nodeIdx)
+    {
+        var orders = OnCheckNodeOrder(nodeIdx);
+        if (orders.Count > 0)
+        {
+            StartCoroutine(CompleteOrders(orders));
+        }
+    }
     private IEnumerator ExecuteOrderEvents(RuntimeOrderSO order) {
         bool finished = false;
         order.sourceOrder.orderEvent.Initialize((b) => finished = b);

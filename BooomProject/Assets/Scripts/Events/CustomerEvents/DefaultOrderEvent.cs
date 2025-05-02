@@ -16,6 +16,8 @@ public class DefaultOrderEvent : EventNodeBase
         Debug.Log($"剩余时间：{order.remainingMinutes}    是否超时：{order.isTimeout}");
         bool excuteGood = false;
         bool excuteBad = false;
+        Debug.Log(order.orderEvaluation);
+        Debug.Log(order.isTimeout);
         if (order != null && goodEvaluationSequence != null)
         {
             // 聊天触发好评 或者 聊天未触发且订单未超时， 结算订单好评

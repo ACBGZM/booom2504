@@ -8,15 +8,24 @@ public class SequenceExcuse : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        if (eventSequence != null)
+        int currentNodeId = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
+        if(EventHandlerManager.CallCheckNodeOrder(currentNodeId).Count > 0)
         {
-            eventSequence.Initialize(Finished);
-            eventSequence.Execute();
+            if (eventSequence != null)
+            {
+                eventSequence.Initialize(Finished);
+                eventSequence.Execute();
+            }
+            else
+            {
+                Finished(true);
+            }
         }
         else
         {
             Finished(true);
         }
+        
 
     }
     private void Finished(bool success)

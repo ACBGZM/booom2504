@@ -24,10 +24,7 @@ public class EventNodeUpdate : EventNodeBase
         }
         // 判断该节点是否为目的节点,并执行事件
 
-        if (EventHandlerManager.CallCheckNodeOrder(nodeId))
-        {
-
-        }
+        EventHandlerManager.CallHandleNodeOrder(nodeId);
 
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public static class EventHandlerManager
 {
@@ -25,11 +26,12 @@ public static class EventHandlerManager
     #endregion
 
     #region order
-    public static event Func<int, bool> checkNodeOrder;
+    public static event Func<int, List<RuntimeOrderSO>> checkNodeOrder;
     public static event Func<RuntimeOrderSO> getCurrentOrder;
     public static event Action updateOrderStateToTransit;
     public static event Action upGoodOrderCount;
     public static event Action upBadOrderCount;
+    public static event Action<int> handleNodeOrder;
     #endregion
 
     public static event Action OnEndWorking;
@@ -75,9 +77,9 @@ public static class EventHandlerManager
     //    chatWindowShow?.Invoke();
     //}
 
-    public static bool CallCheckNodeOrder(int nodeIdx)
+    public static List<RuntimeOrderSO> CallCheckNodeOrder(int nodeIdx)
     {
-        return checkNodeOrder?.Invoke(nodeIdx) ?? false;
+        return checkNodeOrder?.Invoke(nodeIdx) ?? new List<RuntimeOrderSO>();
     }
 
     public static void CallPlayerStateChanged()
@@ -115,5 +117,9 @@ public static class EventHandlerManager
     public static void EndDay()
     {
         OnEndDay?.Invoke();
+    }
+    public static void CallHandleNodeOrder(int nodeIdx)
+    {
+        handleNodeOrder?.Invoke(nodeIdx);
     }
 }
