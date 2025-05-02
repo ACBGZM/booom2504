@@ -132,10 +132,10 @@ public class OrderUIManager : MonoBehaviour {
 
         if (order.currentState == OrderState.InTransit) {
             _orderState = ui.orderState;
-            _orderState.text = "已取餐";
+            _orderState.text = "已取货";
         } else if (order.currentState == OrderState.Accepted) {
             _orderState = ui.orderState;
-            _orderState.text = "未取餐";
+            _orderState.text = "未取货";
             btn.interactable = false;
         }
 
