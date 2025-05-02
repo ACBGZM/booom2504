@@ -79,8 +79,12 @@ public class DiceController : MonoBehaviour
 
         rollTimer.OnTimerStart += PerformInitialRoll;
         rollTimer.OnTimerStop += () => finalize = true;
-
+        EventHandlerManager.startRoll += OnShake;
         CalculateSides();
+    }
+    private void OnDestroy()
+    {
+        EventHandlerManager.startRoll -= OnShake;
     }
 
     public void Show(int idx)
@@ -222,4 +226,6 @@ public class DiceController : MonoBehaviour
     {
         return (targetPos - currentPos).sqrMagnitude <= range * range;
     }
+
+   
 }

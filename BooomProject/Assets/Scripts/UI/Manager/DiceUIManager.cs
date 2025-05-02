@@ -1,23 +1,31 @@
+using System.Diagnostics;
 using TMPro;
 using UnityEngine.UI;
 
 public class DiceUIManager : Singleton<DiceUIManager>
 {
-    public Button rollBtn;
+  //  public Button rollBtn;
     public TMP_Text result;
   
     public int val;
-  
+
+    public TMP_Text speed;
+    public TMP_Text reputation;
 
     protected override void init()
     {
-        rollBtn = gameObject.GetComponentInChildren<Button>();
+     //   rollBtn = gameObject.GetComponentInChildren<Button>();
         result = gameObject.GetComponentInChildren<TMP_Text>();
-       
-        rollBtn.onClick.AddListener(() =>
-        {
-            rollBtn.gameObject.SetActive(false);
-        });
+        Image[] images = gameObject.GetComponentsInChildren<Image>();
+        
+        speed = images[1].GetComponentInChildren<TMP_Text>();
+        
+        reputation = images[2].GetComponentInChildren<TMP_Text>();
+    
+        //rollBtn.onClick.AddListener(() =>
+        //{
+        //    rollBtn.gameObject.SetActive(false);
+        //});
     }
 
     private void OnEnable()
@@ -38,10 +46,12 @@ public class DiceUIManager : Singleton<DiceUIManager>
     public void ShowMe()
     {
         Reset();
+        speed.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value.ToString()}";
+        reputation.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value.ToString()}";
         gameObject.SetActive(true);
-      
-      
-        rollBtn.gameObject.SetActive(true);
+
+        EventHandlerManager.CallStartRoll();
+      //  rollBtn.gameObject.SetActive(true);
     }
 
     public void HideMe()
