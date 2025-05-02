@@ -4,11 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventCD", menuName = "Event/NodeActions/EventCD")]
 public class EventCD : EventNodeBase
 {
-    public int lastTriggerTime;
+    //public int lastTriggerTime;
     public override void Execute()
     {
         base.Execute();
-        bool cd = false;
+        bool cd = true;
+        int currentNodeId = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
+        int lastTriggerTime = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeTriggerTime(currentNodeId);
         // 以分钟为单位
         int currentTime = CommonGameplayManager.GetInstance().TimeManager.currentTime.day * 24 * 60
                           + CommonGameplayManager.GetInstance().TimeManager.currentTime.hour * 60
@@ -16,11 +18,11 @@ public class EventCD : EventNodeBase
         if (lastTriggerTime == 0 || currentTime - lastTriggerTime > GameplaySettings.TriggerCD)
         {
             lastTriggerTime = currentTime;
+            CommonGameplayManager.GetInstance().NodeGraphManager.SetNodeTriggerTime(currentNodeId, currentTime);
             cd = false;
         }
 
         m_state = EventNodeState.Finished;
-        cd = false;
         if (cd)
         {
             Debug.Log($"事件冷却中，冷却时间为{GameplaySettings.TriggerCD - (currentTime - lastTriggerTime)}分钟");

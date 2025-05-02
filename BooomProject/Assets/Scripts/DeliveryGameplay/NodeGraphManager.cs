@@ -16,7 +16,9 @@ public class NodeGraphManager : MonoBehaviour
     private Dictionary<int, int> nodeIdTOIndex = new Dictionary<int, int>();
     private float[,] dist;    // 任意两节点间最短消耗
     private int nodeCnt;
-
+    // 结点上次触发事件事件
+    private Dictionary<int, int> nodeTriggerTime = new Dictionary<int, int>();
+    
     public bool IsOnBaseCampNode()
     {
         return _currentNodeID == 1;
@@ -282,5 +284,23 @@ public class NodeGraphManager : MonoBehaviour
         }
 
         targetNode.TargetNodeHighLight(isShow);
+    }
+    public int GetNodeTriggerTime(int nodeId)
+    {
+        int time;
+        nodeTriggerTime.TryGetValue(nodeId,out time);
+        return time;
+    }
+    public void SetNodeTriggerTime(int nodeId, int time)
+    {
+        if(nodeTriggerTime.ContainsKey(nodeId))
+        {
+            nodeTriggerTime[nodeId] = time;
+        }
+        else
+        {
+            nodeTriggerTime.Add(nodeId, time);
+        }
+
     }
 }

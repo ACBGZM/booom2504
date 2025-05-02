@@ -72,8 +72,7 @@ public class DeliveryPlayer : MonoBehaviour
             float costTime = distance / (CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value * 0.5f);
            
             int minute = (int)costTime;
-            Debug.Log($"路程消耗{minute} 分钟");
-            Debug.Log($"倍数 {minute / segmentDuration}");
+          
             CommonGameplayManager.GetInstance().TimeManager.SetTimeScale(minute / segmentDuration);
             while (t < 1f)
             {
