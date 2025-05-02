@@ -27,7 +27,6 @@ public class OrderUIManager : MonoBehaviour {
         } else {
             Debug.LogError("未找到 OrderDataManager 实例");
         }
-
     }
     // 刷新可用订单UI
     private void RefreshAvailableOrdersUI() {
@@ -57,7 +56,7 @@ public class OrderUIManager : MonoBehaviour {
         ui.customerAddressText.text = string.Empty;
         ui.distanceText.text = string.Empty;
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
-        if (ui.limitTimeText != null) ui.limitTimeText.text = $"{order.sourceOrder.initialLimitTime}"; // $"需在 <size=+5><color=#5bb0ff>{order.sourceOrder.initialLimitTime}</color></size> 分钟内送达"
+        if (ui.limitTimeText != null) ui.limitTimeText.text = $"需在 <size=+5><color=#5bb0ff>{order.sourceOrder.initialLimitTime}</color></size> 分钟内送达";
         if (ui.customerNameText != null) ui.customerNameText.text = order.sourceOrder.customerSO.customerName;
         if (ui.distanceText != null) ui.distanceText.text = order.currentDistance;
 
@@ -103,7 +102,7 @@ public class OrderUIManager : MonoBehaviour {
         ui.profileImage.sprite = null;
         ui.bubbleText.text = string.Empty;
         ui.customerAddressText.text = string.Empty;
-        if (ui.remainingTimeText != null) ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"{order.remainingMinutes.ToString()}"; // 剩余 <size=+5><color=#5bb0ff>{order.remainingMinutes.ToString()}</color></size> 分钟
+        if (ui.remainingTimeText != null) ui.remainingTimeText.text = order.isTimeout ? "已超时" : $"剩余 <size=+3><color=#5bb0ff>{order.remainingMinutes.ToString()}</color></size> 分钟";
         if (ui.profileImage != null) ui.profileImage.sprite = order.sourceOrder.customerSO.customerProfile;
         if (ui.bubbleText != null) ui.bubbleText.text = order.sourceOrder.bubble;
         if (ui.customerAddressText != null)
