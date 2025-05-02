@@ -24,9 +24,9 @@ public class OrderDataManager : MonoBehaviour {
     private int badOrderCount;
     // 当前送达正在处理的订单
     private RuntimeOrderSO currentHandleOrder;
+    public int CurrentSpecialOrderCount => _availableOrders.Count(o => o.sourceOrder.isSpecialOrder);
+    public int CurrentCommonOrderCount => _availableOrders.Count(o => !o.sourceOrder.isSpecialOrder);
 
-    [NonSerialized] public int generatedSpecialOrdersCount = 0;
-    [NonSerialized] public int generatedCommonOrdersCount = 0;
     public List<RuntimeOrderSO> GetAvailableOrders() => _availableOrders;
     public List<RuntimeOrderSO> GetAcceptedOrders() => _acceptedOrders;
     public int FinishedOrderCount => finishedOrderCount;
@@ -75,22 +75,22 @@ public class OrderDataManager : MonoBehaviour {
         _availableOrders.Clear();
         // 按UID排序所有订单
         var sortedOrders = _allOrders
-            .Where(IsOrderAvailable)
             .OrderBy(order => GetOrderPrefix(order.orderUID))
             .ThenBy(order => GetOrderNumber(order.orderUID))
             .ToList();
-        // 生成符合条件的订单
+        int remainingSpecialSlots = GameplaySettings.m_max_generate_special_orders;
+        int remainingCommonSlots = GameplaySettings.m_max_generate_common_orders;
         foreach (var order in sortedOrders) {
-            
             if (order.isSpecialOrder) {
-                if (CanGenerateSpecialOrder(order.orderUID) && generatedSpecialOrdersCount <= GameplaySettings.m_max_generate_special_orders) {
+                if (CanGenerateSpecialOrder(order.orderUID) &&
+                    remainingSpecialSlots > 0) {
                     AddToAvailableOrders(order);
+                    remainingSpecialSlots--;
                 }
             } else {
-                // 普通订单生成
-                if (generatedCommonOrdersCount <= GameplaySettings.m_max_generate_common_orders) {
+                if (remainingCommonSlots > 0) {
                     AddToAvailableOrders(order);
-                    generatedCommonOrdersCount++;
+                    remainingCommonSlots--;
                 }
             }
         }
@@ -98,27 +98,27 @@ public class OrderDataManager : MonoBehaviour {
     }
 
     private bool CanGenerateSpecialOrder(string uid) {
-        // 如果已经完成前序订单
-        ParseOrderUID(uid, out string currentPrefix, out int currentNumber);
-        // 获取该系列当前进度
-        if (!_orderSeriesProgress.TryGetValue(currentPrefix, out int progress)) {
+        ParseOrderUID(uid, out string prefix, out int number);
+        // 检查前序订单是否完成
+        if (!_orderSeriesProgress.TryGetValue(prefix, out int progress)) {
             progress = 0;
         }
-        // 检查是否是当前系列的下一个订单
-        return currentNumber == progress + 1;
+        bool isNextInSeries = (number == progress + 1);
+        // 确保自身未完成
+        bool isSelfCompleted = CommonGameplayManager.GetInstance()
+                              .PlayerDataManager.orderSaves.ContainsKey(uid) &&
+                              CommonGameplayManager.GetInstance()
+                              .PlayerDataManager.orderSaves[uid];
+        return isNextInSeries && !isSelfCompleted;
     }
 
     private void AddToAvailableOrders(OrderSO order) {
         var runtimeOrder = new RuntimeOrderSO(order);
-       
         _availableOrders.Add(runtimeOrder);
-
-        if (order.isSpecialOrder) {
-            generatedSpecialOrdersCount++;
-        }
     }
 
     private void HandleOrderComplete(string orderUID) {
+        finishedOrderCount++;
         if (CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves.ContainsKey(orderUID)) {
             CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves[orderUID] = true;
         } else {
@@ -127,7 +127,22 @@ public class OrderDataManager : MonoBehaviour {
         ParseOrderUID(orderUID, out string prefix, out int number);
         UpdateSeriesProgress(prefix, number);
         // 生成后续订单
-        GenerateFollowOrders(prefix, number);
+        int maxTotal = GameplaySettings.m_max_generate_special_orders + GameplaySettings.m_max_generate_common_orders;
+        int needed = maxTotal - _availableOrders.Count - _acceptedOrders.Count;
+        Debug.Log($"需要{needed}个订单");
+        if (needed > 0) {
+            GenerateFollowOrders(prefix, number); // 生成后续订单
+            FillRemainingSlots(needed); // 补充普通订单
+        }
+        OnAvailableOrdersChanged?.Invoke();
+    }
+
+    private void FillRemainingSlots(int needed) {
+        var commonOrders = _allOrders.Where(o => !o.isSpecialOrder).Take(needed);
+        Debug.Log($"取出了{needed}个订单");
+        foreach (var order in commonOrders) {
+            AddToAvailableOrders(order);
+        }
     }
 
     private void UpdateSeriesProgress(string prefix, int number) {
@@ -142,12 +157,13 @@ public class OrderDataManager : MonoBehaviour {
 
     private void GenerateFollowOrders(string completedPrefix, int completedNumber) {
         // 获取下一个订单
+        int currentSpecialCount = _availableOrders.Count(o => o.sourceOrder.isSpecialOrder);
+        if (currentSpecialCount >= GameplaySettings.m_max_generate_special_orders) return;
         var nextOrder = _allOrders.FirstOrDefault(order => order.isSpecialOrder &&
                 GetOrderPrefix(order.orderUID) == completedPrefix &&
                 GetOrderNumber(order.orderUID) == completedNumber + 1);
         if (nextOrder != null && CanGenerateSpecialOrder(nextOrder.orderUID)) {
             AddToAvailableOrders(nextOrder);
-            OnAvailableOrdersChanged?.Invoke();
         }
     }
 
@@ -165,8 +181,8 @@ public class OrderDataManager : MonoBehaviour {
     private int GetOrderNumber(string uid) =>
         int.Parse(System.Text.RegularExpressions.Regex.Match(uid, "\\d+$").Value);
 
-    // 检查订单是否已经完成
-    private bool IsOrderAvailable(OrderSO order) {
+    // 检查特殊订单是否已经完成
+    private bool IsSpecialOrderAvailable(OrderSO order) {
         return !CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves.ContainsKey(order.orderUID) ||
                !CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves[order.orderUID];
     }
@@ -213,34 +229,29 @@ public class OrderDataManager : MonoBehaviour {
     public IEnumerator CompleteOrders(List<RuntimeOrderSO> ordersToComplete) {
         bool changed = false;
         foreach (RuntimeOrderSO order in ordersToComplete) {
-            if (_acceptedOrders.Remove(order)) {
-                // Debug.Log($"订单完成: {order.sourceOrder.orderTitle}");
-                changed = true;
-                int nodeIdx = order.sourceOrder.destinationNodeId;
-                _acceptedOrdersNode.Remove(order);
-                CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
-                if (order.sourceOrder.orderEvent != null) {
-                    currentHandleOrder = order;
-                    yield return StartCoroutine(ExecuteOrderEvents(order));
-                    currentHandleOrder = null;
-                }
-            }
-            if (order.sourceOrder.isSpecialOrder) {
-                generatedSpecialOrdersCount--;
-            } else {
-                generatedCommonOrdersCount--;
+            if (!order.sourceOrder.isSpecialOrder) {
                 order.orderEvaluation = Evaluation.Good;
             }
-            OnOrderComplete?.Invoke(order.sourceOrder.orderUID);
-            finishedOrderCount++;
+            string orderUID = order.sourceOrder.orderUID;
+            _acceptedOrders.Remove(order);
+            OnOrderComplete?.Invoke(orderUID);
+            // Debug.Log($"订单完成: {order.sourceOrder.orderTitle}");
+            changed = true;
+            int nodeIdx = order.sourceOrder.destinationNodeId;
+            _acceptedOrdersNode.Remove(order);
+            CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, false);
+            if (order.sourceOrder.orderEvent != null) {
+                currentHandleOrder = order;
+                yield return StartCoroutine(ExecuteOrderEvents(order));
+                currentHandleOrder = null;
+            }
         }
         if (changed) {
             OnAcceptedOrdersChanged?.Invoke();
         }
         // 送完单更新好评率
-        if (finishedOrderCount > 0) {
-            CommonGameplayManager.GetInstance().PlayerDataManager.Rating.Value = goodOrderCount / finishedOrderCount;
-        }
+        float rating = (float)goodOrderCount / finishedOrderCount;
+        CommonGameplayManager.GetInstance().PlayerDataManager.Rating.Value = rating;
     }
 
     private void UpdateOrderTimes(GameTime currentTime) {
@@ -255,7 +266,7 @@ public class OrderDataManager : MonoBehaviour {
                 runtimeOrder.isTimeout = true;
                 runtimeOrder.currentState = OrderState.Expired;
                 // 超时订单
-                if (runtimeOrder.orderEvaluation == Evaluation.None) {
+                if (runtimeOrder.remainingMinutes <= 0 && runtimeOrder.orderEvaluation == Evaluation.None) {
                     runtimeOrder.orderEvaluation = Evaluation.Bad;
                 }
                 Debug.Log($"订单超时：{runtimeOrder.sourceOrder.orderUID}");
@@ -327,16 +338,10 @@ public class OrderDataManager : MonoBehaviour {
     }
 
     private void OnUpdateOrderStateToTransit() {
-        foreach (var order in _acceptedOrders) {
-            print($"{order.sourceOrder.orderUID}已取货！");
+        foreach (var order in _acceptedOrders.Where(o => o.currentState == OrderState.Accepted)) {
             order.currentState = OrderState.InTransit;
         }
         OnAcceptedOrdersChanged?.Invoke();
-
-        foreach (var order in _acceptedOrders) {
-            print($"{order.sourceOrder.orderUID}状态：{order.currentState.ToString()}！");
-
-        }
     }
 
     private void OnUpGoodOrderCount() {
