@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45208a98f3eec24a84b76ba2b17e5c6, type: 3}
+  m_Name: Decision
+  m_EditorClassIdentifier: 
+  m_state: 0
+  m_responses:
+  - m_text: "\u3010\u7ED5\u9053\u3011"
+    m_executor: {fileID: 11400000, guid: fc158a37b2d588f46a5a3b0343714da8, type: 2}
+  - m_text: "\u3010\u8D70\u4EBA\u884C\u9053\u3011"
+    m_executor: {fileID: 11400000, guid: efc1843d41c69e543a2a86291971be1f, type: 2}
+  m_default_select_index: 0
+  m_must_loop_all: 0

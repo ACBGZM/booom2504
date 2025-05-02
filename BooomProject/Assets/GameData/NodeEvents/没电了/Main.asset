@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
-  m_Name: Choice2
+  m_Name: Main
   m_EditorClassIdentifier: 
   m_event_nodes:
-  - {fileID: 11400000, guid: 9b6a3b4f55b2a5a4fa8b6b116559b65a, type: 2}
-  - {fileID: 11400000, guid: 46d81374a7f9802419c4af236eba5f2e, type: 2}
-  - {fileID: 11400000, guid: b1ef1c842b34b4d41924a9c65ce5eded, type: 2}
+  - {fileID: 11400000, guid: 73461d63286fe804db2261b42a70605d, type: 2}
+  - {fileID: 11400000, guid: 3f4a10c39107fd34ebbeea5b182d04a3, type: 2}
+  - {fileID: 11400000, guid: bd7341238fd13794693325262586af1a, type: 2}
+  - {fileID: 11400000, guid: 4e9bb2b02af435048a091ad14d886d3e, type: 2}
