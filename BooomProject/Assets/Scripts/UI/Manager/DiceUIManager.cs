@@ -1,63 +1,57 @@
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class DiceUIManager : Singleton<DiceUIManager>
 {
+    [SerializeField] private Image _dialogueMask;
+    [SerializeField] private Image _diceMask;
     public Button rollBtn;
     public TMP_Text result;
-  
-    public int val;
-  
 
-    protected override void init()
-    {
+    public int val;
+
+
+    protected override void init() {
         rollBtn = gameObject.GetComponentInChildren<Button>();
         result = gameObject.GetComponentInChildren<TMP_Text>();
-       
-        rollBtn.onClick.AddListener(() =>
-        {
+        rollBtn.onClick.AddListener(() => {
             rollBtn.gameObject.SetActive(false);
         });
     }
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         EventHandlerManager.rollFinish += OnRollFinish;
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         EventHandlerManager.rollFinish -= OnRollFinish;
     }
 
-    private void Start()
-    {
+    private void Start() {
         HideMe();
     }
 
-    public void ShowMe()
-    {
+    public void ShowMe() {
         Reset();
+        _dialogueMask.gameObject.SetActive(false);
+        _diceMask.gameObject.SetActive(true);
         gameObject.SetActive(true);
-      
-      
         rollBtn.gameObject.SetActive(true);
     }
 
-    public void HideMe()
-    {
+    public void HideMe() {
         gameObject.SetActive(false);
+        _dialogueMask.gameObject.SetActive(true);
         Reset();
     }
 
-    public void OnRollFinish(int val)
-    {
+    public void OnRollFinish(int val) {
         this.val = val;
         result.text = val.ToString();
     }
 
-    public void Reset()
-    {
+    public void Reset() {
         val = 0;
         result.text = string.Empty;
     }
