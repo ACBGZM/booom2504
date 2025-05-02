@@ -69,7 +69,7 @@ public class DeliveryPlayer : MonoBehaviour
             int nodeId = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
             int tryNodeId = CommonGameplayManager.GetInstance().NodeGraphManager.TryToNode.NodeID;
             float distance = CommonGameplayManager.GetInstance().NodeGraphManager.GetDistance(tryNodeId, nodeId);
-            float costTime = distance / (CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value * 0.1f);
+            float costTime = distance / (CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value * 0.5f);
            
             int minute = (int)costTime;
             Debug.Log($"路程消耗{minute} 分钟");
