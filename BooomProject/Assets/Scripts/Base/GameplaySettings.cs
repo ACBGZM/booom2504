@@ -70,9 +70,9 @@ public class GameplaySettings
 
 
 
-    public const int _wakeUpHour = 6;
+    public const int _wakeUpHour = 7;
     public const int _wakeUpMinute = 30;
-    public const int _offWorkHour = 19;
+    public const int _offWorkHour = 22;
     public const int _offWorkMinute = 30;
     public const int _endDayHour = 20;
     public const int _endDayMinute = 00;
