@@ -72,10 +72,10 @@ public class GameplaySettings
 
     public const int _wakeUpHour = 7;
     public const int _wakeUpMinute = 30;
-    public const int _offWorkHour = 22;
+    public const int _offWorkHour = 20;
     public const int _offWorkMinute = 30;
-    public const int _endDayHour = 20;
-    public const int _endDayMinute = 00;
-    public const int _maxGameDayCount = 7;
+    public const int _endDayHour = 22;
+    public const int _endDayMinute = 30;
+    public const int _maxGameDayCount = 5;
 
 }

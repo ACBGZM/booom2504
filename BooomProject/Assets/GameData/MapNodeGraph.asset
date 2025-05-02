@@ -158,9 +158,6 @@ MonoBehaviour:
   - nodeA: 32
     nodeB: 33
     curvePoints: []
-  - nodeA: 31
-    nodeB: 33
-    curvePoints: []
   - nodeA: 5
     nodeB: 35
     curvePoints:
