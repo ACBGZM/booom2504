@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +39,7 @@ public class DialogueBox : MonoBehaviour
         m_box_fade_effect = GetComponent<FadeEffect>();
 
         m_speaker_name_text = m_character_panel.GetComponentInChildren<AdvancedTMProUGUI>();
-        m_speaker_avatar = m_character_panel.GetComponentInChildren<Image>();
+        m_speaker_avatar = m_character_panel.GetComponentsInChildren<Image>().Last();
     }
 
     public void Update()
