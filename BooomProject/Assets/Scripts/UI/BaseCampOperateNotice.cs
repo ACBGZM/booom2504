@@ -2,32 +2,24 @@ using TMPro;
 using UnityEngine;
 
 public class BaseCampOperateNotice : MonoBehaviour {
-    [SerializeField] private GameObject Notice;
+    [SerializeField] private GameObject _NPCNotice;
+    [SerializeField] private GameObject _ExitNotice;
     [SerializeField] private PlayerController _controller;
     private TextMeshProUGUI _noticeText;
 
     private void Awake() {
-        Notice.SetActive(false);
-        _noticeText = Notice.GetComponentInChildren<TextMeshProUGUI>();
+        _NPCNotice.SetActive(false);
+        _ExitNotice.SetActive(false);
         _controller.OnInteractableObjectChange += PlayerController_OnInteractableObjectChange;
     }
 
     private void PlayerController_OnInteractableObjectChange(IInteractable interactable, bool isEnter) {
         if (isEnter) {
-            if (interactable is NPCInteract) {
-                Notice.SetActive(true);
-                _noticeText.text = $"与 {interactable.GetInteractableName()} 交谈";
-            }else{
-                Notice.SetActive(true);
-                _noticeText.text = interactable.GetInteractableName();
-            }
+            if(interactable is NPCInteract) _NPCNotice.SetActive(true);
+            else if(interactable is CustomInteract) _ExitNotice.SetActive(true);
         } else {
-            var current = _controller.currentInteractable;
-            if (current != null && (current is NPCInteract || current is CustomInteract)) {
-                _noticeText.text = current.GetInteractableName();
-            } else {
-                Notice.SetActive(false);
-            }
+            _NPCNotice.SetActive(false);
+            _ExitNotice.SetActive(false);
         }
     }
 
