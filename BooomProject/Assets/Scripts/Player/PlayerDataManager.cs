@@ -23,7 +23,7 @@ public class PlayerDataManager : MonoBehaviour {
     public BaseStat<int> Reputation = new BaseStat<int>("Reputation", 0, 0, 1000);
     public BaseStat<int> Medals = new BaseStat<int>("Medals", 0, 0, int.MaxValue);
 
-    public BaseStat<float> Rating = new BaseStat<float>("Rating", 0.8f, 0f, 1f);
+    public BaseStat<float> Rating = new BaseStat<float>("Rating", 0f, 0f, 1f);
     [Tooltip("订单UID与完成次数")]
     public Dictionary<string, int> orderSaves = new Dictionary<string, int>();
     [Tooltip("订单完成总数")]
@@ -46,7 +46,6 @@ public class PlayerDataManager : MonoBehaviour {
 
     private void Start() {
         _orderDataManager = CommonGameplayManager.GetInstance().OrderDataManager;
-        _orderDataManager.OnOrderComplete += OrderDataManager_OnSpecialOrderComplete;
         _orderDataManager.OnOrderComplete += OrderDataManager_OnOrderComplete;
         LoadData();
         SetupEventListeners();
@@ -126,6 +125,11 @@ public class PlayerDataManager : MonoBehaviour {
                 orderSaves[pair.key] = pair.value;
                 finishedOrderCount += pair.value;
             }
+            if (finishedOrderCount == 0) {
+                Rating.Value = 0;
+            } else {
+                Rating.Value = (float)goodOrderCount / finishedOrderCount;
+            }
         } catch (Exception e) {
             Debug.LogError($"加载数据失败: {e.Message}");
             ResetToDefaultData();
@@ -136,18 +140,10 @@ public class PlayerDataManager : MonoBehaviour {
         Speed.OnValueChanged.AddListener(_ => MarkDataDirty());
         Reputation.OnValueChanged.AddListener(_ => MarkDataDirty());
         Medals.OnValueChanged.AddListener(_ => MarkDataDirty());
-        Rating.OnValueChanged.AddListener(_ => MarkDataDirty());
     }
 
     private void OrderDataManager_OnOrderComplete(string obj) {
         UnlockMedal(obj);
-    }
-
-    private void OrderDataManager_OnSpecialOrderComplete(string orderUID) {
-        if (!orderSaves.ContainsKey(orderUID)) {
-            orderSaves.Add(orderUID, 1);
-            MarkDataDirty();
-        }
     }
 
     public void AddGoodOrderCount() {
@@ -173,7 +169,6 @@ public class PlayerDataManager : MonoBehaviour {
     private void ResetToDefaultData() {
         Speed.Reset();
         Reputation.Reset();
-        Rating.Reset();
         Medals.Reset();
         orderSaves.Clear();
     }
@@ -197,7 +192,6 @@ public class PlayerDataManager : MonoBehaviour {
     private void OnApplicationQuit() {
         if (_isDirty) SaveData();
         EventHandlerManager.updateAttribution -= OnUpdateAttribution;
-        _orderDataManager.OnOrderComplete -= OrderDataManager_OnSpecialOrderComplete;
     }
 
     private void OnUpdateAttribution(PlayerAttribution playerAttribution, float value) {
