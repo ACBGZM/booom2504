@@ -33,6 +33,7 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
 
     private void Start()
     {
+        CommonGameplayManager.GetInstance().NodeGraphManager.ResetCurrentNode();
         CommonGameplayManager.GetInstance().NodeGraphManager.RefreshMovingHints();
     }
 

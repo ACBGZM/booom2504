@@ -18,7 +18,7 @@ public class NodeGraphManager : MonoBehaviour
     private int nodeCnt;
     // 结点上次触发事件事件
     private Dictionary<int, int> nodeTriggerTime = new Dictionary<int, int>();
-    
+
     public bool IsOnBaseCampNode()
     {
         return _currentNodeID == 1;
@@ -134,6 +134,11 @@ public class NodeGraphManager : MonoBehaviour
     {
         ShowCanMoveNodes(CurrentNode, true);
         CurrentNode.CheckShowEnterButton();
+    }
+
+    public void ResetCurrentNode()
+    {
+        _currentNodeID = 1;
     }
 
     public Node GetNodeByIDRuntime(int nodeID)
