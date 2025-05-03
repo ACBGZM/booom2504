@@ -49,7 +49,7 @@ public class DiceUIManager : Singleton<DiceUIManager>
     {
         Reset();
         speed.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value.ToString()}";
-        reputation.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value.ToString()}";
+        reputation.text = $"声誉：{CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value.ToString()}";
         gameObject.SetActive(true);
 
         EventHandlerManager.CallStartRoll();

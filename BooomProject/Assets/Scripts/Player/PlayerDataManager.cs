@@ -45,6 +45,7 @@ public class PlayerDataManager : MonoBehaviour {
     }
 
     private void Start() {
+        EventHandlerManager.updateAttribution += OnUpdateAttribution;
         _orderDataManager = CommonGameplayManager.GetInstance().OrderDataManager;
         _orderDataManager.OnOrderComplete += OrderDataManager_OnOrderComplete;
         LoadData();
