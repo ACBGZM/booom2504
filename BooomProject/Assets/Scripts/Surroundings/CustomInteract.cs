@@ -11,6 +11,10 @@ public class CustomInteract : MonoBehaviour, IInteractable
 
     public void Interact(PlayerController player)
     {
+        if (CommonGameplayManager.GetInstance().TimeManager.IsOffWork())
+        {
+            return;
+        }
         OnInteractEvent?.Invoke();
     }
 }

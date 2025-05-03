@@ -16,7 +16,8 @@ public class BaseCampOperateNotice : MonoBehaviour {
     private void PlayerController_OnInteractableObjectChange(IInteractable interactable, bool isEnter) {
         if (isEnter) {
             if(interactable is NPCInteract) _NPCNotice.SetActive(true);
-            else if(interactable is CustomInteract) _ExitNotice.SetActive(true);
+            else if(interactable is CustomInteract
+                    && !CommonGameplayManager.GetInstance().TimeManager.IsOffWork()) _ExitNotice.SetActive(true);
         } else {
             _NPCNotice.SetActive(false);
             _ExitNotice.SetActive(false);

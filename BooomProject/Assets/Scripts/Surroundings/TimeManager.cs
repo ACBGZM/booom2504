@@ -168,6 +168,13 @@ public class TimeManager : MonoBehaviour
         return currentTime.day > GameplaySettings._maxGameDayCount;
     }
 
+    public bool IsOffWork()
+    {
+        return currentTime.hour == GameplaySettings._offWorkHour &&
+               currentTime.minute >= GameplaySettings._offWorkMinute
+               || currentTime.hour > GameplaySettings._offWorkHour;
+    }
+
     private void CheckAndNotifyTimeEvents(GameTime time)
     {
         float t = currentTime.hour + currentTime.minute / 60.0f;
