@@ -6025,7 +6025,7 @@ MonoBehaviour:
         m_Calls: []
   Medals:
     _statName: Medals
-    _value: 0
+    _value: 10
     _minValue: 0
     _maxValue: 2147483647
     OnValueChanged:
