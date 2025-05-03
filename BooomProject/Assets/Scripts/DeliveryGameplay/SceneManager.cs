@@ -27,8 +27,8 @@ public class GameSceneManager : MonoBehaviour {
 
     // 异步加载场景动画
     [SerializeField] Image _fadeImage;
-    private float _fadeOutDuration = 0.75f;
-    private float _fadeInDuration = 1.25f;
+    private float _fadeOutDuration = 1.25f;
+    private float _fadeInDuration = 1.75f;
     public void LoadAsyncWithFading(string targetScene)
     {
         StartCoroutine(LoadAsyncWithFadingOut(targetScene));
@@ -36,8 +36,9 @@ public class GameSceneManager : MonoBehaviour {
 
     private IEnumerator LoadAsyncWithFadingOut(string targetScene)
     {
-        _fadeImage.DOFade(1f, _fadeOutDuration).SetEase(Ease.Linear);
         HandleSceneTransition();
+        _fadeImage.gameObject.SetActive(true);
+        _fadeImage.DOFade(1f, _fadeOutDuration).SetEase(Ease.Linear);
         yield return YieldHelper.WaitForSeconds(_fadeOutDuration);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetScene);

@@ -81,6 +81,11 @@ public class PlayerController : MonoBehaviour
             AddInteractable(interactable);
             OnInteractableObjectChange?.Invoke(interactable, true);
         }
+
+        if(collision.gameObject.TryGetComponent(out PlayerEnterTrigger playerEnterTrigger))
+        {
+            playerEnterTrigger.TriggerEvent();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

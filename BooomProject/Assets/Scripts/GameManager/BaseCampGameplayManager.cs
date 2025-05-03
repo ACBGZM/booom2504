@@ -70,19 +70,21 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
 
     public void OnEndDay()
     {
-        CommonGameplayManager.GetInstance().TimeManager.GoToNextDay();
+        CommonGameplayManager.GetInstance().TimeManager.SetPaused(true);
 
         // check game over
         if (CommonGameplayManager.GetInstance().TimeManager.IsGameOver())
         {
-            CommonGameplayManager.GetInstance().TimeManager.SetPaused(true);
             _onGameOverEventSequenceExecutor.Initialize(null);
             _onGameOverEventSequenceExecutor.Execute();
 
             return;
         }
 
-        _onEndDayEventSequenceExecutor.Initialize(null);
+        _onEndDayEventSequenceExecutor.Initialize((bool success) =>
+        {
+            CommonGameplayManager.GetInstance().TimeManager.GoToNextDay();
+        });
         _onEndDayEventSequenceExecutor.Execute();
     }
 }

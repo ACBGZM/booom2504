@@ -165,7 +165,7 @@ public class TimeManager : MonoBehaviour
 
     public bool IsGameOver()
     {
-        return currentTime.day > GameplaySettings._maxGameDayCount;
+        return currentTime.day >= GameplaySettings._maxGameDayCount;
     }
 
     public bool IsOffWork()
