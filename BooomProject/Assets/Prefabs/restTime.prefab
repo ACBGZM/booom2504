@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -101.7, y: -22}
-  m_SizeDelta: {x: 156.14, y: 42.7}
+  m_AnchoredPosition: {x: -102.479, y: -24}
+  m_SizeDelta: {x: 175.255, y: 42.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6284598900649191347
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: rest time
+  m_text: off-work time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
   m_sharedMaterial: {fileID: -5782206819425291957, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
@@ -92,17 +92,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -20
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -168,8 +168,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 84.5, y: -3.9000244}
-  m_SizeDelta: {x: 147.3319, y: 50}
+  m_AnchoredPosition: {x: 76.814, y: -3.9000244}
+  m_SizeDelta: {x: 177.206, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1069127468181936673
 CanvasRenderer:
@@ -226,8 +226,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4F11\u606F\u65F6\u95F4"
+  m_text: "\u4E0B\u73ED\u65F6\u95F4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
   m_sharedMaterial: {fileID: -5782206819425291957, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
@@ -460,8 +460,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
