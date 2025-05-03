@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class DiceUIManager : Singleton<DiceUIManager>
@@ -14,14 +15,15 @@ public class DiceUIManager : Singleton<DiceUIManager>
 
     protected override void init()
     {
-     //   rollBtn = gameObject.GetComponentInChildren<Button>();
-        result = gameObject.GetComponentInChildren<TMP_Text>();
-        Image[] images = gameObject.GetComponentsInChildren<Image>();
-        
-        speed = images[1].GetComponentInChildren<TMP_Text>();
-        
-        reputation = images[2].GetComponentInChildren<TMP_Text>();
-    
+        //   rollBtn = gameObject.GetComponentInChildren<Button>();
+        Transform child = transform.GetChild(0);
+        result = child.Find("result").GetComponentInChildren<TMP_Text>();
+
+
+        speed = child.Find("speed").GetComponentInChildren<TMP_Text>();
+
+        reputation = child.Find("reputation").GetComponentInChildren<TMP_Text>();
+
         //rollBtn.onClick.AddListener(() =>
         //{
         //    rollBtn.gameObject.SetActive(false);

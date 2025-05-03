@@ -16,12 +16,13 @@ public class TwoDiceUIManager : Singleton<TwoDiceUIManager>
     protected override void init()
     {
        // rollBtn = gameObject.GetComponentInChildren<Button>();
-        result = gameObject.GetComponentInChildren<TMP_Text>();
-        Image[] images = gameObject.GetComponentsInChildren<Image>();
+       Transform child = transform.GetChild(0);
+        result = child.Find("result").GetComponentInChildren<TMP_Text>();
+     
 
-        speed = images[1].GetComponentInChildren<TMP_Text>();
+        speed = child.Find("speed").GetComponentInChildren<TMP_Text>();
 
-        reputation = images[2].GetComponentInChildren<TMP_Text>();
+        reputation = child.Find("reputation").GetComponentInChildren<TMP_Text>();
 
         //rollBtn.onClick.AddListener(() =>
         //{
