@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerSO: {fileID: 11400000, guid: 116a5aed92359044286f79f93a2956a8, type: 2}
   orderUID: C1
-  initialLimitTime: 200
+  initialLimitTime: 120
   isSpecialOrder: 0
-  baseReward: 2
+  baseReward: 4
   orderEvent: {fileID: 11400000, guid: 4461f3c9b59cf1d408685cf30be5fcec, type: 2}
   bubble: "\u597D\u997F\u597D\u997F\u597D\u997F\u597D\u997F"
   chatHistory:
@@ -33,5 +33,4 @@ MonoBehaviour:
     responseText: "\u5FEB\u4E86\uFF0C\u6211\u5728\u95EF\u7EA2\u706F"
     customerResponseText: "\u90A3\u8FD8\u662F\u6162\u70B9\u5427\uFF0C\u6CE8\u610F\u5B89\u5168"
     responseEvaluate: 0
-  destinationAddress: 123
   destinationNodeId: 12

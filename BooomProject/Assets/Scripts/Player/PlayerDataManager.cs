@@ -1,39 +1,48 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 [System.Serializable]
 public struct SerializableKeyValuePair {
     public string key;
-    public bool value;
+    public int value;
 
-    public SerializableKeyValuePair(string key, bool value) {
+    public SerializableKeyValuePair(string key, int value) {
         this.key = key;
         this.value = value;
     }
 }
 
 public class PlayerDataManager : MonoBehaviour {
+    [Header("调试设置")]
+    public bool debugMode = false;
+
     [Header("基础属性")]
     public BaseStat<float> Speed = new BaseStat<float>("Speed", 5f, 0f, 15f);
     public BaseStat<int> Reputation = new BaseStat<int>("Reputation", 0, 0, 1000);
-    public BaseStat<float> Rating = new BaseStat<float>("Rating", 0.8f, 0f, 1f);
     public BaseStat<int> Medals = new BaseStat<int>("Medals", 0, 0, int.MaxValue);
-    [Tooltip("特殊订单UID与是否完成")]
-    public Dictionary<string, bool> orderSaves = new Dictionary<string, bool>();
+
+    public BaseStat<float> Rating = new BaseStat<float>("Rating", 0.8f, 0f, 1f);
+    [Tooltip("订单UID与完成次数")]
+    public Dictionary<string, int> orderSaves = new Dictionary<string, int>();
     [Tooltip("订单完成总数")]
     public int finishedOrderCount;
     [Tooltip("订单好评数")]
     public int goodOrderCount;
-    //[Header("自动保存设置")]
-    //[SerializeField] private bool _autoSave = true;
-    //[SerializeField, Range(30, 300)] private float _saveInterval = 60f;
+
+    private const string SAVE_FILE_NAME = "player_save.json";
+    private const byte XOR_KEY = 0xCD;
     private float _saveTimer;
+    [Header("自动保存设置")]
+    [SerializeField] private bool _autoSave = true;
+    [SerializeField, Range(30, 300)] private float _saveInterval = 60f;
     private bool _isDirty;
     private OrderDataManager _orderDataManager;
-    // 加密
-    private const string SAVE_KEY = "EncryptedSaves";
-    private const byte XOR_KEY = 0xCD;
+
+    private string GetSaveFilePath() {
+        return Path.Combine(Directory.GetCurrentDirectory(), SAVE_FILE_NAME);
+    }
 
     private void Start() {
         _orderDataManager = CommonGameplayManager.GetInstance().OrderDataManager;
@@ -43,61 +52,15 @@ public class PlayerDataManager : MonoBehaviour {
         SetupEventListeners();
     }
 
-    private void OrderDataManager_OnOrderComplete(string obj) {
-        UnlockMedal(obj);
-    }
-
-    // void Update() {
-    //    if (_autoSave && _isDirty)
-    //    {
-    //        _saveTimer += Time.deltaTime;
-    //        if (_saveTimer >= _saveInterval)
-    //        {
-    //            SaveData();
-    //            _saveTimer = 0f;
-    //            _isDirty = false;
-    //        }
-    //    }
-    // }
-
-    private void SetupEventListeners() {
-        Speed.OnValueChanged.AddListener(v => {
-            CheckSpeedAchievements(v);
-            MarkDataDirty();
-        });
-
-        Reputation.OnValueChanged.AddListener(v => {
-            CheckReputationMilestones(v);
-            MarkDataDirty();
-        });
-
-        Medals.OnValueChanged.AddListener(_ => MarkDataDirty());
-        Rating.OnValueChanged.AddListener(_ => MarkDataDirty());
-    }
-
-    private void OrderDataManager_OnSpecialOrderComplete(string orderUID) {
-        if (!orderSaves.ContainsKey(orderUID)) {
-            orderSaves.Add(orderUID, true);
-            MarkDataDirty();
+    void Update() {
+        if (_autoSave && _isDirty) {
+            _saveTimer += Time.deltaTime;
+            if (_saveTimer >= _saveInterval) {
+                SaveData();
+                _saveTimer = 0f;
+                _isDirty = false;
+            }
         }
-    }
-
-    private void MarkDataDirty() {
-        _isDirty = true;
-        _saveTimer = 0f;
-    }
-
-    private void CheckSpeedAchievements(float speed) {
-        if (speed >= 10f) UnlockMedal("");
-    }
-
-    private void CheckReputationMilestones(int rep) {
-        if (rep >= 10) Rating.Add(0.1f);
-    }
-
-    public void UnlockMedal(string medalName) {
-        Medals.Add(1);
-        Debug.Log($"解锁奖章: {medalName}");
     }
 
     private void SaveData() {
@@ -105,19 +68,30 @@ public class PlayerDataManager : MonoBehaviour {
             PlayerData data = new PlayerData {
                 speed = Speed.Value,
                 reputation = Reputation.Value,
-                rating = Rating.Value,
-                medals = Medals.Value
+                medals = Medals.Value,
+                goodOrderCount = this.goodOrderCount
             };
-            // 转换字典为可序列化列表
+
             data.orderSaves.Clear();
             foreach (var pair in orderSaves) {
                 data.orderSaves.Add(new SerializableKeyValuePair(pair.Key, pair.Value));
             }
-            string json = JsonUtility.ToJson(data);
-            byte[] encryptedData = XOREncrypt(json);
-            PlayerPrefs.SetString(SAVE_KEY, Convert.ToBase64String(encryptedData));
-            PlayerPrefs.Save();
-            Debug.Log("游戏数据已保存");
+
+            string json = debugMode
+                ? JsonUtility.ToJson(data, true)
+                : JsonUtility.ToJson(data);
+            string filePath = GetSaveFilePath();
+
+            if (debugMode) {
+                File.WriteAllText(filePath, json);
+                Debug.Log($"调试模式保存未加密:\n{json}");
+            } else {
+                byte[] encryptedData = XOREncrypt(json);
+                File.WriteAllBytes(filePath, encryptedData);
+            }
+
+            Debug.Log($"游戏数据已保存到: {filePath}");
+            _isDirty = false;
         } catch (Exception e) {
             Debug.LogError($"保存数据失败: {e.Message}");
         }
@@ -125,28 +99,75 @@ public class PlayerDataManager : MonoBehaviour {
 
     private void LoadData() {
         try {
-            if (!PlayerPrefs.HasKey(SAVE_KEY)) return;
-            string encryptedString = PlayerPrefs.GetString(SAVE_KEY);
-            byte[] encryptedData = Convert.FromBase64String(encryptedString);
-            string json = XORDecrypt(encryptedData);
+            string filePath = GetSaveFilePath();
+            if (!File.Exists(filePath)) {
+                Debug.Log("存档文件不存在，使用默认数据");
+                ResetToDefaultData();
+                return;
+            }
+
+            string json;
+            if (debugMode) {
+                json = File.ReadAllText(filePath);
+                Debug.Log($"调试模式加载未加密:\n{json}");
+            } else {
+                byte[] encryptedData = File.ReadAllBytes(filePath);
+                json = XORDecrypt(encryptedData);
+            }
+
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
-            // 加载基础属性
             Speed.Value = data.speed;
             Reputation.Value = data.reputation;
-            Rating.Value = data.rating;
             Medals.Value = data.medals;
-            finishedOrderCount = data.finishedOrderCount;
             goodOrderCount = data.goodOrderCount;
-            // 加载订单数据
+
             orderSaves.Clear();
             foreach (var pair in data.orderSaves) {
                 orderSaves[pair.key] = pair.value;
+                finishedOrderCount += pair.value;
             }
-            Debug.Log("游戏数据已加载");
         } catch (Exception e) {
             Debug.LogError($"加载数据失败: {e.Message}");
             ResetToDefaultData();
         }
+    }
+
+    private void SetupEventListeners() {
+        Speed.OnValueChanged.AddListener(_ => MarkDataDirty());
+        Reputation.OnValueChanged.AddListener(_ => MarkDataDirty());
+        Medals.OnValueChanged.AddListener(_ => MarkDataDirty());
+        Rating.OnValueChanged.AddListener(_ => MarkDataDirty());
+    }
+
+    private void OrderDataManager_OnOrderComplete(string obj) {
+        UnlockMedal(obj);
+    }
+
+    private void OrderDataManager_OnSpecialOrderComplete(string orderUID) {
+        if (!orderSaves.ContainsKey(orderUID)) {
+            orderSaves.Add(orderUID, 1);
+            MarkDataDirty();
+        }
+    }
+
+    public void AddGoodOrderCount() {
+        goodOrderCount++;
+        MarkDataDirty();
+    }
+
+    public void AddFinishedOrderCount() {
+        finishedOrderCount++;
+        MarkDataDirty();
+    }
+
+    private void MarkDataDirty() {
+        _isDirty = true;
+        _saveTimer = 0f;
+    }
+
+    public void UnlockMedal(string medalName) {
+        Medals.Add(1);
+        Debug.Log($"解锁奖章: {medalName}");
     }
 
     private void ResetToDefaultData() {

@@ -1,0 +1,36 @@
+{
+    "speed": 2.0,
+    "reputation": 0,
+    "medals": 7,
+    "goodOrderCount": 14,
+    "orderSaves": [
+        {
+            "key": "L1",
+            "value": 2
+        },
+        {
+            "key": "C2",
+            "value": 2
+        },
+        {
+            "key": "M1",
+            "value": 2
+        },
+        {
+            "key": "L2",
+            "value": 2
+        },
+        {
+            "key": "M2",
+            "value": 2
+        },
+        {
+            "key": "Q1",
+            "value": 2
+        },
+        {
+            "key": "L3",
+            "value": 2
+        }
+    ]
+}

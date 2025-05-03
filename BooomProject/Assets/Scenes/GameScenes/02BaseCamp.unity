@@ -6006,6 +6006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26dd5a69b5e9da34db9d7b51c5bbe277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 1
   Speed:
     _statName: Speed
     _value: 2
@@ -6022,14 +6023,6 @@ MonoBehaviour:
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []
-  Rating:
-    _statName: Rating
-    _value: 0
-    _minValue: 0
-    _maxValue: 1
-    OnValueChanged:
-      m_PersistentCalls:
-        m_Calls: []
   Medals:
     _statName: Medals
     _value: 0
@@ -6038,8 +6031,18 @@ MonoBehaviour:
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []
+  Rating:
+    _statName: Rating
+    _value: 0
+    _minValue: 0
+    _maxValue: 1
+    OnValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
   finishedOrderCount: 0
   goodOrderCount: 0
+  _autoSave: 1
+  _saveInterval: 60
 --- !u!1001 &1291502400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6133,8 +6136,8 @@ GameObject:
   - component: {fileID: 1313738681}
   - component: {fileID: 1313738684}
   - component: {fileID: 1313738683}
-  - component: {fileID: 1313738682}
   - component: {fileID: 1313738685}
+  - component: {fileID: 1313738682}
   m_Layer: 0
   m_Name: "\u7AD9\u957F"
   m_TagString: Interactable
@@ -6171,7 +6174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f6a10b465a2b4cbe13198d3d64273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executor: {fileID: 11400000, guid: 4ba7b93aa0698154993a86fcfd1e2c8b, type: 2}
+  executor:
+  - {fileID: 11400000, guid: 4ba7b93aa0698154993a86fcfd1e2c8b, type: 2}
+  - {fileID: 11400000, guid: 286f3bee203963444ab9399ce47645c9, type: 2}
+  - {fileID: 11400000, guid: cfde7ff5870bfc545a86e9fa65eb5ed7, type: 2}
+  currentExecutor: 0
 --- !u!61 &1313738683
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1942,6 +1942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26dd5a69b5e9da34db9d7b51c5bbe277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 1
   Speed:
     _statName: Speed
     _value: 2
@@ -1976,6 +1977,8 @@ MonoBehaviour:
         m_Calls: []
   finishedOrderCount: 0
   goodOrderCount: 0
+  _autoSave: 1
+  _saveInterval: 60
 --- !u!1001 &361183780
 PrefabInstance:
   m_ObjectHideFlags: 0
