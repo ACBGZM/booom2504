@@ -45,7 +45,7 @@ public class StatDisplayUI : MonoBehaviour {
     private void UpdateMedalDisplay(int value) {
         for (int i = 0; i < value; i++) {
             Transform medal = Instantiate(_medal, _medalContainer);
-            medal.GetComponent<Image>().sprite = _medalSprites[Random.Range(0, _medalSprites.Length)];
+            medal.Find("MedalSprite").GetComponent<Image>().sprite = _medalSprites[Random.Range(0, _medalSprites.Length)];
         }
     }
 
