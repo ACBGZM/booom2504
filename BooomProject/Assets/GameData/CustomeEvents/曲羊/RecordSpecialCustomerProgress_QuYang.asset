@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
-  m_Name: SuccessSequence
+  m_Script: {fileID: 11500000, guid: a14eb2f10d869af449dad6df066c51d7, type: 3}
+  m_Name: RecordSpecialCustomerProgress_QuYang
   m_EditorClassIdentifier: 
-  m_event_nodes:
-  - {fileID: 11400000, guid: aa54977d437d9ce4dbff0a24275da21c, type: 2}
-  - {fileID: 11400000, guid: ce5ee0a02d49a524e9ada2ed2eed8ba4, type: 2}
+  m_state: 0
+  _customer: {fileID: 11400000, guid: 0c939e3b3231750438d81006ccae693e, type: 2}

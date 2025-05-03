@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum EPlayerState
@@ -87,4 +88,7 @@ public class CommonGameplayManager : MonoBehaviour
             }
         }
     }
+
+    // key: name, value: 0-3 (0:未触发, 1:中间, 2:已完成, 3:已完成并获得奖励)
+    public Dictionary<string, int> SpecialCustomerProgress { get; set; } = new Dictionary<string, int>();
 }
