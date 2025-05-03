@@ -63,6 +63,7 @@ public class OrderDataManager : MonoBehaviour {
                 UpdateSeriesProgress(prefix, number);
             }
         }
+        Debug.Log(_orderSeriesProgress);
     }
 
     private void GenerateInitialOrders() {
@@ -146,7 +147,7 @@ public class OrderDataManager : MonoBehaviour {
         Debug.Log($"需要{needed}个订单");
         if (needed > 0) {
             GenerateFollowOrders(prefix, number); // 生成后续订单
-            FillRemainingSlots(needed); // 补充普通订单
+            FillRemainingSlots(needed); // 补充订单
         }
         OnAvailableOrdersChanged?.Invoke();
     }
@@ -265,7 +266,6 @@ public class OrderDataManager : MonoBehaviour {
             //}
             string orderUID = order.sourceOrder.orderUID;
             _acceptedOrders.Remove(order);
-            OnOrderComplete?.Invoke(orderUID);
             // Debug.Log($"订单完成: {order.sourceOrder.orderTitle}");
             changed = true;
             int nodeIdx = order.sourceOrder.destinationNodeId;
@@ -276,6 +276,7 @@ public class OrderDataManager : MonoBehaviour {
                 yield return StartCoroutine(ExecuteOrderEvents(order));
                 currentHandleOrder = null;
             }
+            OnOrderComplete?.Invoke(orderUID);
         }
         if (changed) {
             OnAcceptedOrdersChanged?.Invoke();
