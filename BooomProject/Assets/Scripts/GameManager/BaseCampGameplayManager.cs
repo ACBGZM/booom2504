@@ -80,7 +80,7 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
             _onGameOverEventSequenceExecutor.Initialize(null);
             _onGameOverEventSequenceExecutor.Execute();
 
-            // return;
+            return;
         }
 
         _onEndDayEventSequenceExecutor.Initialize(null);

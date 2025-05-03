@@ -8,7 +8,7 @@ public class EventRecordSpecialCustomerProgress : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        if (!CommonGameplayManager.GetInstance().SpecialCustomerProgress.TryAdd(_customer.customerName, 0))
+        if (!CommonGameplayManager.GetInstance().SpecialCustomerProgress.TryAdd(_customer.customerName, 1))
         {
             ++CommonGameplayManager.GetInstance().SpecialCustomerProgress[_customer.customerName];
         }
