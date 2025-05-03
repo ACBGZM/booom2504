@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: EventCD
   m_EditorClassIdentifier: 
   m_state: 0
+  eventCD: 2000

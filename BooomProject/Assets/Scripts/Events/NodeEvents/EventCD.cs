@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventCD", menuName = "Event/NodeActions/EventCD")]
 public class EventCD : EventNodeBase
 {
-    //public int lastTriggerTime;
+    public int eventCD = 360;
     public override void Execute()
     {
         base.Execute();
@@ -15,7 +15,7 @@ public class EventCD : EventNodeBase
         int currentTime = CommonGameplayManager.GetInstance().TimeManager.currentTime.day * 24 * 60
                           + CommonGameplayManager.GetInstance().TimeManager.currentTime.hour * 60
                           + CommonGameplayManager.GetInstance().TimeManager.currentTime.minute;
-        if (lastTriggerTime == 0 || currentTime - lastTriggerTime > GameplaySettings.TriggerCD)
+        if (lastTriggerTime == 0 || currentTime - lastTriggerTime > eventCD)
         {
             lastTriggerTime = currentTime;
             CommonGameplayManager.GetInstance().NodeGraphManager.SetNodeTriggerTime(currentNodeId, currentTime);
