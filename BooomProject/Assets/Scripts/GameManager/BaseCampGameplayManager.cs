@@ -70,7 +70,6 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
 
     public void OnEndDay()
     {
-        // todo: day end
         CommonGameplayManager.GetInstance().TimeManager.GoToNextDay();
 
         // check game over

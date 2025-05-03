@@ -88,7 +88,11 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
 
     public void OnEndWorking()
     {
-        _onEndWorkingEventSequenceExecutor.Initialize(null);
+        CommonGameplayManager.GetInstance().PauseGame();
+        _onEndWorkingEventSequenceExecutor.Initialize((bool success)=>
+        {
+            CommonGameplayManager.GetInstance().ResumeGame();
+        });
         _onEndWorkingEventSequenceExecutor.Execute();
     }
 }
