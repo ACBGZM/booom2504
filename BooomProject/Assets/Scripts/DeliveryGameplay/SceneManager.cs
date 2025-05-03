@@ -14,8 +14,10 @@ public class GameSceneManager : MonoBehaviour {
     }
 
     private void Awake() {
-        _timer = CommonGameplayManager.GetInstance().TimeManager;
-        SceneManager.sceneLoaded += _timer.OnSceneLoaded; // 注册场景加载事件
+        if (SceneManager.GetActiveScene().name != "01MainMenu") {
+            _timer = CommonGameplayManager.GetInstance().TimeManager;
+            SceneManager.sceneLoaded += _timer.OnSceneLoaded; // 注册场景加载事件
+        }
     }
 
     public void Start()
@@ -78,6 +80,8 @@ public class GameSceneManager : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        SceneManager.sceneLoaded -= _timer.OnSceneLoaded;
+        if (SceneManager.GetActiveScene().name != "01MainMenu") {
+            SceneManager.sceneLoaded -= _timer.OnSceneLoaded;
+        }
     }
 }

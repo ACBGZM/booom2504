@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerSO: {fileID: 11400000, guid: 94bdc5ab29579bb4d91e740c4a80c9e5, type: 2}
   orderUID: L2
-  initialLimitTime: 300
+  initialLimitTime: 150
   isSpecialOrder: 1
-  baseReward: 3
+  baseReward: 4
   orderEvent: {fileID: 11400000, guid: de115ecc16e8c8c4ebd19fba8e14088c, type: 2}
-  bubble: 
+  bubble: "\u914D\u9001\u8F9B\u82E6\u4E86\uFF0C\u6211\u51C6\u5907\u4E86\u5C0F\u60CA\u559C"
   chatHistory:
   - time: 6:00
-    profile: {fileID: 0}
+    profile: {fileID: 21300000, guid: e86ba5ce51b199240bcda17d5c4506bb, type: 3}
     content: "\u914D\u9001\u8F9B\u82E6\u4E86\uFF0C\u6211\u51C6\u5907\u4E86\u5C0F\u60CA\u559C"
     left: 1
   quickResponses:
@@ -33,5 +33,4 @@ MonoBehaviour:
     responseText: "\u8C22\u8C22"
     customerResponseText: "\u4E0D\u5BA2\u6C14"
     responseEvaluate: 2
-  destinationAddress: 
-  destinationNodeId: 0
+  destinationNodeId: 12

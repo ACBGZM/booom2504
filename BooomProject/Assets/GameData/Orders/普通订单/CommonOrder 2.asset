@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerSO: {fileID: 11400000, guid: cabb6b2353079bf44b6e3d853fea0766, type: 2}
   orderUID: C2
-  initialLimitTime: 30
+  initialLimitTime: 120
   isSpecialOrder: 0
   baseReward: 5
   orderEvent: {fileID: 11400000, guid: 4461f3c9b59cf1d408685cf30be5fcec, type: 2}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b98a18fc1bb32749a0de1540545155c, type: 3}
+  m_Name: GameEndingEventsReputation
+  m_EditorClassIdentifier: 
+  m_state: 0
+  Reputation3: {fileID: 11400000, guid: 6a0e5c48d421d6746825a4b9d8d603a6, type: 2}
+  Reputation6: {fileID: 11400000, guid: 966aef19088f49248b3bc076f4793895, type: 2}
+  Reputation10: {fileID: 11400000, guid: 464f206358526c948881b2b2b657be0b, type: 2}

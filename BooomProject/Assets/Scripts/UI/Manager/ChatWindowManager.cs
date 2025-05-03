@@ -51,8 +51,10 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         }
         _chatTitleText.text = $"（店家、{order.sourceOrder.customerSO.customerName}、我)";
         _history = order.runtimeChatHistory;
-        _history[0].time = order.acceptedTime.GetHourAndMinute();
-        _history[0].profile = order.sourceOrder.customerSO.customerProfile;
+        if (_history.Count > 0) {
+            _history[0].time = order.acceptedTime.GetHourAndMinute();
+            _history[0].profile = order.sourceOrder.customerSO.customerProfile;
+        }
         UpdateContent();
         SetupReplyButton();
     }

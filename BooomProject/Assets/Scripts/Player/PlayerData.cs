@@ -13,18 +13,12 @@ public class PlayerData
     [Tooltip("声誉")]
     public int reputation;
 
-    [Tooltip("好评率")]
-    public float rating;
-
     [Tooltip("奖章数量")]
     public int medals;
-
-    [Tooltip("订单完成总数")]
-    public int finishedOrderCount;
 
     [Tooltip("订单好评数")]
     public int goodOrderCount;
 
-    [Tooltip("订单与完成")]
+    [Tooltip("订单与完成次数")]
     public List<SerializableKeyValuePair> orderSaves = new List<SerializableKeyValuePair>();
 }

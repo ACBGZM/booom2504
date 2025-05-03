@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customerSO: {fileID: 11400000, guid: 0a19bf82e59caa54d8c4135612efea77, type: 2}
   orderUID: C5
-  initialLimitTime: 300
+  initialLimitTime: 120
   isSpecialOrder: 0
   baseReward: 3
   orderEvent: {fileID: 11400000, guid: 4461f3c9b59cf1d408685cf30be5fcec, type: 2}
@@ -33,5 +33,4 @@ MonoBehaviour:
     responseText: "\u597D\u7684"
     customerResponseText: "\u8BB0\u5F97\u54E6\uFF0C\u6211\u4F1A\u95EE\u5979\u7684"
     responseEvaluate: 0
-  destinationAddress: 1213
   destinationNodeId: 6
