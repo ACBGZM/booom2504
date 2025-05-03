@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class FloatingButton : MonoBehaviour
 {
     public Transform TargetObject { get; set; }
-    public Vector3 Offset { get; set; }= new Vector3(0, 1.5f, 0);
+    public Vector3 Offset { get; set; }= new Vector3(0, 2.0f, 0);
 
     [SerializeField] private Camera _mainCamera;
 
