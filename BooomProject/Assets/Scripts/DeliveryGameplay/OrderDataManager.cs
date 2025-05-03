@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class OrderDataManager : MonoBehaviour {
     public event Action OnAvailableOrdersChanged;
@@ -14,21 +14,35 @@ public class OrderDataManager : MonoBehaviour {
     private List<RuntimeOrderSO> _acceptedOrders = new List<RuntimeOrderSO>();
 
     private Dictionary<string, int> _orderSeriesProgress = new Dictionary<string, int>();
+    // 缓存特殊订单 uid, 普通订单允许重复生成
+    private HashSet<string> _existingSpecialOrderUIDs = new HashSet<string>();
+
     //已接订单与目的节点编号映射表 TODO: 待持久化
     private Dictionary<RuntimeOrderSO, int> _acceptedOrdersNode = new Dictionary<RuntimeOrderSO, int>();
-    // 差评订单数
-    private int badOrderCount;
+
     // 当前送达正在处理的订单
     private RuntimeOrderSO currentHandleOrder;
     public int CurrentSpecialOrderCount => _availableOrders.Count(o => o.sourceOrder.isSpecialOrder);
     public int CurrentCommonOrderCount => _availableOrders.Count(o => !o.sourceOrder.isSpecialOrder);
 
+    // 用于记录每个特殊订单系列当天是否已经生成过
+    private Dictionary<string, int> _lastSpecialOrderGenDay = new Dictionary<string, int>();
+
+    // 当前天数
+    private int _currentDay = 0;
+
+    // 差评订单数
+    private int badOrderCount;
+    public int BadOrderCount => badOrderCount;
     public List<RuntimeOrderSO> GetAvailableOrders() => _availableOrders;
     public List<RuntimeOrderSO> GetAcceptedOrders() => _acceptedOrders;
-    public int BadOrderCount => badOrderCount;
 
     private void Start() {
+        InitializeSeriesProgress();
         LoadOrderProgress();
+        // 更新当前天数及重置每日特殊订单生成标记
+        CommonGameplayManager.GetInstance().TimeManager.OnDayPassed.AddListener(OnDayPassedHandler);
+
         GenerateInitialOrders();
         CommonGameplayManager.GetInstance().TimeManager.OnMinutePassed.AddListener(UpdateOrderTimes);
         OnOrderComplete += HandleOrderComplete;
@@ -55,81 +69,121 @@ public class OrderDataManager : MonoBehaviour {
     }
 
     private void LoadOrderProgress() {
-        // 从存档加载已完成订单
-        foreach (var order in CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves) {
-            if (order.Value > 0) // 如果订单已完成
-            {
-                ParseOrderUID(order.Key, out string prefix, out int number);
+        foreach (var orderEntry in CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves) {
+            if (orderEntry.Value > 0) {
+                ParseOrderUID(orderEntry.Key, out string prefix, out int number);
                 UpdateSeriesProgress(prefix, number);
             }
         }
-        Debug.Log(_orderSeriesProgress);
+    }
+
+    private void InitializeSeriesProgress() {
+        var allSeries = _allOrders
+            .Where(o => o.isSpecialOrder)
+            .Select(o => GetOrderPrefix(o.orderUID))
+            .Distinct();
+
+        foreach (var series in allSeries) {
+            if (!_orderSeriesProgress.ContainsKey(series)) {
+                _orderSeriesProgress.Add(series, 0);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 更新当前只缓存特殊订单的 UID, 普通订单不受限制, 可以多次生成和接取。
+    /// </summary>
+    private void UpdateExistingOrdersCache() {
+        _existingSpecialOrderUIDs.Clear();
+        foreach (var o in _availableOrders) {
+            if (o.sourceOrder.isSpecialOrder) {
+                _existingSpecialOrderUIDs.Add(o.sourceOrder.orderUID);
+            }
+        }
+        foreach (var o in _acceptedOrders) {
+            if (o.sourceOrder.isSpecialOrder) {
+                _existingSpecialOrderUIDs.Add(o.sourceOrder.orderUID);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 每天触发的事件, 更新当前天数并重置每日特殊订单的生成状态
+    /// </summary>
+    private void OnDayPassedHandler(GameTime gameTime) {
+        _currentDay = gameTime.day;
+        _lastSpecialOrderGenDay.Clear();
     }
 
     private void GenerateInitialOrders() {
         _availableOrders.Clear();
+        UpdateExistingOrdersCache();
 
-        // 分离特殊订单和普通订单
-        var specialOrders = _allOrders
+        // 特殊订单采用顺序且每天只生成一次
+        var pendingSpecialOrders = _allOrders
             .Where(o => o.isSpecialOrder)
-            .OrderBy(order => GetOrderPrefix(order.orderUID))
-            .ThenBy(order => GetOrderNumber(order.orderUID))
+            .OrderBy(o => GetOrderPrefix(o.orderUID))
+            .ThenBy(o => GetOrderNumber(o.orderUID))
+            .Where(o => CanGenerateSpecialOrder(o.orderUID))
+            .Take(GameplaySettings.m_max_generate_special_orders)
             .ToList();
+        pendingSpecialOrders.ForEach(AddToAvailableOrders);
 
-        var commonOrders = _allOrders
+        // 普通订单随机挑选
+        var availableCommonOrders = _allOrders
             .Where(o => !o.isSpecialOrder)
+            .OrderBy(_ => Guid.NewGuid())
+            .Take(GameplaySettings.m_max_generate_common_orders)
             .ToList();
-
-        // 生成特殊订单
-        int remainingSpecialSlots = GameplaySettings.m_max_generate_special_orders;
-        foreach (var order in specialOrders) {
-            if (remainingSpecialSlots <= 0) break;
-            if (CanGenerateSpecialOrder(order.orderUID) && !IsOrderCompleted(order.orderUID)) {
-                AddToAvailableOrders(order);
-                remainingSpecialSlots--;
-            }
-        }
-
-        // 生成普通订单（随机选择）
-        int remainingCommonSlots = GameplaySettings.m_max_generate_common_orders;
-        while (remainingCommonSlots > 0 && commonOrders.Count > 0) {
-            int randomIndex = UnityEngine.Random.Range(0, commonOrders.Count);
-            AddToAvailableOrders(commonOrders[randomIndex]);
-            remainingCommonSlots--;
-        }
+        availableCommonOrders.ForEach(AddToAvailableOrders);
 
         OnAvailableOrdersChanged?.Invoke();
     }
 
+    /// <summary>
+    /// 检查特殊订单生成条件：
+    /// 1. 必须是该系列的下一个订单（顺序生成）  
+    /// 2. 未完成过
+    /// 3. 当前未存在于已接或可接列表中  
+    /// 4. 当天未生成过该系列的特殊订单
+    /// </summary>
     private bool CanGenerateSpecialOrder(string uid) {
         ParseOrderUID(uid, out string prefix, out int number);
-        // 获取系列进度
-        _orderSeriesProgress.TryGetValue(prefix, out int progress);
-        // 需要满足三个条件：
-        // 1. 是系列中的下一个订单
-        // 2. 该订单尚未完成
-        // 3. 当前没有更高序列号的订单存在
-        return number == progress + 1
-            && !IsOrderCompleted(uid)
-            && !HasHigherOrderInSeries(prefix, number);
+        int currentProgress = _orderSeriesProgress.TryGetValue(prefix, out var progress) ? progress : 0;
+
+        // 每个系列每天只允许生成一次特殊订单
+        if (_lastSpecialOrderGenDay.TryGetValue(prefix, out int lastGenDay) && lastGenDay == _currentDay)
+            return false;
+
+        return number == currentProgress + 1            // 顺序生成：必须为下一个订单号
+            && !IsOrderCompleted(uid)                   // 未完成过
+            && !_existingSpecialOrderUIDs.Contains(uid) // 保证当前未存在
+            && !HasLaterCompletedOrder(prefix, number);
     }
 
-    private bool HasHigherOrderInSeries(string prefix, int currentNumber) {
+    private bool HasLaterCompletedOrder(string prefix, int currentNumber) {
         return _allOrders.Any(o =>
-            o.isSpecialOrder
-            && GetOrderPrefix(o.orderUID) == prefix
-            && GetOrderNumber(o.orderUID) > currentNumber
-            && IsOrderCompleted(o.orderUID));
+            o.isSpecialOrder &&
+            GetOrderPrefix(o.orderUID) == prefix &&
+            GetOrderNumber(o.orderUID) > currentNumber &&
+            IsOrderCompleted(o.orderUID));
     }
 
     private bool IsOrderCompleted(string orderUID) {
-        return CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves
-            .ContainsKey(orderUID) && CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves[orderUID] > 0;
+        return CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves.ContainsKey(orderUID) &&
+               CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves[orderUID] > 0;
     }
 
+    /// <summary>
+    /// 添加订单到可接列表, 同时特殊订单生成时更新每日生成标记
+    /// </summary>
     private void AddToAvailableOrders(OrderSO order) {
         var runtimeOrder = new RuntimeOrderSO(order);
         _availableOrders.Add(runtimeOrder);
+        if (order.isSpecialOrder) {
+            ParseOrderUID(order.orderUID, out string prefix, out int number);
+            _lastSpecialOrderGenDay[prefix] = _currentDay;
+        }
     }
 
     private void HandleOrderComplete(string orderUID) {
@@ -140,60 +194,74 @@ public class OrderDataManager : MonoBehaviour {
             CommonGameplayManager.GetInstance().PlayerDataManager.orderSaves.Add(orderUID, 1);
         }
         ParseOrderUID(orderUID, out string prefix, out int number);
-        UpdateSeriesProgress(prefix, number);
+        foreach (var order in _allOrders) {
+            if (order.orderUID == orderUID && order.isSpecialOrder) {
+                UpdateSeriesProgress(prefix, number);
+            }
+        }
         // 生成后续订单
         int maxTotal = GameplaySettings.m_max_generate_special_orders + GameplaySettings.m_max_generate_common_orders;
         int needed = maxTotal - _availableOrders.Count - _acceptedOrders.Count;
         Debug.Log($"需要{needed}个订单");
         if (needed > 0) {
-            GenerateFollowOrders(prefix, number); // 生成后续订单
-            FillRemainingSlots(needed); // 补充订单
+            GenerateFollowOrders(prefix, number);
+            FillRemainingSlots(needed);
         }
         OnAvailableOrdersChanged?.Invoke();
     }
 
     private void FillRemainingSlots(int needed) {
-        // 优先补充特殊订单
+        UpdateExistingOrdersCache();
+
+        // 补充特殊订单, 满足顺序及每日生成条件
         var pendingSpecialOrders = _allOrders
             .Where(o => o.isSpecialOrder && CanGenerateSpecialOrder(o.orderUID))
+            .OrderBy(o => GetOrderNumber(o.orderUID))
+            .Take(Mathf.Min(needed, GameplaySettings.m_max_generate_special_orders - CurrentSpecialOrderCount))
             .ToList();
 
         foreach (var order in pendingSpecialOrders) {
-            if (needed <= 0) break;
-            if (CurrentSpecialOrderCount < GameplaySettings.m_max_generate_special_orders) {
+            AddToAvailableOrders(order);
+            needed--;
+        }
+
+        // 补充普通订单, 不受已存在判断限制, 可重复接取
+        var commonPool = _allOrders
+            .Where(o => !o.isSpecialOrder)
+            .ToList();
+
+        while (needed > 0 && commonPool.Count > 0) {
+            int randomIndex = UnityEngine.Random.Range(0, commonPool.Count);
+            AddToAvailableOrders(commonPool[randomIndex]);
+            needed--;
+        }
+
+        // 如果仍有空缺, 随机挑选普通订单
+        while (needed > 0) {
+            int randomIndex = UnityEngine.Random.Range(0, _allOrders.Count);
+            var order = _allOrders[randomIndex];
+            if (!order.isSpecialOrder) {
                 AddToAvailableOrders(order);
                 needed--;
             }
         }
-
-        // 补充普通订单
-        var availableCommonOrders = _allOrders
-            .Where(o => !o.isSpecialOrder &&
-                        !_availableOrders.Any(ao => ao.sourceOrder.orderUID == o.orderUID) &&
-                        !_acceptedOrders.Any(ao => ao.sourceOrder.orderUID == o.orderUID)) 
-            .ToList();
-
-        while (needed > 0 && availableCommonOrders.Count > 0) {
-            int randomIndex = UnityEngine.Random.Range(0, availableCommonOrders.Count);
-            var orderToAdd = availableCommonOrders[randomIndex];
-            AddToAvailableOrders(orderToAdd);
-            availableCommonOrders.RemoveAt(randomIndex);
-            needed--;
-        }
     }
 
     private void UpdateSeriesProgress(string prefix, int number) {
-        if (_orderSeriesProgress.ContainsKey(prefix)) {
-            if (number > _orderSeriesProgress[prefix]) {
+        if (_orderSeriesProgress.TryGetValue(prefix, out int currentProgress)) {
+            if (number > currentProgress) {
                 _orderSeriesProgress[prefix] = number;
             }
         } else {
+            Debug.LogWarning($"订单系列未预注册 {prefix}");
             _orderSeriesProgress.Add(prefix, number);
         }
     }
 
+    /// <summary>
+    /// 生成完成订单后同系列的下一个特殊订单
+    /// </summary>
     private void GenerateFollowOrders(string completedPrefix, int completedNumber) {
-        // 获取下一个订单
         int currentSpecialCount = _availableOrders.Count(o => o.sourceOrder.isSpecialOrder);
         if (currentSpecialCount >= GameplaySettings.m_max_generate_special_orders) return;
         var nextOrder = _allOrders.FirstOrDefault(order => order.isSpecialOrder &&
@@ -204,20 +272,19 @@ public class OrderDataManager : MonoBehaviour {
         }
     }
 
-    // 解析订单UID
+    // 解析订单 UID 为前缀和数字部分
     private void ParseOrderUID(string uid, out string prefix, out int number) {
         prefix = System.Text.RegularExpressions.Regex.Match(uid, "^[A-Za-z]+").Value;
         number = int.Parse(System.Text.RegularExpressions.Regex.Match(uid, "\\d+$").Value);
     }
 
-    // 获取订单前缀
+    // 获取订单的前缀部分
     private string GetOrderPrefix(string uid) =>
         System.Text.RegularExpressions.Regex.Match(uid, "^[A-Za-z]+").Value;
 
     // 获取订单数字
     private int GetOrderNumber(string uid) =>
         int.Parse(System.Text.RegularExpressions.Regex.Match(uid, "\\d+$").Value);
-
 
     public bool CanAcceptMoreOrders() {
         return _acceptedOrders.Count < GameplaySettings.m_max_accepted_orders;
@@ -240,9 +307,9 @@ public class OrderDataManager : MonoBehaviour {
         runtimeOrder.remainingMinutes = runtimeOrder.sourceOrder.initialLimitTime;
         runtimeOrder.isTimeout = false;
         runtimeOrder.currentState = OrderState.Accepted;
-        // 判断是否在大本营节点接单，若是，则改为已取餐
+        // 判断是否在大本营节点接单, 若是, 则改为已取
         if (CommonGameplayManager.GetInstance().NodeGraphManager.IsOnBaseCampNode()) {
-            print($"{runtimeOrder.sourceOrder.orderUID}已取货！");
+            print($"{runtimeOrder.sourceOrder.orderUID}已取货");
             runtimeOrder.currentState = OrderState.InTransit;
         }
         _acceptedOrders.Add(runtimeOrder);
@@ -266,7 +333,6 @@ public class OrderDataManager : MonoBehaviour {
             //}
             string orderUID = order.sourceOrder.orderUID;
             _acceptedOrders.Remove(order);
-            // Debug.Log($"订单完成: {order.sourceOrder.orderTitle}");
             changed = true;
             int nodeIdx = order.sourceOrder.destinationNodeId;
             _acceptedOrdersNode.Remove(order);
@@ -324,7 +390,7 @@ public class OrderDataManager : MonoBehaviour {
                 order.currentDistance = $"{dist:F1}km";
                 order.currentDeliveryTime = dist / speed;
             } else {
-                order.currentDistance = "未设置目的地节点，请检查映射表";
+                order.currentDistance = "未设置目的地节点, 请检查映射表";
                 order.currentDeliveryTime = -1;
             }
         }
@@ -334,7 +400,7 @@ public class OrderDataManager : MonoBehaviour {
                 order.currentDistance = $"{dist:F1}km";
                 order.currentDeliveryTime = dist / speed;
             } else {
-                order.currentDistance = "未设置目的地节点，请检查映射表";
+                order.currentDistance = "未设置目的地节点, 请检查映射表";
                 order.currentDeliveryTime = -1;
             }
         }

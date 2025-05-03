@@ -16,7 +16,7 @@ MonoBehaviour:
   orderUID: Q1
   initialLimitTime: 100
   isSpecialOrder: 1
-  baseReward: 23
+  baseReward: 3
   orderEvent: {fileID: 11400000, guid: 4125ae87fc8a36b4a9e83df75d10122a, type: 2}
   bubble: "\u8FD9\u6B21\u77E5\u9053\u5728\u54EA\u4E2A\u95E8\u627E\u6211\u4E86\u5427"
   chatHistory:

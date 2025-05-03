@@ -87,7 +87,6 @@ public class OrderUIManager : MonoBehaviour {
         if (btn != null) {
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => {
-                Debug.Log($"已接单: {order.sourceOrder.orderUID}");
                 _orderDataManagerInstance.AcceptOrder(order);
             });
             btn.interactable = CommonGameplayManager.GetInstance().OrderDataManager.CanAcceptMoreOrders();
