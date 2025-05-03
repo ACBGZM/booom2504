@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec2311596f83ac4a913924c55ebb549, type: 3}
+  m_Name: GameEndingEventsSpecialCustomer_LinYan
+  m_EditorClassIdentifier: 
+  m_state: 0
+  Customer: {fileID: 11400000, guid: 94bdc5ab29579bb4d91e740c4a80c9e5, type: 2}
+  CustomerEnding1: {fileID: 11400000, guid: 953b06cc7f222844c8cbd45679ba6d02, type: 2}
+  CustomerEnding2: {fileID: 11400000, guid: 7f2130f51a80a9649b5ce70f8d377eb1, type: 2}
+  CustomerEnding3: {fileID: 11400000, guid: c1e25ed61514cea4caabfa5eb4acee22, type: 2}
+  CustomerEnding4: {fileID: 11400000, guid: 9de01359667ad2f41af52b437246cfe8, type: 2}

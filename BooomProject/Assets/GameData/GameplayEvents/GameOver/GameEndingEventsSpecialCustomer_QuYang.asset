@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec2311596f83ac4a913924c55ebb549, type: 3}
+  m_Name: GameEndingEventsSpecialCustomer_QuYang
+  m_EditorClassIdentifier: 
+  m_state: 0
+  Customer: {fileID: 11400000, guid: 0c939e3b3231750438d81006ccae693e, type: 2}
+  CustomerEnding1: {fileID: 11400000, guid: a66735151c8fab944a164e3db0a1261c, type: 2}
+  CustomerEnding2: {fileID: 11400000, guid: aa0e0dd2326f79649b51657d931e7103, type: 2}
+  CustomerEnding3: {fileID: 11400000, guid: ccd3ce8e966607940a637f8a14433622, type: 2}
+  CustomerEnding4: {fileID: 11400000, guid: 086e9ba32fc25b5468cdbec25fffabdd, type: 2}

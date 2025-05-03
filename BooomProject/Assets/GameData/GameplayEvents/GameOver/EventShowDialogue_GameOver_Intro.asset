@@ -10,19 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
-  m_Name: EventShowDialogue_EndDay
+  m_Name: EventShowDialogue_GameOver_Intro
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 2
   m_dialogues:
   - m_speaker_name: 
     m_speaker_avatar: {fileID: 0}
-    m_text: "\u591C\u5E55\u6CBF\u7740\u9AD8\u697C\u73BB\u7483\u94F8\u6210\u7684\u808C\u80A4\u5411\u4E0B\u6D41\u6DCC\uFF0C\u65E0\u5149\u5730\u7167\u7740\u4F60\u7684\u8F9B\u52B3\u4E0E\u75B2\u5026\u3002"
-    m_display_method: 3
-    m_can_skip: 1
-    m_cg_sprite: {fileID: 0}
-  - m_speaker_name: 
-    m_speaker_avatar: {fileID: 0}
-    m_text: "\u4E00\u5929\u7ED3\u675F\u4E86\u3002"
+    m_text: "\u7ECF\u8FC7\u4E94\u5929\u7684\u52B3\u52A8\uFF0C\u4F60\u542C\u5230\u4E86\u5185\u5FC3\u7684\u8BD8\u95EE\uFF1A\u6211\u4EEC\u4ECE\u4F55\u5904\u6765\uFF1F\u6211\u4EEC\u662F\u8C01\uFF1F\u6211\u4EEC\u5411\u4F55\u5904\u53BB\uFF1F"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}

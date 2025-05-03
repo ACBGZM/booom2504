@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: EventSequence_GameOver
   m_EditorClassIdentifier: 
   m_event_nodes:
-  - {fileID: 11400000, guid: 61f1fc7d1a9018e46903633d21defce9, type: 2}
-  - {fileID: 11400000, guid: 59129861b57323d4fbfc7293e29f2bea, type: 2}
+  - {fileID: 11400000, guid: 7499a08fe83aa4746802f15268c5e2b0, type: 2}
+  - {fileID: 11400000, guid: b71aca5751a0f1f4785a026c465cf5c4, type: 2}
+  - {fileID: 11400000, guid: 0a7bf34cccab57d46b1cf68bcf6c2b5e, type: 2}
+  - {fileID: 11400000, guid: 7917bb22dd6fc68478b4d88b95723700, type: 2}
+  - {fileID: 11400000, guid: 88ee3c6984a4b824fa3a2eeaf69a9f94, type: 2}
+  - {fileID: 11400000, guid: 03a162f36789a6347b56e33046c3767c, type: 2}
   - {fileID: 11400000, guid: 814ae81ad2869174caaba07c147a56c2, type: 2}
-  - {fileID: 11400000, guid: 5a8cce6143741d545ae401e7c2ba51cd, type: 2}

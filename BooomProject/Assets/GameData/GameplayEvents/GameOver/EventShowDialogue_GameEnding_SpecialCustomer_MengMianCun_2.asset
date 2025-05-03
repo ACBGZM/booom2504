@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4bbcb1463d4d24fa6aa7c77090626f, type: 3}
-  m_Name: EventShowDialogue_EndDay
+  m_Name: EventShowDialogue_GameEnding_SpecialCustomer_MengMianCun_2
   m_EditorClassIdentifier: 
   m_state: 0
   m_dialogues:
   - m_speaker_name: 
-    m_speaker_avatar: {fileID: 0}
-    m_text: "\u591C\u5E55\u6CBF\u7740\u9AD8\u697C\u73BB\u7483\u94F8\u6210\u7684\u808C\u80A4\u5411\u4E0B\u6D41\u6DCC\uFF0C\u65E0\u5149\u5730\u7167\u7740\u4F60\u7684\u8F9B\u52B3\u4E0E\u75B2\u5026\u3002"
+    m_speaker_avatar: {fileID: 21300000, guid: 33b37cbea22007a4c81eb107cc6ad72f, type: 3}
+    m_text: "\u5B5F\u7EF5\u5B58\u2026\u2026\u90A3\u4E2A\u72EC\u81EA\u5728\u671D\u6D77\u65B0\u57CE\u7684\u9B3C\u5C0F\u533A\u91CC\u5C45\u4F4F\u7684\u5973\u6027\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: 
-    m_speaker_avatar: {fileID: 0}
-    m_text: "\u4E00\u5929\u7ED3\u675F\u4E86\u3002"
+    m_speaker_avatar: {fileID: 21300000, guid: 33b37cbea22007a4c81eb107cc6ad72f, type: 3}
+    m_text: "\u8BF4\u8D77\u6765\uFF0C\u5979\u5230\u5E95\u662F\u4EBA\u662F\u9B3C\u554A\uFF0C\u4F1A\u5403\u996D\u7684\u8BDD\u5E94\u8BE5\u662F\u4EBA\u5427\uFF1F"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}

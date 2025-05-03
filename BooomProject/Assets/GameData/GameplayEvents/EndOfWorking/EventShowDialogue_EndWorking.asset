@@ -16,15 +16,13 @@ MonoBehaviour:
   m_dialogues:
   - m_speaker_name: 
     m_speaker_avatar: {fileID: 0}
-    m_text: "\u4ECA\u5929\u7684\u5DE5\u4F5C\u8BE5\u7ED3\u675F\u4E86\u2026\u2026"
+    m_text: "\u4ECA\u5929\u9001\u8FD9\u4E48\u591A\u5927\u6982\u5C31\u80FD\u6D3B\u4E0B\u53BB\u4E86\u2026\u2026"
     m_display_method: 3
     m_can_skip: 1
-    m_use_layout_1: 0
-    m_cg_sprite: {fileID: 21300000, guid: 1f32054690fe42b45a396645bff4dfb7, type: 3}
+    m_cg_sprite: {fileID: 0}
   - m_speaker_name: 
     m_speaker_avatar: {fileID: 0}
-    m_text: "\u56DE\u5BB6\u5427"
+    m_text: "\u5148\u4F11\u606F\u5427\u3002"
     m_display_method: 3
     m_can_skip: 1
-    m_use_layout_1: 0
-    m_cg_sprite: {fileID: 21300000, guid: 1f32054690fe42b45a396645bff4dfb7, type: 3}
+    m_cg_sprite: {fileID: 0}

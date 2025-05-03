@@ -2196,7 +2196,7 @@ MonoBehaviour:
   _baseCampInputHandler: {fileID: 555330559}
   _sceneManager: {fileID: 1989436080}
   _onEndDayEventSequenceExecutor: {fileID: 11400000, guid: 52a4c229396ea094ca04fb6ce1627293, type: 2}
-  _onGameOverEventSequenceExecutor: {fileID: 0}
+  _onGameOverEventSequenceExecutor: {fileID: 11400000, guid: 3f86eae172452b5448d4e9dde78864df, type: 2}
 --- !u!1 &435215103
 GameObject:
   m_ObjectHideFlags: 0
