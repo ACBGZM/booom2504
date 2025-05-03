@@ -19,8 +19,8 @@ public class DiceController : MonoBehaviour
     [SerializeField]
     private float smoothTime = 0.01f;
 
-    [SerializeField]
-    private float maxSpeed = 15f;
+    //[SerializeField]
+    //private float maxSpeed = 15f;
 
     [Header("Audio & Particle Effects")]
     [SerializeField]
