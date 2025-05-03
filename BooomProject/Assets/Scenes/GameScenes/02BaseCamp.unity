@@ -11202,7 +11202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5374214306045131717, guid: a932bcdf8e92e534288dc312d3b13eed, type: 3}
       propertyPath: m_Name
-      value: workTime
+      value: WorkTime
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11219,7 +11219,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3540694818002563346, guid: e99f8f06e9e12954c93c13ba0e6475c5, type: 3}
       propertyPath: m_Name
-      value: restTime
+      value: RestTime
       objectReference: {fileID: 0}
     - target: {fileID: 4149667279277545112, guid: e99f8f06e9e12954c93c13ba0e6475c5, type: 3}
       propertyPath: m_Pivot.x

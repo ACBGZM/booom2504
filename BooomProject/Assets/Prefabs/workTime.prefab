@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7183010103865271622}
   - component: {fileID: 7204459360724221931}
   m_Layer: 5
-  m_Name: workTime
+  m_Name: WorkTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 22:30
+  m_text: 20:30
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
   m_sharedMaterial: {fileID: -5782206819425291957, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1978482789057670397}
   - component: {fileID: 3228905605178733828}
   m_Layer: 5
-  m_Name: restTime
+  m_Name: RestTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
