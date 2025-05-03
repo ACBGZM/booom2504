@@ -6823,7 +6823,7 @@ PrefabInstance:
     - target: {fileID: 9649751473527919, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8c455fa60f605724ebcfd27a26fe77a8, type: 3}
+      objectReference: {fileID: 21300000, guid: aa0e6d59559c6194c9cc18d4a3a889d5, type: 3}
     - target: {fileID: 2356374992528965360, guid: 3925b0345ab038d40841d16d09156ff3, type: 3}
       propertyPath: m_Name
       value: 44
@@ -11094,7 +11094,6 @@ MonoBehaviour:
   maxRollTime: 3
   minAnqularVelocity: 0.1
   smoothTime: 0.1
-  maxSpeed: 15
   shakeClip: {fileID: 8300000, guid: 5b46117ad9eb0494197a6df387c21c45, type: 3}
   rollclip: {fileID: 0}
   impactClip: {fileID: 0}
@@ -11710,7 +11709,6 @@ MonoBehaviour:
   maxRollTime: 3
   minAnqularVelocity: 0.1
   smoothTime: 0.1
-  maxSpeed: 15
   shakeClip: {fileID: 8300000, guid: 5b46117ad9eb0494197a6df387c21c45, type: 3}
   rollclip: {fileID: 0}
   impactClip: {fileID: 0}
@@ -13508,7 +13506,6 @@ MonoBehaviour:
   maxRollTime: 3
   minAnqularVelocity: 0.1
   smoothTime: 0.1
-  maxSpeed: 15
   shakeClip: {fileID: 8300000, guid: 5b46117ad9eb0494197a6df387c21c45, type: 3}
   rollclip: {fileID: 0}
   impactClip: {fileID: 0}

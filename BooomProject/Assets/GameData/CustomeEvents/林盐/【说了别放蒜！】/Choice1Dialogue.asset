@@ -20,3 +20,9 @@ MonoBehaviour:
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
+  - m_speaker_name: "\u5DF2\u9001\u8FBE"
+    m_speaker_avatar: {fileID: 21300000, guid: a52dd1fa9cc1f014f80ef0fad02a38eb, type: 3}
+    m_text: "\u6797\u76D0\u5F88\u6EE1\u610F\uFF0C\u8BA2\u5355\u83B7\u5F97\u597D\u8BC4\uFF01"
+    m_display_method: 3
+    m_can_skip: 1
+    m_cg_sprite: {fileID: 21300000, guid: 95b4f12d4504ca6488e74f31a193fc7b, type: 3}
