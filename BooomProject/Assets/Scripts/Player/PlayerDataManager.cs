@@ -63,6 +63,8 @@ public class PlayerDataManager : MonoBehaviour {
     }
 
     private void SaveData() {
+
+        return;
         try {
             PlayerData data = new PlayerData {
                 speed = Speed.Value,
@@ -96,7 +98,9 @@ public class PlayerDataManager : MonoBehaviour {
         }
     }
 
-    private void LoadData() {
+    private void LoadData()
+    {
+        return;
         try {
             string filePath = GetSaveFilePath();
             if (!File.Exists(filePath)) {
