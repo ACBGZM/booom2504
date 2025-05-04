@@ -19,6 +19,9 @@ public class NodeGraphManager : MonoBehaviour
     // 结点上次触发事件事件
     private Dictionary<int, int> nodeTriggerTime = new Dictionary<int, int>();
 
+    [SerializeField] private AudioClip nodeClick;
+    [SerializeField] private AudioSource nodeAudioSource;
+    
     public bool IsOnBaseCampNode()
     {
         return _currentNodeID == 1;
@@ -92,6 +95,7 @@ public class NodeGraphManager : MonoBehaviour
 
         _isDataLoaded = true;
         _lastNodeID = CurrentNode.NodeID;
+        nodeAudioSource = GetComponent<AudioSource>();
     }
 
     private void ResetDist()
@@ -313,5 +317,9 @@ public class NodeGraphManager : MonoBehaviour
     public void SetBaseCampHintActive(bool isActive)
     {
         _baseCampHint.SetActive(!IsOnBaseCampNode() && isActive);
+    }
+    public void PlayNodeClickSound()
+    {
+        nodeAudioSource.PlayOneShot(nodeClick);
     }
 }

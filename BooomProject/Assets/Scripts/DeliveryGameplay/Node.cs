@@ -86,6 +86,7 @@ public class Node : MonoBehaviour, IClickable
 
     public void OnClick()
     {
+        CommonGameplayManager.GetInstance().NodeGraphManager.PlayNodeClickSound();
         CommonGameplayManager.GetInstance().NodeGraphManager.CheckAndMoveTo(this);
     }
 
