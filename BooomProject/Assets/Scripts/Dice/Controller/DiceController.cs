@@ -79,10 +79,14 @@ public class DiceController : MonoBehaviour
 
         rollTimer.OnTimerStart += PerformInitialRoll;
         rollTimer.OnTimerStop += () => finalize = true;
-        EventHandlerManager.startRoll += OnShake;
+       
         CalculateSides();
     }
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        EventHandlerManager.startRoll += OnShake;
+    }
+    private void OnDisable()
     {
         EventHandlerManager.startRoll -= OnShake;
     }
@@ -94,6 +98,7 @@ public class DiceController : MonoBehaviour
 
     private void Update()
     {
+        
         // 更新计数器
         rollTimer.Tick(Time.deltaTime);
         // 骰子是否投掷结束
@@ -128,6 +133,7 @@ public class DiceController : MonoBehaviour
         //  Vector3 dir = (targetPos - transform.position).normalized;
 
         Vector3 dir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
+        print(gameObject.name);
         rb.AddForce(dir * rollForce, ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * torqueAmount, ForceMode.Impulse);
         audioSource.clip = shakeClip;

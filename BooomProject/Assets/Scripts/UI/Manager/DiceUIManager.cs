@@ -53,7 +53,6 @@ public class DiceUIManager : Singleton<DiceUIManager>
         reputation.text = $"声誉：{CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value.ToString()}";
         renderCanvas.SetActive(true);
         gameObject.SetActive(true);
-        
 
         EventHandlerManager.CallStartRoll();
       //  rollBtn.gameObject.SetActive(true);
