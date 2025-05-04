@@ -106,4 +106,25 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
     {
         CommonGameplayManager.GetInstance().StartTutorial();
     }
+
+
+    [SerializeField] private GameObject _pauseMenu;
+
+    public void ClickPauseButton()
+    {
+        CommonGameplayManager.GetInstance().PauseGame();
+        _pauseMenu.SetActive(true);
+    }
+
+    public void ClickResumeButton()
+    {
+        CommonGameplayManager.GetInstance().ResumeGame();
+        _pauseMenu.SetActive(false);
+    }
+
+    public void ClickQuitButton()
+    {
+        CommonGameplayManager.GetInstance().ResumeGame();
+        _sceneManager.LoadAsyncWithFading("01MainMenu");
+    }
 }

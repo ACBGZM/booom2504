@@ -27,7 +27,7 @@ public class GameSceneManager : MonoBehaviour {
 
     // 异步加载场景动画
     [SerializeField] Image _fadeImage;
-    private float _fadeOutDuration = 1.25f;
+    private float _fadeOutDuration = 1.00f;
     private float _fadeInDuration = 1.75f;
     public void LoadAsyncWithFading(string targetScene)
     {
