@@ -20,8 +20,8 @@ MonoBehaviour:
   orderEvent: {fileID: 11400000, guid: 4461f3c9b59cf1d408685cf30be5fcec, type: 2}
   bubble: "\u997F \u6C42\u4F60 \u901F\u5EA6 \u8C22\u8C22 \u8F9B\u82E6"
   chatHistory:
-  - time: 07:38
-    profile: {fileID: 21300000, guid: 5bf7b87350d9422498973873f94619aa, type: 3}
+  - time: 07:32
+    profile: {fileID: 21300000, guid: 2ef2880a4a8259b4984eef3deb8ebad1, type: 3}
     content: "\u997F \u6C42\u4F60 \u901F\u5EA6 \u8C22\u8C22 \u8F9B\u82E6"
     left: 1
   quickResponses:
