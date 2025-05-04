@@ -19,4 +19,4 @@ MonoBehaviour:
     m_text: "\u4F60\u7684\u5C0F\u7535\u9A74\u6CA1\u6709\u5145\u6EE1\u7535\uFF0C\u4EE5\u81F3\u4E8E\u5B83\u534A\u9014\u6CA1\u7535\u4E86\uFF0C\u4F60\u548C\u5916\u5356\u90FD\u6401\u6D45\u5728\u4E86\u8DEF\u4E0A\u3002"
     m_display_method: 3
     m_can_skip: 1
-    m_cg_sprite: {fileID: 21300000, guid: b87953600b7088248bb409f30f2ec7f6, type: 3}
+    m_cg_sprite: {fileID: 21300000, guid: 789d62d078fbb6840989ba34319afc19, type: 3}
