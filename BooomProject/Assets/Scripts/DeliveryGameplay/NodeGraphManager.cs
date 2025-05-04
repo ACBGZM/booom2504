@@ -21,7 +21,7 @@ public class NodeGraphManager : MonoBehaviour
 
     [SerializeField] private AudioClip nodeClick;
     [SerializeField] private AudioSource nodeAudioSource;
-    
+
     public bool IsOnBaseCampNode()
     {
         return _currentNodeID == 1;
@@ -320,6 +320,6 @@ public class NodeGraphManager : MonoBehaviour
     }
     public void PlayNodeClickSound()
     {
-        nodeAudioSource.PlayOneShot(nodeClick);
+        nodeAudioSource?.PlayOneShot(nodeClick);
     }
 }
