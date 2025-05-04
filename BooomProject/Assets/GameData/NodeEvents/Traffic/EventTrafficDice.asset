@@ -17,8 +17,9 @@ MonoBehaviour:
   failureExecutor: {fileID: 11400000, guid: 9917a736738ad104c8b2db9f40d9063c, type: 2}
   type: 3
   threshold: 15
-  needSpeed: 4
+  needSpeed: 7
   needReputation: 0
   needEvaluation: 0
   awardType: 0
   awardValue: 1
+  punishmentSpeed: 0

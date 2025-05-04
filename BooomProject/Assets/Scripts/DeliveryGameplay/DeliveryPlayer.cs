@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeliveryPlayer : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _moveSpeed;
     [SerializeField] private float _moveDuration = 0f;
     [SerializeField] private bool _useSpeed = true;
 
@@ -39,7 +39,7 @@ public class DeliveryPlayer : MonoBehaviour
             totalDistance += Vector2.Distance(path[i - 1], path[i]);    // vec3 -> vec2
         }
 
-        float totalTime = _useSpeed ? totalDistance / _moveSpeed : _moveDuration;
+        float totalTime = _useSpeed ? totalDistance / CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value : _moveDuration;
         if (totalTime <= 0)
         {
             yield break;
@@ -64,7 +64,7 @@ public class DeliveryPlayer : MonoBehaviour
 
             float segmentDistance = Vector2.Distance(begin, end);
             float segmentDuration = _useSpeed ?
-                (segmentDistance / _moveSpeed)
+                (segmentDistance / CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value)
                 : (segmentDistance / totalDistance * totalTime);
             int nodeId = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
             int tryNodeId = CommonGameplayManager.GetInstance().NodeGraphManager.TryToNode.NodeID;
