@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06e33720b1883a4ba650714e43b1430, type: 3}
+  m_Name: Order 8
+  m_EditorClassIdentifier: 
+  customerSO: {fileID: 11400000, guid: 1d59d0013f3b3cc4bbbe2d2e5a11e9b3, type: 2}
+  orderUID: C13
+  initialLimitTime: 150
+  isSpecialOrder: 0
+  baseReward: 5
+  orderEvent: {fileID: 11400000, guid: 4461f3c9b59cf1d408685cf30be5fcec, type: 2}
+  bubble: "\u997F \u6C42\u4F60 \u901F\u5EA6 \u8C22\u8C22 \u8F9B\u82E6"
+  chatHistory:
+  - time: 07:38
+    profile: {fileID: 21300000, guid: 5bf7b87350d9422498973873f94619aa, type: 3}
+    content: "\u997F \u6C42\u4F60 \u901F\u5EA6 \u8C22\u8C22 \u8F9B\u82E6"
+    left: 1
+  quickResponses:
+  - buttonText: "\u5FEB\u4E86"
+    responseText: "\u5FEB \u4E0D\u7528 \u6B63\u5728 \u4E0D\u7528 \u5BA2\u6C14"
+    customerResponseText: "\uFF08\u63E1\u624B\uFF09"
+    responseEvaluate: 0
+  - buttonText: "\u6536\u5230"
+    responseText: "\u6536\u5230"
+    customerResponseText: "\uFF08\u62B1\u62F3\uFF09"
+    responseEvaluate: 0
+  destinationNodeId: 5

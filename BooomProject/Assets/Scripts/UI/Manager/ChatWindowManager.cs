@@ -49,7 +49,7 @@ public class ChatWindowManager : Singleton<ChatWindowManager> {
         } else {
             _replyButtonContainer.gameObject.SetActive(false);
         }
-        _chatTitleText.text = $"（店家、{order.sourceOrder.customerSO.customerName}、我)";
+        _chatTitleText.text = $"(店家、{order.sourceOrder.customerSO.customerName}、我)";
         _history = order.runtimeChatHistory;
         if (_history.Count > 0) {
             _history[0].time = order.acceptedTime.GetHourAndMinute();

@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06132078, g: 1, b: 0.33131316, a: 1}
+  m_Color: {r: 0.5254902, g: 0.5254902, b: 0.70980394, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bubbleBackground: {fileID: 2988090156668097018}
-  _customerBubbleColor: {r: 0.28417936, g: 0.90188676, b: 0.4900818, a: 1}
+  _customerBubbleColor: {r: 0.5254902, g: 0.5254902, b: 0.70980394, a: 1}
   _timeText: {fileID: 2212131435171950256}
   _contentText: {fileID: 3687541059869537618}
   _profileImage: {fileID: 3703592629892255616}
