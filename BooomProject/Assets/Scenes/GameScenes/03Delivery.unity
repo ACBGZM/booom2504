@@ -2279,7 +2279,7 @@ MonoBehaviour:
         m_Calls: []
   finishedOrderCount: 0
   goodOrderCount: 0
-  _autoSave: 1
+  _autoSave: 0
   _saveInterval: 60
 --- !u!1001 &361183780
 PrefabInstance:
@@ -6444,6 +6444,7 @@ MonoBehaviour:
   val: 0
   speed: {fileID: 0}
   reputation: {fileID: 0}
+  renderCanvas: {fileID: 0}
 --- !u!1 &1087262279
 GameObject:
   m_ObjectHideFlags: 0
@@ -7469,6 +7470,7 @@ MonoBehaviour:
   cnt: 0
   speed: {fileID: 0}
   reputation: {fileID: 0}
+  renderCanvas: {fileID: 0}
 --- !u!114 &1256729800
 MonoBehaviour:
   m_ObjectHideFlags: 0
