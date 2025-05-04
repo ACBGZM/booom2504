@@ -165,11 +165,11 @@ public class DiceController : MonoBehaviour
         EventHandlerManager.CallRollFinish(diceSides.GetMatch());
         //audioSource.PlayOneShot(finalResultClip);
 
-        var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
-        particles.transform.localScale = Vector3.one * 1.5f;
+        // var particles = Instantiate(finalResultEffect, transform.position, Quaternion.identity);
+        // particles.transform.localScale = Vector3.one * 1.5f;
 
-        particles.transform.rotation *= Quaternion.AngleAxis(90f, Vector3.up);
-        Destroy(particles, 2f);
+        // particles.transform.rotation *= Quaternion.AngleAxis(90f, Vector3.up);
+        // Destroy(particles, 2f);
     }
 
     private void OnMouseUp()
