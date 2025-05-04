@@ -12,11 +12,11 @@ public class EventSound : EventNodeBase
         base.Execute();
         if(successful)
         {
-            SoundsManager.Instance.audioSource.PlayOneShot(SoundsManager.Instance.good);
+            SoundsManager.Instance.audioSource.PlayOneShot(SoundsManager.Instance.good, 0.3f);
         }
         else
         {
-            SoundsManager.Instance.audioSource.PlayOneShot(SoundsManager.Instance.bad);
+            SoundsManager.Instance.audioSource.PlayOneShot(SoundsManager.Instance.bad, 0.3f);
         }
         m_state = EventNodeState.Finished;
         m_on_finished?.Invoke(true);
