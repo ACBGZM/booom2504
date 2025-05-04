@@ -1,8 +1,23 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class NPCInteract : MonoBehaviour, IInteractable {
     [SerializeField] private EventSequenceExecutor[] executor;
+    [SerializeField] private EventSequenceExecutor[] _randomExecutors;
+
+    private Dictionary<int, bool> _executorsFinished = new Dictionary<int, bool>();
+
     public int currentExecutor;
+
+    private void Start()
+    {
+        for (int i = 0; i < executor.Length; ++i)
+        {
+            _executorsFinished.Add(i, false);
+        }
+    }
 
     public string GetInteractableName() {
         return this.gameObject.name;
@@ -10,9 +25,18 @@ public class NPCInteract : MonoBehaviour, IInteractable {
 
     public void Interact(PlayerController player) {
         CheckOrderCount();
-        if (executor[currentExecutor] == null) return;
-        executor[currentExecutor].Initialize(OnExecutorFinished);
-        executor[currentExecutor].Execute();
+        if (executor[currentExecutor] != null && !_executorsFinished[currentExecutor])
+        {
+            executor[currentExecutor].Initialize(OnExecutorFinished);
+            executor[currentExecutor].Execute();
+            _executorsFinished[currentExecutor] = true;
+        }
+        else
+        {
+            int random = Random.Range(0, _randomExecutors.Length);
+            _randomExecutors[random].Initialize(OnExecutorFinished);
+            _randomExecutors[random].Execute();
+        }
     }
 
     public void CheckOrderCount() {
