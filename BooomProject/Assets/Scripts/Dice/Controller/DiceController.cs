@@ -114,10 +114,10 @@ public class DiceController : MonoBehaviour
         //audioSource.PlayOneShot(impactClip);
         // 撞击粒子效果
         var particles = Instantiate(impactEffect, collision.contacts[0].point, Quaternion.identity);
-        particles.transform.localScale = Vector3.one * 0.6f;
+        particles.transform.localScale = Vector3.one * 0.2f;
         particles.transform.rotation = Quaternion.AngleAxis(90, Vector3.left);
         // 1秒后销毁
-        Destroy(particles, 1f);
+        Destroy(particles, 0.4f);
     }
 
     private void PerformInitialRoll()
