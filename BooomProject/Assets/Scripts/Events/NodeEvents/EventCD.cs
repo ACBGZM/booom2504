@@ -4,10 +4,37 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventCD", menuName = "Event/NodeActions/EventCD")]
 public class EventCD : EventNodeBase
 {
+    // 触发概率阈值
+    public float probabilityThreshold = 0.5f;
+    public bool needRandom = false;
     public int eventCD = 360;
     public override void Execute()
     {
         base.Execute();
+        
+        if(needRandom)
+        {
+            float probability = Random.value;
+            if (probability < probabilityThreshold)
+            {
+                m_state = EventNodeState.Finished;
+                m_on_finished?.Invoke(false);
+            }
+            else
+            {
+                ExecuteCD();
+            }
+        }
+        else
+        {
+            ExecuteCD();
+        }
+        
+       
+
+    }
+    public void ExecuteCD()
+    {
         bool cd = true;
         int currentNodeId = CommonGameplayManager.GetInstance().NodeGraphManager.CurrentNode.NodeID;
         int lastTriggerTime = CommonGameplayManager.GetInstance().NodeGraphManager.GetNodeTriggerTime(currentNodeId);
@@ -32,6 +59,5 @@ public class EventCD : EventNodeBase
         {
             m_on_finished?.Invoke(true);
         }
-
     }
 }
