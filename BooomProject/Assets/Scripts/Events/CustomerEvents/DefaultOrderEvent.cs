@@ -24,6 +24,7 @@ public class DefaultOrderEvent : EventNodeBase
             if (order.orderEvaluation == Evaluation.Good ||
                 order.orderEvaluation == Evaluation.None && !order.isTimeout)
             {
+                SoundsManager.Instance.audioSource.PlayOneShot(SoundsManager.Instance.good);
                 goodEvaluationSequence.Initialize(Finished);
                 goodEvaluationSequence.Execute();
                 EventHandlerManager.CallUpGoodOrderCount();
@@ -37,6 +38,7 @@ public class DefaultOrderEvent : EventNodeBase
             if (order.orderEvaluation == Evaluation.Bad ||
                order.orderEvaluation == Evaluation.None && order.isTimeout)
             {
+                SoundsManager.Instance.audioSource.PlayOneShot(SoundsManager.Instance.bad);
                 badEvaluationSequence.Initialize(Finished);
                 badEvaluationSequence.Execute();
                 EventHandlerManager.CallUpBadOrderCount();

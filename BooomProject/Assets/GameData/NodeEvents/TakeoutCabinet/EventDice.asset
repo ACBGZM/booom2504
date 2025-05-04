@@ -18,7 +18,8 @@ MonoBehaviour:
   type: 0
   threshold: 15
   needSpeed: 0
-  needReputation: 3
+  needReputation: 4
   needEvaluation: 0
   awardType: 3
   awardValue: 0
+  punishmentSpeed: 0

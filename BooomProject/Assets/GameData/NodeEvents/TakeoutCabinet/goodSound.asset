@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91026bc580b7dc4294f70f539a209bb, type: 3}
-  m_Name: FailureSequence
+  m_Script: {fileID: 11500000, guid: 7d193757113382845bc650311c6be975, type: 3}
+  m_Name: goodSound
   m_EditorClassIdentifier: 
-  m_event_nodes:
-  - {fileID: 11400000, guid: 88701db758799114387d22f596c5266f, type: 2}
-  - {fileID: 11400000, guid: a131d40d786775046a2da65d0c392671, type: 2}
+  m_state: 0
+  successful: 1
