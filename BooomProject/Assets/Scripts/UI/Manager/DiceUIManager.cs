@@ -13,6 +13,7 @@ public class DiceUIManager : Singleton<DiceUIManager>
     public TMP_Text speed;
     public TMP_Text reputation;
 
+    public GameObject renderCanvas;
     protected override void init()
     {
         //   rollBtn = gameObject.GetComponentInChildren<Button>();
@@ -23,7 +24,7 @@ public class DiceUIManager : Singleton<DiceUIManager>
         speed = child.Find("speed").GetComponentInChildren<TMP_Text>();
 
         reputation = child.Find("reputation").GetComponentInChildren<TMP_Text>();
-
+        renderCanvas = transform.parent.Find("Canvas").gameObject;
         //rollBtn.onClick.AddListener(() =>
         //{
         //    rollBtn.gameObject.SetActive(false);
@@ -50,7 +51,9 @@ public class DiceUIManager : Singleton<DiceUIManager>
         Reset();
         speed.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value.ToString()}";
         reputation.text = $"声誉：{CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value.ToString()}";
+        renderCanvas.SetActive(true);
         gameObject.SetActive(true);
+        
 
         EventHandlerManager.CallStartRoll();
       //  rollBtn.gameObject.SetActive(true);
@@ -59,6 +62,7 @@ public class DiceUIManager : Singleton<DiceUIManager>
     public void HideMe()
     {
         gameObject.SetActive(false);
+        renderCanvas.SetActive(false);
         Reset();
     }
 

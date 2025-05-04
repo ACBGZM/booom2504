@@ -13,17 +13,18 @@ public class TwoDiceUIManager : Singleton<TwoDiceUIManager>
     public int cnt;
     public TMP_Text speed;
     public TMP_Text reputation;
+    public GameObject renderCanvas;
     protected override void init()
     {
        // rollBtn = gameObject.GetComponentInChildren<Button>();
-       Transform child = transform.GetChild(0);
+        Transform child = transform.GetChild(0);
         result = child.Find("result").GetComponentInChildren<TMP_Text>();
      
 
         speed = child.Find("speed").GetComponentInChildren<TMP_Text>();
 
         reputation = child.Find("reputation").GetComponentInChildren<TMP_Text>();
-
+        renderCanvas = transform.parent.Find("Canvas").gameObject;
         //rollBtn.onClick.AddListener(() =>
         //{
         //    rollBtn.gameObject.SetActive(false);
@@ -49,11 +50,13 @@ public class TwoDiceUIManager : Singleton<TwoDiceUIManager>
         speed.text = $"速度：{CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value.ToString()}";
         reputation.text = $"声誉：{CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value.ToString()}";
         gameObject.SetActive(true);
+        renderCanvas.SetActive(true);
         EventHandlerManager.CallStartRoll();
         //  rollBtn.gameObject.SetActive(true);
     }
     public void HideMe()
     {
+        renderCanvas.SetActive(false);
         gameObject.SetActive(false);
         Reset();
     }
