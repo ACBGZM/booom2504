@@ -97,7 +97,7 @@ public class DayNightCycle : MonoBehaviour {
         if (initialPeriod._baseCampMusic != null) {
             _currentAudioClip = initialPeriod._baseCampMusic;
             cameraAudioSource.clip = _currentAudioClip;
-            cameraAudioSource.volume = 1f;
+            cameraAudioSource.volume = 0.4f;
             cameraAudioSource.Play();
         }
     }
@@ -211,7 +211,7 @@ public class DayNightCycle : MonoBehaviour {
         fadeTimer = 0f;
         while (fadeTimer < musicFadeDuration) {
             fadeTimer += Time.deltaTime;
-            cameraAudioSource.volume = Mathf.Lerp(0f, 1f,
+            cameraAudioSource.volume = Mathf.Lerp(0f, 0.4f,
                 fadeCurve.Evaluate(fadeTimer / musicFadeDuration));
             yield return null;
         }
