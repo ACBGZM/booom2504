@@ -2261,7 +2261,7 @@ MonoBehaviour:
   debugMode: 1
   Speed:
     _statName: Speed
-    _value: 2
+    _value: 5
     _minValue: 2
     _maxValue: 15
     OnValueChanged:
