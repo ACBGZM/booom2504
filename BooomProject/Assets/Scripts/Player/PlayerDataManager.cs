@@ -99,8 +99,7 @@ public class PlayerDataManager : MonoBehaviour {
         }
     }
 
-    private void LoadData()
-    {
+    private void LoadData() {
         return;
         try {
             string filePath = GetSaveFilePath();
@@ -149,6 +148,7 @@ public class PlayerDataManager : MonoBehaviour {
 
     private void OrderDataManager_OnOrderComplete(string obj) {
         UnlockMedal(obj);
+        Reputation.Add(5);
     }
 
     public void AddGoodOrderCount() {
