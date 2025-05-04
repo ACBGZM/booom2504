@@ -4301,7 +4301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6309 E \u952E\n\u4E0E <size=+0.05>\u7AD9\u957F</size> \u4EA4\u8C08"
+  m_text: "\u6309 E \n\u4E0E <size=+0.05>\u7AD9\u957F</size> \u4EA4\u8C08"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
   m_sharedMaterial: {fileID: -5782206819425291957, guid: 1c44d53f317b57a4097248d16b90d06d, type: 2}
