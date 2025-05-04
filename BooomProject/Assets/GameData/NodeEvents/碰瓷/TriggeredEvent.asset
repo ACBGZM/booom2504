@@ -19,10 +19,10 @@ MonoBehaviour:
     m_text: "\u4F60\u660E\u660E\u79BB\u5F97\u8001\u8FDC\u5C31\u8E29\u4E0B\u4E86\u5239\u8F66\uFF0C\u4F46\u662F\u90A3\u4E2A\u8001\u4EBA\u6251\u5728\u4E86\u4F60\u7684\u7535\u9A74\u524D\uFF0C\u8BF4\u4F60\u649E\u4E86\u4ED6\xB7\xB7\xB7\xB7\xB7\xB7"
     m_display_method: 3
     m_can_skip: 1
-    m_cg_sprite: {fileID: 21300000, guid: b87953600b7088248bb409f30f2ec7f6, type: 3}
+    m_cg_sprite: {fileID: 21300000, guid: 6a421ff7e190bba4087034db9f62811e, type: 3}
   - m_speaker_name: "\u3010\u78B0\u74F7\u3011"
     m_speaker_avatar: {fileID: 0}
     m_text: "\u770B\u4ED6\u53EB\u5524\u5F97\u715E\u6709\u4ECB\u4E8B\uFF0C\u4F60\u4E5F\u5F00\u59CB\u6000\u7591\u81EA\u5DF1\u53EF\u80FD\u771F\u7684\u649E\u4E86\u3002"
     m_display_method: 3
     m_can_skip: 1
-    m_cg_sprite: {fileID: 21300000, guid: b87953600b7088248bb409f30f2ec7f6, type: 3}
+    m_cg_sprite: {fileID: 21300000, guid: 6a421ff7e190bba4087034db9f62811e, type: 3}
