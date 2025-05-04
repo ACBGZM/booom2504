@@ -9,6 +9,7 @@ public class TimePeriod {
     public int startHour;
     public int startMinute;
     public Sprite backgroundSprite;
+    public AudioClip _baseCampMusic;
 }
 
 public class DayNightCycle : MonoBehaviour {
@@ -23,11 +24,17 @@ public class DayNightCycle : MonoBehaviour {
     [SerializeField][Range(0.1f, 5f)] private float fadeDuration = 2f;
     [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
+    [Header("音乐设置")]
+    [SerializeField] private AudioSource cameraAudioSource;
+    [SerializeField][Range(0.1f, 5f)] private float musicFadeDuration = 2f;
+
     private List<TimePeriod> _sortedPeriods = new List<TimePeriod>();
+    private AudioClip _currentAudioClip;
+    private Sprite _currentActiveSprite;
+    private Coroutine _activeMusicFade;
     private Coroutine _activeFade;
     private bool _isPrimaryActive = true;
     private float _currentTimeOfDay;
-    private Sprite _currentActiveSprite;
 
     private void Awake() {
         ValidateConfiguration();
@@ -77,6 +84,22 @@ public class DayNightCycle : MonoBehaviour {
         timeManager.OnMinutePassed.AddListener(HandleTimeUpdate);
         _currentActiveSprite = GetTargetSprite(timeManager.currentTime);
         UpdateBackgroundImmediate(_currentActiveSprite);
+        // 初始化音乐
+        if (cameraAudioSource == null) {
+            // 自动获取音频源
+            cameraAudioSource = Camera.main.GetComponent<AudioSource>();
+            if (cameraAudioSource == null) {
+                cameraAudioSource = Camera.main.gameObject.AddComponent<AudioSource>();
+            }
+        }
+
+        TimePeriod initialPeriod = GetCurrentTimePeriod(timeManager.currentTime);
+        if (initialPeriod._baseCampMusic != null) {
+            _currentAudioClip = initialPeriod._baseCampMusic;
+            cameraAudioSource.clip = _currentAudioClip;
+            cameraAudioSource.volume = 1f;
+            cameraAudioSource.Play();
+        }
     }
 
     private void InitializeRenderers() {
@@ -89,7 +112,16 @@ public class DayNightCycle : MonoBehaviour {
         if (targetSprite != null && targetSprite != _currentActiveSprite) {
             if (_activeFade != null) StopCoroutine(_activeFade);
             _activeFade = StartCoroutine(PerformCrossFade(targetSprite));
-            _currentActiveSprite = targetSprite; // 更新缓存
+            _currentActiveSprite = targetSprite; // 更新
+        }
+        // 音乐更新
+        TimePeriod currentPeriod = GetCurrentTimePeriod(currentTime);
+        AudioClip targetClip = currentPeriod._baseCampMusic;
+
+        if (targetClip != null && targetClip != _currentAudioClip) {
+            if (_activeMusicFade != null) StopCoroutine(_activeMusicFade);
+            _activeMusicFade = StartCoroutine(PerformMusicFade(targetClip));
+            _currentAudioClip = targetClip;
         }
     }
 
@@ -122,11 +154,24 @@ public class DayNightCycle : MonoBehaviour {
         return GetTimeInHours(_sortedPeriods[0].startHour, _sortedPeriods[0].startMinute) + 24f;
     }
 
+    private TimePeriod GetCurrentTimePeriod(GameTime time) {
+        float currentTime = GetTimeInHours(time.hour, time.minute);
+        for (int i = 0; i < _sortedPeriods.Count; i++) {
+            float periodStart = GetTimeInHours(_sortedPeriods[i].startHour, _sortedPeriods[i].startMinute);
+            float periodEnd = GetNextPeriodStartTime(i);
+            bool isWithinPeriod = currentTime >= periodStart && currentTime < periodEnd;
+            bool isWrappingPeriod = periodEnd < periodStart && (currentTime >= periodStart || currentTime < periodEnd);
+
+            if (isWithinPeriod || isWrappingPeriod) {
+                return _sortedPeriods[i];
+            }
+        }
+        return _sortedPeriods[0];
+    }
+
     private IEnumerator PerformCrossFade(Sprite newSprite) {
         SpriteRenderer fadeOut = _isPrimaryActive ? primaryRenderer : secondaryRenderer;
         SpriteRenderer fadeIn = _isPrimaryActive ? secondaryRenderer : primaryRenderer;
-
-        // 确保新精灵已加载
         if (fadeIn.sprite != newSprite) {
             fadeIn.sprite = newSprite;
             fadeIn.sortingOrder = fadeOut.sortingOrder + 1;
@@ -141,11 +186,35 @@ public class DayNightCycle : MonoBehaviour {
             fadeIn.color = new Color(1, 1, 1, curveValue);
             yield return null;
         }
-
         // 切换完成后重置状态
         fadeOut.color = new Color(1, 1, 1, 0);
         fadeIn.sortingOrder = fadeOut.sortingOrder - 1;
         _isPrimaryActive = !_isPrimaryActive;
+    }
+
+    private IEnumerator PerformMusicFade(AudioClip newClip) {
+        if (cameraAudioSource == null) { Debug.LogError("未配置音频源"); yield break; }
+        // 淡出
+        float fadeTimer = 0f;
+        float startVolume = cameraAudioSource.volume;
+        while (fadeTimer < musicFadeDuration) {
+            fadeTimer += Time.deltaTime;
+            cameraAudioSource.volume = Mathf.Lerp(startVolume, 0f,
+                fadeCurve.Evaluate(fadeTimer / musicFadeDuration));
+            yield return null;
+        }
+        // 切换
+        cameraAudioSource.Stop();
+        cameraAudioSource.clip = newClip;
+        cameraAudioSource.Play();
+        // 淡入
+        fadeTimer = 0f;
+        while (fadeTimer < musicFadeDuration) {
+            fadeTimer += Time.deltaTime;
+            cameraAudioSource.volume = Mathf.Lerp(0f, 1f,
+                fadeCurve.Evaluate(fadeTimer / musicFadeDuration));
+            yield return null;
+        }
     }
 
     private void UpdateBackgroundImmediate(Sprite sprite) {
