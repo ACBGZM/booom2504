@@ -6,17 +6,19 @@ using Random = UnityEngine.Random;
 public class NPCInteract : MonoBehaviour, IInteractable {
     [SerializeField] private EventSequenceExecutor[] executor;
     [SerializeField] private EventSequenceExecutor[] _randomExecutors;
-
     private Dictionary<int, bool> _executorsFinished = new Dictionary<int, bool>();
+    private Animator _animator;
 
     public int currentExecutor;
 
     private void Start()
     {
+        if(_animator == null) _animator=GetComponent<Animator>();
         for (int i = 0; i < executor.Length; ++i)
         {
             _executorsFinished.Add(i, false);
         }
+        CheckOrderCount();
     }
 
     public string GetInteractableName() {
@@ -48,6 +50,7 @@ public class NPCInteract : MonoBehaviour, IInteractable {
             currentExecutor = 1;
         } else if (playerData.finishedOrderCount > 10) {
             currentExecutor = 2;
+            _animator.SetBool("ShowTail", true);
         }
     }
 
