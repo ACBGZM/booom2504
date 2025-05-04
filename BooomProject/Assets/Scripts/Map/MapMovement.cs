@@ -92,9 +92,8 @@ public class MapMovement : MonoBehaviour
         Zoom();
         Drag();
 
-        Adjust();
-
         RestoreCameraToPlayer();
+        Adjust();
     }
 
     private void Zoom()
