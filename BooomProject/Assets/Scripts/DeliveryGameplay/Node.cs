@@ -14,24 +14,24 @@ public class Node : MonoBehaviour, IClickable
     public bool _isNormalNode => _nodeID > 12; // hack
 
     public string TargetSceneName;
-
-    #region 结点震荡
-
-    [Header("震荡参数")] [Tooltip("单次震荡持续时间（秒）")] [SerializeField]
-    private float shakeDuration = 5f;
-
-    [Tooltip("震荡强度（最大旋转角度）")] [SerializeField]
-    private float shakeStrength = 10f;
-    [Tooltip("两次震荡间隔时间（秒）")]
-    private float shakeInterval = 1f;
-    [Tooltip("每秒震动次数")] [SerializeField] private int vibrato = 1;
-
-    [Tooltip("随机方向偏移角度（0-180）")] [SerializeField] [Range(0, 180)]
-    private float randomness = 0f;
+    //
+    // #region 结点震荡
+    //
+    // [Header("震荡参数")] [Tooltip("单次震荡持续时间（秒）")] [SerializeField]
+    // private float shakeDuration = 5f;
+    //
+    // [Tooltip("震荡强度（最大旋转角度）")] [SerializeField]
+    // private float shakeStrength = 10f;
+    // [Tooltip("两次震荡间隔时间（秒）")]
+    // private float shakeInterval = 1f;
+    // [Tooltip("每秒震动次数")] [SerializeField] private int vibrato = 1;
+    //
+    // [Tooltip("随机方向偏移角度（0-180）")] [SerializeField] [Range(0, 180)]
+    // private float randomness = 0f;
 
     private Tween currentShakeTween; // 当前震荡的 Tween 实例
 
-    #endregion
+    // #endregion
 
     public virtual void OnReach()
     {
@@ -144,23 +144,67 @@ public class Node : MonoBehaviour, IClickable
     {
         // 停止当前可能存在的震荡
         StopShake(false);
-      
+
         // 创建震荡 Tween 并设置循环
+        float shakeDuration = 0.1f; // 单次震荡持续时间
         Sequence shakeSequence = DOTween.Sequence()
-             .Append(transform.DOShakeRotation( // 震荡阶段
-                 shakeDuration,
-                 new Vector3(0, 0, shakeStrength),
-                 vibrato,
-                 randomness,
-                 fadeOut: false
-             ))
-             .AppendInterval(shakeInterval) // 间隔阶段
-             .SetLoops(-1) // 无限循环
-             .SetEase(Ease.Linear) // 线性缓动保证频率均匀
-        .OnStepComplete(() => // 每完成一次摇晃后复位
-         {
-             transform.rotation = Quaternion.identity;
-         });
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, 5),
+                shakeDuration,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, -10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, 10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, -10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, 10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, -10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, 10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, -10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, 10),
+                shakeDuration * 2,
+                RotateMode.LocalAxisAdd
+            ))
+            .Append(transform.DOLocalRotate(
+                new Vector3(0, 0, -5),
+                shakeDuration,
+                RotateMode.LocalAxisAdd
+            ))
+            .AppendInterval(1.0f) // 间隔阶段
+            .SetLoops(-1) // 无限循环
+            .SetEase(Ease.Linear); // 线性缓动保证频率均匀
+        // .OnStepComplete(() => // 每完成一次摇晃后复位
+        //  {
+        //      transform.rotation = Quaternion.identity;
+        //  });
 
         // 4. 绑定Tween到currentTween
         currentShakeTween = shakeSequence;
@@ -192,13 +236,13 @@ public class Node : MonoBehaviour, IClickable
         if (isShow)
         {
             // 放大
-            transform.localScale *= 1.5f;
+            transform.localScale *= 1.3f;
             StartShake();
         }
         else
         {
             // 恢复
-            transform.localScale /= 1.5f;
+            transform.localScale /= 1.3f;
             StopShake();
         }
     }

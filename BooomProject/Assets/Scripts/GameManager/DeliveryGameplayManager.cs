@@ -16,6 +16,8 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
 
     [SerializeField] private EventSequenceExecutor _onEndWorkingEventSequenceExecutor;
 
+    [SerializeField] private GameObject[] _hideInCutscene;
+
     // todo: currently dialogue ui manager is a singleton
     // [SerializeField] private DialogueUIManager _dialogueUIManager;
     // public DialogueUIManager DialogueUIManager => _dialogueUIManager;
@@ -50,6 +52,11 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
         switch (CommonGameplayManager.GetInstance().PlayerState)
         {
             case EPlayerState.PlayerIdle:
+                foreach (GameObject go in _hideInCutscene)
+                {
+                    go.SetActive(true);
+                }
+
                 _deliverySceneInputHandler.UIInputActions.Enable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Enable();
 
@@ -57,6 +64,10 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
                 break;
 
             case EPlayerState.PlayerMoving:
+                foreach (GameObject go in _hideInCutscene)
+                {
+                    go.SetActive(true);
+                }
                 _deliverySceneInputHandler.UIInputActions.Disable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Enable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Click.Disable();
@@ -65,6 +76,11 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
                 break;
 
             case EPlayerState.InCutscene:
+                foreach (GameObject go in _hideInCutscene)
+                {
+                    go.SetActive(false);
+                }
+
                 _deliverySceneInputHandler.UIInputActions.Enable();
                 _deliverySceneInputHandler.DeliveryGameplayInputActions.Disable();
                 _deliverySceneInputHandler.ShowPhoneUI(false);
@@ -94,5 +110,10 @@ public class DeliveryGameplayManager : Singleton<DeliveryGameplayManager>
             CommonGameplayManager.GetInstance().ResumeGame();
         });
         _onEndWorkingEventSequenceExecutor.Execute();
+    }
+
+    public void StartTutorial()
+    {
+        CommonGameplayManager.GetInstance().StartTutorial();
     }
 }

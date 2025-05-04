@@ -113,4 +113,14 @@ public class CommonGameplayManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    [SerializeField] private EventSequenceExecutor _tutorial;
+    public void StartTutorial()
+    {
+        PauseGame();
+        _tutorial.Initialize((bool success) =>
+        {
+            ResumeGame();
+        });
+        _tutorial.Execute();
+    }
 }

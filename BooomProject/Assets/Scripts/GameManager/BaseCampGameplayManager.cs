@@ -9,6 +9,8 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
     [SerializeField] private EventSequenceExecutor _onEndDayEventSequenceExecutor;
     [SerializeField] private EventSequenceExecutor _onGameOverEventSequenceExecutor;
 
+    [SerializeField] private GameObject[] _hideInCutscene;
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,6 +38,10 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
         switch (CommonGameplayManager.GetInstance().PlayerState)
         {
             case EPlayerState.PlayerIdle:
+                foreach (GameObject go in _hideInCutscene)
+                {
+                    go.SetActive(true);
+                }
                 _baseCampInputHandler.UIInputActions.Enable();
                 _baseCampInputHandler.BaseCampGameplayInputActions.Enable();
 
@@ -43,6 +49,10 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
                 break;
 
             case EPlayerState.PlayerMoving:
+                foreach (GameObject go in _hideInCutscene)
+                {
+                    go.SetActive(true);
+                }
                 _baseCampInputHandler.UIInputActions.Enable();
                 _baseCampInputHandler.BaseCampGameplayInputActions.Enable();
 
@@ -50,6 +60,10 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
                 break;
 
             case EPlayerState.InCutscene:
+                foreach (GameObject go in _hideInCutscene)
+                {
+                    go.SetActive(false);
+                }
                 _baseCampInputHandler.UIInputActions.Enable();
                 _baseCampInputHandler.BaseCampGameplayInputActions.Disable();
 
@@ -86,5 +100,10 @@ public class BaseCampGameplayManager : Singleton<BaseCampGameplayManager>
             CommonGameplayManager.GetInstance().TimeManager.GoToNextDay();
         });
         _onEndDayEventSequenceExecutor.Execute();
+    }
+
+    public void StartTutorial()
+    {
+        CommonGameplayManager.GetInstance().StartTutorial();
     }
 }
