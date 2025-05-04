@@ -6,6 +6,7 @@ public class SoundsManager : Singleton<SoundsManager>
 {
     public AudioClip good;
     public AudioClip bad;
+    public AudioClip nodeClick;
     public AudioSource audioSource;
     protected override void init()
     {

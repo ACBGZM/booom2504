@@ -15,13 +15,13 @@ MonoBehaviour:
   m_state: 2
   m_dialogues:
   - m_speaker_name: "\u3010\u7FFB\u8F66\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: d31ab305c21ca014e86dd68e7b3541e1, type: 3}
+    m_speaker_avatar: {fileID: 0}
     m_text: "\u5E38\u5728\u8DEF\u4E0A\u8DD1\uFF0C\u54EA\u6709\u4E0D\u7FFB\u8F66\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 21300000, guid: b87953600b7088248bb409f30f2ec7f6, type: 3}
   - m_speaker_name: "\u3010\u7FFB\u8F66\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: d31ab305c21ca014e86dd68e7b3541e1, type: 3}
+    m_speaker_avatar: {fileID: 0}
     m_text: "\u4F60\u7684\u5C0F\u7535\u9A74\u7FFB\u5012\u4E86\uFF0C\u8FD8\u597D\u4F60\u7684\u5916\u5356\u6CA1\u6709\u53D7\u635F\uFF0C\u4F46\u662F\u4F60\u7684\u4F24\u53E3\u75BC\u75DB\u96BE\u5FCD\uFF0C\u819D\u76D6\u8FD8\u591A\u4E86\u51E0\u6761\u6DE4\u9752\u3002"
     m_display_method: 3
     m_can_skip: 1

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: SuccessSequence
   m_EditorClassIdentifier: 
   m_event_nodes:
+  - {fileID: 11400000, guid: 5f8c9d9a42a9c3c4ea73476e10f6bc83, type: 2}
   - {fileID: 11400000, guid: 237a8cab1f2bbac42a1c47f1301aa7b4, type: 2}

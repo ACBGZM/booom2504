@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: FailureSequence
   m_EditorClassIdentifier: 
   m_event_nodes:
+  - {fileID: 11400000, guid: 63ac014615d0d13439f9778c1ead92e7, type: 2}
   - {fileID: 11400000, guid: c18daf1cfb609ed48b7ced9dc9046d18, type: 2}
