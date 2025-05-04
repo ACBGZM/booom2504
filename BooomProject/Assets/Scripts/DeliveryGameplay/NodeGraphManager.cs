@@ -167,7 +167,7 @@ public class NodeGraphManager : MonoBehaviour
                 _lastNodeID = _currentNodeID;
                 _currentNodeID = targetNode.NodeID;
                 ShowCanMoveNodes(targetNode, true);
-
+                SetBaseCampHintActive(IsOnBaseCampNode());
                 targetNode.OnReach();
             });
         }
@@ -307,5 +307,11 @@ public class NodeGraphManager : MonoBehaviour
             nodeTriggerTime.Add(nodeId, time);
         }
 
+    }
+
+    [SerializeField] private GameObject _baseCampHint;
+    public void SetBaseCampHintActive(bool isActive)
+    {
+        _baseCampHint.SetActive(!IsOnBaseCampNode() && isActive);
     }
 }

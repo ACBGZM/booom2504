@@ -142,9 +142,9 @@ public class OrderDataManager : MonoBehaviour {
 
     /// <summary>
     /// 检查特殊订单生成条件：
-    /// 1. 必须是该系列的下一个订单（顺序生成）  
+    /// 1. 必须是该系列的下一个订单（顺序生成）
     /// 2. 未完成过
-    /// 3. 当前未存在于已接或可接列表中  
+    /// 3. 当前未存在于已接或可接列表中
     /// 4. 当天未生成过该系列的特殊订单
     /// </summary>
     private bool CanGenerateSpecialOrder(string uid) {
@@ -319,6 +319,7 @@ public class OrderDataManager : MonoBehaviour {
         CommonGameplayManager.GetInstance().NodeGraphManager.ShowTargetNode(nodeIdx, true);
 
         Debug.Log($"接单: {runtimeOrder.sourceOrder.orderUID}");
+        CommonGameplayManager.GetInstance().NodeGraphManager.SetBaseCampHintActive(true);
 
         // 通知UI
         OnAvailableOrdersChanged?.Invoke();
