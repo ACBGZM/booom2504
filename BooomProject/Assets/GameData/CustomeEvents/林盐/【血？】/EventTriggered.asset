@@ -32,7 +32,7 @@ MonoBehaviour:
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
-  - m_speaker_name: "\u4F60"
+  - m_speaker_name: "\u3010\u8840\uFF1F\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
     m_text: "\u2014\u2014\u6709\u70B9\u592A\u903C\u771F\u4E86\u5427\uFF01\u5230\u5E95\u8C01\u80FD\u5FCD\u7740\u559D\u4E0B\u53BB\u554A\uFF1F"
     m_display_method: 3

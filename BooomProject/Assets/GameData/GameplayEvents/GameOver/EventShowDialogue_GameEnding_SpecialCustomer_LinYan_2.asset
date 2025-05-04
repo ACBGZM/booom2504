@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 0
   m_dialogues:
-  - m_speaker_name: 
+  - m_speaker_name: "\u3010\u6797\u76D0\u2026\u2026\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: a52dd1fa9cc1f014f80ef0fad02a38eb, type: 3}
     m_text: "\u6797\u76D0\u2026\u2026\u4ED6\u4E4B\u524D\u4F3C\u4E4E\u63D0\u5230\u8FC7\uFF0C\u8FD8\u8981\u8BF7\u4F60\u5403\u70E7\u70E4\u6765\u7740\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
-  - m_speaker_name: 
+  - m_speaker_name: "\u3010\u6797\u76D0\u2026\u2026\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: a52dd1fa9cc1f014f80ef0fad02a38eb, type: 3}
     m_text: "\u4E5F\u8BB8\u80FD\u591F\u7EE7\u7EED\u671F\u5F85\u4E00\u4E0B\uFF1F"
     m_display_method: 3

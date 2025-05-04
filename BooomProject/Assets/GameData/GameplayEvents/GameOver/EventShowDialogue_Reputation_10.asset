@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 0
   m_dialogues:
-  - m_speaker_name: 
+  - m_speaker_name: "\u3010\u4F60\u2026\u2026\u3011"
     m_speaker_avatar: {fileID: 0}
     m_text: "\u5154\u9A91\u58EB\uFF0C\u770B\u770B\u4F60\u7684\u7535\u9A74\u5427\uFF0C\u4E0A\u9762\u8363\u8A89\u6EE1\u8F7D\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
-  - m_speaker_name: 
+  - m_speaker_name: "\u3010\u4F60\u2026\u2026\u3011"
     m_speaker_avatar: {fileID: 0}
     m_text: "\u4E0D\u77E5\u9053\u4E3A\u4EC0\u4E48\u4F60\u88AB\u63A8\u4F5C\u4E86\u7231\u5403\u5154\u7684\u5148\u8FDB\u5458\u5DE5\u4EE3\u8868\uFF0C\u751A\u81F3\u83B7\u5F97\u4E86\u4ECA\u5E74\u7684\u611F\u52A8\u4F2F\u4ED9\u5341\u5927\u4EBA\u7269\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
-  - m_speaker_name: 
+  - m_speaker_name: "\u3010\u4F60\u2026\u2026\u3011"
     m_speaker_avatar: {fileID: 0}
     m_text: "\u5728\u611F\u52A8\u4F2F\u4ED9\u5341\u5927\u4EBA\u7269\u7684\u9881\u5956\u53F0\u4E0A\uFF0C\u4F60\u5F53\u7136\u8BF4\uFF1A\u201C\u6211\u53EA\u662F\u505A\u597D\u4E86\u5916\u5356\u5458\u7684\u672C\u804C\u5DE5\u4F5C\u800C\u5DF2\u3002\u201D"
     m_display_method: 3

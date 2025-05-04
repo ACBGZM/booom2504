@@ -26,7 +26,7 @@ MonoBehaviour:
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
-  - m_speaker_name: "\u66F2\u7F8A"
+  - m_speaker_name: "\u3010\u96C6\u88C5\u7BB1\u91CC\u7684\u8D1D\u65AF\u624B\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: 410a4ec56e26fa64ea486d637668fc78, type: 3}
     m_text: "\u201C\u600E\u4E48\u6837\uFF1F\u4E0D\u53EA\u662F\u51C6\u65F6\u7387\uFF0C\u5176\u4ED6\u7684\u4E5F\u53EF\u4EE5\u4FEE\u6539\u54E6\u3002\u201D"
     m_display_method: 3

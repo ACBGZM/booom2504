@@ -20,7 +20,7 @@ MonoBehaviour:
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
-  - m_speaker_name: "\u6797\u76D0"
+  - m_speaker_name: "\u3010\u5916\u5356\u6C38\u52A8\u673A\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: a52dd1fa9cc1f014f80ef0fad02a38eb, type: 3}
     m_text: "\u201C\u8BA9\u6211\u5438\u4E00\u53E3\xB7\xB7\xB7\xB7\xB7\xB7\u4F60\u770B\uFF0C\u53D8\u6210\u5438\u8840\u9B3C\u4E4B\u540E\u5373\u4F7F\u6454\u5012\u4E5F\u4E0D\u4F1A\u75DB\uFF0C\u4E5F\u4E0D\u9700\u8981\u4F11\u606F\u2014\u2014\u4F60\u53EF\u4EE5\u663C\u591C\u4E0D\u5206\u5730\u63A5\u5355\u4E86\uFF0C\u5BF9\u5427\uFF1F\u201D"
     m_display_method: 3

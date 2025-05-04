@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 0
   m_dialogues:
-  - m_speaker_name: 
+  - m_speaker_name: "\u3010\u66F2\u7F8A\u2026\u2026\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: 410a4ec56e26fa64ea486d637668fc78, type: 3}
     m_text: "\u66F2\u7F8A\u6210\u4E3A\u4E86\u4F60\u5FC5\u4E0D\u53EF\u5C11\u7684\u52A9\u529B\uFF0C\u5929\u554A\uFF0C\u4F60\u624D\u77E5\u9053\u4E00\u4E2A\u5929\u624D\u7684\u9ED1\u5BA2\u80FD\u505A\u5230\u591A\u5C11\u4E8B\u60C5\u3002"
     m_display_method: 3

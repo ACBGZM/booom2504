@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 0
   m_dialogues:
-  - m_speaker_name: "\u6797\u76D0"
+  - m_speaker_name: "\u3010\u8BF4\u4E86\u522B\u653E\u849C\uFF01\u3011"
     m_speaker_avatar: {fileID: 21300000, guid: a52dd1fa9cc1f014f80ef0fad02a38eb, type: 3}
-    m_text: "\u8BF4\u4E86\u522B\u653E\u849C\uFF01"
+    m_text: "\u201C\u8BF4\u4E86\u522B\u653E\u849C\uFF01\u201D"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
