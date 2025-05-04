@@ -140,8 +140,11 @@ public class OrderUIManager : MonoBehaviour {
 
         if (btn != null) {
             if (order.currentState == OrderState.InTransit) {
+                btn.interactable = true;
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => OnChatButtonClicked(order));
+            } else if(order.currentState == OrderState.Accepted){
+                btn.interactable=false;
             }
         }
     }

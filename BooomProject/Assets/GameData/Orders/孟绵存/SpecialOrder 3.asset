@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06e33720b1883a4ba650714e43b1430, type: 3}
+  m_Name: SpecialOrder 3
+  m_EditorClassIdentifier: 
+  customerSO: {fileID: 11400000, guid: 4fbbcec5523253846bb4b55b5223e9c5, type: 2}
+  orderUID: M3
+  initialLimitTime: 200
+  isSpecialOrder: 1
+  baseReward: 4
+  orderEvent: {fileID: 11400000, guid: ddd20c7648161ef4d85d15ca6018f22d, type: 2}
+  bubble: "\u672A\u9001\u8FBE"
+  chatHistory: []
+  quickResponses: []
+  destinationNodeId: 2
