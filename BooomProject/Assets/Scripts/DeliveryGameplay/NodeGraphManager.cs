@@ -316,7 +316,23 @@ public class NodeGraphManager : MonoBehaviour
     [SerializeField] private GameObject _baseCampHint;
     public void SetBaseCampHintActive(bool isActive)
     {
-        _baseCampHint.SetActive(!IsOnBaseCampNode() && isActive);
+        if (IsOnBaseCampNode())
+        {
+            _baseCampHint.SetActive(false);
+            return;
+        }
+
+        bool have = false;
+        foreach (RuntimeOrderSO runtimeOrderSo in  CommonGameplayManager.GetInstance().OrderDataManager.GetAcceptedOrders())
+        {
+            if (runtimeOrderSo.currentState == OrderState.Accepted)
+            {
+                have = true;
+                break;
+            }
+        }
+
+        _baseCampHint.SetActive(have);
     }
     public void PlayNodeClickSound()
     {
