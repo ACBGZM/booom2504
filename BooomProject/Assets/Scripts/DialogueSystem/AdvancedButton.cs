@@ -13,6 +13,8 @@ public class AdvancedButton : Button
     public Action<int> m_confirmed_action;
     private int m_response_index;
 
+    private AdvancedTMProUGUI _advancedText;
+
     protected override void Awake()
     {
         base.Awake();
@@ -37,15 +39,17 @@ public class AdvancedButton : Button
     {
         base.OnSelect(eventData);
         m_select_border.enabled = true;
+        _advancedText.color = Color.black;
 
         DialogueUIManager.SetCurrentSelectable(this);
-        DialogueUIManager.SetSelectedCursorPosition(transform.position + new Vector3(m_rect_transform.rect.width / 2.0f * 1.2f, m_rect_transform.rect.height / 2.0f, 0.0f));
+        DialogueUIManager.SetSelectedCursorPosition(transform.position + new Vector3(m_rect_transform.rect.width / 2.0f * 1.1f, m_rect_transform.rect.height / 2.0f, 0.0f));
     }
 
     public override void OnDeselect(BaseEventData eventData)
     {
         base.OnDeselect(eventData);
         m_select_border.enabled = false;
+        _advancedText.color = Color.white;
     }
 
     public void OnButtonClicked()
@@ -58,9 +62,9 @@ public class AdvancedButton : Button
     {
         m_response_index = index;
 
-        AdvancedTMProUGUI advanced_text = GetComponentInChildren<AdvancedTMProUGUI>();
+        _advancedText = GetComponentInChildren<AdvancedTMProUGUI>();
         // Debug.Log("Active? " + gameObject.activeInHierarchy);
-        advanced_text.StartCoroutine(advanced_text.ShowText(text, AdvancedTMProUGUI.TextDisplayMethod.FadingIn));
+        _advancedText.StartCoroutine(_advancedText.ShowText(text, AdvancedTMProUGUI.TextDisplayMethod.FadingIn));
     }
 
     // animation event
