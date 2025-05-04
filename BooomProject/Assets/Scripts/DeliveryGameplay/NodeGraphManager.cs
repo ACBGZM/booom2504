@@ -167,7 +167,7 @@ public class NodeGraphManager : MonoBehaviour
                 _lastNodeID = _currentNodeID;
                 _currentNodeID = targetNode.NodeID;
                 ShowCanMoveNodes(targetNode, true);
-                SetBaseCampHintActive(IsOnBaseCampNode());
+                SetBaseCampHintActive(!IsOnBaseCampNode());
                 targetNode.OnReach();
             });
         }
