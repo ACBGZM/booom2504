@@ -1213,7 +1213,7 @@ GameObject:
   - component: {fileID: 143879443}
   - component: {fileID: 143879442}
   m_Layer: 0
-  m_Name: CommonGameplayManager (1)
+  m_Name: CommonGameplayManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3888,12 +3888,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9aa410b70bbb88948878bacd9255701b, type: 2}
   - {fileID: 11400000, guid: d01052e5769ccff46b8ac5b6cc0f99c3, type: 2}
   - {fileID: 11400000, guid: 8d61964a9803321419d345596d830cfe, type: 2}
-  - {fileID: 11400000, guid: c677b406e6261684b9e361771bff3ba6, type: 2}
-  - {fileID: 11400000, guid: 23b254cba180e6d40b0ce431b325f636, type: 2}
-  - {fileID: 11400000, guid: c8d11bb516ff09341963ed176f8ee6f8, type: 2}
-  - {fileID: 11400000, guid: c69fd82d524f8cf4fa3da43b366a5b3a, type: 2}
-  - {fileID: 11400000, guid: 3958e71a790b5f94da2138e21365abaf, type: 2}
-  - {fileID: 11400000, guid: b4b922c281cbeff4d87bb43e0f7e71be, type: 2}
   - {fileID: 11400000, guid: c0dc00588b2f88b488822ac24f06a60f, type: 2}
   - {fileID: 11400000, guid: 80c2492a850e6684fba01dc28d749c4c, type: 2}
   - {fileID: 11400000, guid: aff0ca75c8a9e8846a7670864dbf4740, type: 2}
@@ -3902,6 +3896,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3834a2990e7c1e847aaab12d5ab5551f, type: 2}
   - {fileID: 11400000, guid: 93755b3c9f793044da2effd4cc1f8502, type: 2}
   - {fileID: 11400000, guid: 7968503ed7f32dd4280b197d15d613c6, type: 2}
+  - {fileID: 11400000, guid: c677b406e6261684b9e361771bff3ba6, type: 2}
+  - {fileID: 11400000, guid: 23b254cba180e6d40b0ce431b325f636, type: 2}
+  - {fileID: 11400000, guid: e1ea7c41c7d4d1b42869179e05789cb4, type: 2}
+  - {fileID: 11400000, guid: 712bbf41b21cd1746a4d834daf1a9677, type: 2}
+  - {fileID: 11400000, guid: c8d11bb516ff09341963ed176f8ee6f8, type: 2}
+  - {fileID: 11400000, guid: 9702c002d01e3d74cb8a8ebf0d744d5e, type: 2}
+  - {fileID: 11400000, guid: c69fd82d524f8cf4fa3da43b366a5b3a, type: 2}
+  - {fileID: 11400000, guid: 3958e71a790b5f94da2138e21365abaf, type: 2}
+  - {fileID: 11400000, guid: b4b922c281cbeff4d87bb43e0f7e71be, type: 2}
+  - {fileID: 11400000, guid: a52337be49083474ba98709595827ed7, type: 2}
 --- !u!1 &749455875
 GameObject:
   m_ObjectHideFlags: 0
@@ -10055,8 +10059,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nodeGraphData: {fileID: 11400000, guid: 78e3c78cf697478408a44868e54308cb, type: 2}
-  nodeClick: {fileID: 8300000, guid: 700dadaeadca64f4f9dc466ee4bf1b6b, type: 3}
-  nodeAudioSource: {fileID: 0}
   _currentNodeID: 1
   _lastNodeID: -1
   tryToNodeID: -1
@@ -11665,7 +11667,7 @@ MonoBehaviour:
   Speed:
     _statName: Speed
     _value: 5
-    _minValue: 2
+    _minValue: 5
     _maxValue: 15
     OnValueChanged:
       m_PersistentCalls:
