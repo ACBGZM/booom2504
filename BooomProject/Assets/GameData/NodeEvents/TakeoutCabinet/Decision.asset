@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 1
   m_responses:
-  - m_text: "\u3010\u6253\u7535\u8BDD\u6C9F\u901A\u3011"
+  - m_text: "\u6253\u7535\u8BDD\u6C9F\u901A"
     m_executor: {fileID: 11400000, guid: eee9b551ad27230488430720d6c34dcf, type: 2}
-  - m_text: "\u3010\u8FD8\u662F\u7B97\u4E86\u3011"
+  - m_text: "\u8FD8\u662F\u7B97\u4E86"
     m_executor: {fileID: 11400000, guid: 0c9779cee879fac4087aea58983ba49d, type: 2}
   m_default_select_index: -1
   m_must_loop_all: 0
