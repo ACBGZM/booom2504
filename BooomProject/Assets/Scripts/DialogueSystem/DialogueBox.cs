@@ -15,6 +15,10 @@ public class DialogueBox : MonoBehaviour
     [SerializeField] private GameObject m_cg_panel;
     [SerializeField] private Image m_cg_image;
 
+    private FadeEffect _speakerAvatarFade;
+    private FadeEffect _cgPanelFade;
+    private FadeEffect _speakerNameTextFade;
+
     private FadeEffect m_box_fade_effect;
 
     private bool m_is_interactable;
@@ -40,6 +44,10 @@ public class DialogueBox : MonoBehaviour
 
         m_speaker_name_text = m_character_panel.GetComponentInChildren<AdvancedTMProUGUI>();
         m_speaker_avatar = m_character_panel.GetComponentsInChildren<Image>().Last();
+
+        _speakerAvatarFade = m_speaker_avatar.GetComponent<FadeEffect>();
+        _cgPanelFade = m_cg_panel.GetComponent<FadeEffect>();
+        _speakerNameTextFade = m_speaker_name_text.GetComponent<FadeEffect>();
     }
 
     public void Update()
@@ -99,6 +107,8 @@ public class DialogueBox : MonoBehaviour
 
     public void Close(Action close_callback)
     {
+        _cgPanelFade?.Fade(0.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+        _speakerAvatarFade?.Fade(0.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
         m_box_fade_effect.Fade(0.0f, GameplaySettings.m_dialogue_box_fadein_duration, () =>
         {
             gameObject.SetActive(false);
@@ -121,9 +131,29 @@ public class DialogueBox : MonoBehaviour
         m_is_auto_play = auto_next;
 
         m_speaker_name_text.SetText(dialogue.m_speaker_name);
-        m_speaker_avatar.sprite = dialogue.m_speaker_avatar;
 
-        m_cg_image.sprite = dialogue.m_cg_sprite;
+        if (dialogue.m_speaker_avatar != null)
+        {
+            m_speaker_avatar.sprite = dialogue.m_speaker_avatar;
+            _speakerAvatarFade?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+        }
+        else
+        {
+            m_speaker_avatar.GetComponent<CanvasGroup>().alpha = 0.0f;
+            m_speaker_avatar.sprite = null;
+        }
+
+
+        if (m_cg_image.sprite != null)
+        {
+            m_cg_image.sprite = dialogue.m_cg_sprite;
+            _cgPanelFade?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+        }
+        else
+        {
+            m_cg_panel.GetComponent<CanvasGroup>().alpha = 0.0f;
+            m_cg_image.sprite = null;
+        }
 
         AdvancedTMProUGUI.TextDisplayMethod next_text_method = dialogue.m_display_method;
         if (next_force_fadein && m_text_can_skip) // can not force fading in a dialogue which can not be skipped
@@ -142,25 +172,6 @@ public class DialogueBox : MonoBehaviour
             m_text_content.gameObject.SetActive(true);
         }
 
-        if (m_speaker_avatar.sprite != null)
-        {
-            m_speaker_avatar.GetComponent<FadeEffect>()
-                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
-        }
-        else
-        {
-            m_speaker_avatar.GetComponent<CanvasGroup>().alpha = 0.0f;
-        }
-
-        if (m_cg_image.sprite != null)
-        {
-            m_cg_panel.GetComponent<FadeEffect>()
-                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
-        }
-        else
-        {
-            m_cg_panel.GetComponent<CanvasGroup>().alpha = 0.0f;
-        }
 
         m_text_content.StartCoroutine(m_text_content.ShowText(dialogue.m_text, next_text_method));
     }
@@ -183,18 +194,15 @@ public class DialogueBox : MonoBehaviour
 
             if (m_speaker_avatar.sprite != null)
             {
-                m_speaker_avatar.GetComponent<FadeEffect>()
-                    ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+                _speakerAvatarFade?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
             }
 
             if (m_cg_image.sprite != null)
             {
-                m_cg_panel.GetComponent<FadeEffect>()
-                    ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
+                _cgPanelFade?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, null);
             }
 
-            m_speaker_name_text.GetComponent<FadeEffect>()
-                ?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
+            _speakerNameTextFade?.Fade(1.0f, GameplaySettings.m_dialogue_box_fadein_duration, callback);
 
         }
         else
