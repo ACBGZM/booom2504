@@ -15,7 +15,7 @@ MonoBehaviour:
   m_state: 0
   m_dialogues:
   - m_speaker_name: "\u3010\u5B5F\u7EF5\u5B58\u2026\u2026\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 33b37cbea22007a4c81eb107cc6ad72f, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: 742dd4c3e74752b499d2e197c065a38a, type: 3}
     m_text: "\u597D\u5427\uFF0C\u5DF2\u7ECF\u4E0D\u91CD\u8981\u4E86\u3002"
     m_display_method: 3
     m_can_skip: 1

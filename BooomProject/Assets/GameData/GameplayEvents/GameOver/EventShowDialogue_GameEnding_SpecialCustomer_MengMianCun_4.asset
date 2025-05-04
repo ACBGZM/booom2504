@@ -15,13 +15,13 @@ MonoBehaviour:
   m_state: 0
   m_dialogues:
   - m_speaker_name: "\u3010\u5B5F\u7EF5\u5B58\u2026\u2026\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 33b37cbea22007a4c81eb107cc6ad72f, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: 742dd4c3e74752b499d2e197c065a38a, type: 3}
     m_text: "\u4F60\u628A\u5B5F\u7EF5\u5B58\u7684\u62A4\u7B26\u6302\u5728\u4E86\u5C0F\u7535\u9A74\u4E0A\uFF0C\u558B\u558B\u4E0D\u4F11\u5730\u8DDF\u5176\u4ED6\u4EBA\u8BB2\u8FF0\u5B83\u7684\u4FDD\u5E73\u5B89\u4E8B\u8FF9\u2014\u2014\u6709\u6B21\u4F60\u4E0D\u5C0F\u5FC3\u5931\u53BB\u4E86\u5E73\u8861\uFF0C\u6728\u5236\u62A4\u7B26\u5149\u8292\u4E00\u95EA\uFF0C\u4F60\u7684\u5C0F\u7535\u9A74\u597D\u50CF\u51A5\u51A5\u4E2D\u88AB\u4E00\u53CC\u624B\u6258\u4F4F\u2014\u2014\u4F46\u6CA1\u4EBA\u76F8\u4FE1\u4F60\u7684\u8BDD\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u5B5F\u7EF5\u5B58\u2026\u2026\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 33b37cbea22007a4c81eb107cc6ad72f, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: 742dd4c3e74752b499d2e197c065a38a, type: 3}
     m_text: "\u4F60\u53BB\u8BE2\u95EE\u5236\u4F5C\u62A4\u7B26\u7684\u5B5F\u7EF5\u5B58\uFF0C\u5979\u8BF4\u8FD9\u662F\u7F8E\u5C11\u5973\u9053\u58EB\u7684\u673A\u5BC6\u3002"
     m_display_method: 3
     m_can_skip: 1

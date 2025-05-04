@@ -15,31 +15,31 @@ MonoBehaviour:
   m_state: 0
   m_dialogues:
   - m_speaker_name: "\u3010\u62FF\u5916\u5356\u7684\u8D1D\u65AF\u624B\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u5B9A\u4F4D\u5728\u5546\u573A\u91CC\uFF0C\u8FD9\u4E48\u5927\u4E0A\u54EA\u627E\uFF1F\u8FD8\u662F\u6253\u4E2A\u7535\u8BDD\u95EE\u4E00\u4E0B\u5427\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u62FF\u5916\u5356\u7684\u8D1D\u65AF\u624B\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u4E00\u4E2A\u6709\u70B9\u51B7\u6DE1\u7684\u5973\u58F0\u8BA9\u4F60\u5728\u5317\u95E8\u53E3\u7B49\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u62FF\u5916\u5356\u7684\u8D1D\u65AF\u624B\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 410a4ec56e26fa64ea486d637668fc78, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: 0687973360995fd498683a7904e55cf2, type: 3}
     m_text: "\u4E24\u5206\u949F\u540E\uFF0C\u4E00\u4E2A\u84DD\u6311\u67D3\u7684\u5973\u6027\u62B1\u7740\u4E50\u5668\u51FA\u73B0\u4E86\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u62FF\u5916\u5356\u7684\u8D1D\u65AF\u624B\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 410a4ec56e26fa64ea486d637668fc78, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: 0687973360995fd498683a7904e55cf2, type: 3}
     m_text: "\u8BF6\uFF0C\u5979\u7684\u5409\u4ED6\u600E\u4E48\u53EA\u6709\u56DB\u6839\u5F26\uFF1F"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u62FF\u5916\u5356\u7684\u8D1D\u65AF\u624B\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: d31ab305c21ca014e86dd68e7b3541e1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u5947\u602A\u7684\u662F\uFF0C\u672C\u6765\u56E0\u4E3A\u627E\u4E0D\u5230\u51C6\u786E\u5730\u70B9\u4F60\u8FD9\u5355\u5E94\u8BE5\u662F\u8D85\u65F6\u4E86\uFF0C\u4F46\u662FAPP\u663E\u793A\u4E86\u51C6\u65F6\u9001\u8FBE\u3002"
     m_display_method: 3
     m_can_skip: 1

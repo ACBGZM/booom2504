@@ -15,25 +15,25 @@ MonoBehaviour:
   m_state: 0
   m_dialogues:
   - m_speaker_name: "\u3010\u8840\uFF1F\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u8FD9\u6B21\u6797\u76D0\u70B9\u4E86\u4E00\u888B\u7EA2\u7EA2\u7684\u6DB2\u4F53\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u8840\uFF1F\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u73B0\u5728\u5404\u79CD\u5976\u8336\u5E97\u63A8\u51FA\u7684\u996E\u6599\u4E5F\u8D8A\u6765\u8D8A\u5947\u602A\u4E86\uFF0C\u8FD9\u4E5F\u8BB8\u4E0D\u7B97\u4EC0\u4E48\u5427\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u8840\uFF1F\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u4F46\u4F60\u4F3C\u4E4E\u95FB\u5230\u4E86\u91CC\u9762\u6563\u53D1\u7684\u4E00\u4E1D\u8165\u6C14\xB7\xB7\xB7\xB7\xB7\xB7\u888B\u5B50\u4E0A\u8FD8\u5199\u7740\u4E00\u4E2A\u5927\u5927\u7684\u5B57\u6BCD\u201CB\u201D\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u8840\uFF1F\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u2014\u2014\u6709\u70B9\u592A\u903C\u771F\u4E86\u5427\uFF01\u5230\u5E95\u8C01\u80FD\u5FCD\u7740\u559D\u4E0B\u53BB\u554A\uFF1F"
     m_display_method: 3
     m_can_skip: 1

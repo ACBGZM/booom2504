@@ -15,19 +15,19 @@ MonoBehaviour:
   m_state: 0
   m_dialogues:
   - m_speaker_name: "\u3010\u6765\u81EA\u201C\u9B3C\u57CE\u201D\u7684\u793C\u7269\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u8FD8\u662F\u90A3\u4E2A\u671D\u6D77\u65B0\u57CE\u7684\u5730\u5740\u3002\u4F60\u6253\u4E86\u7535\u68AF\u91CC\u7684\u7269\u4E1A\u7535\u8BDD\uFF0C\u5F97\u77E5305\u6839\u672C\u5C31\u6CA1\u4EBA\u4E70\u4E0B\uFF0C\u800C\u5B83\u4E4B\u524D\u662F\u5DF2\u7ECF\u7CBE\u88C5\u597D\u7684\u6837\u677F\u623F\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u6765\u81EA\u201C\u9B3C\u57CE\u201D\u7684\u793C\u7269\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 96c1741436526ed4096ad27a37e4cfb1, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: d4f3bc441cbc04041907c775188159d5, type: 3}
     m_text: "\u4F60\u6CA1\u6765\u5F97\u53CA\u591A\u95EE\uFF0C\u5BF9\u65B9\u5C31\u6302\u65AD\u4E86\u7535\u8BDD\u3002"
     m_display_method: 3
     m_can_skip: 1
     m_cg_sprite: {fileID: 0}
   - m_speaker_name: "\u3010\u6765\u81EA\u201C\u9B3C\u57CE\u201D\u7684\u793C\u7269\u3011"
-    m_speaker_avatar: {fileID: 21300000, guid: 33b37cbea22007a4c81eb107cc6ad72f, type: 3}
+    m_speaker_avatar: {fileID: 21300000, guid: 742dd4c3e74752b499d2e197c065a38a, type: 3}
     m_text: "\u7B49\u4F60\u6218\u6218\u5162\u5162\u5730\u6572\u95E8\u540E\uFF0C\u5B5F\u7EF5\u5B58\u5E26\u7740\u773C\u4E0B\u7684\u4E4C\u9752\u51FA\u73B0\u4E86\u3002"
     m_display_method: 3
     m_can_skip: 1
