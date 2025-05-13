@@ -9738,10 +9738,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragStartPos: {x: 0, y: 0}
   _camera: {fileID: 1182911269}
-  _zoomSpeed: 0.004
+  _zoomSpeed: 0.12
   _minOrthoSize: 4
   _maxOrthoSize: 15
-  _dragSpeed: 0.4
+  _dragSpeed: 0.7
 --- !u!1001 &1533605123
 PrefabInstance:
   m_ObjectHideFlags: 0
