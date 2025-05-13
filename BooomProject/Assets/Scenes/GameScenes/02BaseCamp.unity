@@ -1778,7 +1778,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 6
-  m_Spacing: 20
+  m_Spacing: 18
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -2393,7 +2393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -60, y: 400}
+  m_AnchoredPosition: {x: -69.8, y: 400}
   m_SizeDelta: {x: 50.48, y: 69.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &356715178
@@ -11666,9 +11666,9 @@ MonoBehaviour:
   debugMode: 1
   Speed:
     _statName: Speed
-    _value: 5
-    _minValue: 5
-    _maxValue: 15
+    _value: 6
+    _minValue: 2
+    _maxValue: 18
     OnValueChanged:
       m_PersistentCalls:
         m_Calls: []

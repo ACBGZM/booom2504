@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450ce74c9e370a646b137095a43e8b42, type: 3}
   m_Name: EventDice
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 2
   successExecutor: {fileID: 11400000, guid: 6e528181d7701b44c869f6798e6beb35, type: 2}
   failureExecutor: {fileID: 11400000, guid: ce26d3e58e649694699e93819d28a4c4, type: 2}
   type: 1
-  threshold: 15
+  threshold: 14
   needSpeed: 0
   needReputation: 5
   needEvaluation: 0
   awardType: 1
   awardValue: 1
+  punishmentSpeed: 0

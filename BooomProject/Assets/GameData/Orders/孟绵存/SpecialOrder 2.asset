@@ -29,4 +29,4 @@ MonoBehaviour:
     responseText: "\u4F60\u5BB6\u95E8\u53E3\u5230\u5E95\u662F\uFF1F"
     customerResponseText: "\u522B\u5728\u610F"
     responseEvaluate: 2
-  destinationNodeId: 2
+  destinationNodeId: 12

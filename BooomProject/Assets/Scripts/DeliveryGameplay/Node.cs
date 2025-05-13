@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Node : MonoBehaviour, IClickable
 {

@@ -8,7 +8,7 @@ public class TwoDiceUIManager : Singleton<TwoDiceUIManager>
 {
  //   public Button rollBtn;
     public TMP_Text result;
-  
+
     public int val;
     public int cnt;
     public TMP_Text speed;
@@ -19,7 +19,7 @@ public class TwoDiceUIManager : Singleton<TwoDiceUIManager>
        // rollBtn = gameObject.GetComponentInChildren<Button>();
         Transform child = transform.GetChild(0);
         result = child.Find("result").GetComponentInChildren<TMP_Text>();
-     
+
 
         speed = child.Find("speed").GetComponentInChildren<TMP_Text>();
 
@@ -37,7 +37,7 @@ public class TwoDiceUIManager : Singleton<TwoDiceUIManager>
 
     private void OnDisable()
     {
-        EventHandlerManager.rollFinish -= OnRollFinish; 
+        EventHandlerManager.rollFinish -= OnRollFinish;
     }
     private void Start()
     {

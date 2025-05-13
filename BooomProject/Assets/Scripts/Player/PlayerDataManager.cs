@@ -19,7 +19,7 @@ public class PlayerDataManager : MonoBehaviour {
     public bool debugMode = false;
 
     [Header("基础属性")]
-    public BaseStat<float> Speed = new BaseStat<float>("Speed", 5f, 0f, 15f);
+    public BaseStat<float> Speed = new BaseStat<float>("Speed", 8f, 0f, 20f);
     public BaseStat<int> Reputation = new BaseStat<int>("Reputation", 0, 0, 1000);
     public BaseStat<int> Medals = new BaseStat<int>("Medals", 0, 0, int.MaxValue);
 

@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146d275c4116d6045b27fec4e42f57bc, type: 3}
   m_Name: EventCD
   m_EditorClassIdentifier: 
-  m_state: 0
+  m_state: 2
+  probabilityThreshold: 0.2
+  needRandom: 1
+  eventCD: 360

@@ -21,4 +21,4 @@ MonoBehaviour:
   bubble: "\u672A\u9001\u8FBE"
   chatHistory: []
   quickResponses: []
-  destinationNodeId: 2
+  destinationNodeId: 12

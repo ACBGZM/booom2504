@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: EventCD
   m_EditorClassIdentifier: 
   m_state: 2
+  probabilityThreshold: 0.2
+  needRandom: 1
+  eventCD: 360

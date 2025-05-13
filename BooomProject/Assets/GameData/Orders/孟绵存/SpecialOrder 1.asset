@@ -33,4 +33,4 @@ MonoBehaviour:
     responseText: "\u8C22\u8C22\u63D0\u9192"
     customerResponseText: "\u5916\u5356\u6211\u7684\u5916\u5356\u597D\u60F3\u5403"
     responseEvaluate: 2
-  destinationNodeId: 2
+  destinationNodeId: 12

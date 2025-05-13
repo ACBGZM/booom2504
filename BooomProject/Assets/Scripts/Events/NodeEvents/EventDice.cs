@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventDice", menuName = "Event/NodeActions/EventDice")]
 public class EventDice : EventNodeBase
 {
-  
+
     [SerializeField] private EventSequenceExecutor successExecutor;
     [SerializeField] private EventSequenceExecutor failureExecutor;
     public NodeActionType type;
@@ -27,8 +27,8 @@ public class EventDice : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        
-        
+
+
         ShowShake();
     }
 
@@ -42,7 +42,7 @@ public class EventDice : EventNodeBase
             NodeActionType.HeavyRain => CommonGameplayManager.GetInstance().PlayerDataManager.Speed.Value >= needSpeed,
             NodeActionType.Refit => CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value >= needReputation,
             NodeActionType.TakeoutCabinet => CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value >= needReputation,
-            _ => false 
+            _ => false
         };
         Debug.Log(twoDice);
         CommonGameplayManager.GetInstance().StartCoroutine(DiceShake(twoDice));
@@ -70,23 +70,23 @@ public class EventDice : EventNodeBase
         }
         Debug.Log(val);
             // 骰子结果动画
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         //if (DiceUIManager.Instance.val != 0)
         //{
- 
+
 
         if (val > threshold && successExecutor != null)
         {
             successExecutor.Initialize(Finished);
             successExecutor.Execute();
             EventHandlerManager.CallUpdateAttribution(awardType, awardValue);
-                
+
         }
         else if (val <= threshold && failureExecutor != null)
         {
             failureExecutor.Initialize(Finished);
             failureExecutor.Execute();
-            EventHandlerManager.CallUpdateAttribution(awardType, punishmentSpeed); 
+            EventHandlerManager.CallUpdateAttribution(awardType, punishmentSpeed);
         }
         else
         {

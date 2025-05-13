@@ -18,7 +18,7 @@ MonoBehaviour:
   isSpecialOrder: 1
   baseReward: 3
   orderEvent: {fileID: 11400000, guid: 4125ae87fc8a36b4a9e83df75d10122a, type: 2}
-  bubble: 
+  bubble: "\u672A\u9001\u8FBE"
   chatHistory: []
   quickResponses: []
-  destinationNodeId: 6
+  destinationNodeId: 8

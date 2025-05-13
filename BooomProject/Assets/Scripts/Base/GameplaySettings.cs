@@ -32,11 +32,11 @@ public class GameplaySettings
     public const uint m_type_speed = 70;
     public const float m_character_fade_in_duration = 0.1f;
     public const float m_character_fade_out_duration = 0.1f;
-    public const float m_dialogue_box_fadein_duration = 0.8f;
-    public const float m_dialogue_box_fadeout_duration = 0.5f;
-    public const float m_next_cursor_fade_duration = 0.5f;
-    public const float m_response_fade_in_duration = 0.5f;
-    public const float m_response_fade_out_duration = 0.5f;
+    public const float m_dialogue_box_fadein_duration = 0.4f;
+    public const float m_dialogue_box_fadeout_duration = 0.4f;
+    public const float m_next_cursor_fade_duration = 0.3f;
+    public const float m_response_fade_in_duration = 0.3f;
+    public const float m_response_fade_out_duration = 0.3f;
     public const string m_response_button_prefab_path = "Prefabs/ResponseButton";
     public const string m_ruby_prefab_path = "Prefabs/RubyText";
     #endregion

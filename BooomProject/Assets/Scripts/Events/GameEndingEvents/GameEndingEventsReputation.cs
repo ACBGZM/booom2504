@@ -12,12 +12,12 @@ public class GameEndingEventsReputation : EventNodeBase
         base.Execute();
 
         int reputation = CommonGameplayManager.GetInstance().PlayerDataManager.Reputation.Value;
-        if (reputation <= 3)
+        if (reputation <= 50)
         {
             Reputation3.Initialize(OnFinish);
             Reputation3.Execute();
         }
-        else if(reputation <= 6)
+        else if(reputation <= 500)
         {
             Reputation6.Initialize(OnFinish);
             Reputation6.Execute();

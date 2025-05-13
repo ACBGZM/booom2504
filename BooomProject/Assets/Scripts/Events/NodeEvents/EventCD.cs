@@ -11,11 +11,11 @@ public class EventCD : EventNodeBase
     public override void Execute()
     {
         base.Execute();
-        
+
         if(needRandom)
         {
             float probability = Random.value;
-            if (probability < probabilityThreshold)
+            if (probability > probabilityThreshold)
             {
                 m_state = EventNodeState.Finished;
                 m_on_finished?.Invoke(false);
@@ -29,8 +29,8 @@ public class EventCD : EventNodeBase
         {
             ExecuteCD();
         }
-        
-       
+
+
 
     }
     public void ExecuteCD()
